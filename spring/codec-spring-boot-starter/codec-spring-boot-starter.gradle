@@ -1,0 +1,4 @@
+dependencies {
+    api(project(":spring-security-codec"))
+    api(project(":spring-boot-autoconfigure"))
+}

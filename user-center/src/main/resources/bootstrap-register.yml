@@ -1,0 +1,47 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: '{SM4}c4c52def3d31331a15d7c662e4fec2651dea0a0446273019476fb0623443715d'
+      config:
+        import-check:
+          enabled: false
+        server-addr: ${spring.cloud.nacos.discovery.server-addr}
+        file-extension: yml
+        shared-configs:
+          - data-id: db-config.yml
+          - data-id: redis.yml
+  data:
+    redis:
+      password: '{SM4}ece1d611b1f09c91709978cbc4067df0'
+      port: '{SM4}3dac57b6c28afa3c32d9a95121772c0b'
+      host: '{SM4}97324eb26485f499e717dc7fbe0b9e48'
+  datasource:
+    password: '{SM4}ece1d611b1f09c91709978cbc4067df0'
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: '{SM4}5e25cb9dbe1a4c679a44ac24cd4ef1517b07e03b5e4b86ef6ccfa15757fa8d2afb75c54cd3b641c4ce4c01c46bd43e0c'
+    username: '{SM4}9a9ab954111a3342f03042b195527d48'
+
+
+
+dubbo:
+  application:
+    name: dubbo-${spring.application.name}
+  registry:
+    address: nacos://${spring.cloud.nacos.discovery.server-addr}
+    parameters:
+      namespace: public
+      register-consumer-url: true
+    group: dubbo
+  protocol:
+    port: -1
+    name: dubbo
+com:
+  ziyao:
+    crypto:
+      cipher:
+        types: sm4
+        sm4:
+          key: 13f70890272c40c07d85b15e5d532bd5
+          iv: b18451cd68969ad9ec78f7c700370eea
+          mode: CBC

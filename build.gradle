@@ -1,0 +1,33 @@
+plugins {
+    id 'io.ziyao.root'
+}
+group 'com.ziyao.harbor'
+
+subprojects {
+    if (project.name != 'dependencies') {
+        // 添加模块代码的插件
+        apply plugin: 'io.ziyao.module'
+
+        java {
+//        withJavadocJar() // 生成java-doc
+            withSourcesJar() // 生成源码
+        }
+        jar {
+            enabled = true //生成依赖jar包
+            archiveClassifier = '' //取消原来plain的后缀
+        }
+
+
+        configurations {
+            compileOnly {
+                extendsFrom annotationProcessor
+            }
+        }
+
+        dependencies {
+            management platform(project(":dependencies"))
+            compileOnly 'org.projectlombok:lombok'
+            annotationProcessor 'org.projectlombok:lombok'
+        }
+    }
+}

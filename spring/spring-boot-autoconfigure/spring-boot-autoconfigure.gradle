@@ -1,0 +1,8 @@
+dependencies {
+    optional(project(":spring-web"))
+    optional('org.springframework:spring-webflux')
+    optional(project(":spring-security-codec"))
+    optional(project(":spring-data-elasticsearch"))
+    optional(project(":spring-data-redis"))
+    optional('org.springframework.data:spring-data-redis')
+}

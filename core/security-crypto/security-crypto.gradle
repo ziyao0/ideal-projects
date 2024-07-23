@@ -1,0 +1,5 @@
+dependencies {
+    api(project(':eis-core'))
+    api('org.bouncycastle:bcprov-jdk18on')
+
+}
