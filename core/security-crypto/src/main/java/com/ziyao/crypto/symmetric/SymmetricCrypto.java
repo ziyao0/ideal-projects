@@ -1,6 +1,5 @@
 package com.ziyao.crypto.symmetric;
 
-import com.ziyao.core.*;
 import com.ziyao.crypto.CipherWrapper;
 import com.ziyao.crypto.exception.CryptoException;
 import com.ziyao.crypto.utils.KeyUtils;
@@ -39,8 +38,6 @@ public class SymmetricCrypto implements SymmetricEncryptor, SymmetricDecryptor, 
      * SecretKey 负责保存对称密钥
      * -- GETTER --
      * 获得对称密钥
-     *
-     * @return 获得对称密钥
      */
     @Getter
     private SecretKey secretKey;
