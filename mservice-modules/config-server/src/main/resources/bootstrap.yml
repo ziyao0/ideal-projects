@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: config-server
+  profiles:
+    active: register
+server:
+  port: 18899
