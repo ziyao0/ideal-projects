@@ -34,7 +34,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = 'eising-projects'
+rootProject.name = 'ideal-projects'
 
 
 def buildFiles = fileTree(rootDir) {
