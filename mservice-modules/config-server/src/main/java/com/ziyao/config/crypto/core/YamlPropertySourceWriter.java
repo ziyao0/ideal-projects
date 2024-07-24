@@ -1,5 +1,6 @@
 package com.ziyao.config.crypto.core;
 
+import com.ziyao.config.core.OriginTrackedYamlProcessor;
 import com.ziyao.ideal.core.Strings;
 import com.ziyao.crypto.Property;
 

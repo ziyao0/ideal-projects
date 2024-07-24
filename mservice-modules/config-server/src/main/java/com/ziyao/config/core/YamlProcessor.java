@@ -1,11 +1,12 @@
-package com.ziyao.config.crypto.core;
+package com.ziyao.config.core;
 
+import com.ziyao.crypto.Property;
 import com.ziyao.ideal.core.Assert;
 import com.ziyao.ideal.core.Dates;
 import com.ziyao.ideal.core.Strings;
 import com.ziyao.ideal.core.io.IOUtils;
 import com.ziyao.ideal.core.lang.Nullable;
-import com.ziyao.crypto.Property;
+import lombok.Getter;
 import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,6 +35,9 @@ public abstract class YamlProcessor {
     @Setter
     private List<Property> properties = new ArrayList<>();
     private List<DocumentMatcher> documentMatchers = Collections.emptyList();
+    @Getter
+    @Setter
+    private String yamlContent = null;
 
     /**
      * -- SETTER --
@@ -129,10 +133,14 @@ public abstract class YamlProcessor {
      */
     protected void process(MatchCallback callback) {
         Yaml yaml = createYaml();
-        for (InputStream inputStream : this.streams) {
-            boolean found = process(callback, yaml, inputStream);
-            if (this.resolutionMethod == ResolutionMethod.FIRST_FOUND && found) {
-                return;
+        if (this.yamlContent != null) {
+            boolean found = process(callback, yaml, this.yamlContent);
+        } else {
+            for (InputStream inputStream : this.streams) {
+                boolean found = process(callback, yaml, inputStream);
+                if (this.resolutionMethod == ResolutionMethod.FIRST_FOUND && found) {
+                    return;
+                }
             }
         }
     }
@@ -207,7 +215,7 @@ public abstract class YamlProcessor {
         int count = 0;
         try {
             if (logger.isDebugEnabled()) {
-                logger.debug("Loading from YAML: " + inputStream);
+                logger.debug("Loading from YAML: {}", inputStream);
             }
             try (Reader reader = new UnicodeReader(inputStream)) {
                 for (Object object : yaml.loadAll(reader)) {
@@ -219,14 +227,27 @@ public abstract class YamlProcessor {
                     }
                 }
                 if (logger.isDebugEnabled()) {
-                    logger.debug("Loaded " + count + " document" + (count > 1 ? "s" : "") +
-                            " from YAML resource: " + inputStream);
+                    logger.debug("Loaded {} document{} from YAML resource: {}", count, count > 1 ? "s" : "", inputStream);
                 }
             }
         } catch (IOException ex) {
             handleProcessError(inputStream, ex);
         } finally {
             IOUtils.close(inputStream);
+        }
+        return (count > 0);
+    }
+
+    private boolean process(MatchCallback callback, Yaml yaml, String yamlstring) {
+        int count = 0;
+
+        for (Object object : yaml.loadAll(yamlstring)) {
+            if (object != null && process(asMap(object), callback)) {
+                count++;
+                if (this.resolutionMethod == ResolutionMethod.FIRST_FOUND) {
+                    break;
+                }
+            }
         }
         return (count > 0);
     }
@@ -299,7 +320,7 @@ public abstract class YamlProcessor {
         }
 
         if (logger.isDebugEnabled()) {
-            logger.debug("Unmatched document: " + map);
+            logger.debug("Unmatched document: {}", map);
         }
         return false;
     }
@@ -471,7 +492,7 @@ public abstract class YamlProcessor {
         }
     }
 
-    public static Yaml getDefaultYamlInstance(){
+    public static Yaml getDefaultYamlInstance() {
         DumperOptions dumperOptions = new DumperOptions();
         dumperOptions.setPrettyFlow(true);
         dumperOptions.setIndent(2);

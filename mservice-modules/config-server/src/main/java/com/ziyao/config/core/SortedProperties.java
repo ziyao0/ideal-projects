@@ -1,4 +1,4 @@
-package com.ziyao.config.crypto.core;
+package com.ziyao.config.core;
 
 
 import com.ziyao.ideal.core.lang.NonNull;
@@ -21,7 +21,6 @@ import java.util.*;
  * @author ziyao
  * @see java.util.Properties
  */
-@SuppressWarnings("serial")
 class SortedProperties extends Properties {
 
     static final String EOL = System.lineSeparator();

@@ -1,7 +1,7 @@
-package com.ziyao.config.crypto.core;
+package com.ziyao.config.core;
 
-import com.ziyao.ideal.core.lang.NonNull;
 import com.ziyao.crypto.Property;
+import com.ziyao.ideal.core.lang.NonNull;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.LoaderOptions;
 import org.yaml.snakeyaml.Yaml;
@@ -24,11 +24,16 @@ import java.util.regex.Pattern;
  */
 public class OriginTrackedYamlProcessor extends YamlProcessor {
 
-    OriginTrackedYamlProcessor(InputStream inputStream) {
+    public OriginTrackedYamlProcessor(String yamlContent){
+        setYamlContent(yamlContent);
+    }
+
+
+    public OriginTrackedYamlProcessor(InputStream inputStream) {
         setStreams(inputStream);
     }
 
-    OriginTrackedYamlProcessor(List<Property> properties) {
+    public OriginTrackedYamlProcessor(List<Property> properties) {
         setProperties(properties);
     }
 
@@ -49,14 +54,14 @@ public class OriginTrackedYamlProcessor extends YamlProcessor {
         return new Yaml(constructor, representer, dumperOptions, loaderOptions, resolver);
     }
 
-    List<Map<String, Object>> load() {
+    public List<Map<String, Object>> load() {
         List<Map<String, Object>> result = new ArrayList<>();
         process((properties, map) -> result.add(getFlattenedMap(map)));
         return result;
     }
 
     @NonNull
-    String resolve() {
+    public String resolve() {
         return process();
     }
 
