@@ -2,7 +2,7 @@ package ${dto};
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.ziyao.harbor.web.orm.EntityDTO;
+import com.ziyao.ideal.web.orm.EntityDTO;
 import ${package.Entity}.${entity};
 import lombok.Data;
 import java.util.Objects;

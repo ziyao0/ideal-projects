@@ -1,6 +1,6 @@
 package com.ziyao.ideal.usercenter.common.exception;
 
-import com.ziyao.harbor.web.response.ResponseMetadata;
+import com.ziyao.ideal.web.response.ResponseMetadata;
 
 /**
  * @author zhangziyao

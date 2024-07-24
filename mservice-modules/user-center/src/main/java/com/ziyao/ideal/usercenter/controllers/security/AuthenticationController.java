@@ -1,7 +1,7 @@
 package com.ziyao.ideal.usercenter.controllers.security;
 
-import com.ziyao.harbor.web.ResponseBuilder;
-import com.ziyao.harbor.web.response.ResponseWrapper;
+import com.ziyao.ideal.web.ResponseBuilder;
+import com.ziyao.ideal.web.response.ResponseWrapper;
 import com.ziyao.ideal.usercenter.authentication.converter.AuthenticationConverter;
 import com.ziyao.ideal.usercenter.authentication.token.FailureAuthentication;
 import com.ziyao.ideal.usercenter.service.security.AuthenticationService;

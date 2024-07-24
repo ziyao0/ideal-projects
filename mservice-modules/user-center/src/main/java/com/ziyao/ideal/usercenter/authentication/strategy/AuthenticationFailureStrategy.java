@@ -1,6 +1,6 @@
 package com.ziyao.ideal.usercenter.authentication.strategy;
 
-import com.ziyao.harbor.web.response.ResponseMetadata;
+import com.ziyao.ideal.web.response.ResponseMetadata;
 import com.ziyao.ideal.usercenter.authentication.token.FailureAuthentication;
 import com.ziyao.security.oauth2.core.Authentication;
 

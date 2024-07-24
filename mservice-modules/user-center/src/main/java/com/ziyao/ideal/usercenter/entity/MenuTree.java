@@ -1,6 +1,6 @@
 package com.ziyao.ideal.usercenter.entity;
 
-import com.ziyao.harbor.web.AbstractTreeNode;
+import com.ziyao.ideal.web.AbstractTreeNode;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.extern.slf4j.Slf4j;

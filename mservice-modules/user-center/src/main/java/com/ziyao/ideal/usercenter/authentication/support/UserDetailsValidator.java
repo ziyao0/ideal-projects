@@ -24,7 +24,7 @@ public abstract class UserDetailsValidator {
      * 检查用户
      *
      * @param check the UserDetails instance whose status should be checked.
-     * @throws com.ziyao.harbor.web.exception.ServiceException 检查未通过抛出异常
+     * @throws com.ziyao.ideal.web.exception.ServiceException 检查未通过抛出异常
      */
     public static void validated(UserDetails check) {
         if (!check.isAccountNonLocked()) {

@@ -1,6 +1,6 @@
 package com.ziyao.ideal.usercenter.authentication.strategy;
 
-import com.ziyao.harbor.web.exception.ServiceException;
+import com.ziyao.ideal.web.exception.ServiceException;
 import com.ziyao.security.oauth2.core.Authentication;
 import com.ziyao.security.oauth2.core.AuthenticationException;
 import org.springframework.stereotype.Component;

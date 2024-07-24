@@ -1,6 +1,6 @@
 package com.ziyao.ideal.usercenter.authentication.processors;
 
-import com.ziyao.harbor.data.redis.core.convert.ConversionProvider;
+import com.ziyao.ideal.data.redis.core.convert.ConversionProvider;
 import com.ziyao.ideal.usercenter.common.utils.RedisUtils;
 import com.ziyao.security.oauth2.core.Authentication;
 import lombok.RequiredArgsConstructor;

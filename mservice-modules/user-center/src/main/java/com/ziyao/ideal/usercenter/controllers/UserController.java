@@ -1,12 +1,12 @@
 package com.ziyao.ideal.usercenter.controllers;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.ziyao.harbor.web.UserDetails;
-import com.ziyao.harbor.web.base.BaseController;
-import com.ziyao.harbor.web.base.PageParams;
-import com.ziyao.harbor.web.base.Pages;
-import com.ziyao.harbor.web.context.ContextManager;
-import com.ziyao.harbor.web.exception.Exceptions;
+import com.ziyao.ideal.web.UserDetails;
+import com.ziyao.ideal.web.base.BaseController;
+import com.ziyao.ideal.web.base.PageParams;
+import com.ziyao.ideal.web.base.Pages;
+import com.ziyao.ideal.web.context.ContextManager;
+import com.ziyao.ideal.web.exception.Exceptions;
 import com.ziyao.ideal.usercenter.dto.UserDTO;
 import com.ziyao.ideal.usercenter.entity.User;
 import com.ziyao.ideal.usercenter.service.UserService;
