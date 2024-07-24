@@ -2,9 +2,9 @@ package com.ziyao.security.oauth2.core;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.ziyao.eis.core.Assert;
-import com.ziyao.eis.core.Collections;
-import com.ziyao.eis.core.lang.NonNull;
+import com.ziyao.ideal.core.Assert;
+import com.ziyao.ideal.core.Collections;
+import com.ziyao.ideal.core.lang.NonNull;
 import com.ziyao.security.oauth2.core.jackson2.RegisteredAppDeserializer;
 import com.ziyao.security.oauth2.core.jackson2.RegisteredAppSerializer;
 import com.ziyao.security.oauth2.core.settings.TokenSettings;

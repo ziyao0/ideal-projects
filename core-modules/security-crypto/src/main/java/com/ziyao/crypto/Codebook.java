@@ -1,7 +1,7 @@
 package com.ziyao.crypto;
 
-import com.ziyao.eis.core.HexUtils;
-import com.ziyao.eis.core.Strings;
+import com.ziyao.ideal.core.HexUtils;
+import com.ziyao.ideal.core.Strings;
 import com.ziyao.crypto.symmetric.Mode;
 import lombok.Getter;
 import lombok.Setter;

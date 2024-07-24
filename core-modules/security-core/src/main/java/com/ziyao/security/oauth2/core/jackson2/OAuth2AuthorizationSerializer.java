@@ -3,7 +3,7 @@ package com.ziyao.security.oauth2.core.jackson2;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import com.ziyao.eis.core.Strings;
+import com.ziyao.ideal.core.Strings;
 import com.ziyao.security.oauth2.core.OAuth2AccessToken;
 import com.ziyao.security.oauth2.core.OAuth2Authorization;
 import com.ziyao.security.oauth2.core.OAuth2Token;

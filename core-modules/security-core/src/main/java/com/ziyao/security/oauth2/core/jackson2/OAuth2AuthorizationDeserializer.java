@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ziyao.eis.core.Strings;
+import com.ziyao.ideal.core.Strings;
 import com.ziyao.security.oauth2.core.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

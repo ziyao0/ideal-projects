@@ -2,7 +2,7 @@ package com.ziyao.harbor.data.redis.core.convert;
 
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ziyao.eis.core.Strings;
+import com.ziyao.ideal.core.Strings;
 import com.ziyao.harbor.data.redis.core.Container;
 import com.ziyao.harbor.data.redis.core.RedisRawData;
 import org.springframework.core.CollectionFactory;

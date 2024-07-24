@@ -1,6 +1,6 @@
 package com.ziyao.harbor.data.redis.core.repository;
 
-import com.ziyao.eis.core.Collections;
+import com.ziyao.ideal.core.Collections;
 import com.ziyao.harbor.data.redis.core.RedisAdapter;
 import com.ziyao.harbor.data.redis.core.RepositoryInformation;
 import org.springframework.data.redis.core.RedisCallback;

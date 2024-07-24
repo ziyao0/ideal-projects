@@ -1,6 +1,6 @@
 package com.ziyao.config.crypto;
 
-import com.ziyao.eis.core.Assert;
+import com.ziyao.ideal.core.Assert;
 
 import java.util.ServiceLoader;
 

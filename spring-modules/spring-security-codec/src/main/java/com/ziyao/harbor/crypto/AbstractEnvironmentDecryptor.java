@@ -1,7 +1,7 @@
 package com.ziyao.harbor.crypto;
 
-import com.ziyao.eis.core.Collections;
-import com.ziyao.eis.core.RegexPool;
+import com.ziyao.ideal.core.Collections;
+import com.ziyao.ideal.core.RegexPool;
 import com.ziyao.crypto.Property;
 import com.ziyao.crypto.PropertyResolver;
 import com.ziyao.crypto.TextCipher;

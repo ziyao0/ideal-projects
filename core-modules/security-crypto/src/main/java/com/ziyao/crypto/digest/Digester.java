@@ -1,10 +1,10 @@
 package com.ziyao.crypto.digest;
 
 import com.google.common.base.Charsets;
-import com.ziyao.eis.core.ArrayUtils;
-import com.ziyao.eis.core.CharsetUtils;
-import com.ziyao.eis.core.HexUtils;
-import com.ziyao.eis.core.Strings;
+import com.ziyao.ideal.core.ArrayUtils;
+import com.ziyao.ideal.core.CharsetUtils;
+import com.ziyao.ideal.core.HexUtils;
+import com.ziyao.ideal.core.Strings;
 import com.ziyao.crypto.AbstractAlgorithm;
 import com.ziyao.crypto.asymmetric.DigestAlgorithm;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;

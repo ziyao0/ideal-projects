@@ -83,7 +83,7 @@ public class CodeGenerator {
                 // 自定义配置 可以生成自定义文件
                 .injectionConfig(builder -> {
                     Map<String, Object> map = new HashMap<>();
-                    map.put("dto", "com.ziyao.harbor.usercenter.dto");
+                    map.put("dto", "com.ziyao.ideal.usercenter.dto");
                     builder.customMap(map)
                             .customFile(Lists.newArrayList(
                                     CustomFileBuilder.createDto("DTO" + StringPool.DOT_JAVA, "templates/entityDTO.java.ftl"))

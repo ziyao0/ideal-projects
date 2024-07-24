@@ -1,5 +1,5 @@
 dependencies {
-    api(project(':eis-core'))
+    api(project(':ideal-core'))
     api("com.fasterxml.jackson.core:jackson-databind")
     api 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
     optional('org.springframework.data:spring-data-redis')

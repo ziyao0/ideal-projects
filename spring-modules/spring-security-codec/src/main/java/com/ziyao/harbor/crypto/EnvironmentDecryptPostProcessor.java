@@ -1,6 +1,6 @@
 package com.ziyao.harbor.crypto;
 
-import com.ziyao.eis.core.Collections;
+import com.ziyao.ideal.core.Collections;
 import com.ziyao.harbor.crypto.core.CryptoContext;
 import com.ziyao.harbor.crypto.core.CryptoContextFactory;
 import com.ziyao.harbor.crypto.core.DefaultCryptoContextFactory;

@@ -345,7 +345,7 @@ public class OAuth2Authorization implements Serializable {
             authorization.authorizationGrantType = this.authorizationGrantType;
             authorization.authorizedScopes =
                     Collections.unmodifiableSet(
-                            !com.ziyao.eis.core.Collections.isEmpty(this.authorizedScopes) ?
+                            !com.ziyao.ideal.core.Collections.isEmpty(this.authorizedScopes) ?
                                     new HashSet<>(this.authorizedScopes) :
                                     new HashSet<>()
                     );

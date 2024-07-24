@@ -1,6 +1,6 @@
 package com.ziyao.crypto.keygen;
 
-import com.ziyao.eis.core.HexUtils;
+import com.ziyao.ideal.core.HexUtils;
 
 /**
  * @author ziyao zhang

@@ -1,11 +1,11 @@
 package com.ziyao.crypto.utils;
 
-import com.ziyao.eis.core.ArrayUtils;
-import com.ziyao.eis.core.Assert;
-import com.ziyao.eis.core.HexUtils;
-import com.ziyao.eis.core.Randoms;
-import com.ziyao.eis.core.codec.HexCodec;
-import com.ziyao.eis.core.codec.StringCodec;
+import com.ziyao.ideal.core.ArrayUtils;
+import com.ziyao.ideal.core.Assert;
+import com.ziyao.ideal.core.HexUtils;
+import com.ziyao.ideal.core.Randoms;
+import com.ziyao.ideal.core.codec.HexCodec;
+import com.ziyao.ideal.core.codec.StringCodec;
 import com.ziyao.crypto.*;
 import com.ziyao.crypto.asymmetric.SM2;
 import com.ziyao.crypto.asymmetric.Sm2BytesCipher;

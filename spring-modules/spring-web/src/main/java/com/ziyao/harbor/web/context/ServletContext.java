@@ -1,6 +1,6 @@
 package com.ziyao.harbor.web.context;
 
-import com.ziyao.eis.core.Strings;
+import com.ziyao.ideal.core.Strings;
 import com.ziyao.harbor.web.ContextUtils;
 import com.ziyao.harbor.web.UserDetails;
 import com.ziyao.harbor.web.exception.UnauthorizedException;

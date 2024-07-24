@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.generator.config.OutputFile;
 import com.baomidou.mybatisplus.generator.config.builder.CustomFile;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
-import com.ziyao.eis.core.lang.NonNull;
+import com.ziyao.ideal.core.lang.NonNull;
 
 import java.io.File;
 import java.util.List;

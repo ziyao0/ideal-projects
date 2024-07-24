@@ -1,10 +1,10 @@
 plugins {
     id 'io.ziyao.root'
 }
-group 'com.ziyao.harbor'
+group 'com.ziyao.ideal'
 
 subprojects {
-    if (project.name != 'eising-dependencies') {
+    if (project.name != 'ideal-dependencies') {
         // 添加模块代码的插件
         apply plugin: 'io.ziyao.module'
 
@@ -25,7 +25,7 @@ subprojects {
         }
 
         dependencies {
-            management platform(project(":eising-dependencies"))
+            management platform(project(":ideal-dependencies"))
             compileOnly 'org.projectlombok:lombok'
             annotationProcessor 'org.projectlombok:lombok'
         }

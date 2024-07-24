@@ -1,9 +1,9 @@
 package com.ziyao.crypto.symmetric;
 
-import com.ziyao.eis.core.CharsetUtils;
-import com.ziyao.eis.core.HexUtils;
-import com.ziyao.eis.core.Strings;
-import com.ziyao.eis.core.codec.Base64;
+import com.ziyao.ideal.core.CharsetUtils;
+import com.ziyao.ideal.core.HexUtils;
+import com.ziyao.ideal.core.Strings;
+import com.ziyao.ideal.core.codec.Base64;
 
 import java.nio.charset.Charset;
 

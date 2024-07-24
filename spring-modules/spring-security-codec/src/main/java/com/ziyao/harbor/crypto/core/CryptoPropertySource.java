@@ -1,6 +1,6 @@
 package com.ziyao.harbor.crypto.core;
 
-import com.ziyao.eis.core.lang.NonNull;
+import com.ziyao.ideal.core.lang.NonNull;
 import com.ziyao.crypto.Properties;
 import org.springframework.core.env.PropertySource;
 

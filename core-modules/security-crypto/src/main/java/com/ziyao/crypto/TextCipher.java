@@ -1,6 +1,6 @@
 package com.ziyao.crypto;
 
-import com.ziyao.eis.core.codec.StringCodec;
+import com.ziyao.ideal.core.codec.StringCodec;
 
 /**
  * @author ziyao

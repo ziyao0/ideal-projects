@@ -1,7 +1,7 @@
 package com.ziyao.harbor.crypto;
 
-import com.ziyao.eis.core.Assert;
-import com.ziyao.eis.core.Strings;
+import com.ziyao.ideal.core.Assert;
+import com.ziyao.ideal.core.Strings;
 import com.ziyao.crypto.Properties;
 import com.ziyao.harbor.crypto.core.CryptoPropertySource;
 import com.ziyao.harbor.crypto.utils.ConstantPool;

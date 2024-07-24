@@ -1,7 +1,7 @@
 package com.ziyao.harbor.web;
 
 
-import com.ziyao.eis.core.CommUtils;
+import com.ziyao.ideal.core.CommUtils;
 import com.ziyao.harbor.web.exception.ServiceException;
 import com.ziyao.harbor.web.exception.UnauthorizedException;
 import com.ziyao.harbor.web.response.ResponseMetadata;

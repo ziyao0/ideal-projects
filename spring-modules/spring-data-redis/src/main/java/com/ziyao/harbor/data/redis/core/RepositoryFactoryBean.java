@@ -1,6 +1,6 @@
 package com.ziyao.harbor.data.redis.core;
 
-import com.ziyao.eis.core.Assert;
+import com.ziyao.ideal.core.Assert;
 import lombok.Getter;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.*;

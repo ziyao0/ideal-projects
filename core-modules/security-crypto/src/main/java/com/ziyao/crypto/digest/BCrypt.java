@@ -1,7 +1,7 @@
 package com.ziyao.crypto.digest;
 
 
-import com.ziyao.eis.core.CharsetUtils;
+import com.ziyao.ideal.core.CharsetUtils;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;

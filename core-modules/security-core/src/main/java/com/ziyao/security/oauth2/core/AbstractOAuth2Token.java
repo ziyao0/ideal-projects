@@ -1,7 +1,7 @@
 package com.ziyao.security.oauth2.core;
 
-import com.ziyao.eis.core.Assert;
-import com.ziyao.eis.core.lang.Nullable;
+import com.ziyao.ideal.core.Assert;
+import com.ziyao.ideal.core.lang.Nullable;
 import lombok.Getter;
 
 import java.time.Instant;

@@ -1,5 +1,5 @@
 dependencies {
-    api(project(':eis-core'))
+    api(project(':ideal-core'))
     api('org.bouncycastle:bcprov-jdk18on')
 
 }

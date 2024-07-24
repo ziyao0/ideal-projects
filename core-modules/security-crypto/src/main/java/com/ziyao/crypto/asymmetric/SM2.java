@@ -1,8 +1,8 @@
 package com.ziyao.crypto.asymmetric;
 
 
-import com.ziyao.eis.core.Assert;
-import com.ziyao.eis.core.HexUtils;
+import com.ziyao.ideal.core.Assert;
+import com.ziyao.ideal.core.HexUtils;
 import com.ziyao.crypto.exception.CryptoException;
 import com.ziyao.crypto.utils.BCUtils;
 import com.ziyao.crypto.utils.ECKeyUtils;

@@ -1,6 +1,6 @@
 package com.ziyao.config.core;
 
-import com.ziyao.eis.core.Strings;
+import com.ziyao.ideal.core.Strings;
 import lombok.Getter;
 
 import java.util.Arrays;

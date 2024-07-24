@@ -1,6 +1,6 @@
 package com.ziyao.security.oauth2.core;
 
-import com.ziyao.eis.core.Strings;
+import com.ziyao.ideal.core.Strings;
 import com.ziyao.security.oauth2.core.converter.ClaimConversionService;
 
 import java.time.Instant;

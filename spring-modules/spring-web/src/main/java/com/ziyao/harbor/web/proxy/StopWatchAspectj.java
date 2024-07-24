@@ -1,8 +1,8 @@
 package com.ziyao.harbor.web.proxy;
 
-import com.ziyao.eis.core.Strings;
-import com.ziyao.eis.core.metrics.StopWatches;
-import com.ziyao.eis.core.metrics.Watch;
+import com.ziyao.ideal.core.Strings;
+import com.ziyao.ideal.core.metrics.StopWatches;
+import com.ziyao.ideal.core.metrics.Watch;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;

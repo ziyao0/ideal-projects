@@ -1,7 +1,7 @@
 package com.ziyao.crypto.asymmetric;
 
-import com.ziyao.eis.core.Assert;
-import com.ziyao.eis.core.codec.Base64;
+import com.ziyao.ideal.core.Assert;
+import com.ziyao.ideal.core.codec.Base64;
 import com.ziyao.crypto.exception.CryptoException;
 import com.ziyao.crypto.utils.KeyUtils;
 import lombok.Getter;

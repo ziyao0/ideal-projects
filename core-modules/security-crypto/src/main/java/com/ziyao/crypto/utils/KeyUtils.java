@@ -3,7 +3,7 @@ package com.ziyao.crypto.utils;
 import com.ziyao.crypto.GlobalBouncyCastleProvider;
 import com.ziyao.crypto.exception.CryptoException;
 import com.ziyao.crypto.symmetric.SymmetricAlgorithm;
-import com.ziyao.eis.core.*;
+import com.ziyao.ideal.core.*;
 
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;

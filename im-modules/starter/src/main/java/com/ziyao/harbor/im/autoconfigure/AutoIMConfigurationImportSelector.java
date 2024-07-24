@@ -1,6 +1,6 @@
 package com.ziyao.harbor.im.autoconfigure;
 
-import com.ziyao.eis.core.Strings;
+import com.ziyao.ideal.core.Strings;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.BeansException;

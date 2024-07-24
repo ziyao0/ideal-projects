@@ -1,6 +1,6 @@
 package com.ziyao.security.oauth2.core.context;
 
-import com.ziyao.eis.core.Assert;
+import com.ziyao.ideal.core.Assert;
 
 import java.util.function.Supplier;
 

@@ -1,6 +1,6 @@
 package com.ziyao.harbor.data.redis.core;
 
-import com.ziyao.eis.core.Collections;
+import com.ziyao.ideal.core.Collections;
 import lombok.Getter;
 import org.springframework.data.util.TypeInformation;
 import org.springframework.util.Assert;

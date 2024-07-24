@@ -1,6 +1,6 @@
 package com.ziyao.security.oauth2.core;
 
-import com.ziyao.eis.core.Collections;
+import com.ziyao.ideal.core.Collections;
 
 import java.io.Serializable;
 import java.util.Collection;

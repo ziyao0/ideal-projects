@@ -1,7 +1,7 @@
 package com.ziyao.crypto.digest;
 
 import com.google.common.base.Charsets;
-import com.ziyao.eis.core.CharsetUtils;
+import com.ziyao.ideal.core.CharsetUtils;
 import com.ziyao.crypto.asymmetric.DigestAlgorithm;
 
 import java.nio.charset.Charset;

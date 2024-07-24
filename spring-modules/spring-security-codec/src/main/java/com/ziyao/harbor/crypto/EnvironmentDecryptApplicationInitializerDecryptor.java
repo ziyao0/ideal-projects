@@ -1,7 +1,7 @@
 package com.ziyao.harbor.crypto;
 
-import com.ziyao.eis.core.Collections;
-import com.ziyao.eis.core.lang.NonNull;
+import com.ziyao.ideal.core.Collections;
+import com.ziyao.ideal.core.lang.NonNull;
 import com.ziyao.harbor.crypto.core.CryptoContext;
 import com.ziyao.harbor.crypto.core.CryptoContextFactory;
 import org.springframework.cloud.bootstrap.BootstrapApplicationListener;

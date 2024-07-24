@@ -3,7 +3,7 @@ plugins {
 }
 dependencies {
     api("com.auth0:java-jwt")
-    implementation(project(":eis-core"))
+    implementation(project(":ideal-core"))
     implementation(project(':security-crypto'))
     implementation 'org.springframework.boot:spring-boot-autoconfigure'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'

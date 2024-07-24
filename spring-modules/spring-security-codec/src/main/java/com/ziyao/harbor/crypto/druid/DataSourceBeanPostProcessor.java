@@ -1,7 +1,7 @@
 package com.ziyao.harbor.crypto.druid;
 
 import com.alibaba.druid.pool.DruidDataSource;
-import com.ziyao.eis.core.lang.NonNull;
+import com.ziyao.ideal.core.lang.NonNull;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.beans.factory.InitializingBean;

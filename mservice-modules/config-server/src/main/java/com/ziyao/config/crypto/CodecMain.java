@@ -2,9 +2,9 @@ package com.ziyao.config.crypto;
 
 
 import com.ziyao.config.crypto.files.FIleLoader;
-import com.ziyao.eis.core.Assert;
-import com.ziyao.eis.core.Collections;
-import com.ziyao.eis.core.Strings;
+import com.ziyao.ideal.core.Assert;
+import com.ziyao.ideal.core.Collections;
+import com.ziyao.ideal.core.Strings;
 import com.ziyao.crypto.Property;
 import com.ziyao.config.crypto.core.YamlResolver;
 

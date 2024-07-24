@@ -1,6 +1,6 @@
 package com.ziyao.harbor.data.redis.core;
 
-import com.ziyao.eis.core.Collections;
+import com.ziyao.ideal.core.Collections;
 import com.ziyao.harbor.data.redis.core.convert.ConversionProvider;
 import org.springframework.data.mapping.PersistentPropertyAccessor;
 import org.springframework.data.redis.core.RedisCallback;

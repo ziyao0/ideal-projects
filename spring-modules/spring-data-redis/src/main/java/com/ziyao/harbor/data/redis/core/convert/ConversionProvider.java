@@ -1,6 +1,6 @@
 package com.ziyao.harbor.data.redis.core.convert;
 
-import com.ziyao.eis.core.Collections;
+import com.ziyao.ideal.core.Collections;
 import com.ziyao.harbor.data.redis.core.RedisRawData;
 import org.springframework.data.redis.core.mapping.RedisMappingContext;
 import org.springframework.lang.NonNull;

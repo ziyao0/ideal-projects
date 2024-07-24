@@ -1,6 +1,6 @@
 package com.ziyao.crypto;
 
-import com.ziyao.eis.core.Strings;
+import com.ziyao.ideal.core.Strings;
 
 import java.util.List;
 

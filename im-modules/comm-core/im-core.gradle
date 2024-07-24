@@ -1,5 +1,5 @@
 dependencies {
-    api(project(":eis-core"))
+    api(project(":ideal-core"))
     api 'com.dyuproject.protostuff:protostuff-api'
     api 'com.dyuproject.protostuff:protostuff-core'
     api 'com.dyuproject.protostuff:protostuff-runtime'

@@ -3,7 +3,7 @@ package com.ziyao.harbor.data.redis.core.convert;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ziyao.eis.core.Collections;
+import com.ziyao.ideal.core.Collections;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.redis.serializer.SerializationException;
 import org.springframework.lang.Nullable;

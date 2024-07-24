@@ -1,8 +1,8 @@
 package com.ziyao.config.crypto.core;
 
 
-import com.ziyao.eis.core.lang.NonNull;
-import com.ziyao.eis.core.lang.Nullable;
+import com.ziyao.ideal.core.lang.NonNull;
+import com.ziyao.ideal.core.lang.Nullable;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;

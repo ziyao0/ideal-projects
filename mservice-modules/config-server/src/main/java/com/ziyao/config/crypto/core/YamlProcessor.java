@@ -1,10 +1,10 @@
 package com.ziyao.config.crypto.core;
 
-import com.ziyao.eis.core.Assert;
-import com.ziyao.eis.core.Dates;
-import com.ziyao.eis.core.Strings;
-import com.ziyao.eis.core.io.IOUtils;
-import com.ziyao.eis.core.lang.Nullable;
+import com.ziyao.ideal.core.Assert;
+import com.ziyao.ideal.core.Dates;
+import com.ziyao.ideal.core.Strings;
+import com.ziyao.ideal.core.io.IOUtils;
+import com.ziyao.ideal.core.lang.Nullable;
 import com.ziyao.crypto.Property;
 import lombok.Setter;
 import org.slf4j.Logger;

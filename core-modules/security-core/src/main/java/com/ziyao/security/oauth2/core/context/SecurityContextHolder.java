@@ -1,6 +1,6 @@
 package com.ziyao.security.oauth2.core.context;
 
-import com.ziyao.eis.core.Strings;
+import com.ziyao.ideal.core.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

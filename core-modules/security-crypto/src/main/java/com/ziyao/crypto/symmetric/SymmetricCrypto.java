@@ -3,7 +3,7 @@ package com.ziyao.crypto.symmetric;
 import com.ziyao.crypto.CipherWrapper;
 import com.ziyao.crypto.exception.CryptoException;
 import com.ziyao.crypto.utils.KeyUtils;
-import com.ziyao.eis.core.*;
+import com.ziyao.ideal.core.*;
 import lombok.Getter;
 
 import javax.crypto.Cipher;

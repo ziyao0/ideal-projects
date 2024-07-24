@@ -1,8 +1,8 @@
 package com.ziyao.crypto.utils;
 
-import com.ziyao.eis.core.HexUtils;
-import com.ziyao.eis.core.codec.Base64;
-import com.ziyao.eis.core.lang.CodeValidator;
+import com.ziyao.ideal.core.HexUtils;
+import com.ziyao.ideal.core.codec.Base64;
+import com.ziyao.ideal.core.lang.CodeValidator;
 import com.ziyao.crypto.GlobalBouncyCastleProvider;
 import com.ziyao.crypto.exception.CryptoException;
 

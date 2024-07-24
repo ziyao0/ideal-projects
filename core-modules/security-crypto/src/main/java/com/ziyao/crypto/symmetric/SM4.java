@@ -1,7 +1,7 @@
 package com.ziyao.crypto.symmetric;
 
-import com.ziyao.eis.core.ArrayUtils;
-import com.ziyao.eis.core.Strings;
+import com.ziyao.ideal.core.ArrayUtils;
+import com.ziyao.ideal.core.Strings;
 import com.ziyao.crypto.utils.SecureUtils;
 
 import javax.crypto.SecretKey;
