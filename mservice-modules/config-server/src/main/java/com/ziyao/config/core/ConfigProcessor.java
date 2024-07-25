@@ -4,13 +4,23 @@ package com.ziyao.config.core;
  * @author ziyao
  * @see <a href="https://blog.zziyao.cn">https://blog.zziyao.cn</a>
  */
-public interface ConfigProcessor<T, S> extends ConfigProcessorSupport {
+public interface ConfigProcessor<T> extends ConfigProcessorSupport {
 
     /**
-     * 处理配置转换问题
+     * 加载配置信息
+     * <p>
+     * 把string类型的配置信息加载成指定格式的配置信息
      *
      * @param source source
-     * @return 返回转换后的结果
+     * @return 返回指定类型的配置信息
      */
-    T process(S source);
+    T load(String source);
+
+    /**
+     * source to  string
+     *
+     * @param source 配置元数据
+     * @return string类型的配置信息
+     */
+    String resolve(T source);
 }

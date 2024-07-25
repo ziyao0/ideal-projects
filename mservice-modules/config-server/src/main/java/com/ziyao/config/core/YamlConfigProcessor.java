@@ -1,6 +1,7 @@
 package com.ziyao.config.core;
 
 import com.ziyao.crypto.Property;
+import com.ziyao.ideal.core.Collections;
 import com.ziyao.ideal.core.Strings;
 
 import java.util.ArrayList;
@@ -13,13 +14,10 @@ import java.util.Map;
  * @author ziyao
  * @see <a href="https://blog.zziyao.cn">https://blog.zziyao.cn</a>
  */
-public class YamlConfigProcessor implements ConfigProcessor<List<Property>, String> {
-
+public class YamlConfigProcessor implements ConfigProcessor<List<Property>> {
 
     @Override
-    public List<Property> process(String source) {
-
-
+    public List<Property> load(String source) {
         if (Strings.isEmpty(source)) {
             return List.of();
         }
@@ -37,6 +35,18 @@ public class YamlConfigProcessor implements ConfigProcessor<List<Property>, Stri
         }
 
         return propertySources;
+    }
+
+    @Override
+    public String resolve(List<Property> source) {
+
+        if (Collections.isEmpty(source)) {
+            return Strings.EMPTY;
+        }
+
+        OriginTrackedYamlProcessor yamlProcessor = new OriginTrackedYamlProcessor(source);
+
+        return yamlProcessor.resolve();
     }
 
     @Override
