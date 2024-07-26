@@ -2,8 +2,8 @@ package com.ziyao.ideal.usercenter.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.ziyao.ideal.usercenter.dto.DepartmentDTO;
-import com.ziyao.ideal.usercenter.entity.Department;
+import com.ziyao.ideal.usercenter.domain.dto.DepartmentDTO;
+import com.ziyao.ideal.usercenter.domain.entity.Department;
 
 /**
  * <p>

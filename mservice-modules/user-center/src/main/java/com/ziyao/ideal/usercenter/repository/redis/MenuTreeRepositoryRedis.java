@@ -1,7 +1,7 @@
 package com.ziyao.ideal.usercenter.repository.redis;
 
 import com.ziyao.ideal.data.redis.core.repository.RedisValueRepository;
-import com.ziyao.ideal.usercenter.entity.MenuTree;
+import com.ziyao.ideal.usercenter.domain.entity.MenuTree;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

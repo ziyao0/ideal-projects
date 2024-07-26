@@ -1,7 +1,7 @@
 package com.ziyao.ideal.usercenter.repository.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.ziyao.ideal.usercenter.entity.Authorization;
+import com.ziyao.ideal.usercenter.domain.entity.Authorization;
 
 /**
  * <p>

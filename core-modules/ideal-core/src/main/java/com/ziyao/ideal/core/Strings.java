@@ -996,7 +996,12 @@ public abstract class Strings implements StrPool {
 
     public static Set<String> commaDelimitedListToSet(@Nullable String str) {
         String[] tokens = commaDelimitedListToStringArray(str);
-        return new LinkedHashSet<>(java.util.Arrays.asList(tokens));
+        return Set.of(tokens);
+    }
+
+    public static List<String> commaDelimitedListToList(@Nullable String str) {
+        String[] tokens = commaDelimitedListToStringArray(str);
+        return List.of(tokens);
     }
 
     public static String[] delimitedListToStringArray(@Nullable String str, @Nullable String delimiter) {

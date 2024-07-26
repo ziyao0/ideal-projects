@@ -2,8 +2,8 @@ package com.ziyao.ideal.usercenter.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.ziyao.ideal.usercenter.dto.LoginRecordDTO;
-import com.ziyao.ideal.usercenter.entity.LoginRecord;
+import com.ziyao.ideal.usercenter.domain.dto.LoginRecordDTO;
+import com.ziyao.ideal.usercenter.domain.entity.LoginRecord;
 
 /**
  * <p>

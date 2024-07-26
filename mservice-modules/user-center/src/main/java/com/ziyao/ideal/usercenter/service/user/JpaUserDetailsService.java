@@ -2,7 +2,7 @@ package com.ziyao.ideal.usercenter.service.user;
 
 import com.ziyao.ideal.usercenter.authentication.core.SimpleGrantedAuthority;
 import com.ziyao.ideal.usercenter.authentication.core.UserInfo;
-import com.ziyao.ideal.usercenter.entity.User;
+import com.ziyao.ideal.usercenter.domain.entity.User;
 import com.ziyao.ideal.usercenter.repository.jpa.UserRepositoryJpa;
 import com.ziyao.ideal.usercenter.repository.jpa.UserRoleRepositoryJpa;
 import com.ziyao.security.oauth2.core.UserDetails;

@@ -1,6 +1,6 @@
 package com.ziyao.ideal.usercenter.authentication.core;
 
-import com.ziyao.ideal.usercenter.entity.User;
+import com.ziyao.ideal.usercenter.domain.entity.User;
 import com.ziyao.security.oauth2.core.CredentialsContainer;
 import com.ziyao.security.oauth2.core.GrantedAuthority;
 import com.ziyao.security.oauth2.core.UserDetails;

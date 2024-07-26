@@ -2,7 +2,7 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: '{SM4}c4c52def3d31331a15d7c662e4fec2651dea0a0446273019476fb0623443715d'
+        server-addr: 123.249.103.68:8848
       config:
         import-check:
           enabled: false
@@ -11,7 +11,13 @@ spring:
         shared-configs:
           - data-id: db-config.yml
           - data-id: redis.yml
-
+      username: ziyao
+      password: Zzy@1996
+  datasource:
+    username: root
+    password: Zzy@1996
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://123.249.75.59:33066/code_harbor
 dubbo:
   application:
     name: dubbo-${spring.application.name}

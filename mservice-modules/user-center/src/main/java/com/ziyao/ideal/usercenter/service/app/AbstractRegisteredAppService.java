@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ziyao.ideal.core.Dates;
 import com.ziyao.ideal.core.Strings;
-import com.ziyao.ideal.usercenter.entity.Application;
+import com.ziyao.ideal.usercenter.domain.entity.Application;
 import com.ziyao.ideal.usercenter.service.oauth2.JpaOAuth2AuthorizationService;
 import com.ziyao.security.oauth2.core.RegisteredApp;
 import com.ziyao.security.oauth2.core.jackson2.Jackson2Modules;

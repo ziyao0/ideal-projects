@@ -1,6 +1,6 @@
 package com.ziyao.ideal.usercenter.repository.jpa;
 
-import com.ziyao.ideal.usercenter.entity.UserRole;
+import com.ziyao.ideal.usercenter.domain.entity.UserRole;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

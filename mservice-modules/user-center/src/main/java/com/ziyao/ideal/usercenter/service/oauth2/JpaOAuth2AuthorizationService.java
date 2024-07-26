@@ -3,7 +3,7 @@ package com.ziyao.ideal.usercenter.service.oauth2;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ziyao.ideal.core.Assert;
-import com.ziyao.ideal.usercenter.entity.Authorization;
+import com.ziyao.ideal.usercenter.domain.entity.Authorization;
 import com.ziyao.ideal.usercenter.repository.jpa.AuthorizationRepositoryJpa;
 import com.ziyao.security.oauth2.core.OAuth2Authorization;
 import com.ziyao.security.oauth2.core.OAuth2TokenType;
