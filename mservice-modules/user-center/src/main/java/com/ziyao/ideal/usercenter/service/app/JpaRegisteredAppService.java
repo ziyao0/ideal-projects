@@ -1,7 +1,7 @@
 package com.ziyao.ideal.usercenter.service.app;
 
 import com.ziyao.ideal.usercenter.repository.jpa.ApplicationRepositoryJpa;
-import com.ziyao.security.oauth2.core.RegisteredApp;
+import com.ziyao.ideal.security.oauth2.core.RegisteredApp;
 
 /**
  * @author ziyao

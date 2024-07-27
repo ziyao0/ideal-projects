@@ -1,8 +1,8 @@
 package com.ziyao.ideal.usercenter.authentication.token;
 
+import com.ziyao.ideal.security.oauth2.core.AuthorizationGrantType;
 import com.ziyao.ideal.usercenter.authentication.provider.OAuth2AuthorizationCodeAuthenticationProvider;
-import com.ziyao.security.oauth2.core.Authentication;
-import com.ziyao.security.oauth2.core.AuthorizationGrantType;
+import com.ziyao.ideal.security.core.Authentication;
 import lombok.Getter;
 import org.springframework.util.Assert;
 

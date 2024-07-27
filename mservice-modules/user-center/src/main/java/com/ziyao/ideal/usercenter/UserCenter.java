@@ -1,7 +1,7 @@
 package com.ziyao.ideal.usercenter;
 
-import com.ziyao.security.oauth2.core.Authentication;
-import com.ziyao.security.oauth2.core.context.SecurityContextHolder;
+import com.ziyao.ideal.security.core.Authentication;
+import com.ziyao.ideal.security.core.context.SecurityContextHolder;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

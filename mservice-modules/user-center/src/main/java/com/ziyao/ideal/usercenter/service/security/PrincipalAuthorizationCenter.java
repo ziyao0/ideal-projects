@@ -1,5 +1,9 @@
 package com.ziyao.ideal.usercenter.service.security;
 
+import com.ziyao.ideal.security.core.Authentication;
+import com.ziyao.ideal.security.oauth2.core.*;
+import com.ziyao.ideal.security.core.UserDetails;
+import com.ziyao.ideal.security.oauth2.core.token.DefaultOAuth2TokenContext;
 import com.ziyao.ideal.usercenter.authentication.AuthenticationManager;
 import com.ziyao.ideal.usercenter.authentication.token.OAuth2AccessTokenAuthenticationToken;
 import com.ziyao.ideal.usercenter.authentication.token.OAuth2TokenGenerator;
@@ -7,10 +11,8 @@ import com.ziyao.ideal.usercenter.response.AccessTokenResponse;
 import com.ziyao.ideal.usercenter.response.OAuth2AuthorizationCodeResponse;
 import com.ziyao.ideal.usercenter.service.app.RegisteredAppService;
 import com.ziyao.ideal.usercenter.service.oauth2.OAuth2AuthorizationService;
-import com.ziyao.security.oauth2.core.*;
-import com.ziyao.security.oauth2.core.context.SecurityContextHolder;
-import com.ziyao.security.oauth2.core.support.AuthenticationUtils;
-import com.ziyao.security.oauth2.core.token.DefaultOAuth2TokenContext;
+import com.ziyao.ideal.security.core.context.SecurityContextHolder;
+import com.ziyao.ideal.security.core.AuthenticationUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.stereotype.Service;

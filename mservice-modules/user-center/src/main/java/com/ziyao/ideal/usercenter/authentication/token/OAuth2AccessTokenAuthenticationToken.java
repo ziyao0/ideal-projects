@@ -1,7 +1,11 @@
 package com.ziyao.ideal.usercenter.authentication.token;
 
 import com.ziyao.ideal.core.Strings;
-import com.ziyao.security.oauth2.core.*;
+import com.ziyao.ideal.security.core.Authentication;
+import com.ziyao.ideal.security.core.GrantedAuthority;
+import com.ziyao.ideal.security.oauth2.core.OAuth2AccessToken;
+import com.ziyao.ideal.security.oauth2.core.OAuth2RefreshToken;
+import com.ziyao.ideal.security.oauth2.core.RegisteredApp;
 import lombok.Getter;
 
 import java.io.Serial;

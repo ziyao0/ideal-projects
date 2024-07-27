@@ -4,9 +4,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ziyao.ideal.usercenter.authentication.core.UserInfo;
-import com.ziyao.security.oauth2.core.GrantedAuthority;
-import com.ziyao.security.oauth2.core.RegisteredApp;
+import com.ziyao.ideal.security.core.GrantedAuthority;
+import com.ziyao.ideal.security.core.UserInfo;
+import com.ziyao.ideal.security.oauth2.core.RegisteredApp;
 import org.springframework.lang.NonNull;
 
 import java.io.Serial;
@@ -51,8 +51,8 @@ public class SuccessfulAuthenticationToken extends AbstractAuthenticationToken {
 
     public static void main(String[] args) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
-        SuccessfulAuthenticationToken successfulAuthenticationToken1 = new SuccessfulAuthenticationToken(new UserInfo(111L, "zhangziyao", "张三"
-                , null, null, null), null, Set.of());
+        SuccessfulAuthenticationToken successfulAuthenticationToken1 = new SuccessfulAuthenticationToken(
+                UserInfo.withUsername("张子尧").build(), null, Set.of());
 
         String s = objectMapper.writeValueAsString(successfulAuthenticationToken1);
 

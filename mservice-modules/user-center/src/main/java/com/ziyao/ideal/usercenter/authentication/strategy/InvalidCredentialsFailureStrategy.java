@@ -1,7 +1,7 @@
 package com.ziyao.ideal.usercenter.authentication.strategy;
 
 import com.ziyao.ideal.usercenter.common.exception.InvalidCredentialsException;
-import com.ziyao.security.oauth2.core.Authentication;
+import com.ziyao.ideal.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 /**

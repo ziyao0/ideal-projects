@@ -5,13 +5,13 @@ import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ziyao.ideal.core.Dates;
 import com.ziyao.ideal.core.Strings;
+import com.ziyao.ideal.security.oauth2.core.RegisteredApp;
+import com.ziyao.ideal.security.oauth2.core.jackson2.Jackson2Modules;
+import com.ziyao.ideal.security.oauth2.core.jackson2.OAuth2AuthorizationServerJackson2Module;
+import com.ziyao.ideal.security.oauth2.core.settings.TokenSettings;
+import com.ziyao.ideal.security.oauth2.core.support.AuthorizationGrantTypes;
 import com.ziyao.ideal.usercenter.domain.entity.Application;
 import com.ziyao.ideal.usercenter.service.oauth2.JpaOAuth2AuthorizationService;
-import com.ziyao.security.oauth2.core.RegisteredApp;
-import com.ziyao.security.oauth2.core.jackson2.Jackson2Modules;
-import com.ziyao.security.oauth2.core.jackson2.OAuth2AuthorizationServerJackson2Module;
-import com.ziyao.security.oauth2.core.settings.TokenSettings;
-import com.ziyao.security.oauth2.core.support.AuthorizationGrantTypes;
 
 import java.util.List;
 import java.util.Map;

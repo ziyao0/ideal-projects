@@ -2,8 +2,8 @@ package com.ziyao.ideal.usercenter.service.oauth2;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
-import com.ziyao.security.oauth2.core.OAuth2Authorization;
-import com.ziyao.security.oauth2.core.OAuth2TokenType;
+import com.ziyao.ideal.security.oauth2.core.OAuth2Authorization;
+import com.ziyao.ideal.security.oauth2.core.OAuth2TokenType;
 import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
 

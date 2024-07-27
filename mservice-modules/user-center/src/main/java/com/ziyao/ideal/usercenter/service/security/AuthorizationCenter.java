@@ -2,7 +2,7 @@ package com.ziyao.ideal.usercenter.service.security;
 
 import com.ziyao.ideal.usercenter.response.AccessTokenResponse;
 import com.ziyao.ideal.usercenter.response.OAuth2AuthorizationCodeResponse;
-import com.ziyao.security.oauth2.core.Authentication;
+import com.ziyao.ideal.security.core.Authentication;
 
 /**
  * @author ziyao zhang

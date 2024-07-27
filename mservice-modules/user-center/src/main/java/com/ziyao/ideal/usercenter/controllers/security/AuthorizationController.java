@@ -1,13 +1,13 @@
 package com.ziyao.ideal.usercenter.controllers.security;
 
 import com.ziyao.ideal.core.Strings;
+import com.ziyao.ideal.security.oauth2.core.token.OAuth2ParameterNames;
 import com.ziyao.ideal.usercenter.authentication.converter.AuthenticationConverter;
 import com.ziyao.ideal.usercenter.response.AccessTokenResponse;
 import com.ziyao.ideal.usercenter.response.OAuth2AuthorizationCodeResponse;
 import com.ziyao.ideal.usercenter.service.security.AuthorizationCenter;
-import com.ziyao.security.oauth2.core.Authentication;
-import com.ziyao.security.oauth2.core.context.SecurityContextHolder;
-import com.ziyao.security.oauth2.core.token.OAuth2ParameterNames;
+import com.ziyao.ideal.security.core.Authentication;
+import com.ziyao.ideal.security.core.context.SecurityContextHolder;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -1,8 +1,8 @@
 package com.ziyao.ideal.usercenter.authentication.core;
 
 import com.ziyao.ideal.core.Assert;
-import com.ziyao.security.oauth2.core.GrantedAuthority;
-import com.ziyao.security.oauth2.core.Permission;
+import com.ziyao.ideal.security.core.GrantedAuthority;
+import com.ziyao.ideal.security.core.Permission;
 
 import java.io.Serial;
 import java.util.Collection;

@@ -1,6 +1,6 @@
 package com.ziyao.ideal.usercenter.authentication.token;
 
-import com.ziyao.security.oauth2.core.GrantedAuthority;
+import com.ziyao.ideal.security.core.GrantedAuthority;
 import org.springframework.data.keyvalue.annotation.KeySpace;
 
 import java.io.Serial;

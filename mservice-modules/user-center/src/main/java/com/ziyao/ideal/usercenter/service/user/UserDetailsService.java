@@ -1,7 +1,7 @@
 package com.ziyao.ideal.usercenter.service.user;
 
 import com.ziyao.ideal.core.lang.Nullable;
-import com.ziyao.security.oauth2.core.UserDetails;
+import com.ziyao.ideal.security.core.UserDetails;
 
 /**
  * @author ziyao

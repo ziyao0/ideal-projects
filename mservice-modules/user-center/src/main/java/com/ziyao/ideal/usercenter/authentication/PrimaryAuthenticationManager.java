@@ -3,7 +3,7 @@ package com.ziyao.ideal.usercenter.authentication;
 import com.ziyao.ideal.core.Assert;
 import com.ziyao.ideal.usercenter.authentication.core.AuthenticatedUser;
 import com.ziyao.ideal.usercenter.authentication.provider.AuthenticationProvider;
-import com.ziyao.security.oauth2.core.Authentication;
+import com.ziyao.ideal.security.core.Authentication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

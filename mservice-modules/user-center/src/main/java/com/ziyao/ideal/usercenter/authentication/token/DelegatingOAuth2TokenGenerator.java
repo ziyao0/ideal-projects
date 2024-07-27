@@ -1,8 +1,8 @@
 package com.ziyao.ideal.usercenter.authentication.token;
 
 import com.ziyao.ideal.core.Assert;
-import com.ziyao.security.oauth2.core.OAuth2Token;
-import com.ziyao.security.oauth2.core.token.OAuth2TokenContext;
+import com.ziyao.ideal.security.oauth2.core.OAuth2Token;
+import com.ziyao.ideal.security.oauth2.core.token.OAuth2TokenContext;
 import lombok.Getter;
 
 import java.util.ArrayList;

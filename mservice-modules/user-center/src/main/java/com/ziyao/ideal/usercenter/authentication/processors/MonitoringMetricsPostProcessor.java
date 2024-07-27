@@ -2,7 +2,7 @@ package com.ziyao.ideal.usercenter.authentication.processors;
 
 import com.ziyao.ideal.data.redis.core.convert.ConversionProvider;
 import com.ziyao.ideal.usercenter.common.utils.RedisUtils;
-import com.ziyao.security.oauth2.core.Authentication;
+import com.ziyao.ideal.security.core.Authentication;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.StringRedisTemplate;

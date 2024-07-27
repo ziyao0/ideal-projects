@@ -3,7 +3,7 @@ package com.ziyao.ideal.usercenter.authentication;
 import com.ziyao.ideal.usercenter.authentication.processors.AuthenticationPostProcessor;
 import com.ziyao.ideal.usercenter.authentication.strategy.AuthenticationStrategyManager;
 import com.ziyao.ideal.usercenter.authentication.token.FailureAuthentication;
-import com.ziyao.security.oauth2.core.Authentication;
+import com.ziyao.ideal.security.core.Authentication;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

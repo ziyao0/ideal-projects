@@ -1,7 +1,7 @@
 package com.ziyao.ideal.usercenter.service.oauth2;
 
-import com.ziyao.security.oauth2.core.OAuth2Authorization;
-import com.ziyao.security.oauth2.core.OAuth2TokenType;
+import com.ziyao.ideal.security.oauth2.core.OAuth2Authorization;
+import com.ziyao.ideal.security.oauth2.core.OAuth2TokenType;
 import org.springframework.lang.Nullable;
 
 /**

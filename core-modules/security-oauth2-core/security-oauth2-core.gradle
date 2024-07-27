@@ -1,0 +1,9 @@
+dependencies {
+    api("com.auth0:java-jwt")
+    api(project(":security-core"))
+    api(project(":security-crypto"))
+    implementation('org.springframework:spring-web')
+    api 'com.github.ben-manes.caffeine:caffeine'
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
+    implementation 'org.springframework.data:spring-data-redis'
+}

@@ -1,6 +1,6 @@
 package com.ziyao.ideal.usercenter.authentication.core;
 
-import com.ziyao.security.oauth2.core.UserDetails;
+import com.ziyao.ideal.security.core.UserDetails;
 import lombok.Data;
 
 import java.util.Set;

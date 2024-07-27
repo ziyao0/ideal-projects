@@ -2,7 +2,7 @@ package com.ziyao.ideal.usercenter.service.app;
 
 import com.ziyao.ideal.core.Assert;
 import com.ziyao.ideal.usercenter.repository.redis.ApplicationRepositoryRedis;
-import com.ziyao.security.oauth2.core.RegisteredApp;
+import com.ziyao.ideal.security.oauth2.core.RegisteredApp;
 
 /**
  * @author ziyao

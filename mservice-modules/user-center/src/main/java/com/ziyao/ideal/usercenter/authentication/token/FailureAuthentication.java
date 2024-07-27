@@ -1,8 +1,8 @@
 package com.ziyao.ideal.usercenter.authentication.token;
 
 import com.ziyao.ideal.web.response.ResponseMetadata;
-import com.ziyao.security.oauth2.core.Authentication;
-import com.ziyao.security.oauth2.core.GrantedAuthority;
+import com.ziyao.ideal.security.core.Authentication;
+import com.ziyao.ideal.security.core.GrantedAuthority;
 import lombok.Getter;
 
 import java.io.Serial;

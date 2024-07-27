@@ -1,14 +1,15 @@
 package com.ziyao.ideal.usercenter.authentication.provider;
 
+import com.ziyao.ideal.security.core.Authentication;
+import com.ziyao.ideal.security.oauth2.core.*;
+import com.ziyao.ideal.security.oauth2.core.error.ThrowErrors;
+import com.ziyao.ideal.security.oauth2.core.token.DefaultOAuth2TokenContext;
+import com.ziyao.ideal.security.oauth2.core.token.OAuth2ParameterNames;
 import com.ziyao.ideal.usercenter.authentication.token.OAuth2AccessTokenAuthenticationToken;
 import com.ziyao.ideal.usercenter.authentication.token.OAuth2AuthorizationCodeAuthenticationToken;
 import com.ziyao.ideal.usercenter.authentication.token.OAuth2TokenGenerator;
 import com.ziyao.ideal.usercenter.service.app.RegisteredAppService;
 import com.ziyao.ideal.usercenter.service.oauth2.OAuth2AuthorizationService;
-import com.ziyao.security.oauth2.core.*;
-import com.ziyao.security.oauth2.core.error.ThrowErrors;
-import com.ziyao.security.oauth2.core.token.DefaultOAuth2TokenContext;
-import com.ziyao.security.oauth2.core.token.OAuth2ParameterNames;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

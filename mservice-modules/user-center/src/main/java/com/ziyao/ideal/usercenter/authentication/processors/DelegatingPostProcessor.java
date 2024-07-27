@@ -1,7 +1,7 @@
 package com.ziyao.ideal.usercenter.authentication.processors;
 
 import com.ziyao.ideal.core.Assert;
-import com.ziyao.security.oauth2.core.Authentication;
+import com.ziyao.ideal.security.core.Authentication;
 
 import java.util.Comparator;
 import java.util.List;

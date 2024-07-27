@@ -4,10 +4,10 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ziyao.ideal.core.Dates;
 import com.ziyao.ideal.core.Strings;
+import com.ziyao.ideal.security.oauth2.core.*;
+import com.ziyao.ideal.security.oauth2.core.support.AuthorizationGrantTypes;
+import com.ziyao.ideal.security.oauth2.core.token.OAuth2ParameterNames;
 import com.ziyao.ideal.usercenter.domain.entity.Authorization;
-import com.ziyao.security.oauth2.core.*;
-import com.ziyao.security.oauth2.core.support.AuthorizationGrantTypes;
-import com.ziyao.security.oauth2.core.token.OAuth2ParameterNames;
 import org.springframework.lang.Nullable;
 
 import java.time.LocalDateTime;

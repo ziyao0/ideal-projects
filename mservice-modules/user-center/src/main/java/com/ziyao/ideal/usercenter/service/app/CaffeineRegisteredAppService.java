@@ -3,7 +3,7 @@ package com.ziyao.ideal.usercenter.service.app;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.ziyao.ideal.core.Assert;
-import com.ziyao.security.oauth2.core.RegisteredApp;
+import com.ziyao.ideal.security.oauth2.core.RegisteredApp;
 
 import java.util.concurrent.TimeUnit;
 

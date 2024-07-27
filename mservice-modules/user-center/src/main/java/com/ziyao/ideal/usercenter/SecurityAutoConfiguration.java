@@ -1,6 +1,6 @@
 package com.ziyao.ideal.usercenter;
 
-import com.ziyao.ideal.web.ApplicationContextUtils;
+import com.ziyao.ideal.security.oauth2.core.OAuth2Token;
 import com.ziyao.ideal.usercenter.authentication.AuthenticationHandler;
 import com.ziyao.ideal.usercenter.authentication.AuthenticationManager;
 import com.ziyao.ideal.usercenter.authentication.DefaultAuthenticationHandler;
@@ -17,7 +17,7 @@ import com.ziyao.ideal.usercenter.repository.redis.ApplicationRepositoryRedis;
 import com.ziyao.ideal.usercenter.repository.redis.AuthorizationRepositoryRedis;
 import com.ziyao.ideal.usercenter.service.app.*;
 import com.ziyao.ideal.usercenter.service.oauth2.*;
-import com.ziyao.security.oauth2.core.OAuth2Token;
+import com.ziyao.ideal.web.ApplicationContextUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;

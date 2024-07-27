@@ -1,10 +1,10 @@
 package com.ziyao.ideal.usercenter.authentication.token;
 
 import com.ziyao.ideal.core.Strings;
-import com.ziyao.security.oauth2.core.Authentication;
-import com.ziyao.security.oauth2.core.CredentialsContainer;
-import com.ziyao.security.oauth2.core.GrantedAuthority;
-import com.ziyao.security.oauth2.core.UserDetails;
+import com.ziyao.ideal.security.core.Authentication;
+import com.ziyao.ideal.security.core.CredentialsContainer;
+import com.ziyao.ideal.security.core.GrantedAuthority;
+import com.ziyao.ideal.security.core.UserDetails;
 import lombok.Getter;
 
 import java.io.Serial;

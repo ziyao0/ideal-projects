@@ -7,8 +7,8 @@ import com.ziyao.ideal.usercenter.authentication.token.UsernamePasswordAuthentic
 import com.ziyao.ideal.usercenter.common.exception.AuthenticationFailureException;
 import com.ziyao.ideal.usercenter.common.exception.Errors;
 import com.ziyao.ideal.usercenter.service.user.UserDetailsService;
-import com.ziyao.security.oauth2.core.Authentication;
-import com.ziyao.security.oauth2.core.UserDetails;
+import com.ziyao.ideal.security.core.Authentication;
+import com.ziyao.ideal.security.core.UserDetails;
 import org.springframework.stereotype.Component;
 
 /**

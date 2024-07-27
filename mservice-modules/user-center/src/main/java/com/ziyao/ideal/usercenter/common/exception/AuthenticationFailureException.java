@@ -1,7 +1,7 @@
 package com.ziyao.ideal.usercenter.common.exception;
 
 import com.ziyao.ideal.web.response.ResponseMetadata;
-import com.ziyao.security.oauth2.core.AuthenticationException;
+import com.ziyao.ideal.security.core.AuthenticationException;
 
 import java.io.Serial;
 

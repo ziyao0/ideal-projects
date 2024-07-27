@@ -2,7 +2,7 @@ package com.ziyao.ideal.usercenter.authentication.support;
 
 import com.ziyao.ideal.usercenter.common.exception.AuthenticationFailureException;
 import com.ziyao.ideal.usercenter.common.exception.Errors;
-import com.ziyao.security.oauth2.core.UserDetails;
+import com.ziyao.ideal.security.core.UserDetails;
 
 /**
  * @author zhangziyao

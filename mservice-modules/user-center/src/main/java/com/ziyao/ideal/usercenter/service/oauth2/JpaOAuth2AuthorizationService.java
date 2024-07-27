@@ -3,13 +3,13 @@ package com.ziyao.ideal.usercenter.service.oauth2;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ziyao.ideal.core.Assert;
+import com.ziyao.ideal.security.oauth2.core.OAuth2Authorization;
+import com.ziyao.ideal.security.oauth2.core.OAuth2TokenType;
+import com.ziyao.ideal.security.oauth2.core.jackson2.Jackson2Modules;
+import com.ziyao.ideal.security.oauth2.core.jackson2.OAuth2AuthorizationServerJackson2Module;
+import com.ziyao.ideal.security.oauth2.core.token.OAuth2ParameterNames;
 import com.ziyao.ideal.usercenter.domain.entity.Authorization;
 import com.ziyao.ideal.usercenter.repository.jpa.AuthorizationRepositoryJpa;
-import com.ziyao.security.oauth2.core.OAuth2Authorization;
-import com.ziyao.security.oauth2.core.OAuth2TokenType;
-import com.ziyao.security.oauth2.core.jackson2.Jackson2Modules;
-import com.ziyao.security.oauth2.core.jackson2.OAuth2AuthorizationServerJackson2Module;
-import com.ziyao.security.oauth2.core.token.OAuth2ParameterNames;
 
 import java.util.List;
 import java.util.Optional;

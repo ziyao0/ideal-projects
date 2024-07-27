@@ -2,9 +2,9 @@ package com.ziyao.ideal.usercenter.authentication.token;
 
 import com.ziyao.crypto.keygen.Base64StringKeyGenerator;
 import com.ziyao.crypto.keygen.StringKeyGenerator;
-import com.ziyao.security.oauth2.core.OAuth2RefreshToken;
-import com.ziyao.security.oauth2.core.OAuth2TokenType;
-import com.ziyao.security.oauth2.core.token.OAuth2TokenContext;
+import com.ziyao.ideal.security.oauth2.core.OAuth2RefreshToken;
+import com.ziyao.ideal.security.oauth2.core.OAuth2TokenType;
+import com.ziyao.ideal.security.oauth2.core.token.OAuth2TokenContext;
 
 import java.time.Instant;
 import java.util.Base64;

@@ -1,11 +1,11 @@
 package com.ziyao.ideal.usercenter.authentication.converter;
 
 import com.ziyao.ideal.core.Strings;
+import com.ziyao.ideal.security.oauth2.core.AuthorizationGrantType;
+import com.ziyao.ideal.security.oauth2.core.token.OAuth2ParameterNames;
 import com.ziyao.ideal.usercenter.authentication.token.UsernamePasswordAuthenticationToken;
 import com.ziyao.ideal.usercenter.request.AuthenticationRequest;
-import com.ziyao.security.oauth2.core.Authentication;
-import com.ziyao.security.oauth2.core.AuthorizationGrantType;
-import com.ziyao.security.oauth2.core.token.OAuth2ParameterNames;
+import com.ziyao.ideal.security.core.Authentication;
 import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.Optional;

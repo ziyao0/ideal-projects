@@ -1,6 +1,6 @@
 package com.ziyao.ideal.usercenter.service.app;
 
-import com.ziyao.security.oauth2.core.RegisteredApp;
+import com.ziyao.ideal.security.oauth2.core.RegisteredApp;
 
 import java.util.List;
 
