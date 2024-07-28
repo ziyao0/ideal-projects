@@ -3,5 +3,7 @@ spring:
     name: config-server
   profiles:
     active: register
+  jmx:
+    enabled: false
 server:
   port: 18899

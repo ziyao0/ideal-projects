@@ -33,6 +33,8 @@ public interface SecurityContextHolderStrategy {
     default boolean isAuthentication() {
         if (getContext() != null) {
             return getContext().getAuthentication().isAuthenticated();
-        } else return false;
+        } else {
+            return false;
+        }
     }
 }

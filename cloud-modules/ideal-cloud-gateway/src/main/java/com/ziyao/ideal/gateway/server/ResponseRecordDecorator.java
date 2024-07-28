@@ -11,6 +11,7 @@ import reactor.core.publisher.Mono;
  * @author ziyao zhang
  */
 public class ResponseRecordDecorator extends ServerHttpResponseDecorator {
+
     public ResponseRecordDecorator(ServerHttpResponse delegate) {
         super(delegate);
     }

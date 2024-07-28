@@ -1,5 +1,6 @@
 package com.ziyao.ideal.uua.authentication.token;
 
+import com.ziyao.ideal.security.core.AbstractAuthenticationToken;
 import com.ziyao.ideal.security.core.GrantedAuthority;
 import org.springframework.data.keyvalue.annotation.KeySpace;
 

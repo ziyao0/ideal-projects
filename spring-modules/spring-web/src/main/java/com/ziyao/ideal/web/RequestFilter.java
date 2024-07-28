@@ -1,8 +1,13 @@
 package com.ziyao.ideal.web;
 
 import com.google.common.collect.Lists;
-import com.ziyao.ideal.web.context.ContextManager;
-import com.ziyao.ideal.web.context.ServletContext;
+import com.ziyao.ideal.core.Collections;
+import com.ziyao.ideal.core.Dates;
+import com.ziyao.ideal.core.Strings;
+import com.ziyao.ideal.security.core.*;
+import com.ziyao.ideal.security.core.context.AuthenticationContext;
+import com.ziyao.ideal.security.core.context.DefaultAuthenticationContext;
+import com.ziyao.ideal.security.core.context.SecurityContextHolder;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebFilter;
@@ -16,7 +21,10 @@ import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author ziyao zhang
@@ -42,9 +50,15 @@ public class RequestFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,
                                     @NonNull HttpServletResponse response, @NonNull FilterChain chain) throws ServletException, IOException {
-        ServletContext servletContext = new ServletContext(request, response);
-        ContextManager.set(servletContext);
-        if (!servletContext.isAuthentication()) {
+
+        UserInfo userInfo = creation(request);
+        Authentication authentication = new SuccessfulAuthenticationToken(userInfo, userInfo.getAuthorities());
+
+        AuthenticationContext context = new DefaultAuthenticationContext();
+        context.setAuthentication(authentication);
+        SecurityContextHolder.setContext(context);
+
+        if (SecurityContextHolder.isUnauthorized()) {
             log.debug("请求未认证，URL:{}", request.getRequestURL());
         }
         chain.doFilter(request, response);
@@ -54,5 +68,44 @@ public class RequestFilter extends OncePerRequestFilter {
     protected boolean shouldNotFilter(@NonNull HttpServletRequest request) {
         return this.excludePaths.stream()
                 .anyMatch(skipApi -> matcher.match(skipApi, request.getRequestURI()));
+    }
+
+    public UserInfo creation(HttpServletRequest request) {
+        String userId = getValue(request, UserInfoParameterNames.USER_ID);
+        String username = getValue(request, UserInfoParameterNames.USERNAME);
+        String status = getValue(request, UserInfoParameterNames.STATUS);
+        String idCardName = getValue(request, UserInfoParameterNames.ID_CARD_NAME);
+        String gender = getValue(request, UserInfoParameterNames.GENDER);
+        String mobile = getValue(request, UserInfoParameterNames.MOBILE);
+        String address = getValue(request, UserInfoParameterNames.ADDRESS);
+        String lastLogin = getValue(request, UserInfoParameterNames.LAST_LOGIN);
+        String loginIp = getValue(request, UserInfoParameterNames.LOGIN_IP);
+        String authorities = getValue(request, UserInfoParameterNames.AUTHORITIES);
+
+        return UserInfo.withId(Strings.hasLength(userId) ? Long.valueOf(userId) : null)
+                .username(username)
+                .status(Strings.hasLength(status) ? Integer.valueOf(status) : null)
+                .idCardName(idCardName)
+                .gender(gender)
+                .mobile(mobile)
+                .address(address)
+                .lastLogin(Strings.hasLength(lastLogin) ? Dates.parse(lastLogin) : null)
+                .loginIp(loginIp)
+                .authorities(grantedAuthorities -> {
+                    Set<String> authorityList = Strings.commaDelimitedListToSet(authorities);
+                    if (Collections.nonNull(authorityList)) {
+                        for (String authority : authorityList) {
+                            grantedAuthorities.add(new SimpleGrantedAuthority(authority));
+                        }
+                    }
+                }).build();
+    }
+
+    private static String getValue(HttpServletRequest request, String name) {
+        String value = request.getHeader(name);
+        if (Strings.hasLength(value)) {
+            return URLDecoder.decode(value, StandardCharsets.UTF_8);
+        }
+        return value;
     }
 }

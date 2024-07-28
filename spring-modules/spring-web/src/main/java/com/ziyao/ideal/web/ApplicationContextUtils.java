@@ -1,5 +1,6 @@
 package com.ziyao.ideal.web;
 
+import lombok.Getter;
 import org.springframework.context.ApplicationContext;
 import org.springframework.util.ObjectUtils;
 
@@ -12,6 +13,11 @@ import java.util.*;
  */
 public abstract class ApplicationContextUtils {
 
+    /**
+     * -- GETTER --
+     * get spring application context
+     */
+    @Getter
     private static ApplicationContext applicationContext;
 
     /**
@@ -65,16 +71,6 @@ public abstract class ApplicationContextUtils {
      */
     public static <T> Map<String, T> getBeansMapOfType(Class<T> clazz) {
         return applicationContext.getBeansOfType(clazz);
-    }
-
-    /**
-     * get spring application context
-     *
-     * @return {@link ApplicationContext}
-     */
-
-    public static ApplicationContext getApplicationContext() {
-        return applicationContext;
     }
 
     public static void setApplicationContext(ApplicationContext applicationContext) {

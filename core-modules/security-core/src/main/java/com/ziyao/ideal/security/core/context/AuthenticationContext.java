@@ -9,6 +9,11 @@ import java.io.Serializable;
  */
 public interface AuthenticationContext extends Serializable {
 
+    default Object getPrincipal() {
+        Authentication authentication = getAuthentication();
+        return authentication == null ? null : authentication.getPrincipal();
+    }
+
     /**
      * 获取当前经过身份认证的令牌
      *

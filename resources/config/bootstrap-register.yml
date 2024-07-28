@@ -1,6 +1,8 @@
 spring:
   cloud:
     nacos:
+      password: '{SM4}ece1d611b1f09c91709978cbc4067df0'
+      username: '{SM4}cd3829cf3eb67af282a6375d6bb334e8'
       discovery:
         server-addr: '{SM4}c4c52def3d31331a15d7c662e4fec2651dea0a0446273019476fb0623443715d'
       config:

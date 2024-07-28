@@ -29,7 +29,7 @@ public class ConfigItemController {
     }
 
     @PutMapping
-    public void updateConfigItem(@RequestBody ConfigItem configItem) {
+    public void updateConfigItem(@RequestBody ConfigItemDTO configItem) {
 
     }
 

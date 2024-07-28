@@ -1,15 +1,15 @@
 package com.ziyao.ideal.uua.controllers;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.ziyao.ideal.web.UserDetails;
-import com.ziyao.ideal.web.base.BaseController;
-import com.ziyao.ideal.web.base.PageParams;
-import com.ziyao.ideal.web.base.Pages;
-import com.ziyao.ideal.web.context.ContextManager;
-import com.ziyao.ideal.web.exception.Exceptions;
+import com.ziyao.ideal.security.core.Authentication;
+import com.ziyao.ideal.security.core.context.SecurityContextHolder;
 import com.ziyao.ideal.uua.domain.dto.UserDTO;
 import com.ziyao.ideal.uua.domain.entity.User;
 import com.ziyao.ideal.uua.service.UserService;
+import com.ziyao.ideal.web.base.BaseController;
+import com.ziyao.ideal.web.base.PageParams;
+import com.ziyao.ideal.web.base.Pages;
+import com.ziyao.ideal.web.exception.Exceptions;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -78,7 +78,7 @@ public class UserController extends BaseController<UserService, User> {
     }
 
     @GetMapping("/current")
-    public UserDetails userDetails() {
-        return ContextManager.getUser();
+    public Authentication userDetails() {
+        return SecurityContextHolder.getContext().getAuthentication();
     }
 }

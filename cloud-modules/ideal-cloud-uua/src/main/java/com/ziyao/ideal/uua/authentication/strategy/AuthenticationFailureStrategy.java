@@ -1,6 +1,6 @@
 package com.ziyao.ideal.uua.authentication.strategy;
 
-import com.ziyao.ideal.web.response.ResponseMetadata;
+import com.ziyao.ideal.web.response.ResponseDetails;
 import com.ziyao.ideal.uua.authentication.token.FailureAuthentication;
 import com.ziyao.ideal.security.core.Authentication;
 
@@ -16,11 +16,11 @@ public interface AuthenticationFailureStrategy {
         return FailureAuthentication.of(status, message);
     }
 
-    default Authentication createFailureAuthentication(ResponseMetadata responseMetadata) {
-        return FailureAuthentication.of(responseMetadata);
+    default Authentication createFailureAuthentication(ResponseDetails responseDetails) {
+        return FailureAuthentication.of(responseDetails);
     }
 
-    default Authentication createFailureAuthentication(ResponseMetadata sm, Object data) {
+    default Authentication createFailureAuthentication(ResponseDetails sm, Object data) {
         return FailureAuthentication.of(sm.getStatus(), sm.getMessage(), data);
     }
 

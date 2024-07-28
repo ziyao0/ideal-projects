@@ -1,7 +1,7 @@
 package com.ziyao.ideal.web.exception;
 
 
-import com.ziyao.ideal.web.response.ResponseMetadata;
+import com.ziyao.ideal.web.response.ResponseDetails;
 
 /**
  * @author ziyao zhang
@@ -15,7 +15,7 @@ public abstract class Exceptions {
     /**
      * 通用: 请求成功.
      */
-    public static final ResponseMetadata SUCCESS = ResponseMetadata.getInstance(ResponseMetadata.SUCCESS_STATE(), "请求成功");
+    public static final ResponseDetails SUCCESS = ResponseDetails.getInstance(ResponseDetails.SUCCESS_STATE(), "请求成功");
 
     /**
      * 创建非法访问
@@ -59,47 +59,47 @@ public abstract class Exceptions {
     /**
      * 通用: 用户未登录.
      */
-    public static final ResponseMetadata USER_NOT_LOGIN = ResponseMetadata.getInstance(530, "用户未登录");
+    public static final ResponseDetails USER_NOT_LOGIN = ResponseDetails.getInstance(530, "用户未登录");
 
     /**
      * 通用: 新增失败.
      */
-    public static final ResponseMetadata INSERT_FAIL = ResponseMetadata.getInstance(10000, "新增失败");
+    public static final ResponseDetails INSERT_FAIL = ResponseDetails.getInstance(10000, "新增失败");
 
     /**
      * 通用: 更新失败.
      */
-    public static final ResponseMetadata UPDATE_FAIL = ResponseMetadata.getInstance(10001, "更新失败");
+    public static final ResponseDetails UPDATE_FAIL = ResponseDetails.getInstance(10001, "更新失败");
 
     /**
      * 通用: 删除失败.
      */
-    public static final ResponseMetadata DELETE_FAIL = ResponseMetadata.getInstance(10002, "删除失败");
+    public static final ResponseDetails DELETE_FAIL = ResponseDetails.getInstance(10002, "删除失败");
 
     /**
      * 通用: 批量操作执行失败.
      */
-    public static final ResponseMetadata BATCH_ERROR = ResponseMetadata.getInstance(10003, "批量操作执行失败");
+    public static final ResponseDetails BATCH_ERROR = ResponseDetails.getInstance(10003, "批量操作执行失败");
     /**
      * 通用: 解析token算法不匹配.
      */
-    public static final ResponseMetadata ALGORITHM_MISMATCH = ResponseMetadata.getInstance(401, "解析Token算法不匹配");
+    public static final ResponseDetails ALGORITHM_MISMATCH = ResponseDetails.getInstance(401, "解析Token算法不匹配");
     /**
      * 通用: 校验签名失败.
      */
-    public static final ResponseMetadata SIGNATURE_VERIFICATION = ResponseMetadata.getInstance(401, "校验签名异常");
+    public static final ResponseDetails SIGNATURE_VERIFICATION = ResponseDetails.getInstance(401, "校验签名异常");
     /**
      * 通用: token过期.
      */
-    public static final ResponseMetadata TOKEN_EXPIRED = ResponseMetadata.getInstance(401, "Token过期");
+    public static final ResponseDetails TOKEN_EXPIRED = ResponseDetails.getInstance(401, "Token过期");
     /**
      * 通用: token非法.
      */
-    public static final ResponseMetadata JWT_DECODE = ResponseMetadata.getInstance(401, "Token非法");
+    public static final ResponseDetails JWT_DECODE = ResponseDetails.getInstance(401, "Token非法");
     /**
      * 通用: 操作token异常.
      */
-    public static final ResponseMetadata TOKEN_ERROR = ResponseMetadata.getInstance(401, "解析Token异常");
+    public static final ResponseDetails TOKEN_ERROR = ResponseDetails.getInstance(401, "解析Token异常");
 
 
     /**

@@ -11,7 +11,7 @@ import java.io.Serial;
  *
  * @author ziyao zhang
  */
-public class ResponseWrapper<T> implements ResponseMetadata {
+public class ResponseWrapper<T> implements ResponseDetails {
 
     @Serial
     private static final long serialVersionUID = 7273085408208781818L;
@@ -36,16 +36,16 @@ public class ResponseWrapper<T> implements ResponseMetadata {
     public ResponseWrapper() {
     }
 
-    public ResponseWrapper(ResponseMetadata responseMetadata) {
-        Checker.checked(responseMetadata);
-        this.state = responseMetadata.getStatus();
-        this.message = responseMetadata.getMessage();
+    public ResponseWrapper(ResponseDetails responseDetails) {
+        Checker.checked(responseDetails);
+        this.state = responseDetails.getStatus();
+        this.message = responseDetails.getMessage();
     }
 
-    public ResponseWrapper(ResponseMetadata responseMetadata, T data) {
-        Checker.checked(responseMetadata, data);
-        this.state = responseMetadata.getStatus();
-        this.message = responseMetadata.getMessage();
+    public ResponseWrapper(ResponseDetails responseDetails, T data) {
+        Checker.checked(responseDetails, data);
+        this.state = responseDetails.getStatus();
+        this.message = responseDetails.getMessage();
         this.data = data;
     }
 
@@ -92,12 +92,12 @@ public class ResponseWrapper<T> implements ResponseMetadata {
             }
         }
 
-        public static void checked(ResponseMetadata responseMetadata) {
-            checked(responseMetadata.getStatus(), responseMetadata.getMessage());
+        public static void checked(ResponseDetails responseDetails) {
+            checked(responseDetails.getStatus(), responseDetails.getMessage());
         }
 
-        public static void checked(ResponseMetadata responseMetadata, Object data) {
-            checked(responseMetadata.getStatus(), responseMetadata.getMessage(), data);
+        public static void checked(ResponseDetails responseDetails, Object data) {
+            checked(responseDetails.getStatus(), responseDetails.getMessage(), data);
         }
     }
 }

@@ -18,15 +18,15 @@ public abstract class Dates {
     }
 
     public static String formatOfDay() {
-        return LocalDateTime.now().format(DateTimeFormatter.ofPattern(Formatter.DAY.getPattern()));
+        return LocalDateTime.now().format(DateTimeFormatter.ofPattern(Pattern.DAY.value()));
     }
 
     public static String formatOfMonth() {
-        return LocalDateTime.now().format(DateTimeFormatter.ofPattern(Formatter.MONTH.getPattern()));
+        return LocalDateTime.now().format(DateTimeFormatter.ofPattern(Pattern.MONTH.value()));
     }
 
     public static String formatOfYear() {
-        return LocalDateTime.now().format(DateTimeFormatter.ofPattern(Formatter.YEAR.getPattern()));
+        return LocalDateTime.now().format(DateTimeFormatter.ofPattern(Pattern.YEAR.value()));
     }
 
     /**
@@ -74,5 +74,44 @@ public abstract class Dates {
 
     public static TimeZone getDefaultTimeZone() {
         return TimeZone.getTimeZone("GMT+8");
+    }
+
+    public static LocalDateTime parse(String dateStr) {
+        return parse(dateStr, Pattern.SECOND);
+    }
+
+    public static LocalDateTime parse(String dateStr, final Pattern pattern) {
+        return parse(dateStr, pattern.value);
+    }
+
+    public static LocalDateTime parse(String dateStr, final String pattern) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+        return parse(dateStr, formatter);
+    }
+
+    public static LocalDateTime parse(String dateStr, final DateTimeFormatter formatter) {
+        return LocalDateTime.parse(dateStr, formatter);
+    }
+
+    public enum Pattern {
+
+        YEAR("yyyy"),
+        MONTH("yyyy-MM"),
+        DAY("yyyy-MM-dd"),
+        HOUR("yyyy-MM-dd HH"),
+        MINUTE("yyyy-MM-dd HH:mm"),
+        SECOND("yyyy-MM-dd HH:mm:ss"),
+        NANOSECOND("yyyy-MM-dd HH:mm:ss.SSS"),
+        ;
+
+        private final String value;
+
+        Pattern(String value) {
+            this.value = value;
+        }
+
+        public String value() {
+            return this.value;
+        }
     }
 }

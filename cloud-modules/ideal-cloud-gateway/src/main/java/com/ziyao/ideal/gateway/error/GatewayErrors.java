@@ -12,7 +12,7 @@ public abstract class GatewayErrors {
 
     public static Mono<Void> createUnauthorizedException(String message) {
 //        return Mono.error(Exceptions.createUnauthorizedException(message));
-        return null;
+        return Mono.error(new RuntimeException(message));
     }
 
 //    /**

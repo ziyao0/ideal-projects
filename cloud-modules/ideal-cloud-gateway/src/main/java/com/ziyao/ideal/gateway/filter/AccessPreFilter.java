@@ -3,7 +3,7 @@ package com.ziyao.ideal.gateway.filter;
 import com.ziyao.ideal.gateway.core.AccessTokenExtractor;
 import com.ziyao.ideal.gateway.core.GatewayStopWatches;
 import com.ziyao.ideal.gateway.core.token.DefaultAccessToken;
-import com.ziyao.ideal.gateway.factory.AccessChainFactory;
+import com.ziyao.ideal.gateway.core.factory.AccessChainFactory;
 import jakarta.annotation.Resource;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.stereotype.Component;

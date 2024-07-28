@@ -4,7 +4,7 @@ package com.ziyao.ideal.web;
 import com.ziyao.ideal.core.CommUtils;
 import com.ziyao.ideal.web.exception.ServiceException;
 import com.ziyao.ideal.web.exception.UnauthorizedException;
-import com.ziyao.ideal.web.response.ResponseMetadata;
+import com.ziyao.ideal.web.response.ResponseDetails;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.ClassUtils;
@@ -34,11 +34,11 @@ public class GlobalExceptionHandlerAdvice {
      * 方法参数校验失败异常处理.
      *
      * @param mex {@link org.springframework.web.bind.MethodArgumentNotValidException}
-     * @return 参数校验失败统一响应处理 {@link ResponseMetadata}
+     * @return 参数校验失败统一响应处理 {@link ResponseDetails}
      * @see MethodArgumentNotValidException#getBindingResult()
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseMetadata methodArgumentNotValidException(MethodArgumentNotValidException mex) {
+    public ResponseDetails methodArgumentNotValidException(MethodArgumentNotValidException mex) {
         if (mex != null && mex.getBindingResult().hasErrors())
             return buildIllegalArgument(ExceptionUtils.buildExceptionMessage(mex));
         else
@@ -49,10 +49,10 @@ public class GlobalExceptionHandlerAdvice {
      * 参数绑定错误异常处理.
      *
      * @param be {@link org.springframework.validation.BindException}
-     * @return 包含参数绑定错误信息的 {@link ResponseMetadata}
+     * @return 包含参数绑定错误信息的 {@link ResponseDetails}
      */
     @ExceptionHandler(value = org.springframework.validation.BindException.class)
-    public ResponseMetadata bindExceptionHandler(org.springframework.validation.BindException be) {
+    public ResponseDetails bindExceptionHandler(org.springframework.validation.BindException be) {
         return buildIllegalArgument(ExceptionUtils.buildExceptionMessage(be));
     }
 
@@ -61,10 +61,10 @@ public class GlobalExceptionHandlerAdvice {
      * 单参数校验错误异常处理.
      *
      * @param e {@link ConstraintViolationException}
-     * @return 包含单参数校验失败信息的 {@link ResponseMetadata}
+     * @return 包含单参数校验失败信息的 {@link ResponseDetails}
      */
     @ExceptionHandler(value = ConstraintViolationException.class)
-    public ResponseMetadata constraintViolationExceptionHandler(ConstraintViolationException e) {
+    public ResponseDetails constraintViolationExceptionHandler(ConstraintViolationException e) {
         return buildIllegalArgument(ExceptionUtils.buildExceptionMessage(e));
     }
 
@@ -72,10 +72,10 @@ public class GlobalExceptionHandlerAdvice {
      * 参数类型错误异常处理.
      *
      * @param e {@link MethodArgumentTypeMismatchException}
-     * @return 包含参数类型错误信息的 {@link ResponseMetadata}
+     * @return 包含参数类型错误信息的 {@link ResponseDetails}
      */
     @ExceptionHandler(value = MethodArgumentTypeMismatchException.class)
-    public ResponseMetadata methodArgumentTypeMismatchExceptionHandler(MethodArgumentTypeMismatchException e) {
+    public ResponseDetails methodArgumentTypeMismatchExceptionHandler(MethodArgumentTypeMismatchException e) {
         return buildIllegalArgument(ExceptionUtils.buildExceptionMessage(e));
     }
 
@@ -83,40 +83,40 @@ public class GlobalExceptionHandlerAdvice {
      * 自定义业务异常处理.
      *
      * @param e {@link com.ziyao.ideal.web.exception.ServiceException}
-     * @return 包含业务异常信息的 {@link ResponseMetadata}
+     * @return 包含业务异常信息的 {@link ResponseDetails}
      */
     @ExceptionHandler(value = ServiceException.class)
-    public ResponseMetadata serviceExceptionHandler(ServiceException e) {
+    public ResponseDetails serviceExceptionHandler(ServiceException e) {
         Throwable causeThrowable = e.getCause();
         if (causeThrowable != null) {
             LOGGER.error("发生由其他异常导致的业务异常", causeThrowable);
         }
-        return ResponseMetadata.getInstance(e.getStatus(), e.getMessage());
+        return ResponseDetails.getInstance(e.getStatus(), e.getMessage());
     }
 
     /**
      * 自定义业务异常处理.
      *
      * @param e {@link ServiceException}
-     * @return 包含业务异常信息的 {@link ResponseMetadata}
+     * @return 包含业务异常信息的 {@link ResponseDetails}
      */
     @ExceptionHandler(value = UnauthorizedException.class)
-    public ResponseMetadata unauthorizedExceptionHandler(UnauthorizedException e) {
+    public ResponseDetails unauthorizedExceptionHandler(UnauthorizedException e) {
         Throwable causeThrowable = e.getCause();
         if (causeThrowable != null) {
             LOGGER.error("发生由其他异常导致的业务异常", causeThrowable);
         }
-        return ResponseMetadata.getInstance(e.getStatus(), e.getMessage());
+        return ResponseDetails.getInstance(e.getStatus(), e.getMessage());
     }
 
     /**
      * 处理参数错误异常.
      *
      * @param e {@link IllegalArgumentException}
-     * @return 包含异常信息的 {@link ResponseMetadata}
+     * @return 包含异常信息的 {@link ResponseDetails}
      */
     @ExceptionHandler(value = IllegalArgumentException.class)
-    public ResponseMetadata illegalArgumentExceptionHandler(IllegalArgumentException e) {
+    public ResponseDetails illegalArgumentExceptionHandler(IllegalArgumentException e) {
         return buildIllegalArgument(e.getMessage());
     }
 
@@ -124,17 +124,17 @@ public class GlobalExceptionHandlerAdvice {
      * 拦截 Exception
      *
      * @param e {@link Exception}
-     * @return 包含异常信息的 {@link ResponseMetadata}
+     * @return 包含异常信息的 {@link ResponseDetails}
      */
     @ExceptionHandler(value = Exception.class)
-    public ResponseMetadata exceptionHandler(Exception e) {
+    public ResponseDetails exceptionHandler(Exception e) {
         LOGGER.error(e.getMessage(), e);
         return ResponseBuilder.of(500, e.getClass().getName(),
                 "服务器内部异常" + e.getMessage());
     }
 
 
-    private ResponseMetadata buildIllegalArgument(String message) {
+    private ResponseDetails buildIllegalArgument(String message) {
         return ResponseBuilder.of(400, message);
     }
 

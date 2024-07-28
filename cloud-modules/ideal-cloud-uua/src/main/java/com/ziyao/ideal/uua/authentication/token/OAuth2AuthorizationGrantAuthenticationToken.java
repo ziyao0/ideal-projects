@@ -1,6 +1,7 @@
 package com.ziyao.ideal.uua.authentication.token;
 
 import com.ziyao.ideal.core.Strings;
+import com.ziyao.ideal.security.core.AbstractAuthenticationToken;
 import com.ziyao.ideal.security.core.Authentication;
 import com.ziyao.ideal.security.oauth2.core.AuthorizationGrantType;
 

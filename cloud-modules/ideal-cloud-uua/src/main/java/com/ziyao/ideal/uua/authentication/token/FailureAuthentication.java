@@ -1,6 +1,6 @@
 package com.ziyao.ideal.uua.authentication.token;
 
-import com.ziyao.ideal.web.response.ResponseMetadata;
+import com.ziyao.ideal.web.response.ResponseDetails;
 import com.ziyao.ideal.security.core.Authentication;
 import com.ziyao.ideal.security.core.GrantedAuthority;
 import lombok.Getter;
@@ -70,7 +70,7 @@ public class FailureAuthentication implements Authentication {
         return new FailureAuthentication(status, message, data);
     }
 
-    public static FailureAuthentication of(ResponseMetadata responseMetadata) {
-        return of(responseMetadata.getStatus(), responseMetadata.getMessage());
+    public static FailureAuthentication of(ResponseDetails responseDetails) {
+        return of(responseDetails.getStatus(), responseDetails.getMessage());
     }
 }
