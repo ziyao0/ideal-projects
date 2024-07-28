@@ -4,14 +4,10 @@ plugins {
 group 'com.ziyao.ideal'
 
 subprojects {
-    if (project.name != 'ideal-dependencies') {
+    if (project.name != 'ideal-bom') {
         // 添加模块代码的插件
         apply plugin: 'io.ziyao.module'
 
-        java {
-//        withJavadocJar() // 生成java-doc
-            withSourcesJar() // 生成源码
-        }
         jar {
             enabled = true //生成依赖jar包
             archiveClassifier = '' //取消原来plain的后缀
@@ -25,9 +21,14 @@ subprojects {
         }
 
         dependencies {
-            management platform(project(":ideal-dependencies"))
+            management platform(project(":ideal-bom"))
             compileOnly 'org.projectlombok:lombok'
             annotationProcessor 'org.projectlombok:lombok'
+        }
+    }
+    tasks.withType(JavaCompile).tap {
+        configureEach {
+            options.encoding = "$encoding"
         }
     }
 }

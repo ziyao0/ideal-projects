@@ -1,13 +1,14 @@
 package io.ziyao.gradle.project;
 
-import io.ziyao.gradle.ProjectUtils;
+import org.gradle.api.DefaultTask;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
+import org.gradle.api.plugins.JavaPluginExtension;
 import org.gradle.api.tasks.compile.JavaCompile;
+import org.gradle.jvm.toolchain.JavaLanguageVersion;
 
 /**
  * @author ziyao
- *
  */
 public class SpringJavaPlugin implements Plugin<Project> {
 
@@ -20,19 +21,28 @@ public class SpringJavaPlugin implements Plugin<Project> {
                 configuration -> configuration.setTransitive(true)
         );
 
-//        Configuration compileOnly = project.getConfigurations().create("compileOnly");
-//
-//        Configuration annotationProcessor = project.getConfigurations().getByName("annotationProcessor");
-//        compileOnly.extendsFrom(annotationProcessor);
+        JavaPluginExtension javaPluginExtension = project.getExtensions().getByType(JavaPluginExtension.class);
+        // 设置jdk版本
+        javaPluginExtension.toolchain(toolchain -> {
+            Object javaLanguageVersion = project.findProperty("javaLanguageVersion");
+            if (javaLanguageVersion != null) {
+                toolchain.getLanguageVersion().set(JavaLanguageVersion.of(javaLanguageVersion.toString()));
+            }
+        });
+        // 设置编译源码
+        javaPluginExtension.withSourcesJar();
+        // 设置 java doc
+//        javaPluginExtension.withJavadocJar();
 
+        //
         // set encoding and sourceCompatibility
-        project.getTasks().withType(
-                JavaCompile.class, javaCompile -> {
-                    javaCompile.setSourceCompatibility(
-                            ProjectUtils.findProperty("sourceCompatibilityVersion", project));
-
-                    javaCompile.getOptions().setEncoding(
-                            ProjectUtils.findProperty("encoding", project));
-                });
+//        project.getTasks().withType(
+//                JavaCompile.class, javaCompile -> {
+//                    javaCompile.setSourceCompatibility(
+//                            ProjectUtils.findProperty("sourceCompatibilityVersion", project));
+//
+//                    javaCompile.getOptions().setEncoding(
+//                            ProjectUtils.findProperty("encoding", project));
+//                });
     }
 }
