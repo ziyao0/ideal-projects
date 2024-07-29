@@ -11,9 +11,9 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @EnableDubbo
 @EnableDiscoveryClient
 @SpringBootApplication
-public class GatewayStarter {
+public class GatewayInitiator {
 
     public static void main(String[] args) {
-        SpringApplication.run(GatewayStarter.class, args);
+        SpringApplication.run(GatewayInitiator.class, args);
     }
 }

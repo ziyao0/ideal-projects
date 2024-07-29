@@ -1,6 +1,7 @@
 package com.ziyao.ideal.core;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,6 +19,7 @@ public abstract class BeanMaps {
             if (object != null) {
                 Class<?> clazz = object.getClass();
                 for (Field field : clazz.getDeclaredFields()) {
+                    makeAccessible(field);
                     field.setAccessible(true);
                     String fieldName = field.getName();
                     Object value = field.get(object);
@@ -29,4 +31,14 @@ public abstract class BeanMaps {
         }
         return map;
     }
+
+    @SuppressWarnings("deprecation")
+    public static void makeAccessible(Field field) {
+        if ((!Modifier.isPublic(field.getModifiers()) ||
+                !Modifier.isPublic(field.getDeclaringClass().getModifiers()) ||
+                Modifier.isFinal(field.getModifiers())) && !field.isAccessible()) {
+            field.setAccessible(true);
+        }
+    }
+
 }

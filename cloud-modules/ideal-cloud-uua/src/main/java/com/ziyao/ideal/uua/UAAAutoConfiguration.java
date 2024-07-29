@@ -28,10 +28,12 @@ import org.springframework.lang.Nullable;
 import java.util.List;
 
 /**
+ * user account and authentication autoconfiguration
+ *
  * @author zhangziyao
  */
 @Configuration
-public class SecurityAutoConfiguration implements ApplicationContextAware {
+public class UAAAutoConfiguration implements ApplicationContextAware {
 
     @Override
     public void setApplicationContext(@Nullable ApplicationContext applicationContext) throws BeansException {

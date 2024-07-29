@@ -4,7 +4,8 @@ import com.ziyao.ideal.config.ConfigInitiator;
 import com.ziyao.ideal.uua.UAAInitiator;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.event.ContextClosedEvent;
 
 /**
  * @author ziyao zhang
@@ -13,14 +14,21 @@ import org.springframework.context.ConfigurableApplicationContext;
 public class IdealBootstrap {
 
     public static void main(String[] args) {
+        System.setProperty("spring.jmx.enabled", "false");
+        SpringApplication configApp = new SpringApplication(ConfigInitiator.class);
 
-        ConfigurableApplicationContext configContext = SpringApplication.run(ConfigInitiator.class, args);
+        configApp.addInitializers(context ->
+                context.addApplicationListener((ApplicationListener<ContextClosedEvent>) event ->
+                        System.setProperty("spring.jmx.enabled", "false")));
 
-        ConfigurableApplicationContext uuaContext = SpringApplication.run(UAAInitiator.class, args);
+        configApp.run(args);
 
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            configContext.close();
-            uuaContext.close();
-        }));
+        SpringApplication uaaApp = new SpringApplication(UAAInitiator.class);
+
+        uaaApp.addInitializers(context ->
+                context.addApplicationListener((ApplicationListener<ContextClosedEvent>) event ->
+                        System.setProperty("spring.jmx.enabled", "false")));
+
+        uaaApp.run(args);
     }
 }
