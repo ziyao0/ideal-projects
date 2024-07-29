@@ -59,26 +59,26 @@ public abstract class SecurityContextHolder {
     }
 
 
-    public static AuthenticationContext getContext() {
+    public static SecurityContext getContext() {
         return strategy.getContext();
     }
 
 
-    public static Supplier<AuthenticationContext> getDeferredContext() {
+    public static Supplier<SecurityContext> getDeferredContext() {
         return strategy.getDeferredContext();
     }
 
 
-    public static void setContext(AuthenticationContext context) {
+    public static void setContext(SecurityContext context) {
         strategy.setContext(context);
     }
 
 
-    public static void setDeferredContext(Supplier<AuthenticationContext> deferredContext) {
+    public static void setDeferredContext(Supplier<SecurityContext> deferredContext) {
         strategy.setDeferredContext(deferredContext);
     }
 
-    public static AuthenticationContext createEmptyContext() {
+    public static SecurityContext createEmptyContext() {
         return strategy.createEmptyContext();
     }
 

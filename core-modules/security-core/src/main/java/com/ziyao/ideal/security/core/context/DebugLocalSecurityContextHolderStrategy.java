@@ -20,27 +20,27 @@ public class DebugLocalSecurityContextHolderStrategy implements SecurityContextH
     }
 
     @Override
-    public AuthenticationContext getContext() {
+    public SecurityContext getContext() {
         return getDeferredContext().get();
     }
 
     @Override
-    public Supplier<AuthenticationContext> getDeferredContext() {
+    public Supplier<SecurityContext> getDeferredContext() {
         return () -> {
-            AuthenticationContext context = createEmptyContext();
+            SecurityContext context = createEmptyContext();
             context.setAuthentication(createAuthenticatedToken());
             return context;
         };
     }
 
     @Override
-    public void setContext(AuthenticationContext context) {
+    public void setContext(SecurityContext context) {
 
     }
 
     @Override
-    public AuthenticationContext createEmptyContext() {
-        return new DefaultAuthenticationContext();
+    public SecurityContext createEmptyContext() {
+        return new DefaultSecurityContext();
     }
 
     private Authentication createAuthenticatedToken() {

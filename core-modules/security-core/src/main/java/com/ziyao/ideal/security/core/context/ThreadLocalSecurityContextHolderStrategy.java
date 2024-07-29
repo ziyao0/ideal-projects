@@ -9,7 +9,7 @@ import java.util.function.Supplier;
  */
 public class ThreadLocalSecurityContextHolderStrategy implements SecurityContextHolderStrategy {
 
-    private static final ThreadLocal<Supplier<AuthenticationContext>> contextHolder = new ThreadLocal<>();
+    private static final ThreadLocal<Supplier<SecurityContext>> contextHolder = new ThreadLocal<>();
 
 
     @Override
@@ -18,15 +18,15 @@ public class ThreadLocalSecurityContextHolderStrategy implements SecurityContext
     }
 
     @Override
-    public AuthenticationContext getContext() {
+    public SecurityContext getContext() {
         return getDeferredContext().get();
     }
 
     @Override
-    public Supplier<AuthenticationContext> getDeferredContext() {
-        Supplier<AuthenticationContext> result = contextHolder.get();
+    public Supplier<SecurityContext> getDeferredContext() {
+        Supplier<SecurityContext> result = contextHolder.get();
         if (result == null) {
-            AuthenticationContext context = createEmptyContext();
+            SecurityContext context = createEmptyContext();
             result = () -> context;
             contextHolder.set(result);
         }
@@ -34,22 +34,22 @@ public class ThreadLocalSecurityContextHolderStrategy implements SecurityContext
     }
 
     @Override
-    public void setContext(AuthenticationContext context) {
+    public void setContext(SecurityContext context) {
         contextHolder.set(() -> context);
     }
 
     @Override
-    public void setDeferredContext(Supplier<AuthenticationContext> deferredContext) {
-        Supplier<AuthenticationContext> notNullDeferredContext = () -> {
-            AuthenticationContext authenticationContext = deferredContext.get();
-            Assert.notNull(authenticationContext, "传入的请求上下文不能为空");
-            return authenticationContext;
+    public void setDeferredContext(Supplier<SecurityContext> deferredContext) {
+        Supplier<SecurityContext> notNullDeferredContext = () -> {
+            SecurityContext securityContext = deferredContext.get();
+            Assert.notNull(securityContext, "传入的请求上下文不能为空");
+            return securityContext;
         };
         contextHolder.set(notNullDeferredContext);
     }
 
     @Override
-    public AuthenticationContext createEmptyContext() {
-        return new DefaultAuthenticationContext();
+    public SecurityContext createEmptyContext() {
+        return new DefaultSecurityContext();
     }
 }

@@ -13,22 +13,22 @@ public interface SecurityContextHolderStrategy {
     void clearContext();
 
 
-    AuthenticationContext getContext();
+    SecurityContext getContext();
 
 
-    default Supplier<AuthenticationContext> getDeferredContext() {
+    default Supplier<SecurityContext> getDeferredContext() {
         return this::getContext;
     }
 
 
-    void setContext(AuthenticationContext context);
+    void setContext(SecurityContext context);
 
 
-    default void setDeferredContext(Supplier<AuthenticationContext> deferredContext) {
+    default void setDeferredContext(Supplier<SecurityContext> deferredContext) {
         setContext(deferredContext.get());
     }
 
-    AuthenticationContext createEmptyContext();
+    SecurityContext createEmptyContext();
 
     default boolean isAuthentication() {
         if (getContext() != null) {

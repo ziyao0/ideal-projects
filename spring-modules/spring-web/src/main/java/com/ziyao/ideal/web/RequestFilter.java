@@ -5,8 +5,8 @@ import com.ziyao.ideal.core.Collections;
 import com.ziyao.ideal.core.Dates;
 import com.ziyao.ideal.core.Strings;
 import com.ziyao.ideal.security.core.*;
-import com.ziyao.ideal.security.core.context.AuthenticationContext;
-import com.ziyao.ideal.security.core.context.DefaultAuthenticationContext;
+import com.ziyao.ideal.security.core.context.SecurityContext;
+import com.ziyao.ideal.security.core.context.DefaultSecurityContext;
 import com.ziyao.ideal.security.core.context.SecurityContextHolder;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -54,8 +54,7 @@ public class RequestFilter extends OncePerRequestFilter {
         UserInfo userInfo = creation(request);
         Authentication authentication = new SuccessfulAuthenticationToken(userInfo, userInfo.getAuthorities());
 
-        AuthenticationContext context = new DefaultAuthenticationContext();
-        context.setAuthentication(authentication);
+        SecurityContext context = new DefaultSecurityContext(authentication);
         SecurityContextHolder.setContext(context);
 
         if (SecurityContextHolder.isUnauthorized()) {

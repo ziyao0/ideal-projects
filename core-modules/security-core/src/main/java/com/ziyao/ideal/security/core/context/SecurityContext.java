@@ -7,7 +7,7 @@ import java.io.Serializable;
 /**
  * @author ziyao zhang
  */
-public interface AuthenticationContext extends Serializable {
+public interface SecurityContext extends Serializable {
 
     default Object getPrincipal() {
         Authentication authentication = getAuthentication();

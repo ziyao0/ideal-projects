@@ -1,3 +1,4 @@
 dependencies {
     api(project(':ideal-core'))
+    api('org.springframework:spring-core')
 }
