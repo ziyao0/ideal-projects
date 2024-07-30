@@ -3,15 +3,13 @@ package com.ziyao.ideal.security.core;
 import com.ziyao.ideal.core.Strings;
 import lombok.Getter;
 
-import java.io.Serial;
 import java.util.*;
 
 /**
  * @author ziyao
+ * @see <a href="https://blog.zziyao.cn">https://blog.zziyao.cn</a>
  */
 public abstract class AbstractAuthenticationToken implements Authentication, CredentialsContainer {
-    @Serial
-    private static final long serialVersionUID = 6449672296011987802L;
 
     private final Collection<? extends GrantedAuthority> authorities;
 
@@ -19,8 +17,13 @@ public abstract class AbstractAuthenticationToken implements Authentication, Cre
 
     //附加信息
     @Getter
-    private Map<String, Object> additionalInformation;
+    private Map<Object, Object> additional;
 
+    /**
+     * 使用提供的颁发机构数组创建令牌。
+     *
+     * @param authorities 此身份验证对象表示的主体的 GrantedAuthority 集合。
+     */
     public AbstractAuthenticationToken(Collection<? extends GrantedAuthority> authorities) {
         if (authorities == null) {
             this.authorities = Set.of();
@@ -31,7 +34,7 @@ public abstract class AbstractAuthenticationToken implements Authentication, Cre
             if (authority != null) f.add(authority);
         }
         this.authorities = Collections.unmodifiableCollection(f);
-        additionalInformation = new HashMap<>(8);
+        additional = new HashMap<>(8);
     }
 
 
@@ -50,17 +53,25 @@ public abstract class AbstractAuthenticationToken implements Authentication, Cre
         this.authenticated = authenticated;
     }
 
-    public void setAdditionalInformation(Map<String, Object> additionalInformation) {
-        this.additionalInformation = Objects.requireNonNullElse(additionalInformation, Collections.emptyMap());
+    public void setAdditional(Map<Object, Object> additional) {
+        if (com.ziyao.ideal.core.Collections.isEmpty(additional)) {
+            this.additional = Collections.emptyMap();
+        } else {
+            this.additional = additional;
+        }
     }
 
-    public void setAdditionalInfo(String key, Object value) {
-        additionalInformation.put(key, value);
+    public Map<Object, Object> getAllAdditional() {
+        if (com.ziyao.ideal.core.Collections.isEmpty(additional)) {
+            return Collections.emptyMap();
+        } else {
+            return this.additional;
+        }
     }
 
     @SuppressWarnings("unchecked")
-    public <T> T getAdditionalInfo(String key, Class<T> type) {
-        return (T) additionalInformation.get(key);
+    public <T> T getAdditional(String key) {
+        return (T) getAdditional().get(key);
     }
 
     public String getName() {
@@ -75,8 +86,82 @@ public abstract class AbstractAuthenticationToken implements Authentication, Cre
 
     @Override
     public void eraseCredentials() {
-        if (getCredentials() instanceof CredentialsContainer credentialsContainer) {
-            credentialsContainer.eraseCredentials();
+        eraseSecret(getCredentials());
+        eraseSecret(getPrincipal());
+    }
+
+    private void eraseSecret(Object secret) {
+        if (secret instanceof CredentialsContainer container) {
+            container.eraseCredentials();
         }
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof AbstractAuthenticationToken test)) {
+            return false;
+        }
+        if (!this.authorities.equals(test.authorities)) {
+            return false;
+        }
+
+        if ((this.additional == null) && (test.getAllAdditional() != null)) {
+            return false;
+        }
+        if ((this.additional != null) && (test.getAllAdditional() == null)) {
+            return false;
+        }
+        if ((this.additional != null) && (!this.additional.equals(test.getAllAdditional()))) {
+            return false;
+        }
+
+        if ((this.getCredentials() == null) && (test.getCredentials() != null)) {
+            return false;
+        }
+        if ((this.getCredentials() != null) && !this.getCredentials().equals(test.getCredentials())) {
+            return false;
+        }
+        if (this.getPrincipal() == null && test.getPrincipal() != null) {
+            return false;
+        }
+        if (this.getPrincipal() != null && !this.getPrincipal().equals(test.getPrincipal())) {
+            return false;
+        }
+        return this.isAuthenticated() == test.isAuthenticated();
+    }
+
+
+    @Override
+    public int hashCode() {
+        int code = 31;
+        for (GrantedAuthority authority : this.authorities) {
+            code ^= authority.hashCode();
+        }
+        if (this.getPrincipal() != null) {
+            code ^= this.getPrincipal().hashCode();
+        }
+        if (this.getCredentials() != null) {
+            code ^= this.getCredentials().hashCode();
+        }
+        if (this.getAllAdditional() != null) {
+            code ^= this.getAllAdditional().hashCode();
+        }
+        if (this.isAuthenticated()) {
+            code ^= -37;
+        }
+        return code;
+    }
+
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + " [" +
+                "Principal=" + getPrincipal() + ", " +
+                "Credentials=[PROTECTED], " +
+                "Authenticated=" + isAuthenticated() + ", " +
+                "Details=" + getAllAdditional() + ", " +
+                "Granted Authorities=" + this.authorities +
+                "]";
+    }
+
 }

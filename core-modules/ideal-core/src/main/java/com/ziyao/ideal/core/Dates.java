@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
@@ -76,6 +77,11 @@ public abstract class Dates {
         return TimeZone.getTimeZone("GMT+8");
     }
 
+    public static Date parseDate(String dateStr, final Pattern pattern) {
+        LocalDateTime localDateTime = parse(dateStr, pattern);
+        return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+    }
+
     public static LocalDateTime parse(String dateStr) {
         return parse(dateStr, Pattern.SECOND);
     }
@@ -85,12 +91,29 @@ public abstract class Dates {
     }
 
     public static LocalDateTime parse(String dateStr, final String pattern) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
-        return parse(dateStr, formatter);
+        return parse(dateStr, DateTimeFormatter.ofPattern(pattern));
     }
 
     public static LocalDateTime parse(String dateStr, final DateTimeFormatter formatter) {
         return LocalDateTime.parse(dateStr, formatter);
+    }
+
+
+    public static String format(LocalDateTime localDateTime) {
+        return format(localDateTime, Pattern.SECOND.value);
+    }
+
+    public static String format(TemporalAccessor temporal, String pattern) {
+        return DateTimeFormatter.ofPattern(pattern).format(temporal);
+    }
+
+    public static String format(TemporalAccessor temporal, Pattern pattern) {
+        return DateTimeFormatter.ofPattern(pattern.value()).format(temporal);
+    }
+
+    public static String format(Date date, Pattern pattern) {
+        LocalDateTime localDateTime = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
+        return DateTimeFormatter.ofPattern(pattern.value()).format(localDateTime);
     }
 
     public enum Pattern {
@@ -98,6 +121,7 @@ public abstract class Dates {
         YEAR("yyyy"),
         MONTH("yyyy-MM"),
         DAY("yyyy-MM-dd"),
+        TIME("HH:mm:ss"),
         HOUR("yyyy-MM-dd HH"),
         MINUTE("yyyy-MM-dd HH:mm"),
         SECOND("yyyy-MM-dd HH:mm:ss"),

@@ -1,4 +1,4 @@
-package com.ziyao.ideal.uua.authentication.core;
+package com.ziyao.ideal.security.oauth2.core.user;
 
 import com.ziyao.ideal.security.core.GrantedAuthority;
 import com.ziyao.ideal.security.core.Permission;

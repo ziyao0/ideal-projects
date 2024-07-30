@@ -25,7 +25,7 @@ public abstract class StopWatches {
         StopWatchInterior.INSTANCE.stop();
     }
 
-    public static void consolePrettyPrintOfLoggerOrOut() {
+    public static void consolePrettyPrintByLogOrPrintln() {
         StopWatchInterior.INSTANCE.consolePrettyPrintOfLoggerOrOut();
     }
 
