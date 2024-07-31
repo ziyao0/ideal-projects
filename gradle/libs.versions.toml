@@ -1,0 +1,6 @@
+[versions]
+
+[libraries]
+com-google-inject-guice = "com.google.inject:guice:3.0"
+
+[plugins]

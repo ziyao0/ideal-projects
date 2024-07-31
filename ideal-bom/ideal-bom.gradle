@@ -15,4 +15,7 @@ dependencies {
     api platform("org.springframework.ai:spring-ai-bom:${springAiVersion}")
     api platform("com.alibaba.cloud:spring-cloud-alibaba-dependencies:${springCloudAlibabaVersion}")
     api platform("org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}")
+    constraints {
+        api(libs.com.google.inject.guice)
+    }
 }
