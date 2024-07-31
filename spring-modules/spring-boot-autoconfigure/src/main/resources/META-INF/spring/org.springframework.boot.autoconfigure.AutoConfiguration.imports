@@ -1,7 +1,7 @@
 com.ziyao.boot.autoconfigure.servlet.WebMvcAutoConfiguration
 com.ziyao.ideal.web.GlobalExceptionHandlerAdvice
 com.ziyao.ideal.web.GlobalResponseHandlerAdvice
-com.ziyao.ideal.web.RequestFilter
+com.ziyao.ideal.web.SecurityContextFilter
 #加密启动配置类
 #es相关配置自动加载
 com.ziyao.boot.autoconfigure.elasticsearch.ElasticsearchRepositoriesAutoConfiguration

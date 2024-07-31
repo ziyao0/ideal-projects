@@ -1,25 +1,25 @@
 package com.ziyao.ideal.uua.authentication.strategy;
 
 import com.ziyao.ideal.security.core.Authentication;
-import com.ziyao.ideal.uua.common.exception.UnknownUserException;
+import com.ziyao.ideal.web.exception.ServiceException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 /**
- * @author ziyao zhang
+ * @author ziyao
+ * @see <a href="https://blog.zziyao.cn">https://blog.zziyao.cn</a>
  */
 @Component
-public class UnknownUserFailureStrategy implements AuthenticationFailureStrategy {
+@RequiredArgsConstructor
+public class BusinessLogicFailureStrategy implements AuthenticationFailureStrategy {
+
     @Override
     public Authentication handleFailure(Authentication authentication, Exception exception) {
-
-        if (!(exception instanceof UnknownUserException)) {
-            return null;
-        }
         return null;
     }
 
     @Override
     public boolean isSupport(Class<? extends Exception> exceptionClass) {
-        return UnknownUserException.class.isAssignableFrom(exceptionClass);
+        return ServiceException.class.isAssignableFrom(exceptionClass);
     }
 }

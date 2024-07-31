@@ -1,39 +1,53 @@
 package com.ziyao.ideal.uua.authentication.strategy;
 
-import com.ziyao.ideal.uua.common.exception.InvalidCredentialsException;
-import com.ziyao.ideal.uua.common.exception.InvalidUserStateException;
-import com.ziyao.ideal.uua.common.exception.UnknownUserException;
 import com.ziyao.ideal.security.core.Authentication;
+import com.ziyao.ideal.web.ApplicationContextUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author ziyao zhang
  */
+@Slf4j
 @Component
 public class AuthenticationFailureStrategyManager implements AuthenticationStrategyManager {
 
-    private final Map<Class<? extends Exception>, AuthenticationFailureStrategy> strategies = new HashMap<>();
+    /**
+     * 包含除默认策略外所有
+     */
+    private final List<AuthenticationFailureStrategy> authenticationFailureStrategies = new ArrayList<>();
+    /**
+     * 默认认证异常策略
+     * <p>
+     * 处理因为不可控因素引起的异常，如程序异常或者其他未知条件引起的程序报错
+     */
+    public AuthenticationFailureStrategy defaultAuthenticationFailureStrategy;
 
 
     public AuthenticationFailureStrategyManager() {
         // 注册所有策略
-        strategies.put(InvalidCredentialsException.class, new InvalidCredentialsFailureStrategy());
-        strategies.put(UnknownUserException.class, new UnknownUserFailureStrategy());
-        strategies.put(InvalidUserStateException.class, new UnknownUserFailureStrategy());
-        strategies.put(Exception.class, new ProgramExceptionFailureStrategy());
+        List<AuthenticationFailureStrategy> strategies = ApplicationContextUtils.getBeansOfType(AuthenticationFailureStrategy.class);
+        for (AuthenticationFailureStrategy authenticationFailureStrategy : strategies) {
+            if (authenticationFailureStrategy.isSupport(Exception.class)) {
+                this.defaultAuthenticationFailureStrategy = authenticationFailureStrategy;
+            } else {
+                this.authenticationFailureStrategies.add(authenticationFailureStrategy);
+            }
+        }
     }
 
 
     @Override
     public Authentication handle(Authentication authentication, Exception ex) {
-        AuthenticationFailureStrategy authenticationFailureStrategy = this.strategies.get(ex.getClass());
-        // 如果未获取到则获取默认
-        if (authenticationFailureStrategy == null) {
-            authenticationFailureStrategy = this.strategies.get(Exception.class);
+
+        for (AuthenticationFailureStrategy authenticationFailureStrategy : this.authenticationFailureStrategies) {
+            if (authenticationFailureStrategy.isSupport(ex.getClass())) {
+                return authenticationFailureStrategy.handleFailure(authentication, ex);
+            }
         }
-        return authenticationFailureStrategy.handleFailure(authentication, ex);
+        return defaultAuthenticationFailureStrategy.handleFailure(authentication, ex);
     }
 }

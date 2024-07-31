@@ -6,7 +6,7 @@ import com.ziyao.ideal.web.orm.EntityDTO;
 import ${package.Entity}.${entity};
 import lombok.Data;
 import java.util.Objects;
-import com.ziyao.core.Strings;
+import com.ziyao.ideal.core.Strings;
 
 <#--<#list table.importPackages as pkg>-->
 <#--import ${pkg};-->

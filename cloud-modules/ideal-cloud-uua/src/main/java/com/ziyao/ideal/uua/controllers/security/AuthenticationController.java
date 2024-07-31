@@ -3,7 +3,7 @@ package com.ziyao.ideal.uua.controllers.security;
 import com.ziyao.ideal.web.ResponseBuilder;
 import com.ziyao.ideal.web.response.ResponseWrapper;
 import com.ziyao.ideal.uua.authentication.converter.AuthenticationConverter;
-import com.ziyao.ideal.uua.authentication.token.FailureAuthentication;
+import com.ziyao.ideal.uua.authentication.token.FailureAuthenticationToken;
 import com.ziyao.ideal.uua.service.security.AuthenticationService;
 import com.ziyao.ideal.security.core.Authentication;
 import com.ziyao.ideal.security.core.AuthenticationUtils;
@@ -31,7 +31,7 @@ public class AuthenticationController {
         if (AuthenticationUtils.isAuthenticated(authenticated)) {
             return ResponseBuilder.ok(authenticated);
         } else {
-            FailureAuthentication failure = (FailureAuthentication) authenticated;
+            FailureAuthenticationToken failure = (FailureAuthenticationToken) authenticated;
             return ResponseBuilder.of(failure.getStatus(), failure.getMessage(), failure);
         }
     }

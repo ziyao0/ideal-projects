@@ -91,7 +91,7 @@ public class User implements Serializable {
     private String address;
 
     /**
-     * 账号状态 1 正常 2 失效 3 禁用
+     * 账号状态 1 正常 2 失效 3 禁用 4 锁定
      */
     @TableField("status")
     private Integer status;

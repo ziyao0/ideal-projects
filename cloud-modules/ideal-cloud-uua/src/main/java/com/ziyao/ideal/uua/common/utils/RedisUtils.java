@@ -2,6 +2,8 @@ package com.ziyao.ideal.uua.common.utils;
 
 import com.ziyao.ideal.core.Dates;
 
+import java.util.Locale;
+
 /**
  * @author ziyao
  * @see <a href="https://blog.zziyao.cn">https://blog.zziyao.cn</a>
@@ -37,5 +39,13 @@ public abstract class RedisUtils {
             return MONITORING_METRICS + Dates.formatOfDay();
         }
 
+    }
+
+    public static class Uaa {
+        private static final String PASSWD_ERROR_ = "sys:uaa:password_error:";
+
+        public static String getPasswordErrorTimesKey(String username) {
+            return PASSWD_ERROR_ + username.toLowerCase(Locale.ROOT);
+        }
     }
 }

@@ -14,7 +14,7 @@ import java.util.List;
  * @see <a href="https://blog.zziyao.cn">https://blog.zziyao.cn</a>
  */
 @Getter
-public class FailureAuthentication implements Authentication {
+public class FailureAuthenticationToken implements Authentication {
 
     @Serial
     private static final long serialVersionUID = -9065289292026217351L;
@@ -25,13 +25,13 @@ public class FailureAuthentication implements Authentication {
 
     private final Object data;
 
-    private FailureAuthentication(Integer status, String message) {
+    private FailureAuthenticationToken(Integer status, String message) {
         this.status = status;
         this.message = message;
         this.data = null;
     }
 
-    public FailureAuthentication(Integer status, String message, Object data) {
+    public FailureAuthenticationToken(Integer status, String message, Object data) {
         this.status = status;
         this.message = message;
         this.data = data;
@@ -62,15 +62,15 @@ public class FailureAuthentication implements Authentication {
 
     }
 
-    public static FailureAuthentication of(Integer status, String message) {
-        return new FailureAuthentication(status, message);
+    public static FailureAuthenticationToken of(Integer status, String message) {
+        return new FailureAuthenticationToken(status, message);
     }
 
-    public static FailureAuthentication of(Integer status, String message, Object data) {
-        return new FailureAuthentication(status, message, data);
+    public static FailureAuthenticationToken of(Integer status, String message, Object data) {
+        return new FailureAuthenticationToken(status, message, data);
     }
 
-    public static FailureAuthentication of(ResponseDetails responseDetails) {
+    public static FailureAuthenticationToken of(ResponseDetails responseDetails) {
         return of(responseDetails.getStatus(), responseDetails.getMessage());
     }
 }

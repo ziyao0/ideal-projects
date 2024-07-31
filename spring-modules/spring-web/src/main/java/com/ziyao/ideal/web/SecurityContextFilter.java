@@ -32,13 +32,13 @@ import java.util.Set;
 @Slf4j
 @WebFilter("/*")
 @Order(Ordered.HIGHEST_PRECEDENCE)
-public class RequestFilter extends OncePerRequestFilter {
+public class SecurityContextFilter extends OncePerRequestFilter {
 
     private final List<String> excludePaths;
 
     private final AntPathMatcher matcher = new AntPathMatcher();
 
-    public RequestFilter() {
+    public SecurityContextFilter() {
         this.excludePaths = Lists.newArrayList(
                 "/actuator/**",
                 "/error/**",
@@ -57,7 +57,7 @@ public class RequestFilter extends OncePerRequestFilter {
         SecurityContext context = new DefaultSecurityContext(authentication);
         SecurityContextHolder.setContext(context);
 
-        if (SecurityContextHolder.isUnauthorized()) {
+        if (SecurityContextHolder.unauthorized()) {
             log.debug("请求未认证，URL:{}", request.getRequestURL());
         }
         chain.doFilter(request, response);

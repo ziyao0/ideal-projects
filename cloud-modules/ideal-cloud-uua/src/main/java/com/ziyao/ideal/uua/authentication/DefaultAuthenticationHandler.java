@@ -2,7 +2,7 @@ package com.ziyao.ideal.uua.authentication;
 
 import com.ziyao.ideal.uua.authentication.processors.AuthenticationPostProcessor;
 import com.ziyao.ideal.uua.authentication.strategy.AuthenticationStrategyManager;
-import com.ziyao.ideal.uua.authentication.token.FailureAuthentication;
+import com.ziyao.ideal.uua.authentication.token.FailureAuthenticationToken;
 import com.ziyao.ideal.security.core.Authentication;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -46,6 +46,6 @@ public class DefaultAuthenticationHandler implements AuthenticationHandler {
             }
         }
         // 认证失败后触发
-        return FailureAuthentication.of(500, "");
+        return FailureAuthenticationToken.of(500, "");
     }
 }

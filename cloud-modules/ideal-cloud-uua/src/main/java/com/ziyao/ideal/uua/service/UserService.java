@@ -26,4 +26,20 @@ public interface UserService extends IService<User> {
      * @return 返回用户信息
      */
     User loadUserDetails(String username);
+
+    /**
+     * 锁定账号
+     *
+     * @param username 账号名
+     * @return 返回锁定结果
+     */
+    boolean lock(String username);
+
+    /**
+     * 账号解锁
+     *
+     * @param username 账号名
+     * @return <code>true</code> 解锁成功
+     */
+    boolean unlock(String username);
 }

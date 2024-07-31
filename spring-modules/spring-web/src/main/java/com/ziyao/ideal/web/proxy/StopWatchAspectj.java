@@ -36,7 +36,7 @@ public class StopWatchAspectj {
                 return point.proceed();
             } finally {
                 StopWatches.stop("Total time spent");
-                StopWatches.consolePrettyPrintOfLoggerOrOut();
+                StopWatches.consolePrettyPrintByLogOrPrintln();
                 StopWatches.disabled();
             }
         } else return point.proceed();
@@ -46,7 +46,7 @@ public class StopWatchAspectj {
         StopWatches.enabled("Total time spent");
         StopWatches.start("Total time spent");
         StopWatches.stop("Total time spent");
-        StopWatches.consolePrettyPrintOfLoggerOrOut();
+        StopWatches.consolePrettyPrintByLogOrPrintln();
         StopWatches.disabled();
 
     }

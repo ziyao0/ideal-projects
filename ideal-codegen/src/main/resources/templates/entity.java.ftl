@@ -7,7 +7,8 @@ import ${pkg};
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 <#if entityLombokModel>
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.EqualsAndHashCode;
     <#if chainModel>
 import lombok.experimental.Accessors;
@@ -22,19 +23,15 @@ import lombok.experimental.Accessors;
  * @author ${author}
  */
 <#if entityLombokModel>
-@Data
-    <#if superEntityClass??>
-@EqualsAndHashCode(callSuper = true)
-    <#else>
-@EqualsAndHashCode(callSuper = false)
-    </#if>
+@Getter
+@Setter
     <#if chainModel>
 @Accessors(chain = true)
     </#if>
 </#if>
 <#if table.convert>
 @TableName("${table.name}")
-    @Entity(name = "${table.name}")
+@Entity(name = "${table.name}")
 </#if>
 <#if superEntityClass??>
 public class ${entity} extends ${superEntityClass}<#if activeRecord><${entity}></#if> {

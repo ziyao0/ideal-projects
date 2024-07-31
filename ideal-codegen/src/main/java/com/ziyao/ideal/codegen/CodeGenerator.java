@@ -53,6 +53,7 @@ public class CodeGenerator {
                     builder.moduleName(config.getModuleName())// 设置父包模块名
                             .parent(config.getParent()) // 设置父包名
                             .mapper("repository.mapper")
+                            .entity("domain.entity")
                             .controller("controllers")
                             .pathInfo(Collections.singletonMap(OutputFile.xml, config.getProjectDir() + "/src/main/resources/mapper/uua"));// 设置mapperXml生成路径
                 })
@@ -83,7 +84,7 @@ public class CodeGenerator {
                 // 自定义配置 可以生成自定义文件
                 .injectionConfig(builder -> {
                     Map<String, Object> map = new HashMap<>();
-                    map.put("dto", "com.ziyao.ideal.usercenter.dto");
+                    map.put("dto", "com.ziyao.ideal.uua.domain.dto");
                     builder.customMap(map)
                             .customFile(Lists.newArrayList(
                                     CustomFileBuilder.createDto("DTO" + StringPool.DOT_JAVA, "templates/entityDTO.java.ftl"))
@@ -103,9 +104,9 @@ public class CodeGenerator {
         gc.setUserName("root");
         gc.setPassword("root");
 
-        gc.setModuleName("usercenter");
+        gc.setModuleName("uua");
 
-        gc.setParent("com.ziyao.harbor");
+        gc.setParent("com.ziyao.ideal");
 
 //        gc.setSuperEntityClass("com.harbor.web.orm.BaseEntity");
 
@@ -114,8 +115,8 @@ public class CodeGenerator {
         gc.setSuperControllerClass("com.ziyao.ideal.web.base.BaseController");
 
 //        gc.setInclude("authorization,user,role,user_role,application,department,menu,role_menu");
-        gc.setInclude("authorization_record");
-        gc.setProjectDir(System.getProperty("user.dir") + "/user-center");
+        gc.setInclude("login_config");
+        gc.setProjectDir(System.getProperty("user.dir") + "/cloud-modules/ideal-cloud-uua");
 
 
         return gc;

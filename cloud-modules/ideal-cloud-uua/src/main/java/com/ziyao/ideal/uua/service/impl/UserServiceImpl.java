@@ -6,10 +6,13 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ziyao.ideal.uua.domain.dto.UserDTO;
 import com.ziyao.ideal.uua.domain.entity.User;
+import com.ziyao.ideal.uua.repository.jpa.UserRepositoryJpa;
 import com.ziyao.ideal.uua.repository.mapper.UserMapper;
 import com.ziyao.ideal.uua.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 
 /**
@@ -20,10 +23,11 @@ import org.springframework.stereotype.Service;
  * @author zhangziyao
  */
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
-    @Autowired
-    private UserMapper userMapper;
+    private final UserMapper userMapper;
+    private final UserRepositoryJpa userRepositoryJpa;
 
     @Override
     public Page<User> page(Page<User> page, UserDTO userDTO) {
@@ -39,5 +43,25 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
                 Wrappers.lambdaQuery(User.class)
                         .eq(User::getUsername, accessKey));
 
+    }
+
+    @Override
+    public boolean lock(String username) {
+        Optional<User> userOptional = userRepositoryJpa.findByUsername(username);
+        return userOptional.map(lockoutuser -> {
+            lockoutuser.setStatus(4);
+            userRepositoryJpa.save(lockoutuser);
+            return true;
+        }).orElse(false);
+    }
+
+    @Override
+    public boolean unlock(String username) {
+        Optional<User> userOptional = userRepositoryJpa.findByUsername(username);
+        return userOptional.map(lockoutuser -> {
+            lockoutuser.setStatus(1);
+            userRepositoryJpa.save(lockoutuser);
+            return true;
+        }).orElse(false);
     }
 }
