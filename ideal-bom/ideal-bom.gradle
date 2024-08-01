@@ -1,5 +1,9 @@
-plugins {
-    id 'io.ziyao.import-deps'
+//plugins {
+//    alias(libs.plugins.depsImport)
+//}
+
+plugins{
+    id('java-platform')
 }
 
 javaPlatform {
@@ -8,14 +12,54 @@ javaPlatform {
 
 
 dependencies {
-    api platform("com.fasterxml.jackson:jackson-bom:2.17.0")
-    api platform("org.apache.dubbo:dubbo-bom:${dubboVersion}")
-    api platform("org.springframework:spring-framework-bom:${springVersion}")
-    api platform("org.springframework.boot:spring-boot-dependencies:${springBootPluginVersion}")
-    api platform("org.springframework.ai:spring-ai-bom:${springAiVersion}")
-    api platform("com.alibaba.cloud:spring-cloud-alibaba-dependencies:${springCloudAlibabaVersion}")
-    api platform("org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}")
+    api platform(libs.com.fasterxml.jackson.jackson.bom)
+    api platform(libs.org.apache.dubbo.dubbo.bom)
+    api platform(libs.org.springframework.spring.framework.bom)
+    api platform(libs.org.springframework.boot.spring.boot.dependencies)
+    api platform(libs.org.springframework.ai.spring.ai.bom)
+    api platform(libs.com.alibaba.cloud.spring.cloud.alibaba.dependencies)
+    api platform(libs.org.springframework.cloud.spring.cloud.dependencies)
     constraints {
-        api(libs.com.google.inject.guice)
+        api(libs.org.slf4j.slf4j.api)
+        api(libs.com.auth0.java.jwt)
+        api(libs.com.google.guava.guava)
+        api(libs.org.bouncycastle.bcprov.jdk18on)
+        api(libs.org.projectlombok.lombok)
+        api(libs.com.alibaba.csp.sentinel.apache.dubbo3.adapter)
+        api(libs.com.alibaba.csp.sentinel.transport.simple.http)
+        api(libs.javax.validation.validation.api)
+        api(libs.mysql.mysql.connector.java)
+        api(libs.javax.javaee.api)
+        api(libs.org.yaml.snakeyaml)
+        api(libs.org.lionsoul.ip2region)
+        api(libs.com.baomidou.mybatis.plus.generator)
+        api(libs.com.baomidou.mybatis.plus.annotation)
+        api(libs.com.baomidou.mybatis.plus.extension)
+        api(libs.com.baomidou.mybatis.plus)
+        api(libs.com.baomidou.mybatis.plus.spring.boot3.starter)
+        api(libs.com.github.jeffreyning.mybatisplus.plus)
+        api(libs.org.freemarker.freemarker)
+        api(libs.org.apache.cassandra.cassandra.all)
+        api(libs.io.micrometer.micrometer.core)
+        api(libs.io.micrometer.micrometer.observation)
+        api(libs.io.micrometer.micrometer.registry.prometheus)
+        api(libs.com.dyuproject.protostuff.protostuff.api)
+        api(libs.com.dyuproject.protostuff.protostuff.core)
+        api(libs.com.dyuproject.protostuff.protostuff.runtime)
+        api(libs.io.netty.netty.all)
+        api(libs.ch.qos.logback.logback.classic)
+        api(libs.com.alipay.sdk.alipay.sdk.java)
+        api(libs.com.github.wechatpay.apiv3.wechatpay.java)
+        api(libs.org.apache.rocketmq.rocketmq.spring.boot.starter)
+        api(libs.org.redisson.redisson.spring.data31)
+        api(libs.org.redisson.redisson)
+        api(libs.org.aspectj.aspectjweaver)
+        api(libs.com.github.ben.manes.caffeine.caffeine)
+        api(libs.com.alibaba.druid.spring.boot.starter)
+        api(libs.com.squareup.okhttp3.okhttp)
+        api(libs.com.squareup.okhttp3.logging.interceptor)
+        api(libs.com.alibaba.fastjson)
+        api(libs.javax.annotation.javax.annotation.api)
+        api(libs.com.alibaba.nacos.nacos.client)
     }
 }

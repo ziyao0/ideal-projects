@@ -1,5 +1,5 @@
 plugins {
-    id 'io.ziyao.import-config'
+    alias(libs.plugins.configImport)
 }
 dependencies {
     api("com.auth0:java-jwt")

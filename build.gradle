@@ -1,12 +1,12 @@
 plugins {
-    id 'io.ziyao.root'
+    alias(libs.plugins.iroot)
 }
 group 'com.ziyao.ideal'
 
 subprojects {
     if (project.name != 'ideal-bom') {
         // 添加模块代码的插件
-        apply plugin: 'io.ziyao.module'
+        apply plugin: libs.plugins.imodule.get().pluginId
 
         jar {
             enabled = true //生成依赖jar包
