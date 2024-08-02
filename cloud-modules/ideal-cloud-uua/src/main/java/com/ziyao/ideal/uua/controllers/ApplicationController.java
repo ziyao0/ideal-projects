@@ -63,12 +63,12 @@ public class ApplicationController extends BaseController<ApplicationService, Ap
     /**
      * 条件分页查询
      *
-     * @param pageQuery 分页参数
+     * @param pageParams 分页参数
      * @return 返回分页查询信息
      */
     @PostMapping("/page/get")
-    public Page<Application> getPage(@RequestBody PageParams<ApplicationDTO> pageQuery) {
-        Page<Application> page = Pages.initPage(pageQuery, Application.class);
-        return applicationService.page(page, pageQuery.getParams());
+    public Page<Application> getPage(@RequestBody PageParams<ApplicationDTO> pageParams) {
+        Page<Application> page = Pages.initPage(pageParams, Application.class);
+        return applicationService.page(page, pageParams.getParams());
     }
 }

@@ -1,10 +1,11 @@
 plugins {
     alias(libs.plugins.iroot)
 }
+
 group 'com.ziyao.ideal'
 
 subprojects {
-    if (project.name != 'ideal-bom') {
+    if (project.name != 'ideal-deps') {
         // 添加模块代码的插件
         apply plugin: libs.plugins.imodule.get().pluginId
 
@@ -21,7 +22,7 @@ subprojects {
         }
 
         dependencies {
-            management platform(project(":ideal-bom"))
+            management platform(project(":ideal-deps"))
             compileOnly 'org.projectlombok:lombok'
             annotationProcessor 'org.projectlombok:lombok'
         }

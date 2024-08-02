@@ -5,14 +5,14 @@ import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 import com.baomidou.mybatisplus.generator.config.OutputFile;
+import com.baomidou.mybatisplus.generator.config.builder.CustomFile;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.DbColumnType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
+import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 import com.baomidou.mybatisplus.generator.fill.Column;
 import com.google.common.collect.Lists;
 import com.ziyao.ideal.codegen.config.GeneratorConfig;
-import com.ziyao.ideal.codegen.core.CustomFileBuilder;
-import com.ziyao.ideal.codegen.engine.CustomTemplateEngine;
 
 import java.sql.Types;
 import java.util.Collections;
@@ -84,14 +84,22 @@ public class CodeGenerator {
                 // 自定义配置 可以生成自定义文件
                 .injectionConfig(builder -> {
                     Map<String, Object> map = new HashMap<>();
-                    map.put("dto", "com.ziyao.ideal.uua.domain.dto");
+                    map.put("dto", "com.ziyao.ideal.uua.uua.domain.dto");
+                    map.put("repositoryjpa", "com.ziyao.ideal.uua.uua.repository.jpa");
                     builder.customMap(map)
                             .customFile(Lists.newArrayList(
-                                    CustomFileBuilder.createDto("DTO" + StringPool.DOT_JAVA, "templates/entityDTO.java.ftl"))
-                            );
+                                    new CustomFile.Builder().fileName("DTO" + StringPool.DOT_JAVA)
+                                            .templatePath("templates/entityDTO.java.ftl")
+                                            .packageName("domain.dto")
+                                            .build(),
+                                    new CustomFile.Builder().fileName("RepositoryJpa" + StringPool.DOT_JAVA)
+                                            .templatePath("templates/repositoryjpa.java.ftl")
+                                            .packageName("repository.jpa")
+                                            .build()
+                            ));
                 })
 
-                .templateEngine(new CustomTemplateEngine()) // 使用Freemarker引擎模板，默认的是Velocity引擎模板
+                .templateEngine(new FreemarkerTemplateEngine()) // 使用Freemarker引擎模板，默认的是Velocity引擎模板
                 .execute();
     }
 

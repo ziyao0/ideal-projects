@@ -39,6 +39,5 @@ public class UsernamePasswordAuthenticationConverter implements AuthenticationCo
         String password = Optional.ofNullable(request.getParameter(OAuth2ParameterNames.PASSWORD)).orElse(Strings.EMPTY);
 
         return UsernamePasswordAuthenticationToken.unauthenticated(username, password);
-
     }
 }

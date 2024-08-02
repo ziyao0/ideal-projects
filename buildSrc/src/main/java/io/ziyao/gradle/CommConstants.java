@@ -4,10 +4,9 @@ import java.util.List;
 
 /**
  * @author ziyao
- *
  */
 public interface CommConstants {
-    public static final String LIBS = "/ideal-bom/libs/bom.lib";
+    public static final String LIBS = "/ideal-deps/libs/ideal-deps.libs";
     public static final String WELL_NUMBER = "#";
     public static final String GRADLE_API = "api";
     public static final String GRADLE_PLUGIN_platform = "java-platform";

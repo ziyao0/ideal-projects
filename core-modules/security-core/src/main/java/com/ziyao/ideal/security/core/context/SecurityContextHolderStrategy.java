@@ -1,7 +1,5 @@
 package com.ziyao.ideal.security.core.context;
 
-import java.util.function.Supplier;
-
 /**
  * @author ziyao zhang
  */
@@ -16,7 +14,7 @@ public interface SecurityContextHolderStrategy {
     SecurityContext getContext();
 
 
-    default Supplier<SecurityContext> getDeferredContext() {
+    default DeferredSecurityContext getDeferredContext() {
         return this::getContext;
     }
 
@@ -24,7 +22,7 @@ public interface SecurityContextHolderStrategy {
     void setContext(SecurityContext context);
 
 
-    default void setDeferredContext(Supplier<SecurityContext> deferredContext) {
+    default void setDeferredContext(DeferredSecurityContext deferredContext) {
         setContext(deferredContext.get());
     }
 

@@ -6,7 +6,7 @@ import com.ziyao.ideal.core.Dates;
 import com.ziyao.ideal.core.Strings;
 import com.ziyao.ideal.security.core.*;
 import com.ziyao.ideal.security.core.context.SecurityContext;
-import com.ziyao.ideal.security.core.context.DefaultSecurityContext;
+import com.ziyao.ideal.security.core.context.SecurityContextImpl;
 import com.ziyao.ideal.security.core.context.SecurityContextHolder;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -54,7 +54,7 @@ public class SecurityContextFilter extends OncePerRequestFilter {
         UserInfo userInfo = creation(request);
         Authentication authentication = new SuccessfulAuthenticationToken(userInfo, userInfo.getAuthorities());
 
-        SecurityContext context = new DefaultSecurityContext(authentication);
+        SecurityContext context = new SecurityContextImpl(authentication);
         SecurityContextHolder.setContext(context);
 
         if (SecurityContextHolder.unauthorized()) {

@@ -2,9 +2,9 @@ package com.ziyao.ideal.uua.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
+import com.ziyao.ideal.jpa.extension.service.impl.JapServiceImpl;
 import com.ziyao.ideal.uua.domain.dto.LoginConfigDTO;
 import com.ziyao.ideal.uua.domain.entity.LoginConfig;
 import com.ziyao.ideal.uua.repository.jpa.LoginConfigRepositoryJpa;
@@ -27,7 +27,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Service
 @RequiredArgsConstructor
-public class LoginConfigServiceImpl extends ServiceImpl<LoginConfigMapper, LoginConfig> implements LoginConfigService {
+public class LoginConfigServiceImpl extends JapServiceImpl<LoginConfigRepositoryJpa, LoginConfig, Long> implements LoginConfigService {
 
 
     private static final String DEFAULT_LOGIN_METHOD = "PASSWD";
@@ -41,7 +41,6 @@ public class LoginConfigServiceImpl extends ServiceImpl<LoginConfigMapper, Login
             .maximumSize(1000)
             .expireAfterWrite(30, TimeUnit.DAYS)
             .build();
-
 
     @Override
     public Page<LoginConfig> page(Page<LoginConfig> page, LoginConfigDTO loginConfigDTO) {

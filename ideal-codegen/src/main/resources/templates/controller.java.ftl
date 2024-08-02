@@ -8,9 +8,8 @@ import ${dto}.${entity}DTO;
     import ${package.Service}.${table.serviceName};
     import ${superControllerClassPackage};
 </#if>
-import com.ziyao.ideal.web.base.PageQuery;
-import com.ziyao.ideal.web.base.PageUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.ziyao.ideal.web.base.PageParams;
+import com.ziyao.ideal.web.base.Pages;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -80,13 +79,13 @@ public void saveBatch(@RequestBody List
     /**
      * 条件分页查询
      *
-     * @param pageQuery 分页参数
+     * @param pageParams 分页参数
      * @return 返回分页查询信息
      */
     @PostMapping("/page/get")
-    public Page<${entity}> getPage(@RequestBody PageQuery<${entity}DTO> pageQuery) {
-        Page<${entity}> page = PageUtils.initPage(pageQuery, ${entity}.class);
-        return ${table.serviceName?uncap_first}.page(page, pageQuery.getParams());
+    public Page<${entity}> getPage(@RequestBody PageParams<${entity}DTO> pageParams) {
+        Page<${entity}> page = Pages.initPage(pageQuery, ${entity}.class);
+        return ${table.serviceName?uncap_first}.page(page, pageParams.getParams());
     }
 }
 </#if>

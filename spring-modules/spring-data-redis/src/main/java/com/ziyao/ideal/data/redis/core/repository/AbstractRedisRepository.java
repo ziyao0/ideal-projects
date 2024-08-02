@@ -1,10 +1,8 @@
 package com.ziyao.ideal.data.redis.core.repository;
 
-import com.ziyao.ideal.data.redis.core.RedisAdapter;
-import com.ziyao.ideal.data.redis.core.RedisEntityInformation;
-import com.ziyao.ideal.data.redis.core.RedisRepository;
-import com.ziyao.ideal.data.redis.core.RepositoryInformation;
+import com.ziyao.ideal.data.redis.core.*;
 import com.ziyao.ideal.data.redis.core.convert.ConversionProvider;
+import org.springframework.data.keyvalue.annotation.KeySpace;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.mapping.RedisMappingContext;
 import org.springframework.data.redis.core.mapping.RedisPersistentEntity;
@@ -20,15 +18,26 @@ abstract class AbstractRedisRepository<T, ID> implements RedisRepository<T, ID> 
     final RedisAdapter adapter;
     final RedisEntityInformation<T, ID> metadata;
     final ConversionProvider conversionProvider = ConversionProvider.getInstance();
+    final String keyspace;
+    long ttl = -1;
 
     @SuppressWarnings("unchecked")
     public AbstractRedisRepository(RedisAdapter adapter, RepositoryInformation repositoryInformation) {
         this.adapter = adapter;
-
         RedisPersistentEntity<?> persistentEntity = new RedisMappingContext().getPersistentEntity(repositoryInformation.getJavaType());
-
         this.metadata = (RedisEntityInformation<T, ID>) new RedisEntityInformation<>(persistentEntity);
-
+        String keySpace = this.metadata.getKeySpace();
+        if (keySpace == null) {
+            KeySpace annotation = repositoryInformation.getJavaType().getAnnotation(KeySpace.class);
+            if (annotation != null) {
+                keySpace = annotation.value();
+            }
+        }
+        this.keyspace = keySpace;
+        TimeToLive annotation = repositoryInformation.getJavaType().getAnnotation(TimeToLive.class);
+        if (annotation != null) {
+            this.ttl = TimeoutUtils.toMillis(annotation.ttl(), annotation.unit());
+        }
     }
 
     @Override

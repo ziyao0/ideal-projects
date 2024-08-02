@@ -24,15 +24,6 @@ import java.util.stream.Collectors;
 public class DefaultRepositoryFactory implements BeanClassLoaderAware, BeanFactoryAware {
     private ClassLoader classLoader;
     private BeanFactory beanFactory;
-
-//
-//    private final RedisOperations<byte[], byte[]> redisOps;
-//
-//
-//    public DefaultRepositoryFactory(RedisOperations<byte[], byte[]> redisOps) {
-//        this.redisOps = redisOps;
-//    }
-
     private final RedisAdapter redisAdapter;
 
     public DefaultRepositoryFactory(RedisAdapter redisAdapter) {

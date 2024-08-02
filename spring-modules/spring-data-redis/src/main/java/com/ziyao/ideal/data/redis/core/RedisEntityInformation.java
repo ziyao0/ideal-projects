@@ -6,7 +6,6 @@ import org.springframework.data.repository.core.support.PersistentEntityInformat
 
 /**
  * @author ziyao zhang
- *
  */
 @Getter
 public class RedisEntityInformation<T, ID> extends PersistentEntityInformation<T, ID> {

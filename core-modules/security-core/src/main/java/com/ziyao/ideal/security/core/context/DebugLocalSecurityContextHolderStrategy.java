@@ -7,7 +7,6 @@ import com.ziyao.ideal.security.core.Authentication;
 import java.io.Serial;
 import java.util.Collection;
 import java.util.List;
-import java.util.function.Supplier;
 
 /**
  * @author ziyao zhang
@@ -25,7 +24,7 @@ public class DebugLocalSecurityContextHolderStrategy implements SecurityContextH
     }
 
     @Override
-    public Supplier<SecurityContext> getDeferredContext() {
+    public DeferredSecurityContext getDeferredContext() {
         return () -> {
             SecurityContext context = createEmptyContext();
             context.setAuthentication(createAuthenticatedToken());
@@ -40,7 +39,7 @@ public class DebugLocalSecurityContextHolderStrategy implements SecurityContextH
 
     @Override
     public SecurityContext createEmptyContext() {
-        return new DefaultSecurityContext();
+        return new SecurityContextImpl();
     }
 
     private Authentication createAuthenticatedToken() {

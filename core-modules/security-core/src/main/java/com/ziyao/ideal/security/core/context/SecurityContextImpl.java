@@ -8,15 +8,16 @@ import java.io.Serial;
 /**
  * @author ziyao zhang
  */
-public class DefaultSecurityContext implements SecurityContext {
+public class SecurityContextImpl implements SecurityContext {
     @Serial
     private static final long serialVersionUID = -6481012224001521435L;
 
     private Authentication authentication;
 
-    public DefaultSecurityContext() {}
+    public SecurityContextImpl() {
+    }
 
-    public DefaultSecurityContext(Authentication authentication) {
+    public SecurityContextImpl(Authentication authentication) {
         this.authentication = authentication;
     }
 
@@ -37,7 +38,7 @@ public class DefaultSecurityContext implements SecurityContext {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof DefaultSecurityContext other) {
+        if (obj instanceof SecurityContextImpl other) {
             if ((this.getAuthentication() == null) && (other.getAuthentication() == null)) {
                 return true;
             }
@@ -53,8 +54,7 @@ public class DefaultSecurityContext implements SecurityContext {
         sb.append(getClass().getSimpleName()).append(" [");
         if (this.authentication == null) {
             sb.append("Null authentication");
-        }
-        else {
+        } else {
             sb.append("Authentication=").append(this.authentication);
         }
         sb.append("]");

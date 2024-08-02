@@ -64,7 +64,7 @@ public abstract class SecurityContextHolder {
     }
 
 
-    public static Supplier<SecurityContext> getDeferredContext() {
+    public static DeferredSecurityContext getDeferredContext() {
         return strategy.getDeferredContext();
     }
 
@@ -74,8 +74,17 @@ public abstract class SecurityContextHolder {
     }
 
 
-    public static void setDeferredContext(Supplier<SecurityContext> deferredContext) {
+    public static void setDeferredContext(DeferredSecurityContext deferredContext) {
         strategy.setDeferredContext(deferredContext);
+    }
+
+    /**
+     * Allows retrieval of the context strategy. See SEC-1188.
+     *
+     * @return the configured strategy for storing the security context.
+     */
+    public static SecurityContextHolderStrategy getContextHolderStrategy() {
+        return strategy;
     }
 
     public static SecurityContext createEmptyContext() {
