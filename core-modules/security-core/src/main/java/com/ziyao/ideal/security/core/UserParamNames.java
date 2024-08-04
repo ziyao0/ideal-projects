@@ -3,7 +3,7 @@ package com.ziyao.ideal.security.core;
 /**
  * @author ziyao zhang
  */
-public abstract class UserInfoParameterNames {
+public abstract class UserParamNames {
 
     public static final String USER_ID = "userId";
     public static final String USERNAME = "username";

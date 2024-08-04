@@ -70,16 +70,16 @@ public class SecurityContextFilter extends OncePerRequestFilter {
     }
 
     public UserInfo creation(HttpServletRequest request) {
-        String userId = getValue(request, UserInfoParameterNames.USER_ID);
-        String username = getValue(request, UserInfoParameterNames.USERNAME);
-        String status = getValue(request, UserInfoParameterNames.STATUS);
-        String idCardName = getValue(request, UserInfoParameterNames.ID_CARD_NAME);
-        String gender = getValue(request, UserInfoParameterNames.GENDER);
-        String mobile = getValue(request, UserInfoParameterNames.MOBILE);
-        String address = getValue(request, UserInfoParameterNames.ADDRESS);
-        String lastLogin = getValue(request, UserInfoParameterNames.LAST_LOGIN);
-        String loginIp = getValue(request, UserInfoParameterNames.LOGIN_IP);
-        String authorities = getValue(request, UserInfoParameterNames.AUTHORITIES);
+        String userId = getValue(request, UserParamNames.USER_ID);
+        String username = getValue(request, UserParamNames.USERNAME);
+        String status = getValue(request, UserParamNames.STATUS);
+        String idCardName = getValue(request, UserParamNames.ID_CARD_NAME);
+        String gender = getValue(request, UserParamNames.GENDER);
+        String mobile = getValue(request, UserParamNames.MOBILE);
+        String address = getValue(request, UserParamNames.ADDRESS);
+        String lastLogin = getValue(request, UserParamNames.LAST_LOGIN);
+        String loginIp = getValue(request, UserParamNames.LOGIN_IP);
+        String authorities = getValue(request, UserParamNames.AUTHORITIES);
 
         return UserInfo.withId(Strings.hasLength(userId) ? Long.valueOf(userId) : null)
                 .username(username)

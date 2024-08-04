@@ -14,11 +14,19 @@ public class SecurityContextImpl implements SecurityContext {
 
     private Authentication authentication;
 
+    private UserClaims userClaims;
+
     public SecurityContextImpl() {
+        this(null);
     }
 
     public SecurityContextImpl(Authentication authentication) {
+        this(authentication, new UserClaims());
+    }
+
+    public SecurityContextImpl(Authentication authentication, UserClaims userClaims) {
         this.authentication = authentication;
+        this.userClaims = userClaims;
     }
 
     @Override
@@ -34,6 +42,16 @@ public class SecurityContextImpl implements SecurityContext {
     @Override
     public void setAuthentication(Authentication authentication) {
         this.authentication = authentication;
+    }
+
+    @Override
+    public UserClaims getUserClaims() {
+        return this.userClaims;
+    }
+
+    @Override
+    public void setUserClaims(UserClaims userClaims) {
+        this.userClaims = userClaims;
     }
 
     @Override
@@ -56,6 +74,11 @@ public class SecurityContextImpl implements SecurityContext {
             sb.append("Null authentication");
         } else {
             sb.append("Authentication=").append(this.authentication);
+        }
+        if (this.userClaims == null) {
+            sb.append("Null user claims");
+        } else {
+            sb.append("UserClaims=").append(this.userClaims);
         }
         sb.append("]");
         return sb.toString();

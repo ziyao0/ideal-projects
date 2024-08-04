@@ -1,6 +1,7 @@
 package com.ziyao.ideal.security.core.context;
 
 import com.ziyao.ideal.security.core.Authentication;
+import com.ziyao.ideal.security.core.UserInfo;
 
 import java.io.Serializable;
 
@@ -9,9 +10,9 @@ import java.io.Serializable;
  */
 public interface SecurityContext extends Serializable {
 
-    default Object getPrincipal() {
+    default UserInfo getPrincipal() {
         Authentication authentication = getAuthentication();
-        return authentication == null ? null : authentication.getPrincipal();
+        return authentication != null && authentication.isAuthenticated() ? (UserInfo) authentication.getPrincipal() : null;
     }
 
     /**
@@ -25,4 +26,18 @@ public interface SecurityContext extends Serializable {
      * 更改当前经过身份验证的主体，或删除身份验证信息。
      */
     void setAuthentication(Authentication authentication);
+
+    /**
+     * 获取 claims
+     *
+     * @return {@link PrincipalClaims}
+     */
+    UserClaims getUserClaims();
+
+    /**
+     * 更改当前 claims
+     *
+     * @param userClaims {@link PrincipalClaims}
+     */
+    void setUserClaims(UserClaims userClaims);
 }
