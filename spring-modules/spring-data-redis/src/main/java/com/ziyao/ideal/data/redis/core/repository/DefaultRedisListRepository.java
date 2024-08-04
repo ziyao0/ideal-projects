@@ -37,9 +37,7 @@ public class DefaultRedisListRepository<T, ID>
     }
 
     @Override
-    public void save(T entity) {
-
-        ID id = this.metadata.getRequiredId(entity);
+    public void save(Object id, T entity) {
 
         adapter.execute((RedisCallback<Void>) connection -> {
 
@@ -47,23 +45,15 @@ public class DefaultRedisListRepository<T, ID>
             byte[] rawValue = conversionProvider.write(entity);
 
             connection.rPush(rawKey, rawValue);
-
-            if (this.metadata.hasExplicitTimeToLiveProperty()) {
-                Long ttl = this.metadata.getTimeToLive(entity);
-
-                if (expires(ttl)) {
-                    connection.expire(rawKey, ttl);
-                }
+            if (expires(ttl)) {
+                connection.expire(rawKey, ttl);
             }
             return null;
         });
     }
 
     @Override
-    public void saveAll(List<T> values) {
-
-        T entity = values.get(0);
-        ID id = this.metadata.getRequiredId(entity);
+    public void saveAll(Object id, List<T> values) {
 
         adapter.execute((RedisCallback<Void>) connection -> {
 
@@ -72,14 +62,9 @@ public class DefaultRedisListRepository<T, ID>
 
             connection.rPush(rawKey, rawValues);
 
-            if (metadata.hasExplicitTimeToLiveProperty()) {
-                Long ttl = metadata.getTimeToLive(entity);
-
-                if (expires(ttl)) {
-                    connection.expire(rawKey, ttl);
-                }
+            if (expires(ttl)) {
+                connection.expire(rawKey, ttl);
             }
-
             return null;
         });
     }
@@ -108,15 +93,16 @@ public class DefaultRedisListRepository<T, ID>
     }
 
     @Override
-    public void leftPush(T entity) {
-
-        ID id = this.metadata.getRequiredId(entity);
+    public void leftPush(Object id, T entity) {
 
         RedisCallback<Void> command = connection -> {
             byte[] rawKey = createKey(id);
             byte[] rawValue = conversionProvider.write(entity);
 
             connection.lPush(rawKey, rawValue);
+            if (expires(ttl)) {
+                connection.expire(rawKey, ttl);
+            }
             return null;
         };
 
@@ -124,15 +110,16 @@ public class DefaultRedisListRepository<T, ID>
     }
 
     @Override
-    public void rightPush(T entity) {
-
-        ID id = this.metadata.getRequiredId(entity);
+    public void rightPush(Object id, T entity) {
 
         RedisCallback<Void> command = connection -> {
             byte[] rawKey = createKey(id);
             byte[] rawValue = conversionProvider.write(entity);
 
             connection.rPush(rawKey, rawValue);
+            if (expires(ttl)) {
+                connection.expire(rawKey, ttl);
+            }
             return null;
         };
 

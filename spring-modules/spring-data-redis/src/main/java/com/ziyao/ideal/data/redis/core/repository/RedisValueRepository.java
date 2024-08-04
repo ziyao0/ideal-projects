@@ -31,4 +31,14 @@ public interface RedisValueRepository<T, ID> extends RedisRepository<T, ID> {
      * @return 如果返回 {@code true} 则表示不存在并保存成功，反则证明存在该key
      */
     boolean saveIfAbsent(T entity);
+
+    /**
+     * 保存
+     */
+    void save(Object id, T entity);
+
+    /**
+     * @return 如果返回 {@code true} 则表示不存在并保存成功，反则证明存在该key
+     */
+    boolean saveIfAbsent(Object id, T entity);
 }

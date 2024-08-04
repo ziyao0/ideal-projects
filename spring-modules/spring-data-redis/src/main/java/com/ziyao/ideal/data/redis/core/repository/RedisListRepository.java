@@ -13,15 +13,15 @@ public interface RedisListRepository<T, ID> extends RedisRepository<T, ID> {
 
     List<T> findById(ID id);
 
-    void save(T value);
+    void save(Object id, T value);
 
-    void saveAll(List<T> values);
+    void saveAll(Object id, List<T> values);
 
     Optional<T> leftPop(ID id);
 
     Optional<T> rightPop(ID id);
 
-    void leftPush(T value);
+    void leftPush(Object id, T value);
 
-    void rightPush(T value);
+    void rightPush(Object id, T value);
 }

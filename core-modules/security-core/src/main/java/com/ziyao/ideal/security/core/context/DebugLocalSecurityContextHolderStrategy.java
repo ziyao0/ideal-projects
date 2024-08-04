@@ -1,8 +1,9 @@
 package com.ziyao.ideal.security.core.context;
 
+import com.ziyao.ideal.security.core.Authentication;
 import com.ziyao.ideal.security.core.GrantedAuthority;
 import com.ziyao.ideal.security.core.UserDetails;
-import com.ziyao.ideal.security.core.Authentication;
+import org.springframework.util.function.SingletonSupplier;
 
 import java.io.Serial;
 import java.util.Collection;
@@ -25,11 +26,9 @@ public class DebugLocalSecurityContextHolderStrategy implements SecurityContextH
 
     @Override
     public DeferredSecurityContext getDeferredContext() {
-        return () -> {
-            SecurityContext context = createEmptyContext();
-            context.setAuthentication(createAuthenticatedToken());
-            return context;
-        };
+        SecurityContext context = createEmptyContext();
+        context.setAuthentication(createAuthenticatedToken());
+        return new SupplierDeferredSecurityContext(SingletonSupplier.of(context), SecurityContextHolder.getContextHolderStrategy());
     }
 
     @Override

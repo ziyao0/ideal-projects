@@ -1,5 +1,7 @@
 package com.ziyao.ideal.security.core.context;
 
+import org.springframework.util.function.SingletonSupplier;
+
 /**
  * @author ziyao zhang
  */
@@ -15,7 +17,7 @@ public interface SecurityContextHolderStrategy {
 
 
     default DeferredSecurityContext getDeferredContext() {
-        return this::getContext;
+        return new SupplierDeferredSecurityContext(SingletonSupplier.of(this::getContext), SecurityContextHolder.getContextHolderStrategy());
     }
 
 

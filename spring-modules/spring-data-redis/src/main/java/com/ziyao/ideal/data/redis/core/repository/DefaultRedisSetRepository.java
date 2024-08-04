@@ -34,34 +34,35 @@ public class DefaultRedisSetRepository<T, ID>
     }
 
     @Override
-    public void save(T entity) {
-
-        ID id = this.metadata.getRequiredId(entity);
-
+    public void save(Object id, T entity) {
         adapter.execute((RedisCallback<Void>) connection -> {
             byte[] rawKey = createKey(id);
             byte[] rawValue = conversionProvider.write(entity);
             connection.sAdd(rawKey, rawValue);
+            if (expires(ttl)) {
+                connection.expire(rawKey, ttl);
+            }
             return null;
         });
     }
 
     @Override
-    public void saveAll(Collection<T> entities) {
+    public void saveAll(Object id, Collection<T> entities) {
 
         Optional<T> optional = entities.stream().findFirst();
 
         if (optional.isEmpty()) {
             return;
         }
-        T entity = optional.get();
-
-        ID id = this.metadata.getRequiredId(entity);
 
         adapter.execute((RedisCallback<Void>) connection -> {
             byte[] rawKey = createKey(id);
             byte[][] rawValues = conversionProvider.write(entities);
             connection.sAdd(rawKey, rawValues);
+
+            if (expires(ttl)) {
+                connection.expire(rawKey, ttl);
+            }
             return null;
         });
     }

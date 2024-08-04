@@ -13,7 +13,7 @@ public interface RedisSetRepository<T, ID> extends RedisRepository<T, ID> {
 
     Set<T> findById(ID id);
 
-    void save(T entity);
+    void save(Object id, T entity);
 
-    void saveAll(Collection<T> entities);
+    void saveAll(Object id, Collection<T> entities);
 }
