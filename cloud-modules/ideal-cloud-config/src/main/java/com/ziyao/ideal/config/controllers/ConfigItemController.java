@@ -2,39 +2,62 @@ package com.ziyao.ideal.config.controllers;
 
 import com.ziyao.ideal.config.domain.dto.ConfigItemDTO;
 import com.ziyao.ideal.config.domain.entity.ConfigItem;
-import com.ziyao.ideal.config.services.ConfigItemService;
+import com.ziyao.ideal.config.service.ConfigItemService;
+import com.ziyao.ideal.web.base.JpaBaseController;
+import com.ziyao.ideal.web.base.PageParams;
+import com.ziyao.ideal.web.base.Pages;
+import org.springframework.data.domain.Page;
+import org.springframework.util.ObjectUtils;
+import com.ziyao.ideal.web.exception.ServiceException;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
 
 /**
+ * <p>
+ *  前端控制器
+ * </p>
+ *
  * @author ziyao
- * @see <a href="https://blog.zziyao.cn">https://blog.zziyao.cn</a>
  */
 @RestController
-@RequestMapping("/configItem")
 @RequiredArgsConstructor
-public class ConfigItemController {
+@RequestMapping("/configItem")
+public class ConfigItemController extends JpaBaseController<ConfigItemService, ConfigItem,Integer> {
 
-    private final ConfigItemService configItemService;
+private final ConfigItemService configItemService;
 
-
-    @GetMapping("/{id}")
-    public ConfigItem getConfigItemById(@PathVariable Integer id) {
-        return configItemService.getConfigItemById(id);
+    @PostMapping("/save")
+    public void save(@RequestBody ConfigItemDTO entityDTO) {
+    configItemService.save(entityDTO.getInstance());
     }
 
-    @PostMapping
-    public void addConfigItem(@RequestBody ConfigItemDTO configItem) {
-
+    @PostMapping("/updateById")
+    public void updateById(@RequestBody ConfigItemDTO entityDTO) {
+        if (ObjectUtils.isEmpty(entityDTO.getId())) {
+            throw new ServiceException(400, "主键参数不能为空");
+        }
+        configItemService.save(entityDTO.getInstance());
     }
 
-    @PutMapping
-    public void updateConfigItem(@RequestBody ConfigItemDTO configItem) {
-
+    /**
+    * 默认一次插入500条
+    */
+    @PostMapping("/saveBatch")
+    public void saveBatch(@RequestBody List<ConfigItemDTO> entityDTOList) {
+    configItemService.saveAll(entityDTOList.stream().map(ConfigItemDTO::getInstance).collect(Collectors.toList()));
     }
 
-    @DeleteMapping
-    public void deleteConfigItem(@RequestBody ConfigItemDTO configItem) {
-
+    /**
+    * 分页查询
+    */
+    @PostMapping("/searchSimilar")
+    public Page<ConfigItem> searchSimilar(PageParams<ConfigItemDTO> pageParams) {
+        return configItemService.searchSimilar(pageParams.getParams().getInstance(), Pages.initPage(pageParams));
     }
 }

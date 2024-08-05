@@ -19,12 +19,12 @@ public class PageParams<T> {
         /**
          * 当前页条数
          */
-        private long size = 10;
+        private int size = 10;
 
         /**
          * 当前页
          */
-        private long current = 1;
+        private int current = 1;
 
     }
 }

@@ -7,7 +7,10 @@ import lombok.Data;
  * @author ziyao zhang
  */
 @Data
-public class GeneratorConfig {
+public class CodeGenConfig {
+
+    private boolean enableJpa;
+
     /**
      * 生成文件的输出目录【默认 D 盘根目录】
      */
@@ -19,41 +22,10 @@ public class GeneratorConfig {
     /**
      * 开发人员
      */
-    private String author = "zhangziyao";
-
-    private boolean open = false;
-
-    /**
-     * 是否在xml中添加二级缓存配置
-     */
-    private boolean enableCache = false;
-
-    /**
-     * 开启 ActiveRecord 模式
-     */
-    private boolean activeRecord = false;
-
-    /**
-     * 开启 BaseResultMap
-     */
-    private boolean baseResultMap = false;
-
-    /**
-     * 时间类型对应策略
-     */
-    private DateType dateType = DateType.TIME_PACK;
-    /**
-     * 开启 baseColumnList
-     */
-    private boolean baseColumnList = false;
-
-    private String serviceName = "%sService";
-
+    private String author = "ziyao";
 
     private String userName;
-
     private String url;
-
     private String password;
 
     //PackageConfig
@@ -63,14 +35,10 @@ public class GeneratorConfig {
 
 
     // StrategyConfig
-
-    private String superEntityClass;
     private String superControllerClass;
     /**
      * 表名，多个英文逗号分割
      */
     private String include;
-
-    private String superEntityColumns;
 
 }

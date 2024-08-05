@@ -4,12 +4,13 @@ plugins {
 dependencies {
     implementation(project(':security-crypto'))
     implementation('org.yaml:snakeyaml')
+    implementation(project(":spring-security-codec"))
+    implementation(project(":spring-boot-autoconfigure"))
     implementation "com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config"
     implementation "com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery"
     implementation "org.springframework.cloud:spring-cloud-starter-bootstrap"
     implementation "org.springframework.boot:spring-boot-configuration-processor"
     implementation "org.springframework.boot:spring-boot-starter-web"
-//    implementation "org.springframework.boot:spring-boot-starter-data-redis"
     implementation "org.springframework.boot:spring-boot-autoconfigure"
     implementation "mysql:mysql-connector-java"
     implementation "org.springframework.boot:spring-boot-starter-data-jpa"

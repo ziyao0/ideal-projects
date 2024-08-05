@@ -1,4 +1,4 @@
-package com.ziyao.ideal.config.services.config;
+package com.ziyao.ideal.config.manager;
 
 import com.alibaba.cloud.nacos.NacosConfigManager;
 import com.alibaba.nacos.api.config.ConfigService;

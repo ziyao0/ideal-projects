@@ -1,5 +1,6 @@
 dependencies {
     implementation(project(":ideal-core"))
+    implementation(project(":spring-data-jpa-extension"))
     implementation "org.freemarker:freemarker"
     implementation "com.baomidou:mybatis-plus"
     implementation "com.baomidou:mybatis-plus-generator"

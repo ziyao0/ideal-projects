@@ -13,11 +13,6 @@ spring:
         shared-configs:
           - data-id: datasource.yml
           - data-id: redis.yml
-  datasource:
-    username: root
-    password: Zzy@1996
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://123.249.75.59:33066/code_harbor
 dubbo:
   application:
     name: dubbo-${spring.application.name}

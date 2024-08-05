@@ -2,9 +2,7 @@ package com.ziyao.ideal.jpa.extension.service.impl;
 
 import com.ziyao.ideal.jpa.extension.service.JapService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -103,5 +101,14 @@ public abstract class JapServiceImpl<JPA extends JpaRepository<T, ID>, T, ID> im
     @Transactional(readOnly = true)
     public Page<T> findAll(Pageable pageable) {
         return repositoryJpa.findAll(pageable);
+    }
+
+    @Override
+    public <S extends T> Page<S> searchSimilar(S entity, Pageable pageable) {
+        ExampleMatcher matcher = ExampleMatcher.matching()
+                .withIgnoreNullValues()
+                .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING); // Use CONTAINING for partial matches
+        Example<S> example = Example.of(entity, matcher);
+        return repositoryJpa.findAll(example, pageable);
     }
 }

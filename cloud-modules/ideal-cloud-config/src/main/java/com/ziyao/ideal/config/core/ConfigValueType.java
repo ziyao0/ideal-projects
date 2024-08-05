@@ -15,7 +15,8 @@ import java.util.List;
 @Getter
 public enum ConfigValueType {
 
-    STRING(String.class), INTEGER(Integer.class),
+    STRING(String.class),
+    INTEGER(Integer.class),
     LONG(Long.class),
     DOUBLE(Double.class),
     BOOLEAN(Boolean.class),

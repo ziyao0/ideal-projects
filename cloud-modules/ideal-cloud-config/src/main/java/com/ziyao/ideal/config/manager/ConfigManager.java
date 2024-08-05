@@ -1,4 +1,4 @@
-package com.ziyao.ideal.config.services.config;
+package com.ziyao.ideal.config.manager;
 
 import com.ziyao.ideal.config.core.ConfigType;
 

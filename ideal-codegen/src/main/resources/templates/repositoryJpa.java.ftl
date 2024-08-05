@@ -1,4 +1,4 @@
-package ${repositoryjpa};
+package ${repositoryJpa};
 
 import ${package.Entity}.${entity};
 import org.springframework.data.jpa.repository.JpaRepository;

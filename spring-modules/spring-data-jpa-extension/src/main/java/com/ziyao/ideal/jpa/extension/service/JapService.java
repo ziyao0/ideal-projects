@@ -41,4 +41,6 @@ public interface JapService<T, ID> {
 
     Page<T> findAll(Pageable pageable);
 
+    <S extends T> Page<S> searchSimilar(S entity, Pageable pageable);
+
 }
