@@ -31,7 +31,12 @@ public interface JapService<T, ID> {
 
     void deleteAll();
 
-    <S extends T> List<S> saveAll(Iterable<S> entities);
+    <S extends T> List<S> saveBatch(List<S> entities, int batchSize);
+
+    default <S extends T> List<S> saveBatch(List<S> entities) {
+        return saveBatch(entities, 500);
+    }
+
 
     List<T> findAll();
 

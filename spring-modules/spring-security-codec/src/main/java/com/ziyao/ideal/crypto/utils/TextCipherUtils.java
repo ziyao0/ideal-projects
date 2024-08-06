@@ -1,7 +1,6 @@
 package com.ziyao.ideal.crypto.utils;
 
-import com.ziyao.crypto.TextCipher;
-import com.ziyao.crypto.utils.SmUtils;
+import com.ziyao.ideal.crypto.TextCipher;
 import com.ziyao.ideal.crypto.core.CodebookProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

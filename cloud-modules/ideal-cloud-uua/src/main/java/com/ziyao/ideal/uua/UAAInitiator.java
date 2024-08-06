@@ -2,6 +2,7 @@ package com.ziyao.ideal.uua;
 
 import com.ziyao.ideal.security.core.Authentication;
 import com.ziyao.ideal.security.core.context.SecurityContextHolder;
+import com.ziyao.ideal.security.core.context.StrategyMode;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -20,7 +21,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 public class UAAInitiator {
 
     public static void main(String[] args) {
-        System.setProperty(SecurityContextHolder.SYSTEM_PROPERTY, SecurityContextHolder.MODE_DEBUG);
+        System.setProperty(SecurityContextHolder.SYSTEM_PROPERTY, StrategyMode.MODE_DEBUG.getStrategyName());
         SpringApplication.run(UAAInitiator.class, args);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

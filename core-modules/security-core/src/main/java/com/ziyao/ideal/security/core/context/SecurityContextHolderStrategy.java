@@ -1,5 +1,7 @@
 package com.ziyao.ideal.security.core.context;
 
+import com.ziyao.ideal.security.core.Authentication;
+import com.ziyao.ideal.security.core.AuthenticationUtils;
 import org.springframework.util.function.SingletonSupplier;
 
 /**
@@ -32,7 +34,8 @@ public interface SecurityContextHolderStrategy {
 
     default boolean isAuthentication() {
         if (getContext() != null) {
-            return getContext().getAuthentication().isAuthenticated();
+            Authentication authentication = getContext().getAuthentication();
+            return AuthenticationUtils.isAuthenticated(authentication);
         } else {
             return false;
         }

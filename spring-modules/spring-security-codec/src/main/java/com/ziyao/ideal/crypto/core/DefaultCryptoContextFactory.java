@@ -1,9 +1,9 @@
 package com.ziyao.ideal.crypto.core;
 
 import com.ziyao.ideal.crypto.EnvironmentExtractor;
-import com.ziyao.crypto.PropertyResolver;
-import com.ziyao.crypto.TextCipher;
-import com.ziyao.crypto.TextCipherProvider;
+import com.ziyao.ideal.crypto.PropertyResolver;
+import com.ziyao.ideal.crypto.TextCipher;
+import com.ziyao.ideal.crypto.TextCipherProvider;
 import com.ziyao.ideal.crypto.utils.TextCipherUtils;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.ConfigurableEnvironment;

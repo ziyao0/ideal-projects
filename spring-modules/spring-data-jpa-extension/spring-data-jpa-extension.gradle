@@ -1,3 +1,4 @@
 dependencies {
+    api project(':ideal-core')
     api 'org.springframework.boot:spring-boot-starter-data-jpa'
 }

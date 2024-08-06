@@ -1,6 +1,6 @@
 package com.ziyao.ideal.config.core;
 
-import com.ziyao.crypto.Property;
+import com.ziyao.ideal.crypto.Property;
 import com.ziyao.ideal.core.Assert;
 import com.ziyao.ideal.core.Dates;
 import com.ziyao.ideal.core.Strings;

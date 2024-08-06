@@ -1,6 +1,6 @@
 package com.ziyao.ideal.crypto.druid;
 
-import com.ziyao.crypto.TextCipher;
+import com.ziyao.ideal.crypto.TextCipher;
 
 import javax.security.auth.callback.NameCallback;
 import java.io.Serial;

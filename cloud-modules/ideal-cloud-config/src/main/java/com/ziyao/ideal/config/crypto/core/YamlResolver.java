@@ -2,7 +2,7 @@ package com.ziyao.ideal.config.crypto.core;
 
 import com.ziyao.ideal.core.Collections;
 import com.ziyao.ideal.core.Strings;
-import com.ziyao.crypto.Property;
+import com.ziyao.ideal.crypto.Property;
 
 import java.io.File;
 import java.io.FileInputStream;

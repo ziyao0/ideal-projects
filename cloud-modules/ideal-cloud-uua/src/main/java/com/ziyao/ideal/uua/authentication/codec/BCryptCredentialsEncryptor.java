@@ -1,7 +1,7 @@
 package com.ziyao.ideal.uua.authentication.codec;
 
-import com.ziyao.crypto.digest.BCrypt;
-import com.ziyao.crypto.digest.BCryptVersion;
+import com.ziyao.ideal.crypto.digest.BCrypt;
+import com.ziyao.ideal.crypto.digest.BCryptVersion;
 import com.ziyao.ideal.core.Assert;
 import com.ziyao.ideal.core.Randoms;
 import com.ziyao.ideal.core.RegexPool;

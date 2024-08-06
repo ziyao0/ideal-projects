@@ -8,7 +8,7 @@ import com.ziyao.ideal.config.core.ConfigType;
  */
 public class ConsulConfigManager implements ConfigManager{
     @Override
-    public boolean publishing(String dataId, String groupId, String content, ConfigType configType) {
+    public boolean publishing(String dataId, String groupId, String content, String configType) {
         return false;
     }
 

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 */
 @Repository
 <#list table.fields as field>
-    <#if field.keyIdentityFlag>
+    <#if field.keyFlag>
 public interface ${entity}RepositoryJpa extends JpaRepository<${entity}, ${field.propertyType}> {
 }
     </#if>

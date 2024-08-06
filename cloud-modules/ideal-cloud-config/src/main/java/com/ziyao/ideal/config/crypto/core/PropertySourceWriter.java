@@ -1,6 +1,6 @@
 package com.ziyao.ideal.config.crypto.core;
 
-import com.ziyao.crypto.Property;
+import com.ziyao.ideal.crypto.Property;
 
 import java.io.IOException;
 import java.util.List;

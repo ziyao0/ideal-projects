@@ -2,7 +2,7 @@ package com.ziyao.ideal.config.crypto.core;
 
 
 import com.ziyao.ideal.config.core.OriginTrackedYamlProcessor;
-import com.ziyao.crypto.Property;
+import com.ziyao.ideal.crypto.Property;
 
 import java.io.InputStream;
 import java.util.ArrayList;

@@ -1,9 +1,9 @@
 package com.ziyao.ideal.crypto.druid;
 
 import com.alibaba.druid.pool.DruidDataSource;
-import com.ziyao.crypto.Codebook;
-import com.ziyao.crypto.TextCipher;
-import com.ziyao.crypto.utils.SmUtils;
+import com.ziyao.ideal.crypto.Codebook;
+import com.ziyao.ideal.crypto.TextCipher;
+import com.ziyao.ideal.crypto.utils.SmUtils;
 
 import javax.sql.DataSource;
 import java.util.Collections;

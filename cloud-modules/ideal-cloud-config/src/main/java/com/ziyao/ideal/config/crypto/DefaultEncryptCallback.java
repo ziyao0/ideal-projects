@@ -1,8 +1,8 @@
 package com.ziyao.ideal.config.crypto;
 
-import com.ziyao.crypto.PropertyResolver;
-import com.ziyao.crypto.TextCipher;
-import com.ziyao.crypto.utils.SmUtils;
+import com.ziyao.ideal.crypto.PropertyResolver;
+import com.ziyao.ideal.crypto.TextCipher;
+import com.ziyao.ideal.crypto.utils.SmUtils;
 
 /**
  * @author ziyao

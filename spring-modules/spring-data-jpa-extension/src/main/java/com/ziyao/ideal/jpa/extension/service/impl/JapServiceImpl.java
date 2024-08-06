@@ -1,6 +1,8 @@
 package com.ziyao.ideal.jpa.extension.service.impl;
 
+import com.ziyao.ideal.core.Collections;
 import com.ziyao.ideal.jpa.extension.service.JapService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,6 +15,7 @@ import java.util.Optional;
  * @author ziyao
  * @see <a href="https://blog.zziyao.cn">https://blog.zziyao.cn</a>
  */
+@Slf4j
 public abstract class JapServiceImpl<JPA extends JpaRepository<T, ID>, T, ID> implements JapService<T, ID> {
 
     @Autowired
@@ -75,8 +78,24 @@ public abstract class JapServiceImpl<JPA extends JpaRepository<T, ID>, T, ID> im
 
     @Override
     @Transactional(rollbackFor = Throwable.class)
-    public <S extends T> List<S> saveAll(Iterable<S> entities) {
-        return repositoryJpa.saveAll(entities);
+    public <S extends T> List<S> saveBatch(List<S> entities, int batchSize) {
+        // 如果小于等于0 则填充默认为500
+        if (batchSize <= 0) {
+            batchSize = 500;
+        }
+        if (Collections.isEmpty(entities)) {
+            log.warn("批量插入的数据为空：{}", entities);
+            return List.of();
+        }
+        if (entities.size() < batchSize) {
+            return repositoryJpa.saveAll(entities);
+        }
+        List<List<S>> batchSaveList = Collections.partition(entities, batchSize);
+
+        for (List<S> batchList : batchSaveList) {
+            repositoryJpa.saveAll(batchList);
+        }
+        return entities;
     }
 
     @Override

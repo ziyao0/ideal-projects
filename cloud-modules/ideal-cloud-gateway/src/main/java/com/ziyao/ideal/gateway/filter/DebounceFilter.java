@@ -1,6 +1,6 @@
 package com.ziyao.ideal.gateway.filter;
 
-import com.ziyao.crypto.digest.DigestUtils;
+import com.ziyao.ideal.crypto.digest.DigestUtils;
 import com.ziyao.ideal.gateway.config.GatewayConfig;
 import com.ziyao.ideal.gateway.support.RedisKeys;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;

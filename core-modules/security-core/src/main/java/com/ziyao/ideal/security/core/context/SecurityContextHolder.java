@@ -1,10 +1,7 @@
 package com.ziyao.ideal.security.core.context;
 
-import com.ziyao.ideal.core.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.function.Supplier;
 
 /**
  * @author ziyao zhang
@@ -13,13 +10,9 @@ public abstract class SecurityContextHolder {
 
     private static final Logger log = LoggerFactory.getLogger(SecurityContextHolder.class);
 
-    public static final String MODE_THREAD_LOCAL = "MODE_THREAD_LOCAL";
-
-    public static final String MODE_DEBUG = "MODE_DEBUG";
-
     public static final String SYSTEM_PROPERTY = "security.strategy";
 
-    private static String strategyName = System.getProperty(SYSTEM_PROPERTY);
+    private static final String strategyName = System.getProperty(SYSTEM_PROPERTY);
 
     private static SecurityContextHolderStrategy strategy;
 
@@ -36,21 +29,7 @@ public abstract class SecurityContextHolder {
 
     private static void initializeStrategy() {
         // 默认使用当前线程
-
-        if (!Strings.hasText(strategyName)) {
-            strategyName = MODE_THREAD_LOCAL;
-        }
-
-        if (MODE_THREAD_LOCAL.equals(strategyName)) {
-            strategy = new ThreadLocalSecurityContextHolderStrategy();
-            return;
-        }
-
-        if (MODE_DEBUG.equals(strategyName)) {
-            strategy = new DebugLocalSecurityContextHolderStrategy();
-            return;
-        }
-        log.error("未知的策略名称：{}", strategyName);
+        strategy = createStrategy(strategyName);
     }
 
 
@@ -99,7 +78,44 @@ public abstract class SecurityContextHolder {
         return !strategy.isAuthentication();
     }
 
-    public SecurityContextHolder() {
+    public static void switchTTLStrategy() {
+        switchStrategy(StrategyMode.MODE_TTL);
     }
 
+    public static void switchDefaultStrategy() {
+        switchStrategy(StrategyMode.MODE_TTL);
+    }
+
+    public static void switchStrategy(StrategyMode strategyMode) {
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        strategy = doCreateStrategy(strategyMode);
+        strategy.setContext(securityContext);
+    }
+
+    public static SecurityContextHolderStrategy createStrategy(String strategyName) {
+        StrategyMode strategyMode = StrategyMode.getInstance(strategyName);
+        return doCreateStrategy(strategyMode);
+    }
+
+    public static SecurityContextHolderStrategy doCreateStrategy(StrategyMode strategyMode) {
+
+        switch (strategyMode) {
+            case MODE_TTL -> {
+                return new TTLSecurityContextHolderStrategy();
+            }
+            case MODE_DEBUG -> {
+                return new DebugLocalSecurityContextHolderStrategy();
+            }
+            case MODE_THREAD_LOCAL -> {
+                return new ThreadLocalSecurityContextHolderStrategy();
+            }
+            default -> {
+                log.warn("未知的策略名称：{}", strategyName);
+                return new ThreadLocalSecurityContextHolderStrategy();
+            }
+        }
+    }
+
+    private SecurityContextHolder() {
+    }
 }

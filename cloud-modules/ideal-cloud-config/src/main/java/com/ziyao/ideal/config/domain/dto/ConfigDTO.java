@@ -2,19 +2,19 @@ package com.ziyao.ideal.config.domain.dto;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.ziyao.ideal.config.domain.entity.Config;
-import com.ziyao.ideal.core.Strings;
 import com.ziyao.ideal.web.orm.EntityDTO;
+import com.ziyao.ideal.config.domain.entity.Config;
 import lombok.Data;
+import java.util.Objects;
+import com.ziyao.ideal.core.Strings;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 /**
  * <p>
- *
+ * 
  * </p>
  *
  * @author ziyao
@@ -26,31 +26,31 @@ public class ConfigDTO implements EntityDTO<Config>, Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     *
+     * 
      */
     private Long id;
     /**
-     *
+     * 组
      */
-    private Long groupId;
+    private String group;
     /**
-     *
+     * 
      */
     private Long dataId;
     /**
-     *
+     * 
      */
     private String configType;
     /**
-     *
+     * 
      */
     private String description;
     /**
-     *
+     * 
      */
     private LocalDateTime createdAt;
     /**
-     *
+     * 
      */
     private LocalDateTime updatedAt;
 
@@ -62,10 +62,8 @@ public class ConfigDTO implements EntityDTO<Config>, Serializable {
     public LambdaQueryWrapper<Config> initWrapper() {
 
         return Wrappers.lambdaQuery(Config.class)
-                // 
-                .eq(Objects.nonNull(groupId), Config::getGroupId, groupId)
-                // 
-                .eq(Objects.nonNull(dataId), Config::getDataId, dataId)
+                // 组
+                .likeRight(Strings.hasLength(group), Config::getGroup, group)
                 // 
                 .likeRight(Strings.hasLength(configType), Config::getConfigType, configType)
                 // 

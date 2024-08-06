@@ -16,7 +16,19 @@ public interface ConfigManager {
      * @param content    配置内容
      * @param configType 配置类型
      */
-    boolean publishing(String dataId, String groupId, String content, ConfigType configType);
+    default boolean publishing(String dataId, String groupId, String content, ConfigType configType) {
+        return publishing(dataId, groupId, content, configType.type());
+    }
+
+    /**
+     * 配置推送
+     *
+     * @param dataId     配置id
+     * @param groupId    组id
+     * @param content    配置内容
+     * @param configType 配置类型
+     */
+    boolean publishing(String dataId, String groupId, String content, String configType);
 
     /**
      * 获取配置信息

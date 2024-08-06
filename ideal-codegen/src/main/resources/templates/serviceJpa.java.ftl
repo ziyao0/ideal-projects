@@ -11,7 +11,7 @@ import ${superServiceClassPackage};
 * @author ${author}
 */
 <#list table.fields as field>
-<#if field.keyIdentityFlag>
+<#if field.keyFlag>
 public interface ${table.serviceName} extends ${superServiceClass}<${entity},${field.propertyType}> {
 
 }

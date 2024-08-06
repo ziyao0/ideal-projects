@@ -7,6 +7,7 @@ import java.util.function.Supplier;
  * @see <a href="https://blog.zziyao.cn">https://blog.zziyao.cn</a>
  */
 final class SupplierDeferredSecurityContext implements DeferredSecurityContext {
+
     private final Supplier<SecurityContext> supplier;
 
     private final SecurityContextHolderStrategy strategy;

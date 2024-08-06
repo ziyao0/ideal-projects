@@ -50,7 +50,7 @@ private final ConfigItemService configItemService;
     */
     @PostMapping("/saveBatch")
     public void saveBatch(@RequestBody List<ConfigItemDTO> entityDTOList) {
-    configItemService.saveAll(entityDTOList.stream().map(ConfigItemDTO::getInstance).collect(Collectors.toList()));
+    configItemService.saveBatch(entityDTOList.stream().map(ConfigItemDTO::getInstance).collect(Collectors.toList()));
     }
 
     /**

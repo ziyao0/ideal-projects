@@ -46,7 +46,7 @@
     },
     {
       "name": "com.ziyao.crypto.cipher.sm4.mode",
-      "type": "com.ziyao.crypto.symmetric.Mode",
+      "type": "com.ziyao.ideal.crypto.symmetric.Mode",
       "sourceType": "com.ziyao.ideal.crypto.Codebook$KeyIv"
     },
     {

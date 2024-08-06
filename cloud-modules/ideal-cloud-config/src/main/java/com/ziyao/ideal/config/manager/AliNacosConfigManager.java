@@ -18,12 +18,12 @@ public class AliNacosConfigManager implements ConfigManager {
     private final NacosConfigManager nacosConfigManager;
 
     @Override
-    public boolean publishing(String dataId, String groupId, String content, ConfigType configType) {
+    public boolean publishing(String dataId, String groupId, String content, String configType) {
 
         ConfigService configService = nacosConfigManager.getConfigService();
 
         try {
-            return configService.publishConfig(dataId, groupId, content, configType.type());
+            return configService.publishConfig(dataId, groupId, content, configType);
         } catch (NacosException e) {
             throw new RuntimeException(e);
         }

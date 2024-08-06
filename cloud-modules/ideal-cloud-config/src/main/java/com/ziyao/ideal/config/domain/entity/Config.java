@@ -2,8 +2,7 @@ package com.ziyao.ideal.config.domain.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -18,26 +17,49 @@ import java.time.LocalDateTime;
  */
 @Getter
 @Setter
-@Entity
+@Builder
+@Entity(name = "config")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Config implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
+
+    /**
+     * id:
+     */
     @Id
-    private Long id;
+    private Integer id;
 
-    private Long groupId;
+    /**
+     * group:组
+     */
+    private String group;
 
-    private Long dataId;
+    /**
+     * dataId:
+     */
+    private String dataId;
 
+    /**
+     * configType:
+     */
     private String configType;
 
+    /**
+     * description:
+     */
     private String description;
 
+    /**
+     * createdAt:
+     */
     private LocalDateTime createdAt;
 
+    /**
+     * updatedAt:
+     */
     private LocalDateTime updatedAt;
-
-
 }

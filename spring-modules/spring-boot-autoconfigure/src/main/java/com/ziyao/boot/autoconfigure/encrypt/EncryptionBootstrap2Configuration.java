@@ -25,7 +25,7 @@ public class EncryptionBootstrap2Configuration {
 
     @Bean
     @ConditionalOnClass(name = {
-            "com.ziyao.crypto.TextCipher",
+            "com.ziyao.ideal.crypto.TextCipher",
             "com.ziyao.ideal.core.codec.StringCodec"
     })
     public CryptoContextFactory cipherContextFactory() {

@@ -2,7 +2,7 @@ package com.ziyao.ideal.crypto.druid;
 
 import com.alibaba.druid.util.DruidPasswordCallback;
 import com.ziyao.ideal.core.Strings;
-import com.ziyao.crypto.TextCipher;
+import com.ziyao.ideal.crypto.TextCipher;
 
 import java.io.Serial;
 import java.util.Properties;

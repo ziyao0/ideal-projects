@@ -37,7 +37,7 @@ public class CodeGenStarter {
         CodeGenConfig gc = new CodeGenConfig();
 
 
-        gc.setUrl("jdbc:mysql://:33066/code_harbor"); //?useUnicode=true&useSSL=false&characterEncoding=utf8
+        gc.setUrl("jdbc:mysql://:3306/code_harbor"); //?useUnicode=true&useSSL=false&characterEncoding=utf8
         gc.setUserName("");
         gc.setPassword("");
 

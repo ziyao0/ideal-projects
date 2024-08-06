@@ -1,7 +1,7 @@
 package com.ziyao.ideal.crypto.core;
 
-import com.ziyao.crypto.PropertyResolver;
-import com.ziyao.crypto.TextCipherProvider;
+import com.ziyao.ideal.crypto.PropertyResolver;
+import com.ziyao.ideal.crypto.TextCipherProvider;
 import lombok.Getter;
 
 /**

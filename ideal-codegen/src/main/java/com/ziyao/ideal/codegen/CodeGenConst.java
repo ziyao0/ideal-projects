@@ -9,6 +9,7 @@ public abstract class CodeGenConst {
     public static final String JPA_SERVICE_TEMPLATE = "/templates/serviceJpa.java";
     public static final String JPA_SERVICE_IMPL_TEMPLATE = "/templates/serviceImplJpa.java";
     public static final String JPA_CONTROLLER_TEMPLATE = "/templates/controllerJpa.java";
+    public static final String JPA_ENTITY_TEMPLATE = "templates/entityJpa.java";
     public static final String JPA_REPOSITORY_TEMPLATE = "templates/repositoryJpa.java.ftl";
     public static final String ENTITY_DTO_TEMPLATE = "templates/entityDTO.java.ftl";
 

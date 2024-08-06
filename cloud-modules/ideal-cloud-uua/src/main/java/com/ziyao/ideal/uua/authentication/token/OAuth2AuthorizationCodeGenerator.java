@@ -1,7 +1,7 @@
 package com.ziyao.ideal.uua.authentication.token;
 
-import com.ziyao.crypto.keygen.Base64StringKeyGenerator;
-import com.ziyao.crypto.keygen.StringKeyGenerator;
+import com.ziyao.ideal.crypto.keygen.Base64StringKeyGenerator;
+import com.ziyao.ideal.crypto.keygen.StringKeyGenerator;
 import com.ziyao.ideal.security.oauth2.core.OAuth2AuthorizationCode;
 import com.ziyao.ideal.security.oauth2.core.token.OAuth2ParameterNames;
 import com.ziyao.ideal.security.oauth2.core.token.OAuth2TokenContext;

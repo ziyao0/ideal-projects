@@ -1,6 +1,6 @@
 package com.ziyao.ideal.crypto.core;
 
-import com.ziyao.crypto.Codebook;
+import com.ziyao.ideal.crypto.Codebook;
 import com.ziyao.ideal.crypto.utils.ConstantPool;
 import lombok.Getter;
 import lombok.Setter;

@@ -2,7 +2,6 @@ package com.ziyao.ideal.crypto;
 
 import com.ziyao.ideal.core.Assert;
 import com.ziyao.ideal.core.Strings;
-import com.ziyao.crypto.Properties;
 import com.ziyao.ideal.crypto.core.CryptoPropertySource;
 import com.ziyao.ideal.crypto.utils.ConstantPool;
 import org.slf4j.Logger;

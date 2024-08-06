@@ -35,16 +35,19 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RequestMapping("/${table.entityPath}")
 <#list table.fields as field>
-<#if field.keyIdentityFlag>
-public class ${table.controllerName} extends ${superControllerClass}<${table.serviceName}, ${entity},${field.propertyType}> {
+<#if field.keyFlag>
+public class ${table.controllerName} extends ${superControllerClass}<${table.serviceName}, ${entity}, ${field.propertyType}> {
 
-private final ${table.serviceName} ${table.serviceName?uncap_first};
+    private final ${table.serviceName} ${table.serviceName?uncap_first};
 
     @PostMapping("/save")
     public void save(@RequestBody ${entity}DTO entityDTO) {
     ${table.serviceName?uncap_first}.save(entityDTO.getInstance());
     }
 
+    /**
+     * 通过主键id进行更新
+     */
     @PostMapping("/updateById")
     public void updateById(@RequestBody ${entity}DTO entityDTO) {
         if (ObjectUtils.isEmpty(entityDTO.getId())) {
@@ -54,16 +57,16 @@ private final ${table.serviceName} ${table.serviceName?uncap_first};
     }
 
     /**
-    * 默认一次插入500条
-    */
+     * 默认一次插入500条
+     */
     @PostMapping("/saveBatch")
     public void saveBatch(@RequestBody List<${entity}DTO> entityDTOList) {
-    ${table.serviceName?uncap_first}.saveAll(entityDTOList.stream().map(${entity}DTO::getInstance).collect(Collectors.toList()));
+        ${table.serviceName?uncap_first}.saveBatch(entityDTOList.stream().map(${entity}DTO::getInstance).collect(Collectors.toList()));
     }
 
     /**
-    * 分页查询
-    */
+     * 分页查询
+     */
     @PostMapping("/searchSimilar")
     public Page<${entity}> searchSimilar(PageParams<${entity}DTO> pageParams) {
         return ${table.serviceName?uncap_first}.searchSimilar(pageParams.getParams().getInstance(), Pages.initPage(pageParams));

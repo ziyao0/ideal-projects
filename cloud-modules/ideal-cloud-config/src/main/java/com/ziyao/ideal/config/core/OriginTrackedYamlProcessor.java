@@ -1,6 +1,6 @@
 package com.ziyao.ideal.config.core;
 
-import com.ziyao.crypto.Property;
+import com.ziyao.ideal.crypto.Property;
 import com.ziyao.ideal.core.lang.NonNull;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.LoaderOptions;

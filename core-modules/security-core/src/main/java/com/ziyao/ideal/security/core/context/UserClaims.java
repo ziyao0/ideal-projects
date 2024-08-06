@@ -3,6 +3,7 @@ package com.ziyao.ideal.security.core.context;
 import com.ziyao.ideal.core.Assert;
 import com.ziyao.ideal.core.Collections;
 
+import java.io.Serial;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,6 +12,9 @@ import java.util.Map;
  */
 public class UserClaims implements PrincipalClaims {
 
+
+    @Serial
+    private static final long serialVersionUID = 4157668045536145164L;
 
     private final Map<String, Object> claims;
 

@@ -47,7 +47,9 @@ public class StrategyConfigBuilder {
                     .mapperBuilder()
                     .disable()
                     .disableMapperXml()
-                    .disableMapper();
+                    .disableMapper()
+                    .entityBuilder()
+                    .javaTemplate(CodeGenConst.JPA_ENTITY_TEMPLATE);
 
         } else {
             builder.entityBuilder()

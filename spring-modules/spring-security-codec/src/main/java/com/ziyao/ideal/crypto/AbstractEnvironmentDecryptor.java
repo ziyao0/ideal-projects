@@ -2,9 +2,6 @@ package com.ziyao.ideal.crypto;
 
 import com.ziyao.ideal.core.Collections;
 import com.ziyao.ideal.core.RegexPool;
-import com.ziyao.crypto.Property;
-import com.ziyao.crypto.PropertyResolver;
-import com.ziyao.crypto.TextCipher;
 import com.ziyao.ideal.crypto.core.CryptoContext;
 import com.ziyao.ideal.crypto.utils.ConstantPool;
 import org.slf4j.Logger;
