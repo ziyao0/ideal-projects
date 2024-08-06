@@ -12,39 +12,39 @@ public interface ConfigManager {
      * 配置推送
      *
      * @param dataId     配置id
-     * @param groupId    组id
+     * @param group    组id
      * @param content    配置内容
      * @param configType 配置类型
      */
-    default boolean publishing(String dataId, String groupId, String content, ConfigType configType) {
-        return publishing(dataId, groupId, content, configType.type());
+    default boolean publishing(String dataId, String group, String content, ConfigType configType) {
+        return publishing(dataId, group, content, configType.type());
     }
 
     /**
      * 配置推送
      *
      * @param dataId     配置id
-     * @param groupId    组id
+     * @param group    组id
      * @param content    配置内容
      * @param configType 配置类型
      */
-    boolean publishing(String dataId, String groupId, String content, String configType);
+    boolean publishing(String dataId, String group, String content, String configType);
 
     /**
      * 获取配置信息
      *
      * @param dataId  配置ID
-     * @param groupId 组ID
+     * @param group 组ID
      * @return 返回配置信息
      */
-    String getConfig(String dataId, String groupId);
+    String getConfig(String dataId, String group);
 
     /**
      * 通过配置ID和组ID删除配置信息
      *
      * @param dataId  配置ID
-     * @param groupId 组ID
+     * @param group 组ID
      * @return <code>true</code> 删除成功
      */
-    boolean removeConfig(String dataId, String groupId);
+    boolean removeConfig(String dataId, String group);
 }

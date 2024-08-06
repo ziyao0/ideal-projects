@@ -13,4 +13,6 @@ import java.util.Optional;
 public interface ConfigRepositoryJpa extends JpaRepository<Config, Integer> {
 
     Optional<Config> findByDataIdAndGroup(String dataId, String group);
+
+    void deleteByDataIdAndGroup(String dataId, String group);
 }

@@ -26,7 +26,7 @@ public interface ConfigActionService {
      * @param group      组
      * @param properties 配置信息
      */
-    void publishConfig(String dataId, String group, List<Property> properties);
+    void publishConfig(String dataId, String group, String configType, List<Property> properties);
 
     /**
      * 通过配置id和配置组删除配置
@@ -34,7 +34,7 @@ public interface ConfigActionService {
      * @param dataId 配置ID
      * @param group  配置组
      */
-    void deleteConfig(String dataId, String group);
+    boolean removeConfig(String dataId, String group);
 
     /**
      * 获取指定配置
@@ -58,7 +58,7 @@ public interface ConfigActionService {
      * @param propertyKey   配置属性key
      * @param propertyValue 配置属性value
      */
-    default void publishConfig(String dataId, String group, String propertyKey, Object propertyValue) {
-        this.publishConfig(dataId, group, List.of(new Property(propertyKey, propertyValue)));
+    default void publishConfig(String dataId, String group, String configType, String propertyKey, Object propertyValue) {
+        this.publishConfig(dataId, group, configType, List.of(new Property(propertyKey, propertyValue)));
     }
 }

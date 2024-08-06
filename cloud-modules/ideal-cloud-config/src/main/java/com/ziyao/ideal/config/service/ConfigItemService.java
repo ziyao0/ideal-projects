@@ -6,13 +6,15 @@ import com.ziyao.ideal.jpa.extension.service.JapService;
 import java.util.List;
 
 /**
-* <p>
-    *  服务类
-    * </p>
-*
-* @author ziyao
-*/
-public interface ConfigItemService extends JapService<ConfigItem,Integer> {
+ * <p>
+ * 服务类
+ * </p>
+ *
+ * @author ziyao
+ */
+public interface ConfigItemService extends JapService<ConfigItem, Integer> {
 
-    List<ConfigItem> findByConfigId(Integer id);
+    List<ConfigItem> findByConfigId(Integer configId);
+
+    void deleteByConfigId(Integer configId);
 }

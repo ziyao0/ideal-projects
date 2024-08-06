@@ -18,5 +18,5 @@ public interface ConfigService extends JapService<Config, Integer> {
 
     Optional<Config> findByDataIdAndGroup(@NonNull String dataId, @NonNull String group);
 
-
+    void deleteByDataIdAndGroup(@NonNull String dataId, @NonNull String group);
 }

@@ -19,7 +19,8 @@ import java.util.List;
  */
 @Service
 @RequiredArgsConstructor
-public class ConfigItemServiceImpl extends JapServiceImpl<ConfigItemRepositoryJpa, ConfigItem, Integer> implements ConfigItemService {
+public class ConfigItemServiceImpl
+        extends JapServiceImpl<ConfigItemRepositoryJpa, ConfigItem, Integer> implements ConfigItemService {
 
     private final ConfigItemRepositoryJpa configItemRepositoryJpa;
 
@@ -30,5 +31,10 @@ public class ConfigItemServiceImpl extends JapServiceImpl<ConfigItemRepositoryJp
             return List.of();
         }
         return configItems;
+    }
+
+    @Override
+    public void deleteByConfigId(Integer configId) {
+        configItemRepositoryJpa.deleteByConfigId(configId);
     }
 }

@@ -3,7 +3,6 @@ package com.ziyao.ideal.config.manager;
 import com.alibaba.cloud.nacos.NacosConfigManager;
 import com.alibaba.nacos.api.config.ConfigService;
 import com.alibaba.nacos.api.exception.NacosException;
-import com.ziyao.ideal.config.core.ConfigType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,30 +17,30 @@ public class AliNacosConfigManager implements ConfigManager {
     private final NacosConfigManager nacosConfigManager;
 
     @Override
-    public boolean publishing(String dataId, String groupId, String content, String configType) {
+    public boolean publishing(String dataId, String group, String content, String configType) {
 
         ConfigService configService = nacosConfigManager.getConfigService();
 
         try {
-            return configService.publishConfig(dataId, groupId, content, configType);
+            return configService.publishConfig(dataId, group, content, configType);
         } catch (NacosException e) {
             throw new RuntimeException(e);
         }
     }
 
     @Override
-    public String getConfig(String dataId, String groupId) {
+    public String getConfig(String dataId, String group) {
         try {
-            return nacosConfigManager.getConfigService().getConfig(dataId, groupId, 10000);
+            return nacosConfigManager.getConfigService().getConfig(dataId, group, 10000);
         } catch (NacosException e) {
             throw new RuntimeException(e);
         }
     }
 
     @Override
-    public boolean removeConfig(String dataId, String groupId) {
+    public boolean removeConfig(String dataId, String group) {
         try {
-            return nacosConfigManager.getConfigService().removeConfig(dataId, groupId);
+            return nacosConfigManager.getConfigService().removeConfig(dataId, group);
         } catch (NacosException e) {
             throw new RuntimeException(e);
         }

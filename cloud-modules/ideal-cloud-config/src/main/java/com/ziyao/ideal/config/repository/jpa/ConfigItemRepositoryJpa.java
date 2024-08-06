@@ -14,4 +14,5 @@ public interface ConfigItemRepositoryJpa extends JpaRepository<ConfigItem, Integ
 
     List<ConfigItem> findByConfigId(Integer configId);
 
+    void deleteByConfigId(Integer configId);
 }

@@ -5,8 +5,12 @@ import lombok.Getter;
 
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * @author ziyao
@@ -31,8 +35,19 @@ public enum ConfigValueType {
         this.classType = classType;
     }
 
+    private static final Map<String, ConfigValueType> map;
+
+    static {
+        map = Arrays.stream(values()).collect(Collectors.toMap(ConfigValueType::name, Function.identity()));
+    }
+
+    public static ConfigValueType of(String name) {
+        ConfigValueType configValueType = map.get(name);
+        return configValueType == null ? STRING : configValueType;
+    }
+
     @SuppressWarnings("unchecked")
-    public <T> T getInstance(String value) throws ParseException {
+    public <T> T getObject(String value) throws ParseException {
 
         return switch (this) {
             case STRING, OBJECT -> (T) value;
@@ -44,13 +59,5 @@ public enum ConfigValueType {
             case ARRAY -> (T) Strings.commaDelimitedListToList(value);
             default -> (T) this.classType.cast(value);
         };
-    }
-
-    public static void main(String[] args) throws ParseException {
-        Boolean aTrue = ConfigValueType.BOOLEAN.getInstance("true");
-        System.out.println(aTrue);
-
-        List<String> instance = ConfigValueType.ARRAY.getInstance("a,b,c");
-        System.out.println(instance);
     }
 }

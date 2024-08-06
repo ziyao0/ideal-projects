@@ -1,11 +1,11 @@
 package com.ziyao.ideal.config.core;
 
-import com.ziyao.ideal.crypto.Property;
 import com.ziyao.ideal.core.Assert;
 import com.ziyao.ideal.core.Dates;
 import com.ziyao.ideal.core.Strings;
 import com.ziyao.ideal.core.io.IOUtils;
 import com.ziyao.ideal.core.lang.Nullable;
+import com.ziyao.ideal.crypto.Property;
 import lombok.Getter;
 import lombok.Setter;
 import org.slf4j.Logger;
@@ -167,11 +167,6 @@ public abstract class YamlProcessor {
                         list.add(new HashMap<>());
                     }
 
-//                    if (i == keys.length - 1) {
-//                        list.get(index).put(keys[++i], value);
-//                    } else {
-//                        currentMap = list.get(index);
-//                    }
                     if (i == keys.length - 1) {
                         // 处理数组终止条件，将值设置到相应位置
                         list.set(index, value);

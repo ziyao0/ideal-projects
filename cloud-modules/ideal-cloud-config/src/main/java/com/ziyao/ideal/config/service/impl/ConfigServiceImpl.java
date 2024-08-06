@@ -19,12 +19,18 @@ import java.util.Optional;
  */
 @Service
 @RequiredArgsConstructor
-public class ConfigServiceImpl extends JapServiceImpl<ConfigRepositoryJpa, Config, Integer> implements ConfigService {
+public class ConfigServiceImpl
+        extends JapServiceImpl<ConfigRepositoryJpa, Config, Integer> implements ConfigService {
 
     private final ConfigRepositoryJpa configRepositoryJpa;
 
     @Override
     public Optional<Config> findByDataIdAndGroup(@NonNull String dataId, @NonNull String group) {
         return configRepositoryJpa.findByDataIdAndGroup(dataId, group);
+    }
+
+    @Override
+    public void deleteByDataIdAndGroup(@NonNull String dataId, @NonNull String group) {
+        configRepositoryJpa.deleteByDataIdAndGroup(dataId, group);
     }
 }
