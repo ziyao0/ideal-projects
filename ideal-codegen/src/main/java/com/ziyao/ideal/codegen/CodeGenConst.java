@@ -12,7 +12,9 @@ public abstract class CodeGenConst {
     public static final String JPA_ENTITY_TEMPLATE = "templates/entityJpa.java";
     public static final String JPA_REPOSITORY_TEMPLATE = "templates/repositoryJpa.java.ftl";
     public static final String ENTITY_DTO_TEMPLATE = "templates/entityDTO.java.ftl";
+    public static final String MAPSTRUCT_TEMPLATE = "templates/mapstruct.java.ftl";
 
     public static final String JPA_REPOSITORY_NAME = "RepositoryJpa";
     public static final String JPA_DTO_NAME = "DTO";
+    public static final String MAPSTRUCT_NAME = "Mapstruct";
 }

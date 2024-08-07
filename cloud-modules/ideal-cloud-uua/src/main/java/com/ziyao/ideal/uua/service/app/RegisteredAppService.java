@@ -23,7 +23,7 @@ public interface RegisteredAppService {
      * 通过应用id获取应用信息
      */
     @Nullable
-    RegisteredApp findById(Long appId);
+    RegisteredApp findById(Integer appId);
 
     /**
      * @return {@link Model}

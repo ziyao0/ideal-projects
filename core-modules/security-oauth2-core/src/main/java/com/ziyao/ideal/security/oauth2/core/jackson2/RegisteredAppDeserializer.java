@@ -32,7 +32,7 @@ public class RegisteredAppDeserializer extends JsonDeserializer<RegisteredApp> {
     private RegisteredApp deserialize(ObjectMapper mapper, JsonNode jsonNode) {
 
 
-        return RegisteredApp.withAppId(JsonNodeUtils.findLongValue(jsonNode, "appId"))
+        return RegisteredApp.withAppId(JsonNodeUtils.findIntegerValue(jsonNode, "appId"))
                 .appName(JsonNodeUtils.findStringValue(jsonNode, "appName"))
                 .appType(JsonNodeUtils.findIntegerValue(jsonNode, "appType"))
                 .authorizationGrantTypes(authorizationGrantTypes -> {

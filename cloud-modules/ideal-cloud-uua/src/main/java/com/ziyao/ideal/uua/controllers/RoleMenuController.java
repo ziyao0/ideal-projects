@@ -34,12 +34,12 @@ public class RoleMenuController extends BaseController<RoleMenuService, RoleMenu
 
     @PostMapping("/save")
     public void save(@RequestBody RoleMenuDTO entityDTO) {
-        super.iService.save(entityDTO.getInstance());
+        super.iService.save(entityDTO.of());
     }
 
     @PostMapping("/saveOrUpdate")
     public void saveOrUpdate(@RequestBody RoleMenuDTO entityDTO) {
-        super.iService.saveOrUpdate(entityDTO.getInstance());
+        super.iService.saveOrUpdate(entityDTO.of());
     }
 
     @PostMapping("/updateById")
@@ -47,7 +47,7 @@ public class RoleMenuController extends BaseController<RoleMenuService, RoleMenu
         if (ObjectUtils.isEmpty(entityDTO.getId())) {
             throw Exceptions.createIllegalArgumentException(null);
         }
-        super.iService.updateById(entityDTO.getInstance());
+        super.iService.updateById(entityDTO.of());
     }
 
     /**
@@ -55,7 +55,7 @@ public class RoleMenuController extends BaseController<RoleMenuService, RoleMenu
      */
     @PostMapping("/saveBatch")
     public void saveBatch(@RequestBody List<RoleMenuDTO> entityDTOList) {
-        super.iService.saveBatch(entityDTOList.stream().map(RoleMenuDTO::getInstance).collect(Collectors.toList()), 500);
+        super.iService.saveBatch(entityDTOList.stream().map(RoleMenuDTO::of).collect(Collectors.toList()), 500);
     }
 
     /**

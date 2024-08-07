@@ -1,5 +1,6 @@
 package com.ziyao.ideal.crypto.core;
 
+import com.ziyao.ideal.core.Assert;
 import com.ziyao.ideal.crypto.Codebook;
 import com.ziyao.ideal.crypto.utils.ConstantPool;
 import lombok.Getter;
@@ -16,13 +17,15 @@ public class CodebookProperties extends Codebook<CodebookProperties> {
 
     private String location;
 
-    private boolean failOnError;
+    private boolean failOnError = false;
+
+    private boolean checkCipher = false;
 
     public static CodebookProperties merge(
-            CodebookProperties mainCodebook, CodebookProperties externalCodebook) {
+            CodebookProperties localCodebook, CodebookProperties externalCodebook) {
 
-        if (null == mainCodebook) {
-            mainCodebook = new CodebookProperties();
+        if (null == localCodebook) {
+            localCodebook = new CodebookProperties();
         }
         if (null == externalCodebook) {
             externalCodebook = new CodebookProperties();
@@ -30,11 +33,11 @@ public class CodebookProperties extends Codebook<CodebookProperties> {
 
         CodebookProperties properties = new CodebookProperties();
 
-        properties.setSm4(KeyIv.merge(mainCodebook.getSm4(), externalCodebook.getSm4()));
-        properties.setSm2(KeyPair.merge(mainCodebook.getSm2(), externalCodebook.getSm2()));
-        properties.setTypes(mainCodebook.getTypes());
-        properties.setLocation(mainCodebook.getLocation());
-        properties.setFailOnError(mainCodebook.isFailOnError());
+        properties.setSm4(KeyIv.merge(localCodebook.getSm4(), externalCodebook.getSm4()));
+        properties.setSm2(KeyPair.merge(localCodebook.getSm2(), externalCodebook.getSm2()));
+        properties.setTypes(localCodebook.getTypes());
+        properties.setLocation(localCodebook.getLocation());
+        properties.setFailOnError(localCodebook.isFailOnError());
         return properties;
     }
 

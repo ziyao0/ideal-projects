@@ -43,7 +43,7 @@ public class AuthorizationController {
             // 如果未授权则跳转发到认证服务器
         }
 
-        Long appId = Optional.ofNullable(request.getParameter(OAuth2ParameterNames.APP_ID)).map(Long::parseLong).orElse(null);
+        Integer appId = Optional.ofNullable(request.getParameter(OAuth2ParameterNames.APP_ID)).map(Integer::parseInt).orElse(null);
         String state = Optional.ofNullable(request.getParameter(OAuth2ParameterNames.STATE)).orElse(Strings.EMPTY);
         String grantType = Optional.ofNullable(request.getParameter(OAuth2ParameterNames.GRANT_TYPE)).orElse(Strings.EMPTY);
 

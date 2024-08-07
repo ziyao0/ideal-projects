@@ -34,12 +34,12 @@ public class LoginRecordController extends BaseController<LoginRecordService, Lo
 
     @PostMapping("/save")
     public void save(@RequestBody LoginRecordDTO entityDTO) {
-        super.iService.save(entityDTO.getInstance());
+        super.iService.save(entityDTO.of());
     }
 
     @PostMapping("/saveOrUpdate")
     public void saveOrUpdate(@RequestBody LoginRecordDTO entityDTO) {
-        super.iService.saveOrUpdate(entityDTO.getInstance());
+        super.iService.saveOrUpdate(entityDTO.of());
     }
 
     @PostMapping("/updateById")
@@ -47,7 +47,7 @@ public class LoginRecordController extends BaseController<LoginRecordService, Lo
         if (ObjectUtils.isEmpty(entityDTO.getId())) {
             throw Exceptions.createIllegalArgumentException(null);
         }
-        super.iService.updateById(entityDTO.getInstance());
+        super.iService.updateById(entityDTO.of());
     }
 
     /**
@@ -56,7 +56,7 @@ public class LoginRecordController extends BaseController<LoginRecordService, Lo
     @PostMapping("/saveBatch")
     public void saveBatch(@RequestBody List
             <LoginRecordDTO> entityDTOList) {
-        super.iService.saveBatch(entityDTOList.stream().map(LoginRecordDTO::getInstance).collect(Collectors.toList()), 500);
+        super.iService.saveBatch(entityDTOList.stream().map(LoginRecordDTO::of).collect(Collectors.toList()), 500);
     }
 
     /**

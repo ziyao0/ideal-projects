@@ -34,12 +34,12 @@ public class MenuController extends BaseController<MenuService, Menu> {
 
     @PostMapping("/save")
     public void save(@RequestBody MenuDTO entityDTO) {
-        super.iService.save(entityDTO.getInstance());
+        super.iService.save(entityDTO.of());
     }
 
     @PostMapping("/saveOrUpdate")
     public void saveOrUpdate(@RequestBody MenuDTO entityDTO) {
-        super.iService.saveOrUpdate(entityDTO.getInstance());
+        super.iService.saveOrUpdate(entityDTO.of());
     }
 
     @PostMapping("/updateById")
@@ -47,7 +47,7 @@ public class MenuController extends BaseController<MenuService, Menu> {
         if (ObjectUtils.isEmpty(entityDTO.getId())) {
             throw Exceptions.createIllegalArgumentException(null);
         }
-        super.iService.updateById(entityDTO.getInstance());
+        super.iService.updateById(entityDTO.of());
     }
 
     /**
@@ -55,7 +55,7 @@ public class MenuController extends BaseController<MenuService, Menu> {
      */
     @PostMapping("/saveBatch")
     public void saveBatch(@RequestBody List<MenuDTO> entityDTOList) {
-        super.iService.saveBatch(entityDTOList.stream().map(MenuDTO::getInstance).collect(Collectors.toList()), 500);
+        super.iService.saveBatch(entityDTOList.stream().map(MenuDTO::of).collect(Collectors.toList()), 500);
     }
 
     /**

@@ -34,12 +34,12 @@ public class UserRoleController extends BaseController<UserRoleService, UserRole
 
     @PostMapping("/save")
     public void save(@RequestBody UserRoleDTO entityDTO) {
-        super.iService.save(entityDTO.getInstance());
+        super.iService.save(entityDTO.of());
     }
 
     @PostMapping("/saveOrUpdate")
     public void saveOrUpdate(@RequestBody UserRoleDTO entityDTO) {
-        super.iService.saveOrUpdate(entityDTO.getInstance());
+        super.iService.saveOrUpdate(entityDTO.of());
     }
 
     @PostMapping("/updateById")
@@ -47,7 +47,7 @@ public class UserRoleController extends BaseController<UserRoleService, UserRole
         if (ObjectUtils.isEmpty(entityDTO.getId())) {
             throw Exceptions.createIllegalArgumentException(null);
         }
-        super.iService.updateById(entityDTO.getInstance());
+        super.iService.updateById(entityDTO.of());
     }
 
     /**
@@ -55,7 +55,7 @@ public class UserRoleController extends BaseController<UserRoleService, UserRole
      */
     @PostMapping("/saveBatch")
     public void saveBatch(@RequestBody List<UserRoleDTO> entityDTOList) {
-        super.iService.saveBatch(entityDTOList.stream().map(UserRoleDTO::getInstance).collect(Collectors.toList()), 500);
+        super.iService.saveBatch(entityDTOList.stream().map(UserRoleDTO::of).collect(Collectors.toList()), 500);
     }
 
     /**

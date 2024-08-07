@@ -3,21 +3,22 @@ package com.ziyao.ideal.uua.domain.dto;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.ziyao.ideal.web.orm.EntityDTO;
-import com.ziyao.ideal.core.Strings;
 import com.ziyao.ideal.uua.domain.entity.User;
+import com.ziyao.ideal.uua.domain.mapstruct.UserMapstruct;
 import lombok.Data;
+import java.util.Objects;
+import com.ziyao.ideal.core.Strings;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 /**
  * <p>
  * 用户表
  * </p>
  *
- * @author zhangziyao
+ * @author ziyao
  */
 @Data
 public class UserDTO implements EntityDTO<User>, Serializable {
@@ -28,7 +29,7 @@ public class UserDTO implements EntityDTO<User>, Serializable {
     /**
      * 用户id
      */
-    private Long id;
+    private Integer id;
     /**
      * 用户账号
      */
@@ -42,17 +43,33 @@ public class UserDTO implements EntityDTO<User>, Serializable {
      */
     private String password;
     /**
-     * 账号状态
+     * 手机号
      */
-    private Byte status;
+    private String mobile;
     /**
-     * 部门id
+     * 姓名
      */
-    private Long deptId;
+    private String idCardName;
     /**
-     * 部门名称
+     * 身份证号
      */
-    private String deptName;
+    private String idCardNo;
+    /**
+     * 性别（M: 男, F: 女, O: 其他）
+     */
+    private String gender;
+    /**
+     * 出生日期
+     */
+    private LocalDateTime dateOfBirth;
+    /**
+     * 地址
+     */
+    private String address;
+    /**
+     * 账号状态 1 正常 2 失效 3 禁用
+     */
+    private Integer status;
     /**
      * 排序
      */
@@ -60,7 +77,11 @@ public class UserDTO implements EntityDTO<User>, Serializable {
     /**
      * 删除状态 0正常 1 删除
      */
-    private Byte deleted;
+    private Integer deleted;
+    /**
+     * 最后登录时间
+     */
+    private LocalDateTime lastLogin;
     /**
      * 创建人id
      */
@@ -70,7 +91,7 @@ public class UserDTO implements EntityDTO<User>, Serializable {
      */
     private LocalDateTime createdAt;
     /**
-     * 修改人id
+     * 修改人id 
      */
     private Integer modifiedBy;
     /**
@@ -92,19 +113,40 @@ public class UserDTO implements EntityDTO<User>, Serializable {
                 .likeRight(Strings.hasLength(nickname), User::getNickname, nickname)
                 // 用户凭证
                 .likeRight(Strings.hasLength(password), User::getPassword, password)
-                // 账号状态
+                // 手机号
+                .likeRight(Strings.hasLength(mobile), User::getMobile, mobile)
+                // 姓名
+                .likeRight(Strings.hasLength(idCardName), User::getIdCardName, idCardName)
+                // 身份证号
+                .likeRight(Strings.hasLength(idCardNo), User::getIdCardNo, idCardNo)
+                // 性别（M: 男, F: 女, O: 其他）
+                .likeRight(Strings.hasLength(gender), User::getGender, gender)
+                // 出生日期
+                .eq(Objects.nonNull(dateOfBirth), User::getDateOfBirth, dateOfBirth)
+                // 地址
+                .likeRight(Strings.hasLength(address), User::getAddress, address)
+                // 账号状态 1 正常 2 失效 3 禁用
                 .eq(Objects.nonNull(status), User::getStatus, status)
                 // 排序
                 .eq(Objects.nonNull(sort), User::getSort, sort)
                 // 删除状态 0正常 1 删除
                 .eq(Objects.nonNull(deleted), User::getDeleted, deleted)
+                // 最后登录时间
+                .eq(Objects.nonNull(lastLogin), User::getLastLogin, lastLogin)
+                // 创建人id
+                .eq(Objects.nonNull(createdBy), User::getCreatedBy, createdBy)
+                // 创建时间
+                .eq(Objects.nonNull(createdAt), User::getCreatedAt, createdAt)
+                // 修改人id 
+                .eq(Objects.nonNull(modifiedBy), User::getModifiedBy, modifiedBy)
+                // 修改时间
+                .eq(Objects.nonNull(modifiedAt), User::getModifiedAt, modifiedAt)
                 // 排序
                 .orderByAsc(User::getSort)
                 ;
     }
 
-    @Override
-    public User getEntity() {
-        return new User();
+    public User of() {
+        return UserMapstruct.INSTANCE.of(this);
     }
 }

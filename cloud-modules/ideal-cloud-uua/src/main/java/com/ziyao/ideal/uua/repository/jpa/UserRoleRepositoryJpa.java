@@ -11,10 +11,10 @@ import java.util.Set;
  * @author ziyao
  */
 @Repository
-public interface UserRoleRepositoryJpa extends JpaRepository<UserRole, Long> {
+public interface UserRoleRepositoryJpa extends JpaRepository<UserRole, Integer> {
 
 
     @Query("select role from user_role where userId=:userId")
-    Set<String> findByUserId(Long userId);
+    Set<String> findByUserId(Integer userId);
 
 }

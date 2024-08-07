@@ -5,7 +5,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.proxy.HibernateProxy;
 import org.springframework.data.keyvalue.annotation.KeySpace;
 
@@ -37,7 +38,7 @@ public class Application implements Serializable {
     @Id
     @org.springframework.data.annotation.Id
     @TableId("app_id")
-    private Long appId;
+    private Integer appId;
 
     /**
      * 应用类型 0内部系统应用 1三方平台应用

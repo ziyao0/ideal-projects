@@ -26,7 +26,7 @@ public interface OAuth2AuthorizationService {
      * 通过ID查询 {@link OAuth2Authorization}.
      */
     @Nullable
-    OAuth2Authorization findById(Long id);
+    OAuth2Authorization findById(Integer id);
 
     /**
      * 返回包含提供的 {@code token} 的 {@link OAuth2Authorization}，如果未找到，则返回 {@code null}。

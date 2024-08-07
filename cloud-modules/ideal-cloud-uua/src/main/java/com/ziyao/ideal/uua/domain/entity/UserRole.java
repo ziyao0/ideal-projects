@@ -29,9 +29,9 @@ public class UserRole implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    private Long userId;
+    private Integer userId;
 
-    private Long roleId;
+    private Integer roleId;
 
     @TableField("role")
     private String role;

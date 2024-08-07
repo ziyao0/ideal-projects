@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
  * @author ziyao
  */
 @Repository
-public interface AuthorizationRepositoryRedis extends RedisValueRepository<Authorization, Long> {
+public interface AuthorizationRepositoryRedis extends RedisValueRepository<Authorization, Integer> {
 }

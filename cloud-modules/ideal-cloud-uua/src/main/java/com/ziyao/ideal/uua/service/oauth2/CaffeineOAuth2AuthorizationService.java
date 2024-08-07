@@ -22,7 +22,7 @@ public class CaffeineOAuth2AuthorizationService extends AbstractOAuth2Authorizat
     /*
      * 存储尚未颁发访问令牌的授权码认证对象
      */
-    private final Cache<Long, OAuth2Authorization> initializedAuthorizations = Caffeine.newBuilder()
+    private final Cache<Integer, OAuth2Authorization> initializedAuthorizations = Caffeine.newBuilder()
             .maximumSize(maxInitializedAuthorizations)
             .expireAfterWrite(7, TimeUnit.DAYS)
             .build();
@@ -30,7 +30,7 @@ public class CaffeineOAuth2AuthorizationService extends AbstractOAuth2Authorizat
     /*
      * 存储已经颁发了访问令牌的认证对象
      */
-    private final Cache<Long, OAuth2Authorization> authorizations =
+    private final Cache<Integer, OAuth2Authorization> authorizations =
             Caffeine.newBuilder().maximumSize(1000).build();
 
     public CaffeineOAuth2AuthorizationService() {
@@ -66,7 +66,7 @@ public class CaffeineOAuth2AuthorizationService extends AbstractOAuth2Authorizat
     }
 
     @Override
-    public OAuth2Authorization findById(Long id) {
+    public OAuth2Authorization findById(Integer id) {
         Assert.notNull(id, "id cannot be empty");
         OAuth2Authorization authorization = this.authorizations.getIfPresent(id);
         return authorization != null ? authorization : this.initializedAuthorizations.getIfPresent(id);

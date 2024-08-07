@@ -3,21 +3,22 @@ package com.ziyao.ideal.uua.domain.dto;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.ziyao.ideal.web.orm.EntityDTO;
-import com.ziyao.ideal.core.Strings;
 import com.ziyao.ideal.uua.domain.entity.Application;
+import com.ziyao.ideal.uua.domain.mapstruct.ApplicationMapstruct;
 import lombok.Data;
+import java.util.Objects;
+import com.ziyao.ideal.core.Strings;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 /**
  * <p>
  * 应用系统
  * </p>
  *
- * @author zhangziyao
+ * @author ziyao
  */
 @Data
 public class ApplicationDTO implements EntityDTO<Application>, Serializable {
@@ -28,9 +29,9 @@ public class ApplicationDTO implements EntityDTO<Application>, Serializable {
     /**
      * 主键id
      */
-    private Long appId;
+    private Integer appId;
     /**
-     * 应用类型 0内部系统应用 1三方平台应用
+     * 应用类型 0内部系统应用 1三方平台应用 
      */
     private Integer appType;
     /**
@@ -66,11 +67,11 @@ public class ApplicationDTO implements EntityDTO<Application>, Serializable {
      */
     private String redirectUri;
     /**
-     *
+     * 
      */
     private String postLogoutRedirectUri;
     /**
-     *
+     * 
      */
     private String tokenSettings;
     /**
@@ -113,8 +114,7 @@ public class ApplicationDTO implements EntityDTO<Application>, Serializable {
                 ;
     }
 
-    @Override
-    public Application getEntity() {
-        return new Application();
+    public Application of() {
+        return ApplicationMapstruct.INSTANCE.of(this);
     }
 }

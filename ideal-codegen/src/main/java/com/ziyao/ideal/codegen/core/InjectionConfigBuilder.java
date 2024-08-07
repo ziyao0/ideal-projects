@@ -19,6 +19,7 @@ public abstract class InjectionConfigBuilder {
 
     private static final ConverterFileName converterRepositoryFileName = (entityName -> entityName + CodeGenConst.JPA_REPOSITORY_NAME);
     private static final ConverterFileName converterDTOFileName = (entityName -> entityName + CodeGenConst.JPA_DTO_NAME);
+    private static final ConverterFileName converterMapstructFileName = (entityName -> entityName + CodeGenConst.MAPSTRUCT_NAME);
 
 
     public static void injectionConfig(
@@ -26,7 +27,8 @@ public abstract class InjectionConfigBuilder {
 
         builder.customMap(cteateCustomMap(codeGenConfig))
                 .customFile(cteateDTOCustomFile(codeGenConfig))
-                .customFile(cteateJpaRepositoryCustomFile(codeGenConfig));
+                .customFile(cteateJpaRepositoryCustomFile(codeGenConfig))
+                .customFile(cteateMapStructCustomFile(codeGenConfig));
 
     }
 
@@ -40,6 +42,7 @@ public abstract class InjectionConfigBuilder {
             {
                 put("dto", packagePath + ".domain.dto");
                 put("repositoryJpa", packagePath + ".repository.jpa");
+                put("mapstructPkg", packagePath + ".domain.mapstruct");
             }
         };
     }
@@ -50,6 +53,14 @@ public abstract class InjectionConfigBuilder {
                 .packageName("domain.dto")
                 .fileName(ConstVal.JAVA_SUFFIX)
                 .formatNameFunction(tableInfo -> converterDTOFileName.convert(tableInfo.getEntityName())).build();
+    }
+
+    public static CustomFile cteateMapStructCustomFile(CodeGenConfig codeGenConfig) {
+        return new CustomFile.Builder()
+                .templatePath(CodeGenConst.MAPSTRUCT_TEMPLATE)
+                .packageName("domain.mapstruct")
+                .fileName(ConstVal.JAVA_SUFFIX)
+                .formatNameFunction(tableInfo -> converterMapstructFileName.convert(tableInfo.getEntityName())).build();
     }
 
     public static CustomFile cteateJpaRepositoryCustomFile(CodeGenConfig codeGenConfig) {

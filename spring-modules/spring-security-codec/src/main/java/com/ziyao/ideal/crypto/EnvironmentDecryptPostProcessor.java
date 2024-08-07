@@ -21,7 +21,6 @@ import java.util.Map;
 public class EnvironmentDecryptPostProcessor
         extends AbstractEnvironmentDecryptor implements EnvironmentPostProcessor, Ordered {
 
-    private static final int order = Ordered.LOWEST_PRECEDENCE;
     private final CryptoContextFactory contextFactory;
 
     public EnvironmentDecryptPostProcessor() {
@@ -46,6 +45,6 @@ public class EnvironmentDecryptPostProcessor
 
     @Override
     public int getOrder() {
-        return order;
+        return Ordered.LOWEST_PRECEDENCE;
     }
 }

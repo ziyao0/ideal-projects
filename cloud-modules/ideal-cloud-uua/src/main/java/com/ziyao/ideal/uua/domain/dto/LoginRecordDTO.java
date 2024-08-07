@@ -3,21 +3,22 @@ package com.ziyao.ideal.uua.domain.dto;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.ziyao.ideal.web.orm.EntityDTO;
-import com.ziyao.ideal.core.Strings;
 import com.ziyao.ideal.uua.domain.entity.LoginRecord;
+import com.ziyao.ideal.uua.domain.mapstruct.LoginRecordMapstruct;
 import lombok.Data;
+import java.util.Objects;
+import com.ziyao.ideal.core.Strings;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 /**
  * <p>
  * 登录记录表
  * </p>
  *
- * @author zhangziyao
+ * @author ziyao
  */
 @Data
 public class LoginRecordDTO implements EntityDTO<LoginRecord>, Serializable {
@@ -26,15 +27,15 @@ public class LoginRecordDTO implements EntityDTO<LoginRecord>, Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     *
+     * 
      */
-    private Long id;
+    private Integer id;
     /**
      * 用户ID
      */
-    private Long userId;
+    private Integer userId;
     /**
-     *
+     * 
      */
     private String username;
     /**
@@ -46,7 +47,7 @@ public class LoginRecordDTO implements EntityDTO<LoginRecord>, Serializable {
      */
     private String loginIp;
     /**
-     *
+     * 
      */
     private LocalDateTime loginTime;
     /**
@@ -118,13 +119,14 @@ public class LoginRecordDTO implements EntityDTO<LoginRecord>, Serializable {
                 .likeRight(Strings.hasLength(status), LoginRecord::getStatus, status)
                 // 失败原因
                 .likeRight(Strings.hasLength(failureReason), LoginRecord::getFailureReason, failureReason)
+                // 创建时间
+                .eq(Objects.nonNull(createdAt), LoginRecord::getCreatedAt, createdAt)
                 // 更新时间
                 .eq(Objects.nonNull(updatedAt), LoginRecord::getUpdatedAt, updatedAt)
                 ;
     }
 
-    @Override
-    public LoginRecord getEntity() {
-        return new LoginRecord();
+    public LoginRecord of() {
+        return LoginRecordMapstruct.INSTANCE.of(this);
     }
 }

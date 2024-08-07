@@ -81,7 +81,7 @@ public class SecurityContextFilter extends OncePerRequestFilter {
         String loginIp = getValue(request, UserParamNames.LOGIN_IP);
         String authorities = getValue(request, UserParamNames.AUTHORITIES);
 
-        return UserInfo.withId(Strings.hasLength(userId) ? Long.valueOf(userId) : null)
+        return UserInfo.withId(Strings.hasLength(userId) ? Integer.valueOf(userId) : null)
                 .username(username)
                 .status(Strings.hasLength(status) ? Integer.valueOf(status) : null)
                 .idCardName(idCardName)

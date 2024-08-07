@@ -30,7 +30,7 @@ public class PrincipalAuthorizationCenter implements AuthorizationCenter {
     private final OAuth2AuthorizationService authorizationService;
 
     @Override
-    public OAuth2AuthorizationCodeResponse authorize(Long appId, String state, String grantType) {
+    public OAuth2AuthorizationCodeResponse authorize(Integer appId, String state, String grantType) {
 
         RegisteredApp registeredApp = registeredAppService.findById(appId);
         if (registeredApp == null) {
@@ -57,7 +57,7 @@ public class PrincipalAuthorizationCenter implements AuthorizationCenter {
 
         OAuth2Authorization authorization = OAuth2Authorization.withAppId(registeredApp.getAppId())
 //                .userId(principal.getId())
-                .userId(10001L)
+                .userId(10001)
                 .token(authorizationCode)
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                 .build();

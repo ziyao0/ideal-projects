@@ -35,13 +35,13 @@ public class Department implements Serializable {
      */
     @Id
     @TableId("id")
-    private Long id;
+    private Integer id;
 
     /**
      * 系统id
      */
     @TableField("app_id")
-    private Long appId;
+    private Integer appId;
 
     /**
      * 部门名称

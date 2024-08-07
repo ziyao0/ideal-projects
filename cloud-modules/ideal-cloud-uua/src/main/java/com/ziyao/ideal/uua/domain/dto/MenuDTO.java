@@ -3,21 +3,22 @@ package com.ziyao.ideal.uua.domain.dto;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.ziyao.ideal.web.orm.EntityDTO;
-import com.ziyao.ideal.core.Strings;
 import com.ziyao.ideal.uua.domain.entity.Menu;
+import com.ziyao.ideal.uua.domain.mapstruct.MenuMapstruct;
 import lombok.Data;
+import java.util.Objects;
+import com.ziyao.ideal.core.Strings;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 /**
  * <p>
  * 菜单资源表
  * </p>
  *
- * @author zhangziyao
+ * @author ziyao
  */
 @Data
 public class MenuDTO implements EntityDTO<Menu>, Serializable {
@@ -28,11 +29,11 @@ public class MenuDTO implements EntityDTO<Menu>, Serializable {
     /**
      * 资源ID
      */
-    private Long id;
+    private Integer id;
     /**
      * 系统id
      */
-    private Long appId;
+    private Integer appId;
     /**
      * 资源名称
      */
@@ -52,7 +53,7 @@ public class MenuDTO implements EntityDTO<Menu>, Serializable {
     /**
      * 上级资源ID
      */
-    private Long parentId;
+    private Integer parentId;
     /**
      * 资源级别
      */
@@ -102,6 +103,10 @@ public class MenuDTO implements EntityDTO<Menu>, Serializable {
                 .eq(Objects.nonNull(level), Menu::getLevel, level)
                 // 排序
                 .eq(Objects.nonNull(sort), Menu::getSort, sort)
+                // 创建人ID
+                .eq(Objects.nonNull(createdBy), Menu::getCreatedBy, createdBy)
+                // 创建时间
+                .eq(Objects.nonNull(createdAt), Menu::getCreatedAt, createdAt)
                 // 更新人ID
                 .eq(Objects.nonNull(updatedBy), Menu::getUpdatedBy, updatedBy)
                 // 更新时间
@@ -111,8 +116,7 @@ public class MenuDTO implements EntityDTO<Menu>, Serializable {
                 ;
     }
 
-    @Override
-    public Menu getEntity() {
-        return new Menu();
+    public Menu of() {
+        return MenuMapstruct.INSTANCE.of(this);
     }
 }

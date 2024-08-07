@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 
 /**
  * <p>
- * 配置内容
+ *
  * </p>
  *
  * @author ziyao
@@ -25,6 +25,7 @@ public class ConfigItem implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
+
 
     /**
      * id:

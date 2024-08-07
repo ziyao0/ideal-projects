@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
  * @author ziyao
  */
 @Repository
-public interface ApplicationRepositoryJpa extends JpaRepository<Application, Long> {
+public interface ApplicationRepositoryJpa extends JpaRepository<Application, Integer> {
 }

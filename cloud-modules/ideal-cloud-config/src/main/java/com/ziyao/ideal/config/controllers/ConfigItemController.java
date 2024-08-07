@@ -34,7 +34,7 @@ private final ConfigItemService configItemService;
 
     @PostMapping("/save")
     public void save(@RequestBody ConfigItemDTO entityDTO) {
-    configItemService.save(entityDTO.getInstance());
+    configItemService.save(entityDTO.of());
     }
 
     @PostMapping("/updateById")
@@ -42,7 +42,7 @@ private final ConfigItemService configItemService;
         if (ObjectUtils.isEmpty(entityDTO.getId())) {
             throw new ServiceException(400, "主键参数不能为空");
         }
-        configItemService.save(entityDTO.getInstance());
+        configItemService.save(entityDTO.of());
     }
 
     /**
@@ -50,7 +50,7 @@ private final ConfigItemService configItemService;
     */
     @PostMapping("/saveBatch")
     public void saveBatch(@RequestBody List<ConfigItemDTO> entityDTOList) {
-    configItemService.saveBatch(entityDTOList.stream().map(ConfigItemDTO::getInstance).collect(Collectors.toList()));
+    configItemService.saveBatch(entityDTOList.stream().map(ConfigItemDTO::of).collect(Collectors.toList()));
     }
 
     /**
@@ -58,6 +58,6 @@ private final ConfigItemService configItemService;
     */
     @PostMapping("/searchSimilar")
     public Page<ConfigItem> searchSimilar(PageParams<ConfigItemDTO> pageParams) {
-        return configItemService.searchSimilar(pageParams.getParams().getInstance(), Pages.initPage(pageParams));
+        return configItemService.searchSimilar(pageParams.getParams().of(), Pages.initPage(pageParams));
     }
 }

@@ -34,12 +34,12 @@ public class DepartmentController extends BaseController<DepartmentService, Depa
 
     @PostMapping("/save")
     public void save(@RequestBody DepartmentDTO entityDTO) {
-        super.iService.save(entityDTO.getInstance());
+        super.iService.save(entityDTO.of());
     }
 
     @PostMapping("/saveOrUpdate")
     public void saveOrUpdate(@RequestBody DepartmentDTO entityDTO) {
-        super.iService.saveOrUpdate(entityDTO.getInstance());
+        super.iService.saveOrUpdate(entityDTO.of());
     }
 
     @PostMapping("/updateById")
@@ -47,7 +47,7 @@ public class DepartmentController extends BaseController<DepartmentService, Depa
         if (ObjectUtils.isEmpty(entityDTO.getId())) {
             throw Exceptions.createIllegalArgumentException(null);
         }
-        super.iService.updateById(entityDTO.getInstance());
+        super.iService.updateById(entityDTO.of());
     }
 
     /**
@@ -55,7 +55,7 @@ public class DepartmentController extends BaseController<DepartmentService, Depa
      */
     @PostMapping("/saveBatch")
     public void saveBatch(@RequestBody List<DepartmentDTO> entityDTOList) {
-        super.iService.saveBatch(entityDTOList.stream().map(DepartmentDTO::getInstance).collect(Collectors.toList()), 500);
+        super.iService.saveBatch(entityDTOList.stream().map(DepartmentDTO::of).collect(Collectors.toList()), 500);
     }
 
     /**

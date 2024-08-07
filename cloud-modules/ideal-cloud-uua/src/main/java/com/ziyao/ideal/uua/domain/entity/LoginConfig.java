@@ -35,7 +35,7 @@ public class LoginConfig implements Serializable {
      */
     @Id
     @TableId(value = "id", type = IdType.AUTO)
-    private Long id;
+    private Integer id;
 
     /**
      * 登录方法（如：用户名密码，OTP，社交登录等）

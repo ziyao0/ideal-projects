@@ -33,9 +33,9 @@ public class OAuth2Authorization implements Serializable {
     @Serial
     private static final long serialVersionUID = 161440620113264850L;
     @Id
-    private Long id;
-    private Long appId;
-    private Long userId;
+    private Integer id;
+    private Integer appId;
+    private Integer userId;
     @Setter
     @TimeToLive(unit = TimeUnit.DAYS)
     private Long ttl = 7L;
@@ -84,7 +84,7 @@ public class OAuth2Authorization implements Serializable {
     /**
      * Returns a new {@link Builder}, initialized with the provided
      */
-    public static Builder withAppId(Long appid) {
+    public static Builder withAppId(Integer appid) {
         Assert.notNull(appid, "application cannot be null");
         return new Builder(appid);
     }
@@ -92,7 +92,7 @@ public class OAuth2Authorization implements Serializable {
     /**
      * Returns a new {@link Builder}, initialized with the provided
      */
-    public static Builder withId(Long id) {
+    public static Builder withId(Integer id) {
         Assert.notNull(id, "application cannot be null");
         return new Builder(id);
     }
@@ -206,11 +206,11 @@ public class OAuth2Authorization implements Serializable {
         @Serial
         private static final long serialVersionUID = -5658976968224374315L;
         //标识符
-        private Long id;
+        private Integer id;
         // 用户标识
-        private Long userId;
+        private Integer userId;
         // 注册客户端ID
-        private final Long appId;
+        private final Integer appId;
         // 授权类型
         private AuthorizationGrantType authorizationGrantType;
         // 授权范围
@@ -220,14 +220,14 @@ public class OAuth2Authorization implements Serializable {
         // 授权相关属性
         private final Map<String, Object> attributes = new HashMap<>();
 
-        protected Builder(Long appId) {
+        protected Builder(Integer appId) {
             this.appId = appId;
         }
 
         /**
          * 设置授权标识符
          */
-        public Builder id(Long id) {
+        public Builder id(Integer id) {
             this.id = id;
             return this;
         }
@@ -235,7 +235,7 @@ public class OAuth2Authorization implements Serializable {
         /**
          * 设置授权标识符
          */
-        public Builder userId(Long userId) {
+        public Builder userId(Integer userId) {
             this.userId = userId;
             return this;
         }
@@ -336,8 +336,7 @@ public class OAuth2Authorization implements Serializable {
                 Random random = new Random();
 
                 // Generate a random number between 1000 and 9999 (inclusive)
-                int randomNumber = 1000 + random.nextInt(9000);
-                this.id = (long) randomNumber;
+                this.id = 1000 + random.nextInt(9000);
             }
             authorization.id = this.id;
             authorization.userId = this.userId;

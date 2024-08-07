@@ -34,7 +34,7 @@ public class User implements Serializable {
      */
     @Id
     @TableId("id")
-    private Long id;
+    private Integer id;
 
     /**
      * 用户账号

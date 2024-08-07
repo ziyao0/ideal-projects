@@ -31,13 +31,13 @@ public class Menu implements Serializable {
      */
     @Id
     @TableId(value = "id", type = IdType.AUTO)
-    private Long id;
+    private Integer id;
 
     /**
      * 系统id
      */
     @TableField("app_id")
-    private Long appId;
+    private Integer appId;
 
     /**
      * 资源名称

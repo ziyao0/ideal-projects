@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class CaffeineRegisteredAppService implements RegisteredAppService {
 
-    private final Cache<Long, RegisteredApp> registeredApps;
+    private final Cache<Integer, RegisteredApp> registeredApps;
 
     public CaffeineRegisteredAppService() {
         registeredApps = Caffeine.newBuilder()
@@ -29,7 +29,7 @@ public class CaffeineRegisteredAppService implements RegisteredAppService {
     }
 
     @Override
-    public RegisteredApp findById(Long appId) {
+    public RegisteredApp findById(Integer appId) {
         return registeredApps.getIfPresent(appId);
     }
 

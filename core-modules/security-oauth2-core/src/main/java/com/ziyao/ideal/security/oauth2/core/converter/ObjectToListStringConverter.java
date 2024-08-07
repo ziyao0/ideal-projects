@@ -1,5 +1,6 @@
 package com.ziyao.ideal.security.oauth2.core.converter;
 
+import com.ziyao.ideal.core.lang.Nullable;
 import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.core.convert.converter.ConditionalGenericConverter;
 import org.springframework.util.ClassUtils;
@@ -20,13 +21,10 @@ public class ObjectToListStringConverter implements ConditionalGenericConverter 
     }
 
     @Override
-    public boolean matches(TypeDescriptor sourceType, TypeDescriptor targetType) {
-        if (targetType.getElementTypeDescriptor() == null
+    public boolean matches(@Nullable TypeDescriptor sourceType, TypeDescriptor targetType) {
+        return targetType.getElementTypeDescriptor() == null
                 || targetType.getElementTypeDescriptor().getType().equals(String.class) || sourceType == null
-                || ClassUtils.isAssignable(sourceType.getType(), targetType.getElementTypeDescriptor().getType())) {
-            return true;
-        }
-        return false;
+                || ClassUtils.isAssignable(sourceType.getType(), targetType.getElementTypeDescriptor().getType());
     }
 
     @Override

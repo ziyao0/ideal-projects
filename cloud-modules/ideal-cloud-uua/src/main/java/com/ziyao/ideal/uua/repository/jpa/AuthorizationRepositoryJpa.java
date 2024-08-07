@@ -10,7 +10,7 @@ import java.util.Optional;
  * @author ziyao
  */
 @Repository
-public interface AuthorizationRepositoryJpa extends JpaRepository<Authorization, Long> {
+public interface AuthorizationRepositoryJpa extends JpaRepository<Authorization, Integer> {
 
     Optional<Authorization> findByState(Integer state);
 

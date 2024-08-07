@@ -30,7 +30,7 @@ public class RedisOAuth2AuthorizationService extends AbstractOAuth2Authorization
     }
 
     @Override
-    public OAuth2Authorization findById(Long id) {
+    public OAuth2Authorization findById(Integer id) {
         return oauth2AuthorizationRepositoryRedis.findById(id).map(this::toObject).orElse(null);
     }
 

@@ -45,13 +45,8 @@ public class CodeGenStarter {
         gc.setEnableJpa(true);
         gc.setParent("com.ziyao.ideal");
 
-//        gc.setSuperEntityClass("com.harbor.web.orm.BaseEntity");
-
-//        gc.setSuperEntityColumns("id,CREATED_BY,CREATED_AT,MODIFIED_BY,MODIFIED_AT");
-
         gc.setSuperControllerClass("com.ziyao.ideal.web.base.JpaBaseController");
 
-//        gc.setInclude("authorization,user,role,user_role,application,department,menu,role_menu");
         gc.setInclude("config_item,config");
         gc.setProjectDir(System.getProperty("user.dir") + "/cloud-modules/ideal-cloud-config");
 

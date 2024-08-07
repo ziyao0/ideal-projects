@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.ziyao.ideal.web.orm.EntityDTO;
 import ${package.Entity}.${entity};
+import ${mapstructPkg}.${entity}Mapstruct;
 import lombok.Data;
 import java.util.Objects;
 import com.ziyao.ideal.core.Strings;
@@ -37,11 +38,11 @@ public class ${entity}DTO implements EntityDTO<${entity}>, Serializable {
     /**
      * ${field.comment}
      */
-    <#if field.propertyName?ends_with("id") || field.propertyName?ends_with("Id")>
-    private Long ${field.propertyName};
-    <#else>
+<#--    <#if field.propertyType&&(field.propertyName?ends_with("id") || field.propertyName?ends_with("Id"))>-->
+<#--    private Long ${field.propertyName};-->
+<#--    <#else>-->
     private ${field.propertyType} ${field.propertyName};
-    </#if>
+<#--    </#if>-->
 </#list>
 <#------------  END 字段循环遍历  ---------->
 
@@ -79,8 +80,7 @@ public class ${entity}DTO implements EntityDTO<${entity}>, Serializable {
                 ;
     }
 
-    @Override
-    public ${entity} getEntity() {
-        return new ${entity}();
+    public ${entity} of() {
+        return ${entity}Mapstruct.INSTANCE.of(this);
     }
 }

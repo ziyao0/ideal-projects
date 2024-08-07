@@ -34,7 +34,7 @@ public class RegisteredApp implements Serializable {
     @Serial
     private static final long serialVersionUID = -5766646592402572432L;
     @Id
-    private Long appId;
+    private Integer appId;
     private String appName;
     private Integer appType;
     private Set<AuthorizationGrantType> authorizationGrantTypes;
@@ -53,7 +53,7 @@ public class RegisteredApp implements Serializable {
     protected RegisteredApp() {
     }
 
-    public static Builder withAppId(Long appid) {
+    public static Builder withAppId(Integer appid) {
         Assert.notNull(appid, "id cannot be empty");
         return new Builder(appid);
     }
@@ -62,7 +62,7 @@ public class RegisteredApp implements Serializable {
 
         @Serial
         private static final long serialVersionUID = 6495205880660410126L;
-        private Long appId;
+        private Integer appId;
         private Integer appType;
         private Set<AuthorizationGrantType> authorizationGrantTypes = new HashSet<>();
         private Integer state;
@@ -75,7 +75,7 @@ public class RegisteredApp implements Serializable {
         private String postLogoutRedirectUri;
         private TokenSettings tokenSettings;
 
-        protected Builder(Long appId) {
+        protected Builder(Integer appId) {
             this.appId = appId;
         }
 
@@ -100,7 +100,7 @@ public class RegisteredApp implements Serializable {
             this.tokenSettings = TokenSettings.withSettings(registeredApp.getTokenSettings().getSettings()).build();
         }
 
-        public Builder appId(Long appId) {
+        public Builder appId(Integer appId) {
             this.appId = appId;
             return this;
         }

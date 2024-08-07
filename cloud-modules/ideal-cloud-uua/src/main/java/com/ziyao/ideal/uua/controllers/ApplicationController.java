@@ -1,13 +1,13 @@
 package com.ziyao.ideal.uua.controllers;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.ziyao.ideal.uua.domain.dto.ApplicationDTO;
+import com.ziyao.ideal.uua.domain.entity.Application;
+import com.ziyao.ideal.uua.service.ApplicationService;
 import com.ziyao.ideal.web.base.BaseController;
 import com.ziyao.ideal.web.base.PageParams;
 import com.ziyao.ideal.web.base.Pages;
 import com.ziyao.ideal.web.exception.Exceptions;
-import com.ziyao.ideal.uua.domain.dto.ApplicationDTO;
-import com.ziyao.ideal.uua.domain.entity.Application;
-import com.ziyao.ideal.uua.service.ApplicationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,12 +35,12 @@ public class ApplicationController extends BaseController<ApplicationService, Ap
 
     @PostMapping("/save")
     public void save(@RequestBody ApplicationDTO entityDTO) {
-        super.iService.save(entityDTO.getInstance());
+        super.iService.save(entityDTO.of());
     }
 
     @PostMapping("/saveOrUpdate")
     public void saveOrUpdate(@RequestBody ApplicationDTO entityDTO) {
-        super.iService.saveOrUpdate(entityDTO.getInstance());
+        super.iService.saveOrUpdate(entityDTO.of());
     }
 
     @PostMapping("/updateById")
@@ -48,7 +48,7 @@ public class ApplicationController extends BaseController<ApplicationService, Ap
         if (ObjectUtils.isEmpty(entityDTO.getId())) {
             throw Exceptions.createIllegalArgumentException(null);
         }
-        super.iService.updateById(entityDTO.getInstance());
+        super.iService.updateById(entityDTO.of());
     }
 
     /**
@@ -57,7 +57,7 @@ public class ApplicationController extends BaseController<ApplicationService, Ap
     @PostMapping("/saveBatch")
     public void saveBatch(@RequestBody List
             <ApplicationDTO> entityDTOList) {
-        super.iService.saveBatch(entityDTOList.stream().map(ApplicationDTO::getInstance).collect(Collectors.toList()), 500);
+        super.iService.saveBatch(entityDTOList.stream().map(ApplicationDTO::of).collect(Collectors.toList()), 500);
     }
 
     /**

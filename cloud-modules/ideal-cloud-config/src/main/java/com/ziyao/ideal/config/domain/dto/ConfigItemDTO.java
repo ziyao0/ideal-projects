@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.ziyao.ideal.web.orm.EntityDTO;
 import com.ziyao.ideal.config.domain.entity.ConfigItem;
+import com.ziyao.ideal.config.domain.mapstruct.ConfigItemMapstruct;
 import lombok.Data;
 import java.util.Objects;
 import com.ziyao.ideal.core.Strings;
@@ -28,11 +29,11 @@ public class ConfigItemDTO implements EntityDTO<ConfigItem>, Serializable {
     /**
      * 
      */
-    private Long id;
+    private Integer id;
     /**
      * 
      */
-    private Long configId;
+    private Integer configId;
     /**
      * 
      */
@@ -89,8 +90,7 @@ public class ConfigItemDTO implements EntityDTO<ConfigItem>, Serializable {
                 ;
     }
 
-    @Override
-    public ConfigItem getEntity() {
-        return new ConfigItem();
+    public ConfigItem of() {
+        return ConfigItemMapstruct.INSTANCE.of(this);
     }
 }

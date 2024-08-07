@@ -34,7 +34,7 @@ public class ConfigController extends JpaBaseController<ConfigService, Config, I
 
     @PostMapping("/save")
     public void save(@RequestBody ConfigDTO entityDTO) {
-        configService.save(entityDTO.getInstance());
+        configService.save(entityDTO.of());
     }
 
     @PostMapping("/updateById")
@@ -42,7 +42,7 @@ public class ConfigController extends JpaBaseController<ConfigService, Config, I
         if (ObjectUtils.isEmpty(entityDTO.getId())) {
             throw new ServiceException(400, "主键参数不能为空");
         }
-        configService.save(entityDTO.getInstance());
+        configService.save(entityDTO.of());
     }
 
     /**
@@ -50,7 +50,7 @@ public class ConfigController extends JpaBaseController<ConfigService, Config, I
      */
     @PostMapping("/saveBatch")
     public void saveBatch(@RequestBody List<ConfigDTO> entityDTOList) {
-        configService.saveBatch(entityDTOList.stream().map(ConfigDTO::getInstance).collect(Collectors.toList()));
+        configService.saveBatch(entityDTOList.stream().map(ConfigDTO::of).collect(Collectors.toList()));
     }
 
     /**
@@ -58,6 +58,6 @@ public class ConfigController extends JpaBaseController<ConfigService, Config, I
      */
     @PostMapping("/searchSimilar")
     public Page<Config> searchSimilar(PageParams<ConfigDTO> pageParams) {
-        return configService.searchSimilar(pageParams.getParams().getInstance(), Pages.initPage(pageParams));
+        return configService.searchSimilar(pageParams.getParams().of(), Pages.initPage(pageParams));
     }
 }

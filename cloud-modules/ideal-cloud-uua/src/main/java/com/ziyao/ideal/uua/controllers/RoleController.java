@@ -34,12 +34,12 @@ public class RoleController extends BaseController<RoleService, Role> {
 
     @PostMapping("/save")
     public void save(@RequestBody RoleDTO entityDTO) {
-        super.iService.save(entityDTO.getInstance());
+        super.iService.save(entityDTO.of());
     }
 
     @PostMapping("/saveOrUpdate")
     public void saveOrUpdate(@RequestBody RoleDTO entityDTO) {
-        super.iService.saveOrUpdate(entityDTO.getInstance());
+        super.iService.saveOrUpdate(entityDTO.of());
     }
 
     @PostMapping("/updateById")
@@ -47,7 +47,7 @@ public class RoleController extends BaseController<RoleService, Role> {
         if (ObjectUtils.isEmpty(entityDTO.getId())) {
             throw Exceptions.createIllegalArgumentException(null);
         }
-        super.iService.updateById(entityDTO.getInstance());
+        super.iService.updateById(entityDTO.of());
     }
 
     /**
@@ -55,7 +55,7 @@ public class RoleController extends BaseController<RoleService, Role> {
      */
     @PostMapping("/saveBatch")
     public void saveBatch(@RequestBody List<RoleDTO> entityDTOList) {
-        super.iService.saveBatch(entityDTOList.stream().map(RoleDTO::getInstance).collect(Collectors.toList()), 500);
+        super.iService.saveBatch(entityDTOList.stream().map(RoleDTO::of).collect(Collectors.toList()), 500);
     }
 
     /**

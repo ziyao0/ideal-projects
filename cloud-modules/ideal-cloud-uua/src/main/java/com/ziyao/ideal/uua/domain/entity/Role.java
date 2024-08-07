@@ -34,7 +34,7 @@ public class Role implements Serializable {
      */
     @Id
     @TableId("id")
-    private Long id;
+    private Integer id;
 
     /**
      * 角色名称

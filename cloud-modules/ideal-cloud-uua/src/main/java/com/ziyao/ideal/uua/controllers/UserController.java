@@ -38,7 +38,7 @@ public class UserController extends BaseController<UserService, User> {
      */
     @PostMapping("/save")
     public void save(@RequestBody UserDTO entityDTO) {
-        super.iService.save(entityDTO.getInstance());
+        super.iService.save(entityDTO.of());
     }
 
     /**
@@ -46,7 +46,7 @@ public class UserController extends BaseController<UserService, User> {
      */
     @PostMapping("/saveOrUpdate")
     public void saveOrUpdate(@RequestBody UserDTO entityDTO) {
-        super.iService.saveOrUpdate(entityDTO.getInstance());
+        super.iService.saveOrUpdate(entityDTO.of());
     }
 
     @PostMapping("/updateById")
@@ -54,7 +54,7 @@ public class UserController extends BaseController<UserService, User> {
         if (ObjectUtils.isEmpty(entityDTO.getId())) {
             throw Exceptions.createIllegalArgumentException(null);
         }
-        super.iService.updateById(entityDTO.getInstance());
+        super.iService.updateById(entityDTO.of());
     }
 
     /**
@@ -62,7 +62,7 @@ public class UserController extends BaseController<UserService, User> {
      */
     @PostMapping("/saveBatch")
     public void saveBatch(@RequestBody List<UserDTO> entityDTOList) {
-        super.iService.saveBatch(entityDTOList.stream().map(UserDTO::getInstance).collect(Collectors.toList()), 500);
+        super.iService.saveBatch(entityDTOList.stream().map(UserDTO::of).collect(Collectors.toList()), 500);
     }
 
     /**

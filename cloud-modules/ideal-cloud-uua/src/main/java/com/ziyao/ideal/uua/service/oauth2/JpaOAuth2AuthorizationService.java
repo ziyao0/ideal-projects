@@ -50,7 +50,7 @@ public class JpaOAuth2AuthorizationService extends AbstractOAuth2AuthorizationSe
     }
 
     @Override
-    public OAuth2Authorization findById(Long id) {
+    public OAuth2Authorization findById(Integer id) {
         Assert.notNull(id, "id must not be null");
         return this.authorizationRepository.findById(id).map(this::toObject).orElse(null);
     }

@@ -31,13 +31,13 @@ public class LoginRecord implements Serializable {
 
     @Id
     @TableId("id")
-    private Long id;
+    private Integer id;
 
     /**
      * 用户ID
      */
     @TableField("user_id")
-    private Long userId;
+    private Integer userId;
 
     @TableField("username")
     private String username;

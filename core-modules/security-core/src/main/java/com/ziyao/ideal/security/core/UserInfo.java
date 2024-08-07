@@ -23,7 +23,7 @@ public class UserInfo implements UserDetails, CredentialsContainer {
      * 用户id
      */
     @Getter
-    private final Long id;
+    private final Integer id;
 
     /**
      * 用户账号
@@ -79,7 +79,7 @@ public class UserInfo implements UserDetails, CredentialsContainer {
 
     private final Collection<? extends GrantedAuthority> authorities;
 
-    public UserInfo(Long id, String username, String nickname,
+    public UserInfo(Integer id, String username, String nickname,
                     String password, Integer status, String mobile,
                     String idCardName, String gender, String address, LocalDateTime lastLogin,
                     String loginIp, Collection<? extends GrantedAuthority> authorities) {
@@ -152,7 +152,7 @@ public class UserInfo implements UserDetails, CredentialsContainer {
         this.password = null;
     }
 
-    public static UserBuilder withId(Long id) {
+    public static UserBuilder withId(Integer id) {
         return new UserBuilder().id(id);
     }
 
@@ -165,7 +165,7 @@ public class UserInfo implements UserDetails, CredentialsContainer {
     }
 
     public static final class UserBuilder {
-        private Long id;
+        private Integer id;
         private String username;
         private String nickname;
         private String password;
@@ -178,7 +178,7 @@ public class UserInfo implements UserDetails, CredentialsContainer {
         private String loginIp;
         private List<GrantedAuthority> authorities = new ArrayList<>();
 
-        public UserBuilder id(Long id) {
+        public UserBuilder id(Integer id) {
             this.id = id;
             return this;
         }

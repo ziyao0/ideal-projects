@@ -51,29 +51,28 @@ private final ${table.serviceName} ${table.serviceName?uncap_first};
 
     @PostMapping("/save")
     public void save(@RequestBody ${entity}DTO entityDTO) {
-        super.iService.save(entityDTO.getInstance());
+        super.iService.save(entityDTO.of());
     }
 
     @PostMapping("/saveOrUpdate")
     public void saveOrUpdate(@RequestBody ${entity}DTO entityDTO) {
-        super.iService.saveOrUpdate(entityDTO.getInstance());
+        super.iService.saveOrUpdate(entityDTO.of());
     }
 
     @PostMapping("/updateById")
     public void updateById(@RequestBody ${entity}DTO entityDTO) {
-if (ObjectUtils.isEmpty(entityDTO.getId())) {
-throw Exceptions.createIllegalArgumentException(null);
-}
-super.iService.updateById(entityDTO.getInstance());
+        if (ObjectUtils.isEmpty(entityDTO.getId())) {
+            throw Exceptions.createIllegalArgumentException(null);
+        }
+        super.iService.updateById(entityDTO.of());
 }
 
 /**
 * 默认一次插入500条
 */
 @PostMapping("/saveBatch")
-public void saveBatch(@RequestBody List
-<${entity}DTO> entityDTOList) {
-        super.iService.saveBatch(entityDTOList.stream().map(${entity}DTO::getInstance).collect(Collectors.toList()), 500);
+public void saveBatch(@RequestBody List<${entity}DTO> entityDTOList) {
+        super.iService.saveBatch(entityDTOList.stream().map(${entity}DTO::of).collect(Collectors.toList()), 500);
     }
 
     /**

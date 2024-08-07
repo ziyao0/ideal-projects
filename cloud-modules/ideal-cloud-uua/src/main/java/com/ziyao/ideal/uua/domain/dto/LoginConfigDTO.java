@@ -2,15 +2,16 @@ package com.ziyao.ideal.uua.domain.dto;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.ziyao.ideal.core.Strings;
-import com.ziyao.ideal.uua.domain.entity.LoginConfig;
 import com.ziyao.ideal.web.orm.EntityDTO;
+import com.ziyao.ideal.uua.domain.entity.LoginConfig;
+import com.ziyao.ideal.uua.domain.mapstruct.LoginConfigMapstruct;
 import lombok.Data;
+import java.util.Objects;
+import com.ziyao.ideal.core.Strings;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 /**
  * <p>
@@ -28,7 +29,7 @@ public class LoginConfigDTO implements EntityDTO<LoginConfig>, Serializable {
     /**
      * 配置ID
      */
-    private Long id;
+    private Integer id;
     /**
      * 登录方法（如：用户名密码，OTP，社交登录等）
      */
@@ -158,6 +159,8 @@ public class LoginConfigDTO implements EntityDTO<LoginConfig>, Serializable {
                 .likeRight(Strings.hasLength(countryWhitelist), LoginConfig::getCountryWhitelist, countryWhitelist)
                 // 禁止访问的国家黑名单（逗号分隔）
                 .likeRight(Strings.hasLength(countryBlacklist), LoginConfig::getCountryBlacklist, countryBlacklist)
+                // 创建时间
+                .eq(Objects.nonNull(createdAt), LoginConfig::getCreatedAt, createdAt)
                 // 更新时间
                 .eq(Objects.nonNull(updatedAt), LoginConfig::getUpdatedAt, updatedAt)
                 // 配置描述
@@ -165,8 +168,7 @@ public class LoginConfigDTO implements EntityDTO<LoginConfig>, Serializable {
                 ;
     }
 
-    @Override
-    public LoginConfig getEntity() {
-        return new LoginConfig();
+    public LoginConfig of() {
+        return LoginConfigMapstruct.INSTANCE.of(this);
     }
 }

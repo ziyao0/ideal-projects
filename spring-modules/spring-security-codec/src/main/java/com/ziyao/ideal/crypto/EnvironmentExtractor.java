@@ -24,20 +24,13 @@ public abstract class EnvironmentExtractor {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(EnvironmentExtractor.class);
 
-
-    private static final EnvironmentExtractor ENVIRONMENT_EXTRACTOR;
-
-    static {
-        ENVIRONMENT_EXTRACTOR = new EnvironmentExtractor() {
-            @Override
-            public Properties<?> extract(ConfigurableEnvironment environment) {
-                return super.extract(environment);
-            }
-        };
-    }
-
-
-    public Properties<?> extract(ConfigurableEnvironment environment) {
+    /**
+     * 从环境变量中提取属性配置
+     *
+     * @param environment 环境配置信息
+     * @return {@link Properties}
+     */
+    public static Properties<?> extract(ConfigurableEnvironment environment) {
         try {
             if (null == environment) {
                 return null;
@@ -49,7 +42,7 @@ public abstract class EnvironmentExtractor {
         return null;
     }
 
-    private Properties<?> doExtract(ConfigurableEnvironment environment) {
+    private static Properties<?> doExtract(ConfigurableEnvironment environment) {
 
         CryptoPropertySource propertySource = extractPropertySourceAndRemove(environment);
 
@@ -59,7 +52,7 @@ public abstract class EnvironmentExtractor {
                 .orElseGet(() -> null);
     }
 
-    private CryptoPropertySource extractPropertySourceAndRemove(ConfigurableEnvironment environment) {
+    private static CryptoPropertySource extractPropertySourceAndRemove(ConfigurableEnvironment environment) {
         CryptoPropertySource propertySource = (CryptoPropertySource) environment.getPropertySources()
                 .get(ConstantPool.properties_prefix);
         environment.getPropertySources().remove(ConstantPool.properties_prefix);
@@ -78,7 +71,7 @@ public abstract class EnvironmentExtractor {
 
         injectEnvironment(environment, clazz);
         // 提取属性
-        return (T) ENVIRONMENT_EXTRACTOR.extract(environment);
+        return (T) extract(environment);
 
     }
 
@@ -92,6 +85,14 @@ public abstract class EnvironmentExtractor {
         }
     }
 
+    /**
+     * 提取属性配置
+     *
+     * @param configPath 配置文件路径
+     * @param clazz      配置类型
+     * @param <T>        property type
+     * @return 返回获取到的配置信息
+     */
     public static <T> T extractProperties(String configPath, Class<? extends Properties<T>> clazz) {
         // 从文件路径获取配置文件
         File propertiesFile = getPropertiesFile(configPath);
@@ -127,6 +128,12 @@ public abstract class EnvironmentExtractor {
         return environment;
     }
 
+    /**
+     * 获取配置文件
+     *
+     * @param configPath 配置文件路径
+     * @return 如果存在返回当前配置文件信息
+     */
     private static File getPropertiesFile(String configPath) {
         if (Strings.hasText(configPath))
             return getPropertiesFileForConfigPath(configPath);
@@ -134,6 +141,12 @@ public abstract class EnvironmentExtractor {
             return null;
     }
 
+    /**
+     * 通过路径获取配置文件
+     *
+     * @param configPath 文件路径
+     * @return 返回文件信息
+     */
     private static File getPropertiesFileForConfigPath(String configPath) {
         File file = new File(configPath);
         if (file.exists() && file.isFile())

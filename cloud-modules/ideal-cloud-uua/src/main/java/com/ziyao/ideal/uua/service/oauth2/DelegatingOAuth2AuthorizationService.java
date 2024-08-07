@@ -47,7 +47,7 @@ public class DelegatingOAuth2AuthorizationService implements OAuth2Authorization
     }
 
     @Override
-    public OAuth2Authorization findById(Long id) {
+    public OAuth2Authorization findById(Integer id) {
         // 先从内存中查询
         OAuth2Authorization authorization = caffeineOAuth2AuthorizationService.findById(id);
         if (authorization != null) {

@@ -36,9 +36,9 @@ public class OAuth2AuthorizationDeserializer extends JsonDeserializer<OAuth2Auth
     private OAuth2Authorization deserialize(ObjectMapper mapper, JsonNode jsonNode) {
         // @formatter:off
         OAuth2Authorization.Builder builder = OAuth2Authorization.withAppId(
-                JsonNodeUtils.findLongValue(jsonNode, "appId"))
-                .id(JsonNodeUtils.findLongValue(jsonNode, "id"))
-                .userId(JsonNodeUtils.findLongValue(jsonNode, "userId"))
+                JsonNodeUtils.findIntegerValue(jsonNode, "appId"))
+                .id(JsonNodeUtils.findIntegerValue(jsonNode, "id"))
+                .userId(JsonNodeUtils.findIntegerValue(jsonNode, "userId"))
                 .authorizationGrantType(
                         Optional.ofNullable(JsonNodeUtils.findStringValue(jsonNode, "authorizationGrantType"))
                                 .map(AuthorizationGrantType::new)

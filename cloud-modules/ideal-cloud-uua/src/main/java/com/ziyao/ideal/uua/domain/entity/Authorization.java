@@ -38,16 +38,16 @@ public class Authorization implements Serializable {
     @Id
     @org.springframework.data.annotation.Id
     @TableId("id")
-    private Long id;
+    private Integer id;
 
     /**
      * 应用系统id
      */
     @TableField("appid")
-    private Long appid;
+    private Integer appid;
 
     @TableField("user_id")
-    private Long userId;
+    private Integer userId;
 
     /**
      * 授权类型

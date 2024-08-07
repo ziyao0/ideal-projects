@@ -3,9 +3,11 @@ package com.ziyao.ideal.uua.domain.dto;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.ziyao.ideal.web.orm.EntityDTO;
-import com.ziyao.ideal.core.Strings;
 import com.ziyao.ideal.uua.domain.entity.Role;
+import com.ziyao.ideal.uua.domain.mapstruct.RoleMapstruct;
 import lombok.Data;
+import java.util.Objects;
+import com.ziyao.ideal.core.Strings;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -16,7 +18,7 @@ import java.time.LocalDateTime;
  * 角色表
  * </p>
  *
- * @author zhangziyao
+ * @author ziyao
  */
 @Data
 public class RoleDTO implements EntityDTO<Role>, Serializable {
@@ -27,15 +29,31 @@ public class RoleDTO implements EntityDTO<Role>, Serializable {
     /**
      * 角色id
      */
-    private Long id;
+    private Integer id;
     /**
      * 角色名称
      */
-    private String roleName;
+    private String name;
     /**
      * 角色编码
      */
-    private String roleCode;
+    private String role;
+    /**
+     * 
+     */
+    private Integer type;
+    /**
+     * 角色类别 1 权限角色 2 组织角色
+     */
+    private Integer category;
+    /**
+     * 
+     */
+    private String accessLevel;
+    /**
+     * 1 启用 0禁用
+     */
+    private Boolean active;
     /**
      * 角色描述
      */
@@ -66,16 +84,31 @@ public class RoleDTO implements EntityDTO<Role>, Serializable {
 
         return Wrappers.lambdaQuery(Role.class)
                 // 角色名称
-                .likeRight(Strings.hasLength(roleName), Role::getName, roleName)
+                .likeRight(Strings.hasLength(name), Role::getName, name)
                 // 角色编码
-                .likeRight(Strings.hasLength(roleCode), Role::getRole, roleCode)
+                .likeRight(Strings.hasLength(role), Role::getRole, role)
+                // 
+                .eq(Objects.nonNull(type), Role::getType, type)
+                // 角色类别 1 权限角色 2 组织角色
+                .eq(Objects.nonNull(category), Role::getCategory, category)
+                // 
+                .likeRight(Strings.hasLength(accessLevel), Role::getAccessLevel, accessLevel)
+                // 1 启用 0禁用
+                .eq(Objects.nonNull(active), Role::getActive, active)
                 // 角色描述
                 .likeRight(Strings.hasLength(description), Role::getDescription, description)
+                // 创建人id
+                .eq(Objects.nonNull(createdBy), Role::getCreatedBy, createdBy)
+                // 创建时间
+                .eq(Objects.nonNull(createdAt), Role::getCreatedAt, createdAt)
+                // 修改人id
+                .eq(Objects.nonNull(modifiedBy), Role::getModifiedBy, modifiedBy)
+                // 修改时间
+                .eq(Objects.nonNull(modifiedAt), Role::getModifiedAt, modifiedAt)
                 ;
     }
 
-    @Override
-    public Role getEntity() {
-        return new Role();
+    public Role of() {
+        return RoleMapstruct.INSTANCE.of(this);
     }
 }

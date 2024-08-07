@@ -25,6 +25,8 @@ subprojects {
             management platform(project(":ideal-deps"))
             compileOnly 'org.projectlombok:lombok'
             annotationProcessor 'org.projectlombok:lombok'
+            implementation 'org.mapstruct:mapstruct'
+            annotationProcessor 'org.mapstruct:mapstruct-processor'
         }
     }
     tasks.withType(JavaCompile).tap {

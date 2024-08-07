@@ -34,17 +34,17 @@ public class RoleMenu implements Serializable {
      */
     @Id
     @TableId("app_id")
-    private Long appId;
+    private Integer appId;
 
     /**
      * 角色id
      */
-    private Long roleId;
+    private Integer roleId;
 
     /**
      * 菜单id
      */
-    private Long menuId;
+    private Integer menuId;
 
     /**
      * 创建时间

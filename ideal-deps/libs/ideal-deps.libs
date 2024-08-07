@@ -55,3 +55,7 @@ javax.annotation:javax.annotation-api:1.3.2
 com.alibaba.nacos:nacos-client:2.3.2
 
 com.alibaba:transmittable-thread-local:2.14.5
+
+# MapStruct
+org.mapstruct:mapstruct:1.5.5.Final
+org.mapstruct:mapstruct-processor:1.5.5.Final

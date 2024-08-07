@@ -2,7 +2,7 @@ package ${package.Entity};
 
 import java.io.Serial;
 <#list table.importPackages as pkg>
-    import ${pkg};
+import ${pkg};
 </#list>
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

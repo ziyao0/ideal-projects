@@ -35,7 +35,7 @@ public class DelegatingRegisteredAppService implements RegisteredAppService {
     }
 
     @Override
-    public RegisteredApp findById(Long appId) {
+    public RegisteredApp findById(Integer appId) {
         RegisteredApp registeredApp = this.memoryRegisteredAppService.findById(appId);
 
         if (registeredApp == null) {

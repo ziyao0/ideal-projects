@@ -23,7 +23,7 @@ public class JpaRegisteredAppService extends AbstractRegisteredAppService {
     }
 
     @Override
-    public RegisteredApp findById(Long appId) {
+    public RegisteredApp findById(Integer appId) {
         return applicationRepositoryJpa.findById(appId).map(this::toObject).orElse(null);
     }
 

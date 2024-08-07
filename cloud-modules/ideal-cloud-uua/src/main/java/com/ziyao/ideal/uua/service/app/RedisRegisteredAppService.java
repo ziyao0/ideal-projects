@@ -23,7 +23,7 @@ public class RedisRegisteredAppService extends AbstractRegisteredAppService {
     }
 
     @Override
-    public RegisteredApp findById(Long appId) {
+    public RegisteredApp findById(Integer appId) {
         Assert.notNull(appId, "appId must not be null");
         return applicationRepositoryRedis.findById(appId).map(this::toObject).orElse(null);
     }

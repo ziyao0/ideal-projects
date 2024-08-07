@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.ziyao.ideal.web.orm.EntityDTO;
 import com.ziyao.ideal.config.domain.entity.Config;
+import com.ziyao.ideal.config.domain.mapstruct.ConfigMapstruct;
 import lombok.Data;
 import java.util.Objects;
 import com.ziyao.ideal.core.Strings;
@@ -28,7 +29,7 @@ public class ConfigDTO implements EntityDTO<Config>, Serializable {
     /**
      * 
      */
-    private Long id;
+    private Integer id;
     /**
      * 组
      */
@@ -36,7 +37,7 @@ public class ConfigDTO implements EntityDTO<Config>, Serializable {
     /**
      * 
      */
-    private Long dataId;
+    private String dataId;
     /**
      * 
      */
@@ -65,6 +66,8 @@ public class ConfigDTO implements EntityDTO<Config>, Serializable {
                 // 组
                 .likeRight(Strings.hasLength(group), Config::getGroup, group)
                 // 
+                .likeRight(Strings.hasLength(dataId), Config::getDataId, dataId)
+                // 
                 .likeRight(Strings.hasLength(configType), Config::getConfigType, configType)
                 // 
                 .likeRight(Strings.hasLength(description), Config::getDescription, description)
@@ -75,8 +78,7 @@ public class ConfigDTO implements EntityDTO<Config>, Serializable {
                 ;
     }
 
-    @Override
-    public Config getEntity() {
-        return new Config();
+    public Config of() {
+        return ConfigMapstruct.INSTANCE.of(this);
     }
 }

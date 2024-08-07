@@ -4,7 +4,10 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.ziyao.ideal.web.orm.EntityDTO;
 import com.ziyao.ideal.uua.domain.entity.RoleMenu;
+import com.ziyao.ideal.uua.domain.mapstruct.RoleMenuMapstruct;
 import lombok.Data;
+import java.util.Objects;
+import com.ziyao.ideal.core.Strings;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -15,7 +18,7 @@ import java.time.LocalDateTime;
  * 角色菜单表
  * </p>
  *
- * @author zhangziyao
+ * @author ziyao
  */
 @Data
 public class RoleMenuDTO implements EntityDTO<RoleMenu>, Serializable {
@@ -26,19 +29,15 @@ public class RoleMenuDTO implements EntityDTO<RoleMenu>, Serializable {
     /**
      * 系统id
      */
-    private Long appId;
+    private Integer appId;
     /**
      * 角色id
      */
-    private Long roleId;
+    private Integer roleId;
     /**
      * 菜单id
      */
-    private Long menuId;
-    /**
-     * 创建人id
-     */
-    private String createdBy;
+    private Integer menuId;
     /**
      * 创建时间
      */
@@ -52,11 +51,12 @@ public class RoleMenuDTO implements EntityDTO<RoleMenu>, Serializable {
     public LambdaQueryWrapper<RoleMenu> initWrapper() {
 
         return Wrappers.lambdaQuery(RoleMenu.class)
+                // 创建时间
+                .eq(Objects.nonNull(createdAt), RoleMenu::getCreatedAt, createdAt)
                 ;
     }
 
-    @Override
-    public RoleMenu getEntity() {
-        return new RoleMenu();
+    public RoleMenu of() {
+        return RoleMenuMapstruct.INSTANCE.of(this);
     }
 }

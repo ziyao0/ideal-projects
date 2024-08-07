@@ -3,21 +3,22 @@ package com.ziyao.ideal.uua.domain.dto;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.ziyao.ideal.web.orm.EntityDTO;
-import com.ziyao.ideal.core.Strings;
 import com.ziyao.ideal.uua.domain.entity.Authorization;
+import com.ziyao.ideal.uua.domain.mapstruct.AuthorizationMapstruct;
 import lombok.Data;
+import java.util.Objects;
+import com.ziyao.ideal.core.Strings;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 /**
  * <p>
- *
+ * 
  * </p>
  *
- * @author zhangziyao
+ * @author ziyao
  */
 @Data
 public class AuthorizationDTO implements EntityDTO<Authorization>, Serializable {
@@ -28,15 +29,15 @@ public class AuthorizationDTO implements EntityDTO<Authorization>, Serializable 
     /**
      * 主键id
      */
-    private Long id;
+    private Integer id;
     /**
      * 应用系统id
      */
-    private Long appid;
+    private Integer appid;
     /**
-     *
+     * 
      */
-    private Long userId;
+    private Integer userId;
     /**
      * 授权类型
      */
@@ -109,6 +110,26 @@ public class AuthorizationDTO implements EntityDTO<Authorization>, Serializable 
      * 元数据信息
      */
     private String refreshTokenMetadata;
+    /**
+     * 
+     */
+    private String oidcIdTokenValue;
+    /**
+     * 
+     */
+    private LocalDateTime oidcIdTokenIssuedAt;
+    /**
+     * 
+     */
+    private LocalDateTime oidcIdTokenExpiresAt;
+    /**
+     * 
+     */
+    private String oidcIdTokenClaims;
+    /**
+     * 
+     */
+    private String oidcIdTokenMetadata;
 
     /**
      * 组装查询条件，可根据具体情况做出修改
@@ -158,11 +179,20 @@ public class AuthorizationDTO implements EntityDTO<Authorization>, Serializable 
                 .eq(Objects.nonNull(refreshTokenExpiresAt), Authorization::getRefreshTokenExpiresAt, refreshTokenExpiresAt)
                 // 元数据信息
                 .likeRight(Strings.hasLength(refreshTokenMetadata), Authorization::getRefreshTokenMetadata, refreshTokenMetadata)
+                // 
+                .likeRight(Strings.hasLength(oidcIdTokenValue), Authorization::getOidcIdTokenValue, oidcIdTokenValue)
+                // 
+                .eq(Objects.nonNull(oidcIdTokenIssuedAt), Authorization::getOidcIdTokenIssuedAt, oidcIdTokenIssuedAt)
+                // 
+                .eq(Objects.nonNull(oidcIdTokenExpiresAt), Authorization::getOidcIdTokenExpiresAt, oidcIdTokenExpiresAt)
+                // 
+                .likeRight(Strings.hasLength(oidcIdTokenClaims), Authorization::getOidcIdTokenClaims, oidcIdTokenClaims)
+                // 
+                .likeRight(Strings.hasLength(oidcIdTokenMetadata), Authorization::getOidcIdTokenMetadata, oidcIdTokenMetadata)
                 ;
     }
 
-    @Override
-    public Authorization getEntity() {
-        return new Authorization();
+    public Authorization of() {
+        return AuthorizationMapstruct.INSTANCE.of(this);
     }
 }

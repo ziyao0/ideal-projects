@@ -42,7 +42,7 @@ public class ${table.controllerName} extends ${superControllerClass}<${table.ser
 
     @PostMapping("/save")
     public void save(@RequestBody ${entity}DTO entityDTO) {
-    ${table.serviceName?uncap_first}.save(entityDTO.getInstance());
+        ${table.serviceName?uncap_first}.save(entityDTO.of());
     }
 
     /**
@@ -53,7 +53,7 @@ public class ${table.controllerName} extends ${superControllerClass}<${table.ser
         if (ObjectUtils.isEmpty(entityDTO.getId())) {
             throw new ServiceException(400, "主键参数不能为空");
         }
-        ${table.serviceName?uncap_first}.save(entityDTO.getInstance());
+        ${table.serviceName?uncap_first}.save(entityDTO.of());
     }
 
     /**
@@ -61,7 +61,7 @@ public class ${table.controllerName} extends ${superControllerClass}<${table.ser
      */
     @PostMapping("/saveBatch")
     public void saveBatch(@RequestBody List<${entity}DTO> entityDTOList) {
-        ${table.serviceName?uncap_first}.saveBatch(entityDTOList.stream().map(${entity}DTO::getInstance).collect(Collectors.toList()));
+        ${table.serviceName?uncap_first}.saveBatch(entityDTOList.stream().map(${entity}DTO::of).collect(Collectors.toList()));
     }
 
     /**
@@ -69,7 +69,7 @@ public class ${table.controllerName} extends ${superControllerClass}<${table.ser
      */
     @PostMapping("/searchSimilar")
     public Page<${entity}> searchSimilar(PageParams<${entity}DTO> pageParams) {
-        return ${table.serviceName?uncap_first}.searchSimilar(pageParams.getParams().getInstance(), Pages.initPage(pageParams));
+        return ${table.serviceName?uncap_first}.searchSimilar(pageParams.getParams().of(), Pages.initPage(pageParams));
     }
 }
 </#if>

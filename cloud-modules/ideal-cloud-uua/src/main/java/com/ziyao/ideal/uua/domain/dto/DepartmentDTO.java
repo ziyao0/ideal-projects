@@ -3,21 +3,22 @@ package com.ziyao.ideal.uua.domain.dto;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.ziyao.ideal.web.orm.EntityDTO;
-import com.ziyao.ideal.core.Strings;
 import com.ziyao.ideal.uua.domain.entity.Department;
+import com.ziyao.ideal.uua.domain.mapstruct.DepartmentMapstruct;
 import lombok.Data;
+import java.util.Objects;
+import com.ziyao.ideal.core.Strings;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 /**
  * <p>
  * 部门表
  * </p>
  *
- * @author zhangziyao
+ * @author ziyao
  */
 @Data
 public class DepartmentDTO implements EntityDTO<Department>, Serializable {
@@ -28,11 +29,11 @@ public class DepartmentDTO implements EntityDTO<Department>, Serializable {
     /**
      * 主键id
      */
-    private Long id;
+    private Integer id;
     /**
      * 系统id
      */
-    private Long appId;
+    private Integer appId;
     /**
      * 部门名称
      */
@@ -40,7 +41,7 @@ public class DepartmentDTO implements EntityDTO<Department>, Serializable {
     /**
      * 上级部门id
      */
-    private Long parentId;
+    private Integer parentId;
     /**
      * 创建人id
      */
@@ -72,11 +73,18 @@ public class DepartmentDTO implements EntityDTO<Department>, Serializable {
                 .likeRight(Strings.hasLength(deptName), Department::getDeptName, deptName)
                 // 上级部门id
                 .eq(Objects.nonNull(parentId), Department::getParentId, parentId)
+                // 创建人id
+                .eq(Objects.nonNull(createdBy), Department::getCreatedBy, createdBy)
+                // 创建时间
+                .eq(Objects.nonNull(createdAt), Department::getCreatedAt, createdAt)
+                // 修改人id
+                .eq(Objects.nonNull(modifiedBy), Department::getModifiedBy, modifiedBy)
+                // 修改时间
+                .eq(Objects.nonNull(modifiedAt), Department::getModifiedAt, modifiedAt)
                 ;
     }
 
-    @Override
-    public Department getEntity() {
-        return new Department();
+    public Department of() {
+        return DepartmentMapstruct.INSTANCE.of(this);
     }
 }

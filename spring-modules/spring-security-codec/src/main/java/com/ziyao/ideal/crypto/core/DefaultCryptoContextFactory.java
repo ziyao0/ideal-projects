@@ -4,6 +4,7 @@ import com.ziyao.ideal.crypto.EnvironmentExtractor;
 import com.ziyao.ideal.crypto.PropertyResolver;
 import com.ziyao.ideal.crypto.TextCipher;
 import com.ziyao.ideal.crypto.TextCipherProvider;
+import com.ziyao.ideal.crypto.utils.CipherAssert;
 import com.ziyao.ideal.crypto.utils.TextCipherUtils;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.ConfigurableEnvironment;
@@ -40,12 +41,16 @@ public class DefaultCryptoContextFactory implements CryptoContextFactory {
     }
 
     private CodebookProperties loadEncryptorPropertiesInEnvironment(ConfigurableEnvironment environment) {
-        CodebookProperties main = EnvironmentExtractor.extractProperties(environment, CodebookProperties.class);
+        CodebookProperties local = EnvironmentExtractor.extractProperties(environment, CodebookProperties.class);
         CodebookProperties external = null;
-        if (null != main) {
-            external = EnvironmentExtractor.extractProperties(main.getLocation(), CodebookProperties.class);
+        if (null != local) {
+            external = EnvironmentExtractor.extractProperties(local.getLocation(), CodebookProperties.class);
+        }
+        // 检查配置
+        if (local != null && local.isCheckCipher()) {
+            CipherAssert.assertLegal(local, external);
         }
         // 合并配置
-        return CodebookProperties.merge(main, external);
+        return CodebookProperties.merge(local, external);
     }
 }
