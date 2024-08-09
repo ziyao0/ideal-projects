@@ -3,9 +3,9 @@ package com.ziyao.ideal.config.service.impl;
 import com.ziyao.ideal.config.core.ConfigProcessor;
 import com.ziyao.ideal.config.core.ConfigValueType;
 import com.ziyao.ideal.config.core.YamlConfigProcessor;
-import com.ziyao.ideal.config.domain.entity.Config;
-import com.ziyao.ideal.config.domain.entity.ConfigItem;
+import com.ziyao.ideal.config.domain.entity.Configuration;
 import com.ziyao.ideal.config.manager.ConfigManager;
+import com.ziyao.ideal.config.repository.jpa.ConfigRepositoryJpa;
 import com.ziyao.ideal.config.service.ConfigActionService;
 import com.ziyao.ideal.config.service.ConfigItemService;
 import com.ziyao.ideal.config.service.ConfigService;
@@ -32,14 +32,15 @@ public class ConfigActionServiceImpl implements ConfigActionService {
     private final ConfigItemService configItemService;
 
     private final ConfigProcessor<List<Property>> configProcessor = new YamlConfigProcessor();
+    private final ConfigRepositoryJpa configRepositoryJpa;
 
 
     @Override
     public void publishConfig(String dataId, String group) {
 
         // 如果存在 进行配置推送
-        configService.findByDataIdAndGroup(dataId, group)
-                .ifPresent(config -> publishConfig(config, configItemService.findByConfigId(config.getId())));
+        List<Configuration> configurations = configService.findConfigurationByDataIdAndGroup(dataId, group);
+        publishConfig(configurations);
     }
 
     @Override
@@ -71,21 +72,21 @@ public class ConfigActionServiceImpl implements ConfigActionService {
     @Override
     public void publishAllConfig() {
 
-        List<Config> configs = configService.findAll();
-        List<ConfigItem> configItems = configItemService.findAll();
+        List<Configuration> configurations = configRepositoryJpa.findConfiguration();
+        // 通过配置id和配置组进行分组
 
-        Map<Integer, List<ConfigItem>> configItemByConfigId =
-                configItems.stream().collect(Collectors.groupingBy(ConfigItem::getConfigId));
-        // 推送配置
-        configs.forEach(config -> publishConfig(config, configItemByConfigId.get(config.getId())));
+        Map<String, List<Configuration>> configurationMap = configurations.stream().collect(Collectors.groupingBy(c -> c.getDataId() + ":" + c.getGroup()));
+        for (List<Configuration> configurationList : configurationMap.values()) {
+            publishConfig(configurationList);
+        }
     }
 
     private void doPublishConfig(String dataId, String group, String content, String configType) {
         configManager.publishing(dataId, group, content, configType);
     }
 
-    private void publishConfig(Config config, List<ConfigItem> configItems) {
-        List<Property> properties = configItems.stream().map(ci -> {
+    private void publishConfig(List<Configuration> configurations) {
+        List<Property> properties = configurations.stream().map(ci -> {
             String configValue = ci.getConfigValue();
             String valueType = ci.getValueType();
             try {
@@ -95,9 +96,11 @@ public class ConfigActionServiceImpl implements ConfigActionService {
                 throw new RuntimeException(e);
             }
         }).toList();
+
         // 推送配置
         if (Collections.nonNull(properties)) {
-            publishConfig(config.getDataId(), config.getGroup(), config.getConfigType(), properties);
+            Configuration configuration = configurations.get(0);
+            publishConfig(configuration.getDataId(), configuration.getGroup(), configuration.getConfigType(), properties);
         }
     }
 }
