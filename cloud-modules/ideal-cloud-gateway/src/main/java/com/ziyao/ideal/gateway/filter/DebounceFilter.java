@@ -37,20 +37,19 @@ public class DebounceFilter extends AbstractAfterAuthenticationFilter {
             return chain.filter(exchange);
         }
 
-        return operations.opsForValue()
-                .setIfAbsent(
-                        RedisKeys.getDebounceKeyByValue(md5Hex(exchange)),
-                        DEBOUNCE_VALUE,
-                        Duration.ofMillis(gatewayConfig.getDebounceTimes()))
-                .flatMap(res -> {
-                    if (Boolean.TRUE.equals(res)) {
-                        return chain.filter(exchange);
-                    } else {
-                        // 防抖动异常返回，可以自定义
-                        exchange.getResponse().setStatusCode(HttpStatus.TOO_MANY_REQUESTS);
-                        return exchange.getResponse().setComplete();
-                    }
-                });
+        return operations.opsForValue().setIfAbsent(
+                RedisKeys.getDebounceKeyByValue(md5Hex(exchange)),
+                DEBOUNCE_VALUE,
+                Duration.ofMillis(gatewayConfig.getDebounceTimes())
+        ).flatMap(res -> {
+            if (Boolean.TRUE.equals(res)) {
+                return chain.filter(exchange);
+            } else {
+                // 防抖动异常返回，可以自定义
+                exchange.getResponse().setStatusCode(HttpStatus.TOO_MANY_REQUESTS);
+                return exchange.getResponse().setComplete();
+            }
+        });
     }
 
     /**

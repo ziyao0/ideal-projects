@@ -56,6 +56,7 @@ public abstract class IpUtils {
     }
 
     public static void main(String[] args) {
-        System.out.println(getAddr("61.135.215.24"));
+        String addr = getAddr("139.210.101.206");
+        System.out.println(addr);
     }
 }

@@ -22,7 +22,7 @@ public class MavenPublishingPlugin implements Plugin<Project> {
                         pom -> pom.withXml(
                                 xml -> {
                                     Node projectNode = xml.asNode();
-                                    // 查找到特定的节点并删除
+                                    
                                     Node dependencyManagement = findChild(projectNode, DEPENDENCY_MANAGEMENT);
                                     if (dependencyManagement != null) {
                                         projectNode.remove(dependencyManagement);

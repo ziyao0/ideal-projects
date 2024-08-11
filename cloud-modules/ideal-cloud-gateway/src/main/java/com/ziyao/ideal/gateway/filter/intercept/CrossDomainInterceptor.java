@@ -1,11 +1,9 @@
 package com.ziyao.ideal.gateway.filter.intercept;
 
-import com.ziyao.ideal.gateway.core.Interceptor;
-
 /**
  * @author ziyao zhang
  */
-public class CrossDomainInterceptor implements Interceptor<InterceptContext> {
+public class CrossDomainInterceptor implements GatewayInterceptor {
 
     @Override
     public void intercept(InterceptContext context) {

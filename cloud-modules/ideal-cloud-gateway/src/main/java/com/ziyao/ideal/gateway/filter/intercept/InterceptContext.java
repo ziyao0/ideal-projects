@@ -13,7 +13,7 @@ public interface InterceptContext {
      * @return {@link ServerHttpRequest#getURI()}
      * @see org.springframework.web.server.ServerWebExchange
      */
-    String accessIP();
+    String getClientIp();
 
     /**
      * 访问资源
@@ -21,7 +21,7 @@ public interface InterceptContext {
      * @return {@link ServerHttpRequest#getPath()}
      * @see org.springframework.web.server.ServerWebExchange
      */
-    String accessResource();
+    String getRequestUri();
 
     /**
      * 访问域
@@ -29,5 +29,5 @@ public interface InterceptContext {
      * @return {@link ServerHttpRequest#getRemoteAddress()}
      * @see org.springframework.web.server.ServerWebExchange
      */
-    String domain();
+    String getDomains();
 }

@@ -1,9 +1,9 @@
 package com.ziyao.ideal.gateway.filter;
 
 import com.ziyao.ideal.core.lang.NonNull;
-import com.ziyao.ideal.gateway.core.FailureHandler;
-import com.ziyao.ideal.gateway.core.GatewayStopWatches;
-import com.ziyao.ideal.gateway.core.support.RequestAttributes;
+import com.ziyao.ideal.gateway.authorization.AuthorizationFailureHandler;
+import com.ziyao.ideal.gateway.authorization.GatewayStopWatches;
+import com.ziyao.ideal.gateway.authorization.support.RequestAttributes;
 import com.ziyao.ideal.gateway.support.ApplicationContextUtils;
 import lombok.Getter;
 import org.springframework.beans.factory.BeanNameAware;
@@ -59,8 +59,8 @@ public abstract class AbstractGlobalFilter implements GlobalFilter, BeanNameAwar
      * @see reactor.core.publisher.Flux#onErrorResume(Function)
      */
     protected Mono<Void> onError(ServerWebExchange exchange, Throwable throwable) {
-        FailureHandler failureHandler = ApplicationContextUtils.getBean(FailureHandler.class);
-        Mono<Void> resume = failureHandler.onFailureResume(exchange, throwable);
+        AuthorizationFailureHandler authorizationFailureHandler = ApplicationContextUtils.getBean(AuthorizationFailureHandler.class);
+        Mono<Void> resume = authorizationFailureHandler.onFailureResume(exchange, throwable);
         GatewayStopWatches.stop(this.beanName, exchange);
         return resume;
     }

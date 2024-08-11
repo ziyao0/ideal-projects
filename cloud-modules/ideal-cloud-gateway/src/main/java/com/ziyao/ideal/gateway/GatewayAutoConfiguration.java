@@ -1,8 +1,8 @@
 package com.ziyao.ideal.gateway;
 
-import com.ziyao.ideal.gateway.core.Authorizer;
-import com.ziyao.ideal.gateway.core.AuthorizerManager;
-import com.ziyao.ideal.gateway.core.DefaultAuthorizerManager;
+import com.ziyao.ideal.gateway.authorization.AuthorizationManager;
+import com.ziyao.ideal.gateway.authorization.AuthorizationProvider;
+import com.ziyao.ideal.gateway.authorization.DefaultAuthorizationManager;
 import com.ziyao.ideal.gateway.support.ApplicationContextUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -83,9 +83,9 @@ public class GatewayAutoConfiguration implements ApplicationContextAware {
     }
 
     @Bean
-    public AuthorizerManager providerManager() {
-        List<Authorizer> authorizers = ApplicationContextUtils.getBeansOfType(Authorizer.class);
-        return new DefaultAuthorizerManager(authorizers);
+    public AuthorizationManager providerManager() {
+        List<AuthorizationProvider> authorizationProviders = ApplicationContextUtils.getBeansOfType(AuthorizationProvider.class);
+        return new DefaultAuthorizationManager(authorizationProviders);
     }
 
     @Override

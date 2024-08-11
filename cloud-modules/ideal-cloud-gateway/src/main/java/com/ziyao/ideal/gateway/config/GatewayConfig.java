@@ -41,5 +41,9 @@ public class GatewayConfig {
      * 默认禁止访问api集合
      */
     private Set<String> defaultDisallowApis = Sets.newHashSet();
+    /**
+     * ip黑名单
+     */
+    private Set<String> disallowIps = Sets.newHashSet();
 
 }

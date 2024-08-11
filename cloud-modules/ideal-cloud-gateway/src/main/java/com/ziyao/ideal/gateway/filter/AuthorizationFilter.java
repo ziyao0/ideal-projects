@@ -1,14 +1,15 @@
 package com.ziyao.ideal.gateway.filter;
 
+import com.ziyao.ideal.gateway.authorization.AccessTokenExtractor;
+import com.ziyao.ideal.gateway.authorization.AccessTokenValidator;
+import com.ziyao.ideal.gateway.authorization.AuthorizationManager;
+import com.ziyao.ideal.gateway.authorization.GatewayStopWatches;
+import com.ziyao.ideal.gateway.authorization.support.RequestAttributes;
+import com.ziyao.ideal.gateway.authorization.support.SecurityPredicate;
+import com.ziyao.ideal.gateway.authorization.token.DefaultAccessToken;
 import com.ziyao.ideal.gateway.config.GatewayConfig;
-import com.ziyao.ideal.gateway.core.AccessTokenExtractor;
-import com.ziyao.ideal.gateway.core.AccessTokenValidator;
-import com.ziyao.ideal.gateway.core.AuthorizerManager;
-import com.ziyao.ideal.gateway.core.GatewayStopWatches;
-import com.ziyao.ideal.gateway.core.support.RequestAttributes;
-import com.ziyao.ideal.gateway.core.support.SecurityPredicate;
-import com.ziyao.ideal.gateway.core.token.DefaultAccessToken;
 import com.ziyao.ideal.gateway.error.GatewayErrors;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.stereotype.Component;
@@ -24,17 +25,12 @@ import java.util.Set;
  */
 @Slf4j
 @Component
+@RequiredArgsConstructor
 public class AuthorizationFilter extends AbstractGlobalFilter {
 
 
-    private final AuthorizerManager authorizerManager;
+    private final AuthorizationManager authorizationManager;
     private final GatewayConfig gatewayConfig;
-
-    public AuthorizationFilter(
-            AuthorizerManager authorizerManager, GatewayConfig gatewayConfig) {
-        this.authorizerManager = authorizerManager;
-        this.gatewayConfig = gatewayConfig;
-    }
 
     @Override
     protected Mono<Void> doFilter(ServerWebExchange exchange, GatewayFilterChain chain) {
@@ -48,11 +44,11 @@ public class AuthorizationFilter extends AbstractGlobalFilter {
             } else {
                 // 快速校验认证token
                 AccessTokenValidator.validateToken(access);
-                filter = authorizerManager.getAuthorizer(access.getName()).authorize(access)
+                filter = authorizationManager.getAuthorization(access.getName()).authorize(access)
                         .flatMap(author -> {
                             if (author.isAuthorized()) {
                                 // TODO: 2023/10/8 成功后向exchange存储认证成功信息
-                                RequestAttributes.storeAuthorizerContext(exchange, null);
+//                                RequestAttributes.storeAuthorizerContext(exchange, null);
                                 return chain.filter(exchange);
                             } else {
                                 return GatewayErrors.createUnauthorizedException(author.getMessage());

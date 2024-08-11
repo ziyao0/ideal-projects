@@ -32,7 +32,7 @@ create table if not exists application
 create index application_app_type_state_index
     on application (app_type, state);
 
-create table if not exists authorization
+create table if not exists authorizationProvider
 (
     id                            int unsigned             not null comment '主键id'
         primary key,
@@ -65,7 +65,7 @@ create table if not exists authorization
 );
 
 create index oauth2_authorization_appid_user_id_index
-    on authorization (appid, user_id);
+    on authorizationProvider (appid, user_id);
 
 create table if not exists department
 (
