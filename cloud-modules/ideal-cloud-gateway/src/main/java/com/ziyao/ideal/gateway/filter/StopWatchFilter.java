@@ -1,7 +1,7 @@
 package com.ziyao.ideal.gateway.filter;
 
 import com.ziyao.ideal.core.metrics.StopWatch;
-import com.ziyao.ideal.gateway.authorization.GatewayStopWatches;
+import com.ziyao.ideal.gateway.support.GatewayStopWatches;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.stereotype.Component;

@@ -1,8 +1,7 @@
 package com.ziyao.ideal.gateway;
 
-import com.ziyao.ideal.gateway.authorization.AuthorizationManager;
-import com.ziyao.ideal.gateway.authorization.AuthorizationProvider;
-import com.ziyao.ideal.gateway.authorization.DefaultAuthorizationManager;
+import com.ziyao.ideal.gateway.filter.intercept.DelegatingInterceptor;
+import com.ziyao.ideal.gateway.filter.intercept.GatewayInterceptor;
 import com.ziyao.ideal.gateway.support.ApplicationContextUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -82,12 +81,6 @@ public class GatewayAutoConfiguration implements ApplicationContextAware {
         return builder.build();
     }
 
-    @Bean
-    public AuthorizationManager providerManager() {
-        List<AuthorizationProvider> authorizationProviders = ApplicationContextUtils.getBeansOfType(AuthorizationProvider.class);
-        return new DefaultAuthorizationManager(authorizationProviders);
-    }
-
     @Override
     public void setApplicationContext(@Nullable ApplicationContext applicationContext) throws BeansException {
         ApplicationContextUtils.setApplicationContext(applicationContext);
@@ -104,5 +97,12 @@ public class GatewayAutoConfiguration implements ApplicationContextAware {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource(new PathPatternParser());
         source.registerCorsConfiguration("/**", config);//对所有经过网关的请求都生效
         return new CorsWebFilter(source);
+    }
+
+    @Bean
+    public GatewayInterceptor delegatingInterceptor() {
+        List<GatewayInterceptor> authorizationProviders =
+                ApplicationContextUtils.getBeansOfType(GatewayInterceptor.class);
+        return new DelegatingInterceptor(authorizationProviders);
     }
 }

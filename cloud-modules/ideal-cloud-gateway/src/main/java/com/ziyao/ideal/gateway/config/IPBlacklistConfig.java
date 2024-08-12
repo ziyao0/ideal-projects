@@ -30,7 +30,7 @@ public class IPBlacklistConfig {
      * 192.*.*.*
      * *.*.*.*
      */
-    private Set<String> ipSubnets = new HashSet<>();
+    private Set<String> fuzzyIps = new HashSet<>();
     /**
      * ip范围
      * <p>

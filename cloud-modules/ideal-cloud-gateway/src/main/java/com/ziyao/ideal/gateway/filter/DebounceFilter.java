@@ -1,8 +1,9 @@
 package com.ziyao.ideal.gateway.filter;
 
 import com.ziyao.ideal.crypto.digest.DigestUtils;
-import com.ziyao.ideal.gateway.config.GatewayConfig;
+import com.ziyao.ideal.gateway.config.ConfigCenter;
 import com.ziyao.ideal.gateway.support.RedisKeys;
+import lombok.RequiredArgsConstructor;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.data.redis.core.ReactiveStringRedisTemplate;
 import org.springframework.http.HttpStatus;
@@ -17,30 +18,27 @@ import java.time.Duration;
  * @author ziyao
  */
 //@Component
+@RequiredArgsConstructor
 public class DebounceFilter extends AbstractAfterAuthenticationFilter {
 
 
     private static final String DEBOUNCE_VALUE = "1";
 
     private final ReactiveStringRedisTemplate operations;
-    private final GatewayConfig gatewayConfig;
+    private final ConfigCenter configCenter;
 
-    public DebounceFilter(ReactiveStringRedisTemplate reactiveStringRedisTemplate, GatewayConfig gatewayConfig) {
-        this.operations = reactiveStringRedisTemplate;
-        this.gatewayConfig = gatewayConfig;
-    }
 
     @Override
     protected Mono<Void> onSuccess(ServerWebExchange exchange, GatewayFilterChain chain) {
         // 判断是否开启防抖动功能
-        if (!gatewayConfig.isEnableDebounced()) {
+        if (!configCenter.getGatewayConfig().isEnableDebounced()) {
             return chain.filter(exchange);
         }
 
         return operations.opsForValue().setIfAbsent(
                 RedisKeys.getDebounceKeyByValue(md5Hex(exchange)),
                 DEBOUNCE_VALUE,
-                Duration.ofMillis(gatewayConfig.getDebounceTimes())
+                Duration.ofMillis(configCenter.getGatewayConfig().getDebounceTimes())
         ).flatMap(res -> {
             if (Boolean.TRUE.equals(res)) {
                 return chain.filter(exchange);

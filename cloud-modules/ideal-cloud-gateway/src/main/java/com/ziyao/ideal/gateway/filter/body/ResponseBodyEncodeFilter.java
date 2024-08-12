@@ -1,6 +1,6 @@
 package com.ziyao.ideal.gateway.filter.body;
 
-import com.ziyao.ideal.gateway.authorization.rewrite.EncodeRewriteFunction;
+import com.ziyao.ideal.gateway.security.rewrite.EncodeRewriteFunction;
 import com.ziyao.ideal.gateway.filter.AbstractAfterAuthenticationFilter;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.factory.rewrite.ModifyResponseBodyGatewayFilterFactory;

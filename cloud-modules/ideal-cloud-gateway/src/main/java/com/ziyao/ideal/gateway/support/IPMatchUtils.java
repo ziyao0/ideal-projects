@@ -18,32 +18,68 @@ public abstract class IPMatchUtils {
 
     private static final Logger logger = LoggerFactory.getLogger(IPMatchUtils.class);
 
-    private static final String separator = "\\.";
-
+    /**
+     * 精确匹配
+     *
+     * @return <code>true</code> 匹配成功
+     */
     public static boolean matchExactIp(Set<String> sources, String target) {
-        if (isIPv4(target)) {
+        try {
+            if (isIPv4(target)) {
+                if (Collections.isEmpty(sources)) {
+                    return false;
+                }
+                InetAddress addr1 = InetAddress.getByName(target);
+                for (String source : sources) {
+                    InetAddress addr2 = InetAddress.getByName(source);
+                    if (addr1.equals(addr2)) {
+                        return true;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            logger.warn("matchExactIp error {},sources:{},target:{}", e.getMessage(), sources.toArray(), target);
+        }
+        return false;
+    }
+
+    /**
+     * 模糊匹配
+     *
+     * @return <code>true</code> 匹配成功
+     */
+    public static boolean matchFuzzyIp(Set<String> sources, String target) {
+        try {
+            if (!isIPv4(target)) {
+                return false;
+            }
             if (Collections.isEmpty(sources)) {
+                return false;
+            }
+            byte[] ipBytes = InetAddress.getByName(target).getAddress();
+            for (String source : sources) {
+                // Convert IP and pattern to byte arrays
+                byte[] patternBytes = InetAddress.getByName(source.replace("*", "0")).getAddress();
+
+                // Check each byte of IP address against the pattern
+                for (int i = 0; i < ipBytes.length; i++) {
+                    if (patternBytes[i] != 0 && ipBytes[i] != patternBytes[i]) {
+                        return false;
+                    }
+                }
                 return true;
             }
-            String[] ta = target.split(separator);
-            for (String source : sources) {
-                String[] sa = source.split(separator);
-                if (sa.length != ta.length) {
-                    continue;
-                }
-                return ta[0].equals(sa[0]) && sa[1].equals(ta[1]) && sa[2].equals(ta[2]) && sa[3].equals(ta[3]);
-            }
+        } catch (Exception e) {
+            logger.warn("matchFuzzyIp error {},sources:{},target:{}", e.getMessage(), sources.toArray(), target);
         }
         return false;
     }
 
-    public static boolean matchFuzzyIp(Set<String> sources, String target) {
-        if (!isIPv4(target)) {
-            return false;
-        }
-        return false;
-    }
-
+    /**
+     * 范围匹配
+     *
+     * @return <code>true</code> 匹配成功
+     */
     public static boolean matchIpRange(Set<String> sources, String target) {
         try {
             if (!isIPv4(target)) {
@@ -64,7 +100,7 @@ public abstract class IPMatchUtils {
                 return ipNumeric >= startNumeric && ipNumeric <= endNumeric;
             }
         } catch (UnknownHostException e) {
-            logger.warn("IP address error {},sources:{},target:{}", e.getMessage(), sources.toArray(), target);
+            logger.warn("matchIpRange error {},sources:{},target:{}", e.getMessage(), sources.toArray(), target);
         }
         return false;
     }
@@ -77,7 +113,7 @@ public abstract class IPMatchUtils {
         return false;
     }
 
-    public static boolean isIPv6(String val) {
+    private static boolean isIPv6(String val) {
         if (Strings.hasText(val)) {
             return MatchUtils.matches(RegexPool.IPV6, val);
         }

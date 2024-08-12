@@ -1,14 +1,11 @@
 package com.ziyao.ideal.gateway.filter;
 
-import com.ziyao.ideal.gateway.authorization.AccessTokenExtractor;
-import com.ziyao.ideal.gateway.authorization.AccessTokenValidator;
-import com.ziyao.ideal.gateway.authorization.AuthorizationManager;
-import com.ziyao.ideal.gateway.authorization.GatewayStopWatches;
-import com.ziyao.ideal.gateway.authorization.support.RequestAttributes;
-import com.ziyao.ideal.gateway.authorization.support.SecurityPredicate;
-import com.ziyao.ideal.gateway.authorization.token.DefaultAccessToken;
-import com.ziyao.ideal.gateway.config.GatewayConfig;
-import com.ziyao.ideal.gateway.error.GatewayErrors;
+import com.ziyao.ideal.gateway.support.GSecurityContextExtractor;
+import com.ziyao.ideal.gateway.config.ConfigCenter;
+import com.ziyao.ideal.gateway.support.GatewayStopWatches;
+import com.ziyao.ideal.gateway.common.response.RequestAttributes;
+import com.ziyao.ideal.gateway.common.response.SecurityPredicate;
+import com.ziyao.ideal.gateway.security.DefaultGSecurityContext;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -28,32 +25,34 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class AuthorizationFilter extends AbstractGlobalFilter {
 
-
-    private final AuthorizationManager authorizationManager;
-    private final GatewayConfig gatewayConfig;
+    private final ConfigCenter configCenter;
 
     @Override
     protected Mono<Void> doFilter(ServerWebExchange exchange, GatewayFilterChain chain) {
         // 从请求头提取认证token
-        DefaultAccessToken defaultAccessToken = AccessTokenExtractor.extractForHeaders(exchange);
-        return Mono.just(defaultAccessToken).flatMap(access -> {
-            boolean skip = SecurityPredicate.initSecurityApis(getSecurityApis()).skip(access.getApi());
+        DefaultGSecurityContext defaultGatewaySecurityContext = GSecurityContextExtractor.extractForHeaders(exchange);
+
+        DefaultGSecurityContext securityContext = RequestAttributes.getAttribute(exchange, DefaultGSecurityContext.class);
+
+        return Mono.just(defaultGatewaySecurityContext).flatMap(access -> {
+            boolean skip = SecurityPredicate.initSecurityApis(getSecurityApis()).skip(access.getRequestUri());
             Mono<Void> filter;
             if (skip) {
                 filter = chain.filter(exchange);
             } else {
                 // 快速校验认证token
-                AccessTokenValidator.validateToken(access);
-                filter = authorizationManager.getAuthorization(access.getName()).authorize(access)
-                        .flatMap(author -> {
-                            if (author.isAuthorized()) {
-                                // TODO: 2023/10/8 成功后向exchange存储认证成功信息
-//                                RequestAttributes.storeAuthorizerContext(exchange, null);
-                                return chain.filter(exchange);
-                            } else {
-                                return GatewayErrors.createUnauthorizedException(author.getMessage());
-                            }
-                        });
+//                AccessTokenValidator.validateToken(access);
+//                filter = authorizationManager.getAuthorization(access.getName()).authorize(access)
+//                        .flatMap(author -> {
+//                            if (author.isAuthorized()) {
+//                                // TODO: 2023/10/8 成功后向exchange存储认证成功信息
+////                                RequestAttributes.storeAuthorizerContext(exchange, null);
+//                                return chain.filter(exchange);
+//                            } else {
+//                                return GatewayErrors.createUnauthorizedException(author.getMessage());
+//                            }
+//                        });
+                filter = chain.filter(exchange);
             }
             GatewayStopWatches.stop(getBeanName(), exchange);
             return filter;
@@ -61,8 +60,8 @@ public class AuthorizationFilter extends AbstractGlobalFilter {
     }
 
     private Set<String> getSecurityApis() {
-        Set<String> skipApis = gatewayConfig.getDefaultSkipApis();
-        skipApis.addAll(gatewayConfig.getSkipApis());
+        Set<String> skipApis = configCenter.getGatewayConfig().getDefaultSkipApis();
+        skipApis.addAll(configCenter.getGatewayConfig().getSkipApis());
         return skipApis;
     }
 

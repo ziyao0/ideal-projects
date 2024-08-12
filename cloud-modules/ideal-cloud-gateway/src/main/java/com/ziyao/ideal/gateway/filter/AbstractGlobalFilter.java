@@ -1,9 +1,9 @@
 package com.ziyao.ideal.gateway.filter;
 
 import com.ziyao.ideal.core.lang.NonNull;
-import com.ziyao.ideal.gateway.authorization.AuthorizationFailureHandler;
-import com.ziyao.ideal.gateway.authorization.GatewayStopWatches;
-import com.ziyao.ideal.gateway.authorization.support.RequestAttributes;
+import com.ziyao.ideal.gateway.security.AuthorizationFailureHandler;
+import com.ziyao.ideal.gateway.support.GatewayStopWatches;
+import com.ziyao.ideal.gateway.common.response.RequestAttributes;
 import com.ziyao.ideal.gateway.support.ApplicationContextUtils;
 import lombok.Getter;
 import org.springframework.beans.factory.BeanNameAware;

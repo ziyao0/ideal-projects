@@ -1,6 +1,6 @@
 package com.ziyao.ideal.gateway.filter;
 
-import com.ziyao.ideal.gateway.authorization.GatewayStopWatches;
+import com.ziyao.ideal.gateway.support.GatewayStopWatches;
 import com.ziyao.ideal.gateway.config.LoggerConfig;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.stereotype.Component;

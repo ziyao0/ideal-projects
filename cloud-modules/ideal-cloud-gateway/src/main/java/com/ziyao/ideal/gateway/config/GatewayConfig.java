@@ -42,8 +42,8 @@ public class GatewayConfig {
      */
     private Set<String> defaultDisallowApis = Sets.newHashSet();
     /**
-     * ip黑名单
+     * 信任域名
      */
-    private Set<String> disallowIps = Sets.newHashSet();
+    private Set<String> trustDomains = Sets.newHashSet();
 
 }
