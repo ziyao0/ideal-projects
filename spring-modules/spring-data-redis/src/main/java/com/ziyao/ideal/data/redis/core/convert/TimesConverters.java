@@ -23,7 +23,7 @@ public class TimesConverters {
 
     static Collection<Converter<?, ?>> getConvertersToRegister() {
 
-        return List.of(
+        return Lists.newArrayList(
                 new LocalDateTimeToStringConverter(),
                 new LocalDateToStringConverter(),
                 new DateToStringConverter(),

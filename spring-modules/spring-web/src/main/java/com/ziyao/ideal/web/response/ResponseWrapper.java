@@ -4,7 +4,7 @@ import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.Serial;
+
 
 /**
  * 数据响应
@@ -13,7 +13,7 @@ import java.io.Serial;
  */
 public class ResponseWrapper<T> implements ResponseDetails {
 
-    @Serial
+    
     private static final long serialVersionUID = 7273085408208781818L;
     private static final Logger log = LoggerFactory.getLogger(ResponseWrapper.class);
 

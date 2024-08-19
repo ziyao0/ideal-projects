@@ -3,7 +3,7 @@ package com.ziyao.ideal.im.api;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.io.Serial;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -13,7 +13,7 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class Packet implements Serializable {
-    @Serial
+    
     private static final long serialVersionUID = -130418831225718544L;
 
     private Event event;
@@ -37,7 +37,7 @@ public class Packet implements Serializable {
     public Packet(Object data, String receivedBy) {
         this.data = data;
         this.type = Type.UNICAST;
-        this.receivedBys = List.of(receivedBy);
+        this.receivedBys = Lists.newArrayList(receivedBy);
     }
 
     public Packet(Object data) {

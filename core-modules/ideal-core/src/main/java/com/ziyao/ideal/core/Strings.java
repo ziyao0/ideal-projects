@@ -1,6 +1,8 @@
 package com.ziyao.ideal.core;
 
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import com.ziyao.ideal.core.lang.NonNull;
 import com.ziyao.ideal.core.lang.Nullable;
 import com.ziyao.ideal.core.text.StrPool;
@@ -64,7 +66,7 @@ public abstract class Strings implements StrPool {
      * @see #hasText(CharSequence)
      */
     public static boolean hasLength(CharSequence str) {
-        return (str != null && !str.isEmpty());
+        return (str != null && str.length() != 0);
     }
 
     /**
@@ -102,7 +104,7 @@ public abstract class Strings implements StrPool {
      * @see Character#isWhitespace
      */
     public static boolean hasText(CharSequence str) {
-        return (str != null && !str.isEmpty() && containsText(str));
+        return (str != null && str.length() != 0 && containsText(str));
     }
 
     /**
@@ -214,7 +216,11 @@ public abstract class Strings implements StrPool {
      */
     public static String encodeURLUTF8(String str) {
         if (hasLength(str)) {
-            return URLEncoder.encode(str, CharsetUtils.CHARSET_UTF_8);
+            try {
+                return URLEncoder.encode(str, CharsetUtils.CHARSET_UTF_8.toString());
+            } catch (UnsupportedEncodingException e) {
+                throw new RuntimeException(e);
+            }
         }
         return null;
     }
@@ -996,12 +1002,12 @@ public abstract class Strings implements StrPool {
 
     public static Set<String> commaDelimitedListToSet(@Nullable String str) {
         String[] tokens = commaDelimitedListToStringArray(str);
-        return Set.of(tokens);
+        return Sets.newHashSet(tokens);
     }
 
     public static List<String> commaDelimitedListToList(@Nullable String str) {
         String[] tokens = commaDelimitedListToStringArray(str);
-        return List.of(tokens);
+        return Lists.newArrayList(tokens);
     }
 
     public static String[] delimitedListToStringArray(@Nullable String str, @Nullable String delimiter) {

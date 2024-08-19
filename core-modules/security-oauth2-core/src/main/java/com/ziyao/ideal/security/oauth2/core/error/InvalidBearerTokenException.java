@@ -1,6 +1,6 @@
 package com.ziyao.ideal.security.oauth2.core.error;
 
-import java.io.Serial;
+
 
 /**
  * token 无效抛出该异常
@@ -9,7 +9,7 @@ import java.io.Serial;
  */
 public class InvalidBearerTokenException extends OAuth2AuthenticationException {
 
-    @Serial
+    
     private static final long serialVersionUID = 4421091380179524396L;
 
     /**

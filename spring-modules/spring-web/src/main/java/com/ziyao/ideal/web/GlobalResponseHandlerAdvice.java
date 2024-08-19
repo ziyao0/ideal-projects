@@ -56,5 +56,5 @@ public class GlobalResponseHandlerAdvice implements ResponseBodyAdvice<Object> {
 
     }
 
-    private static final List<String> paramNames = List.of("timestamp", "status", "error", "path");
+    private static final List<String> paramNames = Lists.newArrayList("timestamp", "status", "error", "path");
 }

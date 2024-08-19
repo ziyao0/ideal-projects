@@ -5,7 +5,7 @@ import com.ziyao.ideal.security.oauth2.core.user.OAuth2UserAuthority;
 import lombok.Getter;
 import org.springframework.util.Assert;
 
-import java.io.Serial;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,7 +17,7 @@ import java.util.Map;
 public class OidcUserAuthority extends OAuth2UserAuthority {
 
 
-    @Serial
+    
     private static final long serialVersionUID = 1523780882922504924L;
 
     private final OidcIdToken idToken;

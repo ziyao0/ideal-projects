@@ -5,7 +5,7 @@ import com.ziyao.ideal.security.core.AbstractAuthenticationToken;
 import com.ziyao.ideal.security.core.Authentication;
 import com.ziyao.ideal.security.oauth2.core.AuthorizationGrantType;
 
-import java.io.Serial;
+
 import java.util.List;
 
 /**
@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class OAuth2AuthorizationGrantAuthenticationToken extends AbstractAuthenticationToken {
 
-    @Serial
+    
     private static final long serialVersionUID = -2867200150211134714L;
 
     private final AuthorizationGrantType authorizationGrantType;
@@ -21,7 +21,7 @@ public class OAuth2AuthorizationGrantAuthenticationToken extends AbstractAuthent
     private final Authentication appPrincipal;
 
     public OAuth2AuthorizationGrantAuthenticationToken(AuthorizationGrantType authorizationGrantType, Authentication appPrincipal) {
-        super(List.of());
+        super(Lists.newArrayList());
         this.authorizationGrantType = authorizationGrantType;
         this.appPrincipal = appPrincipal;
     }

@@ -2,7 +2,7 @@ package com.ziyao.ideal.crypto.digest;
 
 import com.ziyao.ideal.crypto.asymmetric.DigestAlgorithm;
 
-import java.io.Serial;
+
 import java.nio.charset.Charset;
 
 /**
@@ -11,7 +11,7 @@ import java.nio.charset.Charset;
  */
 public class MD5 extends Digester {
 
-    @Serial
+    
     private static final long serialVersionUID = 6889726375332778994L;
 
     /**

@@ -1,13 +1,13 @@
 package com.ziyao.ideal.im.api;
 
-import java.io.Serial;
+
 import java.io.Serializable;
 
 /**
  * @author ziyao zhang
  */
 public class Metadata implements Serializable {
-    @Serial
+    
     private static final long serialVersionUID = 2652829910177078728L;
 
     private int dataLength;

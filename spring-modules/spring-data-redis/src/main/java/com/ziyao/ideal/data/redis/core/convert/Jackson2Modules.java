@@ -13,7 +13,7 @@ import org.springframework.core.log.LogMessage;
 import org.springframework.util.ClassUtils;
 
 import java.io.IOException;
-import java.io.Serial;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -91,7 +91,7 @@ public final class Jackson2Modules {
 
     static class AllowlistTypeResolverBuilder extends ObjectMapper.DefaultTypeResolverBuilder {
 
-        @Serial
+        
         private static final long serialVersionUID = 3135761660950949610L;
 
         AllowlistTypeResolverBuilder(ObjectMapper.DefaultTyping defaultTyping) {
@@ -115,7 +115,7 @@ public final class Jackson2Modules {
         private static final Set<String> ALLOWLIST_CLASS_NAMES;
 
         static {
-            ALLOWLIST_CLASS_NAMES = Set.of(
+            ALLOWLIST_CLASS_NAMES = Sets.newHashSet(
                     "java.util.ArrayList",
                     "java.util.Collections$EmptyList",
                     "java.util.Collections$EmptyMap",

@@ -20,7 +20,7 @@ import org.yaml.snakeyaml.representer.Representer;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
-import java.io.Serial;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -74,7 +74,7 @@ public abstract class YamlProcessor {
      * </pre>
      */
     public void setDocumentMatchers(DocumentMatcher... matchers) {
-        this.documentMatchers = List.of(matchers);
+        this.documentMatchers = Lists.newArrayList(matchers);
     }
 
     /**
@@ -353,7 +353,7 @@ public abstract class YamlProcessor {
 
     private Properties createStringAdaptingProperties() {
         return new SortedProperties(false) {
-            @Serial
+            
             private static final long serialVersionUID = 2515427249366884977L;
 
             @Override

@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.generator.function.ConverterFileName;
 import com.ziyao.ideal.codegen.CodeGenConst;
 import com.ziyao.ideal.codegen.config.CodeGenConfig;
 
-import java.io.Serial;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,7 +36,7 @@ public abstract class InjectionConfigBuilder {
     public static Map<String, Object> cteateCustomMap(CodeGenConfig codeGenConfig) {
         String packagePath = codeGenConfig.getParent() + "." + codeGenConfig.getModuleName();
         return new HashMap<>() {
-            @Serial
+            
             private static final long serialVersionUID = 7702519044952153375L;
 
             {

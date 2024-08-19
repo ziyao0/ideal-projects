@@ -2,13 +2,12 @@ package com.ziyao.ideal.core.lang;
 
 import com.ziyao.ideal.core.Numbers;
 
-import java.io.Serial;
 
 /**
  * @author ziyao zhang
  */
 public class MutableInt extends Number implements Comparable<MutableInt>, Mutable<Number> {
-    @Serial
+
     private static final long serialVersionUID = 1L;
 
     private int value;

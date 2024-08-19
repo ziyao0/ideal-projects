@@ -22,7 +22,7 @@ public class MavenPublishingPlugin implements Plugin<Project> {
                         pom -> pom.withXml(
                                 xml -> {
                                     Node projectNode = xml.asNode();
-                                    
+
                                     Node dependencyManagement = findChild(projectNode, DEPENDENCY_MANAGEMENT);
                                     if (dependencyManagement != null) {
                                         projectNode.remove(dependencyManagement);
@@ -32,9 +32,13 @@ public class MavenPublishingPlugin implements Plugin<Project> {
 
     private Node findChild(Node parent, String name) {
         for (Object child : parent.children()) {
-            if (child instanceof Node node) {
-                if ((node.name() instanceof QName qname) && name.equals(qname.getLocalPart())) {
-                    return node;
+            if (child instanceof Node) {
+                Node node = (Node) child;
+                if ((node.name() instanceof QName)) {
+                    QName qname = (QName) node.name();
+                    if (name.equals(qname.getLocalPart())) {
+                        return node;
+                    }
                 }
                 if (name.equals(node.name())) {
                     return node;

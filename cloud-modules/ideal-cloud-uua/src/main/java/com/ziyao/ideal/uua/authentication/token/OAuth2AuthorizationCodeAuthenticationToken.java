@@ -6,7 +6,7 @@ import com.ziyao.ideal.security.core.Authentication;
 import lombok.Getter;
 import org.springframework.util.Assert;
 
-import java.io.Serial;
+
 
 /**
  * @author ziyao zhang
@@ -15,7 +15,7 @@ import java.io.Serial;
  */
 @Getter
 public class OAuth2AuthorizationCodeAuthenticationToken extends OAuth2AuthorizationGrantAuthenticationToken {
-    @Serial
+    
     private static final long serialVersionUID = -4774441664615838808L;
 
     private final String code;

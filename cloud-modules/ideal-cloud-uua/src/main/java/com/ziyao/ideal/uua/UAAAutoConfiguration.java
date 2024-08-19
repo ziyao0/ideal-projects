@@ -54,7 +54,7 @@ public class UAAAutoConfiguration implements ApplicationContextAware {
             ApplicationRepositoryJpa applicationRepositoryJpa, ApplicationRepositoryRedis applicationRepositoryRedis) {
 
         return new DelegatingRegisteredAppService(
-                List.of(new JpaRegisteredAppService(applicationRepositoryJpa),
+                Lists.newArrayList(new JpaRegisteredAppService(applicationRepositoryJpa),
                         new RedisRegisteredAppService(applicationRepositoryRedis),
                         new CaffeineRegisteredAppService())
         );
@@ -64,7 +64,7 @@ public class UAAAutoConfiguration implements ApplicationContextAware {
     public OAuth2AuthorizationService delegatingOAuth2AuthorizationService(AuthorizationRepositoryJpa authorizationRepository,
                                                                            AuthorizationRepositoryRedis oAuth2AuthorizationRepository) {
         return new DelegatingOAuth2AuthorizationService(
-                List.of(
+                Lists.newArrayList(
                         new JpaOAuth2AuthorizationService(authorizationRepository),
                         new RedisOAuth2AuthorizationService(oAuth2AuthorizationRepository),
                         new CaffeineOAuth2AuthorizationService()
@@ -75,7 +75,7 @@ public class UAAAutoConfiguration implements ApplicationContextAware {
     @Bean
     public AuthenticationConverter authenticationConverter() {
         return new DelegatingAuthenticationConverter(
-                List.of(
+                Lists.newArrayList(
                         new UsernamePasswordAuthenticationConverter(),
                         new OAuth2AuthorizationCodeAuthenticationConverter(),
                         new OAuth2RefreshTokenAuthenticationConverter()

@@ -72,7 +72,7 @@ public class DefaultRedisHashRepository<K, V>
         return adapter.execute(connection -> {
             Set<byte[]> rawHashKeys = connection.hKeys(rawKey);
             if (Collections.isEmpty(rawHashKeys)) {
-                return Set.of();
+                return Sets.newHashSet();
             }
             return rawHashKeys.stream()
                     .map(rawHashKey -> this.conversionProvider.read(this.keyType, rawHashKey))
@@ -88,7 +88,7 @@ public class DefaultRedisHashRepository<K, V>
         return adapter.execute(connection -> {
             List<byte[]> vals = connection.hVals(rawKey);
             if (Collections.isEmpty(vals)) {
-                return List.of();
+                return Lists.newArrayList();
             }
             return vals.stream()
                     .map(valueType -> this.conversionProvider.read(this.valueType, valueType))

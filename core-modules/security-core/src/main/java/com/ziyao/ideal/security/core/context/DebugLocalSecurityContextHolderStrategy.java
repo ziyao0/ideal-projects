@@ -5,7 +5,7 @@ import com.ziyao.ideal.security.core.GrantedAuthority;
 import com.ziyao.ideal.security.core.UserDetails;
 import org.springframework.util.function.SingletonSupplier;
 
-import java.io.Serial;
+
 import java.util.Collection;
 import java.util.List;
 
@@ -44,7 +44,7 @@ public class DebugLocalSecurityContextHolderStrategy implements SecurityContextH
     private Authentication createAuthenticatedToken() {
 
         UserDetails userDetails = new UserDetails() {
-            @Serial
+            
             private static final long serialVersionUID = 3445961897468761978L;
 
             @Override
@@ -79,12 +79,12 @@ public class DebugLocalSecurityContextHolderStrategy implements SecurityContextH
 
             @Override
             public Collection<? extends GrantedAuthority> getAuthorities() {
-                return List.of();
+                return Lists.newArrayList();
             }
         };
 
         return new Authentication() {
-            @Serial
+            
             private static final long serialVersionUID = 7615063167518644592L;
 
             @Override
@@ -99,7 +99,7 @@ public class DebugLocalSecurityContextHolderStrategy implements SecurityContextH
 
             @Override
             public Collection<? extends GrantedAuthority> getAuthorities() {
-                return List.of();
+                return Lists.newArrayList();
             }
 
             @Override

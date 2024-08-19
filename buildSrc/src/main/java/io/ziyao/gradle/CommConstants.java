@@ -1,5 +1,6 @@
 package io.ziyao.gradle;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,7 +18,12 @@ public interface CommConstants {
      */
     public static final String OPTIONAL_CONFIGURATION_NAME = "optional";
     public static final String MANAGEMENT_CONFIGURATION_NAME = "management";
-    public static final List<String> SOURCES = List.of("/resources/config/bootstrap-register.yml");
     public static final String TARGET_PATH = "/src/main/resources";
+
+    public static List<String> SOURCES() {
+        ArrayList<String> list = new ArrayList<>();
+        list.add("/resources/config/bootstrap-register.yml");
+        return list;
+    }
 
 }

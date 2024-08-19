@@ -9,7 +9,7 @@ import com.ziyao.ideal.crypto.AbstractAlgorithm;
 import com.ziyao.ideal.crypto.asymmetric.DigestAlgorithm;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
-import java.io.Serial;
+
 import java.io.Serializable;
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
@@ -21,7 +21,7 @@ import java.security.NoSuchAlgorithmException;
  */
 public class Digester extends AbstractAlgorithm implements Serializable {
 
-    @Serial
+    
     private static final long serialVersionUID = -5710575887725018089L;
     /**
      * 代理的 JDK {@link MessageDigest} 实现.

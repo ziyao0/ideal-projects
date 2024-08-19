@@ -2,14 +2,14 @@ package com.ziyao.ideal.core.text;
 
 import com.ziyao.ideal.core.Assert;
 
-import java.io.Serial;
+
 import java.io.Serializable;
 
 /**
  * @author ziyao
  */
 public abstract class TextFinder implements Finder, Serializable {
-    @Serial
+    
     private static final long serialVersionUID = 1L;
 
     protected CharSequence text;

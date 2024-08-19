@@ -54,7 +54,7 @@ public class OAuth2RefreshTokenAuthenticationConverter implements Authentication
 
             String scope = request.getParameter(OAuth2ParameterNames.SCOPE);
 
-            return new OAuth2RefreshTokenAuthenticationToken(refreshToken, authentication, Set.of(scope));
+            return new OAuth2RefreshTokenAuthenticationToken(refreshToken, authentication, Sets.newHashSet(scope));
         }
 
         return null;

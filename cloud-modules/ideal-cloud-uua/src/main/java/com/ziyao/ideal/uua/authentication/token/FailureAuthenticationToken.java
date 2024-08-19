@@ -5,7 +5,7 @@ import com.ziyao.ideal.security.core.Authentication;
 import com.ziyao.ideal.security.core.GrantedAuthority;
 import lombok.Getter;
 
-import java.io.Serial;
+
 import java.util.Collection;
 import java.util.List;
 
@@ -16,7 +16,7 @@ import java.util.List;
 @Getter
 public class FailureAuthenticationToken implements Authentication {
 
-    @Serial
+    
     private static final long serialVersionUID = -9065289292026217351L;
 
     private final Integer status;
@@ -49,7 +49,7 @@ public class FailureAuthenticationToken implements Authentication {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        return Lists.newArrayList();
     }
 
     @Override

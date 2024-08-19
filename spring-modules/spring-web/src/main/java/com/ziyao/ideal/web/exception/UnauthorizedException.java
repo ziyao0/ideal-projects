@@ -3,14 +3,14 @@ package com.ziyao.ideal.web.exception;
 import com.ziyao.ideal.web.response.ResponseDetails;
 import lombok.Setter;
 
-import java.io.Serial;
+
 
 /**
  * @author zhangziyao
  */
 @Setter
 public class UnauthorizedException extends RuntimeException implements ResponseDetails {
-    @Serial
+    
     private static final long serialVersionUID = 1350454124169036151L;
 
 

@@ -1,5 +1,6 @@
 package com.ziyao.ideal.crypto;
 
+import com.google.common.collect.Sets;
 import com.ziyao.ideal.core.HexUtils;
 import com.ziyao.ideal.core.Strings;
 import com.ziyao.ideal.crypto.symmetric.Mode;
@@ -16,7 +17,7 @@ import java.util.Set;
 @Getter
 public abstract class Codebook<T extends Codebook<T>> extends Properties<T> {
 
-    private Set<Type> types = Set.of();
+    private Set<Type> types = Sets.newHashSet();
 
     private KeyIv sm4 = new KeyIv();
 

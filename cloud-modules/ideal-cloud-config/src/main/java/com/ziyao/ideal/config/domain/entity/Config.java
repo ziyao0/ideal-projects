@@ -4,7 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.*;
 
-import java.io.Serial;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -23,7 +23,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class Config implements Serializable {
 
-    @Serial
+    
     private static final long serialVersionUID = 1L;
 
 

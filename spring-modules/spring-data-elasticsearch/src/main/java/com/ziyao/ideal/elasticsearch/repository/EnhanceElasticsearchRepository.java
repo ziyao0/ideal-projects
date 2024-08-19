@@ -205,7 +205,7 @@ public class EnhanceElasticsearchRepository<T, ID> implements ElasticsearchRepos
         if (unwrappedSearchHits != null) {
             return (List<T>) unwrappedSearchHits;
         } else {
-            return List.of();
+            return Lists.newArrayList();
         }
     }
 

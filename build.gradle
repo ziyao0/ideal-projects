@@ -16,7 +16,7 @@ subprojects {
             archiveClassifier = '' //取消原来plain的后缀
         }
 
-
+JavaVersion
         configurations {
             compileOnly {
                 extendsFrom annotationProcessor

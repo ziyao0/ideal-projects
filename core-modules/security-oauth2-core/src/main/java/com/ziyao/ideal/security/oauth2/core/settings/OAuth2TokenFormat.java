@@ -2,7 +2,7 @@ package com.ziyao.ideal.security.oauth2.core.settings;
 
 import org.springframework.util.Assert;
 
-import java.io.Serial;
+
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -10,7 +10,7 @@ import java.util.Objects;
  * @author ziyao zhang
  */
 public record OAuth2TokenFormat(String value) implements Serializable {
-    @Serial
+    
     private static final long serialVersionUID = -5595881899154576597L;
 
     /**

@@ -30,7 +30,7 @@ public class DefaultRedisListRepository<T, ID>
 
             List<byte[]> raws = connection.lRange(rawKey, 0, -1);
             if (Collections.isEmpty(raws)) {
-                return List.of();
+                return Lists.newArrayList();
             }
             return conversionProvider.read(this.metadata.getJavaType(), raws);
         });

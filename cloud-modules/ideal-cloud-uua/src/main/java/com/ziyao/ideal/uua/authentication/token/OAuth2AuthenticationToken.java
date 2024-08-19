@@ -5,7 +5,7 @@ import com.ziyao.ideal.security.core.GrantedAuthority;
 import com.ziyao.ideal.security.oauth2.core.user.OAuth2User;
 import lombok.Getter;
 
-import java.io.Serial;
+
 import java.util.Collection;
 
 /**
@@ -14,7 +14,7 @@ import java.util.Collection;
  */
 public class OAuth2AuthenticationToken extends AbstractAuthenticationToken {
 
-    @Serial
+    
     private static final long serialVersionUID = 3485826886509511328L;
 
     private final OAuth2User principal;

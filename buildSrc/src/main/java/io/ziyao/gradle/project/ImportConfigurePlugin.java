@@ -20,7 +20,7 @@ public class ImportConfigurePlugin implements Plugin<Project> {
         //注册任务
         project.getTasks().register("importConfig", Copy.class, task -> {
 
-            CommConstants.SOURCES.forEach(source -> {
+            CommConstants.SOURCES().forEach(source -> {
                 // 拷贝文件
                 task.from(rootPath + source);
                 task.into(destDir);

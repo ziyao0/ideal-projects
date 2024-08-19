@@ -2,7 +2,7 @@ package com.ziyao.ideal.gateway.security;
 
 import lombok.Data;
 
-import java.io.Serial;
+
 
 /**
  * @author ziyao zhang
@@ -10,7 +10,7 @@ import java.io.Serial;
 @Data
 public class AuthorizationFailure implements Authorization {
 
-    @Serial
+    
     private static final long serialVersionUID = -3210692430079170373L;
 
     private String token;

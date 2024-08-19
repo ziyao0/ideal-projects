@@ -38,7 +38,7 @@ public class ClientHandler extends SimpleChannelInboundHandler<Packet> {
         channel.writeAndFlush(new Packet(Event.HEARTBEAT, Live.PING));
         Packet open = new Packet();
         open.setEvent(Event.OPEN);
-        open.setReceivedBys(List.of("ziyao"));
+        open.setReceivedBys(Lists.newArrayList("ziyao"));
         channel.writeAndFlush(open);
     }
 

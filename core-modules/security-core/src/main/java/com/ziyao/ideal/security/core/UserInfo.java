@@ -2,7 +2,7 @@ package com.ziyao.ideal.security.core;
 
 import lombok.Getter;
 
-import java.io.Serial;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -16,7 +16,7 @@ import java.util.function.Consumer;
 public class UserInfo implements UserDetails, CredentialsContainer {
 
 
-    @Serial
+    
     private static final long serialVersionUID = 5236617915182892884L;
 
     /**

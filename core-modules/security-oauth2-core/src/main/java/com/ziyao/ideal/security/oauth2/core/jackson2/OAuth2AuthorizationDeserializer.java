@@ -79,7 +79,7 @@ public class OAuth2AuthorizationDeserializer extends JsonDeserializer<OAuth2Auth
 
                 Set<String> scopes = Optional.ofNullable(tokenMap.get("scopes"))
                         .map(Strings::commaDelimitedListToSet)
-                        .orElse(Set.of());
+                        .orElse(Sets.newHashSet());
                 builder.token(new OAuth2AccessToken(tokenType, tokenValue, issuedAt, expiresAt, scopes),md-> md.putAll(metadata));
             }
         }

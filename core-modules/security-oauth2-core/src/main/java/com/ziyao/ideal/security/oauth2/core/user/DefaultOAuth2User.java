@@ -4,7 +4,7 @@ import com.ziyao.ideal.security.core.AuthorityUtils;
 import com.ziyao.ideal.security.core.GrantedAuthority;
 import org.springframework.util.Assert;
 
-import java.io.Serial;
+
 import java.io.Serializable;
 import java.util.*;
 
@@ -14,7 +14,7 @@ import java.util.*;
  */
 public class DefaultOAuth2User implements OAuth2User, Serializable {
 
-    @Serial
+    
     private static final long serialVersionUID = 4951075650242467559L;
 
     private final Set<GrantedAuthority> authorities;

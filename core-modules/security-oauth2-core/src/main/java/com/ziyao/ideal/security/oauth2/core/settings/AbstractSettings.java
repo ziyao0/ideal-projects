@@ -3,7 +3,7 @@ package com.ziyao.ideal.security.oauth2.core.settings;
 import lombok.Getter;
 import org.springframework.util.Assert;
 
-import java.io.Serial;
+
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,7 +16,7 @@ import java.util.function.Consumer;
 @Getter
 public abstract class AbstractSettings implements Serializable {
 
-    @Serial
+    
     private static final long serialVersionUID = -4608865879686757972L;
 
     /**

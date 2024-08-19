@@ -2,7 +2,7 @@ package com.ziyao.ideal.security.core;
 
 import com.ziyao.ideal.core.Assert;
 
-import java.io.Serial;
+
 import java.util.Collection;
 import java.util.Objects;
 import java.util.Set;
@@ -11,7 +11,7 @@ import java.util.Set;
  * @author ziyao
  */
 public class SimpleGrantedAuthority implements GrantedAuthority {
-    @Serial
+    
     private static final long serialVersionUID = 1944660992125502463L;
 
     private final String role;
@@ -19,7 +19,7 @@ public class SimpleGrantedAuthority implements GrantedAuthority {
     private final Collection<Permission> permissions;
 
     public SimpleGrantedAuthority(String role) {
-        this(role, Set.of());
+        this(role, Sets.newHashSet());
     }
 
     public SimpleGrantedAuthority(String role, Collection<Permission> permissions) {

@@ -34,7 +34,7 @@ public class DefaultRedisValueRepository<T, ID>
 
     @Override
     public List<T> findAll() {
-        return List.of();
+        return Lists.newArrayList();
     }
 
     @Override

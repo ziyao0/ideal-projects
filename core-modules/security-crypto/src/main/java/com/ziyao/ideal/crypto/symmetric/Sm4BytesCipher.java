@@ -4,7 +4,7 @@ import com.ziyao.ideal.crypto.Algorithm;
 import com.ziyao.ideal.crypto.BytesCipher;
 import lombok.Getter;
 
-import java.io.Serial;
+
 import java.io.Serializable;
 
 /**
@@ -14,7 +14,7 @@ import java.io.Serializable;
 @Getter
 public class Sm4BytesCipher implements BytesCipher, Serializable {
 
-    @Serial
+    
     private static final long serialVersionUID = -6862452587900440164L;
     private final String algorithm = Algorithm.SM4;
 

@@ -59,6 +59,6 @@ public interface ConfigActionService {
      * @param propertyValue 配置属性value
      */
     default void publishConfig(String dataId, String group, String configType, String propertyKey, Object propertyValue) {
-        this.publishConfig(dataId, group, configType, List.of(new Property(propertyKey, propertyValue)));
+        this.publishConfig(dataId, group, configType, Lists.newArrayList(new Property(propertyKey, propertyValue)));
     }
 }

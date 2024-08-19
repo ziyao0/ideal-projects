@@ -3,7 +3,7 @@ package com.ziyao.ideal.web;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.io.Serial;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -16,7 +16,7 @@ import java.util.List;
 @Getter
 public abstract class AbstractTreeNode implements Serializable {
 
-    @Serial
+    
     private static final long serialVersionUID = 8382484378443306257L;
     private Long id;
     private String name;

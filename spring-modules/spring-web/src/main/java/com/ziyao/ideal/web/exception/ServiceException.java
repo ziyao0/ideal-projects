@@ -3,13 +3,13 @@ package com.ziyao.ideal.web.exception;
 
 import com.ziyao.ideal.web.response.ResponseDetails;
 
-import java.io.Serial;
+
 
 /**
  * @author zhangziyao
  */
 public class ServiceException extends RuntimeException implements ResponseDetails {
-    @Serial
+    
     private static final long serialVersionUID = -3435528093859682944L;
 
 

@@ -4,14 +4,14 @@ import com.alibaba.druid.util.DruidPasswordCallback;
 import com.ziyao.ideal.core.Strings;
 import com.ziyao.ideal.crypto.TextCipher;
 
-import java.io.Serial;
+
 import java.util.Properties;
 
 /**
  * @author ziyao zhang
  */
 public class PasswordDecryptCallback extends DruidPasswordCallback {
-    @Serial
+    
     private static final long serialVersionUID = -969291393141855980L;
 
     private static final String PASSWORD = "password";

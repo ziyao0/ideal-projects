@@ -1,6 +1,6 @@
 package com.ziyao.ideal.uua.domain.entity;
 
-import java.io.Serial;
+
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -25,7 +25,7 @@ import lombok.*;
 @AllArgsConstructor
 public class RestrictionRule implements Serializable {
 
-    @Serial
+    
     private static final long serialVersionUID = 1L;
 
 

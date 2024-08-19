@@ -1,6 +1,6 @@
 package com.ziyao.ideal.security.core;
 
-import java.io.Serial;
+
 import java.util.Collection;
 
 /**
@@ -8,7 +8,7 @@ import java.util.Collection;
  */
 public class SuccessfulAuthenticationToken extends AbstractAuthenticationToken {
 
-    @Serial
+    
     private static final long serialVersionUID = 919449188452752172L;
 
     private final UserInfo principal;

@@ -10,7 +10,7 @@ import lombok.Setter;
 import org.hibernate.proxy.HibernateProxy;
 import org.springframework.data.keyvalue.annotation.KeySpace;
 
-import java.io.Serial;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -29,7 +29,7 @@ import java.util.Objects;
 @KeySpace("oauth2:authorization")
 public class Authorization implements Serializable {
 
-    @Serial
+    
     private static final long serialVersionUID = 1L;
 
     /**

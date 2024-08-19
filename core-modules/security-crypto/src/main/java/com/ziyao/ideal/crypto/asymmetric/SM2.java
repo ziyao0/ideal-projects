@@ -24,7 +24,6 @@ import org.bouncycastle.crypto.signers.StandardDSAEncoding;
 import org.bouncycastle.util.BigIntegers;
 import org.bouncycastle.util.encoders.Hex;
 
-import java.io.Serial;
 import java.math.BigInteger;
 import java.security.PrivateKey;
 import java.security.PublicKey;
@@ -51,7 +50,7 @@ public class SM2 extends AbstractAsymmetricCrypto<SM2> {
      * 算法EC
      */
     private static final String ALGORITHM_SM2 = "SM2";
-    @Serial
+
     private static final long serialVersionUID = 6994843772009338003L;
 
     protected SM2Engine engine;
@@ -545,17 +544,19 @@ public class SM2 extends AbstractAsymmetricCrypto<SM2> {
      * @return {@link CipherParameters}
      */
     private CipherParameters getCipherParameters(KeyType keyType) {
-        return switch (keyType) {
-            case PublicKey -> {
+        switch (keyType) {
+            case PublicKey: {
                 Assert.notNull(this.publicKeyParams, "PublicKey must be not null !");
-                yield this.publicKeyParams;
+                return this.publicKeyParams;
             }
-            case PrivateKey -> {
+            case PrivateKey: {
                 Assert.notNull(this.privateKeyParams, "PrivateKey must be not null !");
-                yield this.privateKeyParams;
+                return this.privateKeyParams;
             }
-            default -> null;
-        };
+            default: {
+                return null;
+            }
+        }
 
     }
 

@@ -6,7 +6,7 @@ import com.ziyao.ideal.security.core.UserInfo;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.io.Serial;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,7 +16,7 @@ import java.util.Map;
 @Getter
 public class AuthorizationSuccessful implements Authorization {
 
-    @Serial
+    
     private static final long serialVersionUID = 1906018666555325676L;
     private transient Map<String, Object> claims;
     private final String token;

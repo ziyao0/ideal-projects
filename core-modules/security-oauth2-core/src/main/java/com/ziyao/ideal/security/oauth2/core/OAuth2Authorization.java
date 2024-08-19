@@ -14,7 +14,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
 
-import java.io.Serial;
+
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.*;
@@ -30,7 +30,7 @@ import java.util.function.Consumer;
 @JsonDeserialize(using = OAuth2AuthorizationDeserializer.class)
 @KeySpace("oauth2:authorization")
 public class OAuth2Authorization implements Serializable {
-    @Serial
+    
     private static final long serialVersionUID = 161440620113264850L;
     @Id
     private Integer id;
@@ -114,7 +114,7 @@ public class OAuth2Authorization implements Serializable {
     @Getter
     @EqualsAndHashCode
     public static class Token<T extends OAuth2Token> implements Serializable {
-        @Serial
+        
         private static final long serialVersionUID = 5452476839192606325L;
 
         protected static final String TOKEN_METADATA_NAMESPACE = "metadata.token.";
@@ -203,7 +203,7 @@ public class OAuth2Authorization implements Serializable {
     }
 
     public static class Builder implements Serializable {
-        @Serial
+        
         private static final long serialVersionUID = -5658976968224374315L;
         //标识符
         private Integer id;

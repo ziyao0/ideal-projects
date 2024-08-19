@@ -3,13 +3,13 @@ package com.ziyao.ideal.security.core.context;
 import com.ziyao.ideal.security.core.Authentication;
 import org.springframework.util.ObjectUtils;
 
-import java.io.Serial;
+
 
 /**
  * @author ziyao zhang
  */
 public class SecurityContextImpl implements SecurityContext {
-    @Serial
+    
     private static final long serialVersionUID = -6481012224001521435L;
 
     private Authentication authentication;

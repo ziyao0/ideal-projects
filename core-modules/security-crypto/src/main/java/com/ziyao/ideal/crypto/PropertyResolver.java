@@ -9,7 +9,13 @@ import java.util.stream.Stream;
  * @author ziyao
  * @since 2023/4/23
  */
-public record PropertyResolver(TextCipherProvider textCipherProvider) {
+public class PropertyResolver {
+
+    private final TextCipherProvider textCipherProvider;
+
+    public PropertyResolver(TextCipherProvider textCipherProvider) {
+        this.textCipherProvider = textCipherProvider;
+    }
 
     /**
      * 解析配置属性值并对配置属性值进行解析，
@@ -59,7 +65,6 @@ public record PropertyResolver(TextCipherProvider textCipherProvider) {
         return "{" + algorithm + "}";
     }
 
-    @Override
     public TextCipherProvider textCipherProvider() {
         return textCipherProvider;
     }

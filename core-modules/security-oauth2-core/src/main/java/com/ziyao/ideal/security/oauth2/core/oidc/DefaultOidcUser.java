@@ -4,7 +4,7 @@ import com.ziyao.ideal.security.core.GrantedAuthority;
 import com.ziyao.ideal.security.oauth2.core.OidcIdToken;
 import com.ziyao.ideal.security.oauth2.core.user.DefaultOAuth2User;
 
-import java.io.Serial;
+
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
@@ -15,7 +15,7 @@ import java.util.Set;
  */
 public class DefaultOidcUser extends DefaultOAuth2User implements OidcUser {
 
-    @Serial
+    
     private static final long serialVersionUID = -1801917951775714662L;
 
     private final OidcIdToken idToken;

@@ -28,7 +28,7 @@ public class ConfigItemServiceImpl
     public List<ConfigItem> findByConfigId(Integer configId) {
         List<ConfigItem> configItems = configItemRepositoryJpa.findByConfigId(configId);
         if (Collections.isEmpty(configItems)) {
-            return List.of();
+            return Lists.newArrayList();
         }
         return configItems;
     }

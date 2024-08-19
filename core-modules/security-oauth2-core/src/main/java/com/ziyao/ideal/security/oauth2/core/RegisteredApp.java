@@ -14,7 +14,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.keyvalue.annotation.KeySpace;
 import org.springframework.data.redis.core.TimeToLive;
 
-import java.io.Serial;
+
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
@@ -31,7 +31,7 @@ import java.util.function.Consumer;
 @KeySpace("oauth2:registeredapp")
 public class RegisteredApp implements Serializable {
 
-    @Serial
+    
     private static final long serialVersionUID = -5766646592402572432L;
     @Id
     private Integer appId;
@@ -60,7 +60,7 @@ public class RegisteredApp implements Serializable {
 
     public static class Builder implements Serializable {
 
-        @Serial
+        
         private static final long serialVersionUID = 6495205880660410126L;
         private Integer appId;
         private Integer appType;

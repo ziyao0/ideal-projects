@@ -3,13 +3,13 @@ package com.ziyao.ideal.crypto.druid;
 import com.ziyao.ideal.crypto.TextCipher;
 
 import javax.security.auth.callback.NameCallback;
-import java.io.Serial;
+
 
 /**
  * @author ziyao zhang
  */
 public class NameDecryptCallback extends NameCallback {
-    @Serial
+    
     private static final long serialVersionUID = 6060803312395586003L;
 
     private final TextCipher textCipher;

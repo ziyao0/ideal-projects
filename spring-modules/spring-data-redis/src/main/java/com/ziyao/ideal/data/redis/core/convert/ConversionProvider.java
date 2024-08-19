@@ -43,7 +43,7 @@ public interface ConversionProvider {
 
     default <T> List<T> read(Class<T> type, List<byte[]> raws) {
         if (Collections.isEmpty(raws)) {
-            return List.of();
+            return Lists.newArrayList();
         }
         List<T> ts = new ArrayList<>(raws.size());
 
@@ -56,7 +56,7 @@ public interface ConversionProvider {
 
     default <T> Set<T> read(Class<T> type, Set<byte[]> raws) {
         if (Collections.isEmpty(raws)) {
-            return Set.of();
+            return Sets.newHashSet();
         }
         Set<T> ts = new HashSet<>(raws.size());
 

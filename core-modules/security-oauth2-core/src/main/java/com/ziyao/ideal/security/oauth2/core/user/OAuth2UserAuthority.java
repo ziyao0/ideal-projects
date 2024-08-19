@@ -4,7 +4,7 @@ import com.ziyao.ideal.security.core.GrantedAuthority;
 import com.ziyao.ideal.security.core.Permission;
 import lombok.Getter;
 
-import java.io.Serial;
+
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -15,7 +15,7 @@ import java.util.Set;
 public class OAuth2UserAuthority implements GrantedAuthority {
 
 
-    @Serial
+    
     private static final long serialVersionUID = -9137508417727958078L;
 
     private final String authority;
@@ -39,7 +39,7 @@ public class OAuth2UserAuthority implements GrantedAuthority {
 
     @Override
     public Set<Permission> getPermissions() {
-        return Set.of();
+        return Sets.newHashSet();
     }
 
     @Override

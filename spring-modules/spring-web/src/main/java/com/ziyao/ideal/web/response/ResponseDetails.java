@@ -1,6 +1,6 @@
 package com.ziyao.ideal.web.response;
 
-import java.io.Serial;
+
 import java.io.Serializable;
 
 /**
@@ -61,7 +61,7 @@ public interface ResponseDetails extends Serializable {
 
     static ResponseDetails getInstance(Integer status, String message) {
         return new ResponseDetails() {
-            @Serial
+            
             private static final long serialVersionUID = 8562177041789091450L;
 
             @Override

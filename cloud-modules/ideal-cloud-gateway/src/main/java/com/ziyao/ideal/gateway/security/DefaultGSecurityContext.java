@@ -2,7 +2,7 @@ package com.ziyao.ideal.gateway.security;
 
 import lombok.Data;
 
-import java.io.Serial;
+
 import java.io.Serializable;
 
 /**
@@ -10,7 +10,7 @@ import java.io.Serializable;
  */
 @Data
 public class DefaultGSecurityContext implements GSecurityContext, Serializable {
-    @Serial
+    
     private static final long serialVersionUID = -3447048378569999827L;
 
     private String ip;

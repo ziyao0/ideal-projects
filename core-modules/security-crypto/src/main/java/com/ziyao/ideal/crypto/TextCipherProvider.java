@@ -1,6 +1,7 @@
 package com.ziyao.ideal.crypto;
 
 import com.ziyao.ideal.core.Strings;
+import lombok.Getter;
 
 import java.util.List;
 
@@ -8,8 +9,14 @@ import java.util.List;
  * @author ziyao zhang
  * @since 2023/10/25
  */
-public record TextCipherProvider(List<TextCipher> textCiphers) {
+@Getter
+public class TextCipherProvider {
 
+    private final List<TextCipher> textCiphers;
+
+    public TextCipherProvider(List<TextCipher> textCiphers) {
+        this.textCiphers = textCiphers;
+    }
 
     public TextCipher loadCipher(String algorithm) {
         if (Strings.hasText(algorithm)) {
@@ -22,7 +29,6 @@ public record TextCipherProvider(List<TextCipher> textCiphers) {
         return null;
     }
 
-    @Override
     public List<TextCipher> textCiphers() {
         return textCiphers;
     }

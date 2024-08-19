@@ -19,7 +19,7 @@ public class YamlConfigProcessor implements ConfigProcessor<List<Property>> {
     @Override
     public List<Property> load(String source) {
         if (Strings.isEmpty(source)) {
-            return List.of();
+            return Lists.newArrayList();
         }
 
         OriginTrackedYamlProcessor yamlProcessor = new OriginTrackedYamlProcessor(source);

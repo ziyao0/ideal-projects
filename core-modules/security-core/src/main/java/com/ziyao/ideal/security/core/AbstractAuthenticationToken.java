@@ -26,7 +26,7 @@ public abstract class AbstractAuthenticationToken implements Authentication, Cre
      */
     public AbstractAuthenticationToken(Collection<? extends GrantedAuthority> authorities) {
         if (authorities == null) {
-            this.authorities = Set.of();
+            this.authorities = Sets.newHashSet();
             return;
         }
         Collection<GrantedAuthority> f = new HashSet<>();

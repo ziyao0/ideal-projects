@@ -3,14 +3,14 @@ package com.ziyao.ideal.core.text;
 import com.ziyao.ideal.core.Assert;
 import com.ziyao.ideal.core.Strings;
 
-import java.io.Serial;
+
 
 /**
  * @author ziyao
  */
 public class StringFinder extends TextFinder {
 
-    @Serial
+    
     private static final long serialVersionUID = -3893478424730695351L;
     private final CharSequence strToFind;
     private final boolean caseInsensitive;

@@ -4,7 +4,7 @@ import com.ziyao.ideal.security.oauth2.core.OAuth2AccessToken;
 import com.ziyao.ideal.security.oauth2.core.OAuth2RefreshToken;
 import lombok.Getter;
 
-import java.io.Serial;
+
 import java.io.Serializable;
 
 /**
@@ -14,7 +14,7 @@ import java.io.Serializable;
 @Getter
 public class OAuth2AuthorizationClient implements Serializable {
 
-    @Serial
+    
     private static final long serialVersionUID = 1061687380882245619L;
 
 

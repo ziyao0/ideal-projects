@@ -16,7 +16,7 @@ public class BetweenQueries {
     private final List<BetweenQuery> queries;
 
     public BetweenQueries(BetweenQuery... queries) {
-        this.queries = List.of(queries);
+        this.queries = Lists.newArrayList(queries);
     }
 
     public static BetweenQueries of(BetweenQuery... queries) {

@@ -85,7 +85,7 @@ public abstract class JapServiceImpl<JPA extends JpaRepository<T, ID>, T, ID> im
         }
         if (Collections.isEmpty(entities)) {
             log.warn("批量插入的数据为空：{}", entities);
-            return List.of();
+            return Lists.newArrayList();
         }
         if (entities.size() < batchSize) {
             return repositoryJpa.saveAll(entities);

@@ -1175,6 +1175,6 @@ public abstract class IOUtils extends NioUtils {
      * @return 字符串
      */
     public static String toStr(ByteArrayOutputStream out, Charset charset) {
-        return out.toString(charset);
+        return Strings.toString(out, charset);
     }
 }
