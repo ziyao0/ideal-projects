@@ -14,12 +14,14 @@ import java.time.Duration;
 
 /**
  * 防抖
+ * <p>
+ * 限制请求频率
  *
  * @author ziyao
  */
 //@Component
 @RequiredArgsConstructor
-public class DebounceFilter extends AbstractAfterAuthenticationFilter {
+public class RateLimitingFilter extends AbstractAfterAuthenticationFilter {
 
 
     private static final String DEBOUNCE_VALUE = "1";

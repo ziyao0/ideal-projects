@@ -9,6 +9,8 @@ subprojects {
         // 添加模块代码的插件
         apply plugin: libs.plugins.imodule.get().pluginId
 
+        group 'com.ziyao.ideal'
+
         jar {
             enabled = true //生成依赖jar包
             archiveClassifier = '' //取消原来plain的后缀

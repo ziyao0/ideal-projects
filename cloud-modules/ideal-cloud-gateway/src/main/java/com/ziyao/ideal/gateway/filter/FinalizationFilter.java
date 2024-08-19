@@ -1,28 +1,34 @@
 package com.ziyao.ideal.gateway.filter;
 
-import com.ziyao.ideal.gateway.config.ConfigCenter;
+import com.ziyao.ideal.core.metrics.StopWatch;
 import com.ziyao.ideal.gateway.support.GatewayStopWatches;
-import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+import java.util.Objects;
+
 /**
+ * 秒表信息打印
+ *
  * @author ziyao zhang
  */
+@Slf4j
 @Component
-@RequiredArgsConstructor
-public class GatewayPreFilter extends AbstractGlobalFilter {
-
-    private final ConfigCenter configCenter;
+public class FinalizationFilter extends AbstractGlobalFilter {
 
     @Override
     protected Mono<Void> doFilter(ServerWebExchange exchange, GatewayFilterChain chain) {
-        if (configCenter.getLoggerConfig().isFilterWatch()) {
-            GatewayStopWatches.enabled(exchange);
-        }
-        return chain.filter(exchange);
+        // @formatter:off
+        return chain.filter(exchange).doFinally(signalType -> {
+            StopWatch stopWatch = GatewayStopWatches.getStopWatch(exchange);
+            if (Objects.nonNull(stopWatch)){
+                log.info(stopWatch.prettyPrint());
+            }
+        });
+        // @formatter:on
     }
 
     @Override
