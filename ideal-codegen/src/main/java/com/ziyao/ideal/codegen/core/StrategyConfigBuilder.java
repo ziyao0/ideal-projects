@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.fill.Column;
 import com.ziyao.ideal.codegen.CodeGenConst;
 import com.ziyao.ideal.codegen.config.CodeGenConfig;
+import com.ziyao.ideal.jpa.extension.controllers.JpaBaseController;
 import com.ziyao.ideal.jpa.extension.service.JapService;
 import com.ziyao.ideal.jpa.extension.service.impl.JapServiceImpl;
 
@@ -38,6 +39,7 @@ public class StrategyConfigBuilder {
 
         if (codeGenConfig.isEnableJpa()) {
             builder.controllerBuilder()
+                    .superClass(JpaBaseController.class)
                     .template(CodeGenConst.JPA_CONTROLLER_TEMPLATE)
                     .serviceBuilder()
                     .superServiceClass(JapService.class)

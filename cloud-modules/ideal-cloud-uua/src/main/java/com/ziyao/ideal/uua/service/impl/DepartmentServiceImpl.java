@@ -1,33 +1,23 @@
 package com.ziyao.ideal.uua.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.ziyao.ideal.uua.domain.dto.DepartmentDTO;
+import com.ziyao.ideal.uua.repository.jpa.DepartmentRepositoryJpa;
+import com.ziyao.ideal.jpa.extension.service.impl.JapServiceImpl;
 import com.ziyao.ideal.uua.domain.entity.Department;
-import com.ziyao.ideal.uua.repository.mapper.DepartmentMapper;
 import com.ziyao.ideal.uua.service.DepartmentService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-
+import lombok.RequiredArgsConstructor;
 /**
- * <p>
- * 部门表 服务实现类
+* <p>
+    * 部门表 服务实现类
  * </p>
  *
- * @author zhangziyao
+ * @author ziyao
  */
 @Service
-public class DepartmentServiceImpl extends ServiceImpl<DepartmentMapper, Department> implements DepartmentService {
+@RequiredArgsConstructor
+public class DepartmentServiceImpl extends
+    JapServiceImpl< DepartmentRepositoryJpa, Department,Integer> implements DepartmentService {
 
-    @Autowired
-    private DepartmentMapper departmentMapper;
+    private final DepartmentRepositoryJpa departmentRepositoryJpa;
 
-    @Override
-    public Page<Department> page(Page<Department> page, DepartmentDTO departmentDTO) {
-        LambdaQueryWrapper<Department> wrapper = departmentDTO.initWrapper();
-        // to do 2023/5/6 默认排序字段 sort/sorted(默认是为ASC)值越小、越往前
-        return departmentMapper.selectPage(page, wrapper);
-    }
 }

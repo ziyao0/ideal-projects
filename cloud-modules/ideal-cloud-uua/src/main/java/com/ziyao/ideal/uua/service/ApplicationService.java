@@ -1,21 +1,15 @@
 package com.ziyao.ideal.uua.service;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.extension.service.IService;
-import com.ziyao.ideal.uua.domain.dto.ApplicationDTO;
 import com.ziyao.ideal.uua.domain.entity.Application;
+import com.ziyao.ideal.jpa.extension.service.JapService;
 
 /**
- * <p>
- * 应用系统 服务类
- * </p>
- *
- * @author zhangziyao
- */
-public interface ApplicationService extends IService<Application> {
+* <p>
+    * 应用系统 服务类
+    * </p>
+*
+* @author ziyao
+*/
+public interface ApplicationService extends JapService<Application,Integer> {
 
-    /**
-     * 分页查询
-     */
-    Page<Application> page(Page<Application> page, ApplicationDTO applicationDTO);
 }

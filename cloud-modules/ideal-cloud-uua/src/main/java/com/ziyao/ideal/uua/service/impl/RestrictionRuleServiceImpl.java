@@ -15,7 +15,8 @@ import lombok.RequiredArgsConstructor;
  */
 @Service
 @RequiredArgsConstructor
-public class RestrictionRuleServiceImpl extends JapServiceImpl< RestrictionRuleRepositoryJpa, RestrictionRule,Integer> implements RestrictionRuleService {
+public class RestrictionRuleServiceImpl extends
+    JapServiceImpl< RestrictionRuleRepositoryJpa, RestrictionRule,Integer> implements RestrictionRuleService {
 
     private final RestrictionRuleRepositoryJpa restrictionRuleRepositoryJpa;
 

@@ -3,16 +3,13 @@ package com.ziyao.ideal.uua.controllers;
 import com.ziyao.ideal.uua.domain.dto.LoginConfigDTO;
 import com.ziyao.ideal.uua.domain.entity.LoginConfig;
 import com.ziyao.ideal.uua.service.LoginConfigService;
-import com.ziyao.ideal.web.base.JpaBaseController;
+import com.ziyao.ideal.jpa.extension.controllers.JpaBaseController;
 import com.ziyao.ideal.web.base.PageParams;
 import com.ziyao.ideal.web.base.Pages;
 import org.springframework.data.domain.Page;
 import org.springframework.util.ObjectUtils;
 import com.ziyao.ideal.web.exception.ServiceException;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -34,7 +31,7 @@ public class LoginConfigController extends JpaBaseController<LoginConfigService,
 
     @PostMapping("/save")
     public void save(@RequestBody LoginConfigDTO entityDTO) {
-        loginConfigService.save(entityDTO.of());
+        loginConfigService.save(entityDTO.convert());
     }
 
     /**
@@ -45,22 +42,32 @@ public class LoginConfigController extends JpaBaseController<LoginConfigService,
         if (ObjectUtils.isEmpty(entityDTO.getId())) {
             throw new ServiceException(400, "主键参数不能为空");
         }
-        loginConfigService.save(entityDTO.of());
+        loginConfigService.save(entityDTO.convert());
     }
 
+    /**
+    * 通过id删除数据，有逻辑删除按照逻辑删除执行
+    * <p>不支持联合主键</p>
+    *
+    * @param id 主键Id
+    */
+    @GetMapping("/remove/{id}")
+    public void removeById(@PathVariable("id") Long id) {
+        loginConfigService.deleteById(id);
+    }
     /**
      * 默认一次插入500条
      */
     @PostMapping("/saveBatch")
     public void saveBatch(@RequestBody List<LoginConfigDTO> entityDTOList) {
-        loginConfigService.saveBatch(entityDTOList.stream().map(LoginConfigDTO::of).collect(Collectors.toList()));
+        loginConfigService.saveBatch(entityDTOList.stream().map(LoginConfigDTO::convert).collect(Collectors.toList()));
     }
 
     /**
      * 分页查询
      */
-    @PostMapping("/searchSimilar")
-    public Page<LoginConfig> searchSimilar(PageParams<LoginConfigDTO> pageParams) {
-        return loginConfigService.searchSimilar(pageParams.getParams().of(), Pages.initPage(pageParams));
+    @PostMapping("/list")
+    public Page<LoginConfig> list(PageParams<LoginConfigDTO> pageParams) {
+        return loginConfigService.list(pageParams.getParams().convert(), Pages.initPage(pageParams));
     }
 }

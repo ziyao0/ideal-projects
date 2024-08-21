@@ -1,13 +1,9 @@
 package com.ziyao.ideal.uua.domain.dto;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.ziyao.ideal.web.orm.EntityDTO;
+import com.ziyao.ideal.uua.domain.convertor.RoleConvertor;
 import com.ziyao.ideal.uua.domain.entity.Role;
-import com.ziyao.ideal.uua.domain.mapstruct.RoleMapstruct;
+import com.ziyao.ideal.web.orm.EntityDTO;
 import lombok.Data;
-import java.util.Objects;
-import com.ziyao.ideal.core.Strings;
 
 
 import java.io.Serializable;
@@ -39,7 +35,7 @@ public class RoleDTO implements EntityDTO<Role>, Serializable {
      */
     private String role;
     /**
-     * 
+     *
      */
     private Integer type;
     /**
@@ -47,7 +43,7 @@ public class RoleDTO implements EntityDTO<Role>, Serializable {
      */
     private Integer category;
     /**
-     * 
+     *
      */
     private String accessLevel;
     /**
@@ -75,40 +71,7 @@ public class RoleDTO implements EntityDTO<Role>, Serializable {
      */
     private LocalDateTime modifiedAt;
 
-    /**
-     * 组装查询条件，可根据具体情况做出修改
-     *
-     * @see LambdaQueryWrapper
-     */
-    public LambdaQueryWrapper<Role> initWrapper() {
-
-        return Wrappers.lambdaQuery(Role.class)
-                // 角色名称
-                .likeRight(Strings.hasLength(name), Role::getName, name)
-                // 角色编码
-                .likeRight(Strings.hasLength(role), Role::getRole, role)
-                // 
-                .eq(Objects.nonNull(type), Role::getType, type)
-                // 角色类别 1 权限角色 2 组织角色
-                .eq(Objects.nonNull(category), Role::getCategory, category)
-                // 
-                .likeRight(Strings.hasLength(accessLevel), Role::getAccessLevel, accessLevel)
-                // 1 启用 0禁用
-                .eq(Objects.nonNull(active), Role::getActive, active)
-                // 角色描述
-                .likeRight(Strings.hasLength(description), Role::getDescription, description)
-                // 创建人id
-                .eq(Objects.nonNull(createdBy), Role::getCreatedBy, createdBy)
-                // 创建时间
-                .eq(Objects.nonNull(createdAt), Role::getCreatedAt, createdAt)
-                // 修改人id
-                .eq(Objects.nonNull(modifiedBy), Role::getModifiedBy, modifiedBy)
-                // 修改时间
-                .eq(Objects.nonNull(modifiedAt), Role::getModifiedAt, modifiedAt)
-                ;
-    }
-
-    public Role of() {
-        return RoleMapstruct.INSTANCE.of(this);
+    public Role convert() {
+        return RoleConvertor.INSTANCE.convert(this);
     }
 }

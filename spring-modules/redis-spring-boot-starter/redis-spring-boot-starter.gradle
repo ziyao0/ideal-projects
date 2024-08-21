@@ -1,8 +1,5 @@
 dependencies {
-    api("com.fasterxml.jackson.core:jackson-databind")
-    api(project(':ideal-core'))
     api(project(":spring-data-redis"))
     api(project(':spring-boot-autoconfigure'))
     optional('org.springframework.boot:spring-boot-autoconfigure')
-    implementation 'org.redisson:redisson-spring-data-31'
 }

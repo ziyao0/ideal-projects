@@ -1,13 +1,9 @@
 package com.ziyao.ideal.uua.domain.dto;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.ziyao.ideal.web.orm.EntityDTO;
+import com.ziyao.ideal.uua.domain.convertor.GlobalLoginRestrictionConvertor;
 import com.ziyao.ideal.uua.domain.entity.GlobalLoginRestriction;
-import com.ziyao.ideal.uua.domain.mapstruct.GlobalLoginRestrictionMapstruct;
+import com.ziyao.ideal.web.orm.EntityDTO;
 import lombok.Data;
-import java.util.Objects;
-import com.ziyao.ideal.core.Strings;
 
 
 import java.io.Serializable;
@@ -59,32 +55,7 @@ public class GlobalLoginRestrictionDTO implements EntityDTO<GlobalLoginRestricti
      */
     private LocalDateTime updatedAt;
 
-    /**
-     * 组装查询条件，可根据具体情况做出修改
-     *
-     * @see LambdaQueryWrapper
-     */
-    public LambdaQueryWrapper<GlobalLoginRestriction> initWrapper() {
-
-        return Wrappers.lambdaQuery(GlobalLoginRestriction.class)
-                // 限制规则ID，关联restriction_rules表
-                .eq(Objects.nonNull(ruleId), GlobalLoginRestriction::getRuleId, ruleId)
-                // 限制开始时间
-                .eq(Objects.nonNull(restrictionStart), GlobalLoginRestriction::getRestrictionStart, restrictionStart)
-                // 限制结束时间
-                .eq(Objects.nonNull(restrictionEnd), GlobalLoginRestriction::getRestrictionEnd, restrictionEnd)
-                // 限制原因
-                .likeRight(Strings.hasLength(reason), GlobalLoginRestriction::getReason, reason)
-                // 限制状态（例如：ACTIVE, INACTIVE）
-                .likeRight(Strings.hasLength(status), GlobalLoginRestriction::getStatus, status)
-                // 记录创建时间
-                .eq(Objects.nonNull(createdAt), GlobalLoginRestriction::getCreatedAt, createdAt)
-                // 记录更新时间
-                .eq(Objects.nonNull(updatedAt), GlobalLoginRestriction::getUpdatedAt, updatedAt)
-                ;
-    }
-
-    public GlobalLoginRestriction of() {
-        return GlobalLoginRestrictionMapstruct.INSTANCE.of(this);
+    public GlobalLoginRestriction convert() {
+        return GlobalLoginRestrictionConvertor.INSTANCE.convert(this);
     }
 }

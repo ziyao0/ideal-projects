@@ -1,12 +1,10 @@
 package com.ziyao.ideal.uua.domain.entity;
 
-import com.baomidou.mybatisplus.annotation.*;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import lombok.*;
 
-
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -15,95 +13,83 @@ import java.time.LocalDateTime;
  * 菜单资源表
  * </p>
  *
- * @author zhangziyao
+ * @author ziyao
  */
 @Getter
 @Setter
-@TableName("menu")
+@Builder
 @Entity(name = "menu")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Menu implements Serializable {
 
-    
+    @Serial
     private static final long serialVersionUID = 1L;
 
+
     /**
-     * 资源ID
+     * id:资源ID
      */
     @Id
-    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     /**
-     * 系统id
+     * appId:系统id
      */
-    @TableField("app_id")
     private Integer appId;
 
     /**
-     * 资源名称
+     * name:资源名称
      */
-    @TableField("name")
     private String name;
 
     /**
-     * 菜单编码
+     * code:菜单编码
      */
-    @TableField("code")
     private String code;
 
     /**
-     * 资源URL
+     * url:资源URL
      */
-    @TableField("url")
     private String url;
 
     /**
-     * 资源图标
+     * icon:资源图标
      */
-    @TableField("icon")
     private String icon;
 
     /**
-     * 上级资源ID
+     * parentId:上级资源ID
      */
-    @TableField("parent_id")
-    private Long parentId;
+    private Integer parentId;
 
     /**
-     * 资源级别
+     * level:资源级别
      */
-    @TableField("level")
     private Byte level;
 
     /**
-     * 排序
+     * sort:排序
      */
-    @TableField("sort")
     private Integer sort;
 
     /**
-     * 创建人ID
+     * createdBy:创建人ID
      */
-    @TableField(value = "created_by", fill = FieldFill.INSERT)
     private Integer createdBy;
 
     /**
-     * 创建时间
+     * createdAt:创建时间
      */
-    @TableField(value = "created_at", fill = FieldFill.INSERT)
     private LocalDateTime createdAt;
 
     /**
-     * 更新人ID
+     * updatedBy:更新人ID
      */
-    @TableField("updated_by")
     private Integer updatedBy;
 
     /**
-     * 更新时间
+     * updatedAt:更新时间
      */
-    @TableField("updated_at")
     private LocalDateTime updatedAt;
-
-
 }

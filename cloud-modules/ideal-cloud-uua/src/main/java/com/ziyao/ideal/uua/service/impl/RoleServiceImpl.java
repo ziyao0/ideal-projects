@@ -1,33 +1,23 @@
 package com.ziyao.ideal.uua.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.ziyao.ideal.uua.domain.dto.RoleDTO;
+import com.ziyao.ideal.uua.repository.jpa.RoleRepositoryJpa;
+import com.ziyao.ideal.jpa.extension.service.impl.JapServiceImpl;
 import com.ziyao.ideal.uua.domain.entity.Role;
-import com.ziyao.ideal.uua.repository.mapper.RoleMapper;
 import com.ziyao.ideal.uua.service.RoleService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-
+import lombok.RequiredArgsConstructor;
 /**
- * <p>
- * 角色表 服务实现类
+* <p>
+    * 角色表 服务实现类
  * </p>
  *
- * @author zhangziyao
+ * @author ziyao
  */
 @Service
-public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements RoleService {
+@RequiredArgsConstructor
+public class RoleServiceImpl extends
+    JapServiceImpl< RoleRepositoryJpa, Role,Integer> implements RoleService {
 
-    @Autowired
-    private RoleMapper roleMapper;
+    private final RoleRepositoryJpa roleRepositoryJpa;
 
-    @Override
-    public Page<Role> page(Page<Role> page, RoleDTO roleDTO) {
-        LambdaQueryWrapper<Role> wrapper = roleDTO.initWrapper();
-        // to do 2023/5/6 默认排序字段 sort/sorted(默认是为ASC)值越小、越往前
-        return roleMapper.selectPage(page, wrapper);
-    }
 }

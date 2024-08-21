@@ -1,6 +1,5 @@
 package com.ziyao.ideal.web.checkstyle;
 
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.ziyao.ideal.web.ApplicationContextUtils;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -27,7 +26,6 @@ import java.util.Map;
  * 检查参数中的实体类是否包含一下注解
  *
  * @author ziyao
- * @see TableName
  * @see <a href="https://blog.zziyao.cn">https://blog.zziyao.cn</a>
  */
 public class ControllerParamChecker implements ApplicationListener<ApplicationReadyEvent>, ApplicationContextAware {
@@ -49,8 +47,7 @@ public class ControllerParamChecker implements ApplicationListener<ApplicationRe
 
                     Class<?> parameterType = parameter.getType();
 
-                    if (parameterType.isAnnotationPresent(TableName.class)
-                            || parameterType.isAnnotationPresent(Entity.class)
+                    if (parameterType.isAnnotationPresent(Entity.class)
                             || parameterType.isAnnotationPresent(Table.class)) {
                         throw new RuntimeException("控制层不允许使用实体类作为方法参数，请使用DTO替换。" +
                                 "\n Controller bean: " + bean.getClass().getName() +

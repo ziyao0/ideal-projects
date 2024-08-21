@@ -1,15 +1,10 @@
 package com.ziyao.ideal.uua.domain.entity;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import lombok.*;
 
-
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -18,39 +13,40 @@ import java.time.LocalDateTime;
  * 角色菜单表
  * </p>
  *
- * @author zhangziyao
+ * @author ziyao
  */
 @Getter
 @Setter
-@TableName("role_menu")
+@Builder
 @Entity(name = "role_menu")
+@NoArgsConstructor
+@AllArgsConstructor
 public class RoleMenu implements Serializable {
 
-    
+    @Serial
     private static final long serialVersionUID = 1L;
 
+
     /**
-     * 系统id
+     * appId:系统id
      */
     @Id
-    @TableId("app_id")
     private Integer appId;
 
     /**
-     * 角色id
+     * roleId:角色id
      */
+    @Id
     private Integer roleId;
 
     /**
-     * 菜单id
+     * menuId:菜单id
      */
+    @Id
     private Integer menuId;
 
     /**
-     * 创建时间
+     * createdAt:创建时间
      */
-    @TableField(value = "created_at", fill = FieldFill.INSERT)
     private LocalDateTime createdAt;
-
-
 }

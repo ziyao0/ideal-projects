@@ -37,19 +37,16 @@ public class CodeGenStarter {
         CodeGenConfig gc = new CodeGenConfig();
 
 
-        gc.setUrl("jdbc:mysql://:3306/code_harbor"); //?useUnicode=true&useSSL=false&characterEncoding=utf8
-        gc.setUserName("");
-        gc.setPassword("");
+        gc.setUrl("jdbc:mysql://123.249.75.59:33066/code_harbor"); //?useUnicode=true&useSSL=false&characterEncoding=utf8
+        gc.setUserName("root");
+        gc.setPassword("Zzy@1996");
 
-        gc.setModuleName("config");
-        gc.setEnableJpa(true);
         gc.setParent("com.ziyao.ideal");
+        gc.setProjectDir(System.getProperty("user.dir") + "/cloud-modules/ideal-cloud-uua");
+        gc.setModuleName("uua");
+        gc.setEnableJpa(true);
 
-        gc.setSuperControllerClass("com.ziyao.ideal.web.base.JpaBaseController");
-
-        gc.setInclude("config_item,config");
-        gc.setProjectDir(System.getProperty("user.dir") + "/cloud-modules/ideal-cloud-config");
-
+        gc.setInclude("application,authorization,authorization_record,department,global_login_restriction,login_config,login_record,menu,restriction_rule,role,role_menu,user,user_login_restriction,user_role");
 
         return gc;
     }

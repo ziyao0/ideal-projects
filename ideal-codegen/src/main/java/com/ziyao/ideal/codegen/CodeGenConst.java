@@ -16,5 +16,5 @@ public abstract class CodeGenConst {
 
     public static final String JPA_REPOSITORY_NAME = "RepositoryJpa";
     public static final String JPA_DTO_NAME = "DTO";
-    public static final String MAPSTRUCT_NAME = "Mapstruct";
+    public static final String MAPSTRUCT_NAME = "Convertor";
 }

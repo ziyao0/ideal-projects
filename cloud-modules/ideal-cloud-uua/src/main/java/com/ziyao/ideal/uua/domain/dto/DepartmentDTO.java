@@ -1,13 +1,9 @@
 package com.ziyao.ideal.uua.domain.dto;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.ziyao.ideal.web.orm.EntityDTO;
+import com.ziyao.ideal.uua.domain.convertor.DepartmentConvertor;
 import com.ziyao.ideal.uua.domain.entity.Department;
-import com.ziyao.ideal.uua.domain.mapstruct.DepartmentMapstruct;
+import com.ziyao.ideal.web.orm.EntityDTO;
 import lombok.Data;
-import java.util.Objects;
-import com.ziyao.ideal.core.Strings;
 
 
 import java.io.Serializable;
@@ -59,32 +55,7 @@ public class DepartmentDTO implements EntityDTO<Department>, Serializable {
      */
     private LocalDateTime modifiedAt;
 
-    /**
-     * 组装查询条件，可根据具体情况做出修改
-     *
-     * @see LambdaQueryWrapper
-     */
-    public LambdaQueryWrapper<Department> initWrapper() {
-
-        return Wrappers.lambdaQuery(Department.class)
-                // 系统id
-                .eq(Objects.nonNull(appId), Department::getAppId, appId)
-                // 部门名称
-                .likeRight(Strings.hasLength(deptName), Department::getDeptName, deptName)
-                // 上级部门id
-                .eq(Objects.nonNull(parentId), Department::getParentId, parentId)
-                // 创建人id
-                .eq(Objects.nonNull(createdBy), Department::getCreatedBy, createdBy)
-                // 创建时间
-                .eq(Objects.nonNull(createdAt), Department::getCreatedAt, createdAt)
-                // 修改人id
-                .eq(Objects.nonNull(modifiedBy), Department::getModifiedBy, modifiedBy)
-                // 修改时间
-                .eq(Objects.nonNull(modifiedAt), Department::getModifiedAt, modifiedAt)
-                ;
-    }
-
-    public Department of() {
-        return DepartmentMapstruct.INSTANCE.of(this);
+    public Department convert() {
+        return DepartmentConvertor.INSTANCE.convert(this);
     }
 }

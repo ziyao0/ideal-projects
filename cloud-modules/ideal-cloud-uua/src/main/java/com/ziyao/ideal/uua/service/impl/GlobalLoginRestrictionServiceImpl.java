@@ -15,7 +15,8 @@ import lombok.RequiredArgsConstructor;
  */
 @Service
 @RequiredArgsConstructor
-public class GlobalLoginRestrictionServiceImpl extends JapServiceImpl< GlobalLoginRestrictionRepositoryJpa, GlobalLoginRestriction,Integer> implements GlobalLoginRestrictionService {
+public class GlobalLoginRestrictionServiceImpl extends
+    JapServiceImpl< GlobalLoginRestrictionRepositoryJpa, GlobalLoginRestriction,Integer> implements GlobalLoginRestrictionService {
 
     private final GlobalLoginRestrictionRepositoryJpa globalLoginRestrictionRepositoryJpa;
 

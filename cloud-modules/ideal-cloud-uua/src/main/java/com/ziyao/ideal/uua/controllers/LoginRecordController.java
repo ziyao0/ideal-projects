@@ -1,73 +1,73 @@
 package com.ziyao.ideal.uua.controllers;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.ziyao.ideal.web.base.BaseController;
-import com.ziyao.ideal.web.base.PageParams;
-import com.ziyao.ideal.web.base.Pages;
-import com.ziyao.ideal.web.exception.Exceptions;
 import com.ziyao.ideal.uua.domain.dto.LoginRecordDTO;
 import com.ziyao.ideal.uua.domain.entity.LoginRecord;
 import com.ziyao.ideal.uua.service.LoginRecordService;
-import lombok.RequiredArgsConstructor;
+import com.ziyao.ideal.jpa.extension.controllers.JpaBaseController;
+import com.ziyao.ideal.web.base.PageParams;
+import com.ziyao.ideal.web.base.Pages;
+import org.springframework.data.domain.Page;
 import org.springframework.util.ObjectUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.ziyao.ideal.web.exception.ServiceException;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import lombok.RequiredArgsConstructor;
 
 /**
  * <p>
  * 登录记录表 前端控制器
  * </p>
  *
- * @author zhangziyao
+ * @author ziyao
  */
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/usercenter/login-record")
-public class LoginRecordController extends BaseController<LoginRecordService, LoginRecord> {
+@RequestMapping("/loginRecord")
+public class LoginRecordController extends JpaBaseController<LoginRecordService, LoginRecord, Integer> {
 
     private final LoginRecordService loginRecordService;
 
     @PostMapping("/save")
     public void save(@RequestBody LoginRecordDTO entityDTO) {
-        super.iService.save(entityDTO.of());
+        loginRecordService.save(entityDTO.convert());
     }
 
-    @PostMapping("/saveOrUpdate")
-    public void saveOrUpdate(@RequestBody LoginRecordDTO entityDTO) {
-        super.iService.saveOrUpdate(entityDTO.of());
-    }
-
+    /**
+     * 通过主键id进行更新
+     */
     @PostMapping("/updateById")
     public void updateById(@RequestBody LoginRecordDTO entityDTO) {
         if (ObjectUtils.isEmpty(entityDTO.getId())) {
-            throw Exceptions.createIllegalArgumentException(null);
+            throw new ServiceException(400, "主键参数不能为空");
         }
-        super.iService.updateById(entityDTO.of());
+        loginRecordService.save(entityDTO.convert());
     }
 
+    /**
+    * 通过id删除数据，有逻辑删除按照逻辑删除执行
+    * <p>不支持联合主键</p>
+    *
+    * @param id 主键Id
+    */
+    @GetMapping("/remove/{id}")
+    public void removeById(@PathVariable("id") Integer id) {
+        loginRecordService.deleteById(id);
+    }
     /**
      * 默认一次插入500条
      */
     @PostMapping("/saveBatch")
-    public void saveBatch(@RequestBody List
-            <LoginRecordDTO> entityDTOList) {
-        super.iService.saveBatch(entityDTOList.stream().map(LoginRecordDTO::of).collect(Collectors.toList()), 500);
+    public void saveBatch(@RequestBody List<LoginRecordDTO> entityDTOList) {
+        loginRecordService.saveBatch(entityDTOList.stream().map(LoginRecordDTO::convert).collect(Collectors.toList()));
     }
 
     /**
-     * 条件分页查询
-     *
-     * @param pageQuery 分页参数
-     * @return 返回分页查询信息
+     * 分页查询
      */
-    @PostMapping("/page/get")
-    public Page<LoginRecord> getPage(@RequestBody PageParams<LoginRecordDTO> pageQuery) {
-        Page<LoginRecord> page = Pages.initPage(pageQuery, LoginRecord.class);
-        return loginRecordService.page(page, pageQuery.getParams());
+    @PostMapping("/list")
+    public Page<LoginRecord> list(PageParams<LoginRecordDTO> pageParams) {
+        return loginRecordService.list(pageParams.getParams().convert(), Pages.initPage(pageParams));
     }
 }

@@ -1,14 +1,12 @@
 package com.ziyao.ideal.uua.domain.entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import lombok.*;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import lombok.*;
 
 /**
  * <p>
@@ -25,7 +23,7 @@ import lombok.*;
 @AllArgsConstructor
 public class GlobalLoginRestriction implements Serializable {
 
-    
+    @Serial
     private static final long serialVersionUID = 1L;
 
 

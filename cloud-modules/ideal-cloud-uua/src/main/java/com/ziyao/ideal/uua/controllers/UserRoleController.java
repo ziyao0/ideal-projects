@@ -1,19 +1,16 @@
 package com.ziyao.ideal.uua.controllers;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.ziyao.ideal.web.base.BaseController;
-import com.ziyao.ideal.web.base.PageParams;
-import com.ziyao.ideal.web.base.Pages;
-import com.ziyao.ideal.web.exception.Exceptions;
+import com.ziyao.ideal.jpa.extension.controllers.JpaBaseController;
 import com.ziyao.ideal.uua.domain.dto.UserRoleDTO;
 import com.ziyao.ideal.uua.domain.entity.UserRole;
 import com.ziyao.ideal.uua.service.UserRoleService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.ziyao.ideal.web.base.PageParams;
+import com.ziyao.ideal.web.base.Pages;
+import com.ziyao.ideal.web.exception.ServiceException;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.util.ObjectUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,31 +20,40 @@ import java.util.stream.Collectors;
  * 前端控制器
  * </p>
  *
- * @author zhangziyao
+ * @author ziyao
  */
 @RestController
-@RequestMapping("/usercenter/user-role")
-public class UserRoleController extends BaseController<UserRoleService, UserRole> {
+@RequiredArgsConstructor
+@RequestMapping("/userRole")
+public class UserRoleController extends JpaBaseController<UserRoleService, UserRole, Integer> {
 
-    @Autowired
-    private UserRoleService userRoleService;
+    private final UserRoleService userRoleService;
 
     @PostMapping("/save")
     public void save(@RequestBody UserRoleDTO entityDTO) {
-        super.iService.save(entityDTO.of());
+        userRoleService.save(entityDTO.convert());
     }
 
-    @PostMapping("/saveOrUpdate")
-    public void saveOrUpdate(@RequestBody UserRoleDTO entityDTO) {
-        super.iService.saveOrUpdate(entityDTO.of());
-    }
-
+    /**
+     * 通过主键id进行更新
+     */
     @PostMapping("/updateById")
     public void updateById(@RequestBody UserRoleDTO entityDTO) {
         if (ObjectUtils.isEmpty(entityDTO.getId())) {
-            throw Exceptions.createIllegalArgumentException(null);
+            throw new ServiceException(400, "主键参数不能为空");
         }
-        super.iService.updateById(entityDTO.of());
+        userRoleService.save(entityDTO.convert());
+    }
+
+    /**
+     * 通过id删除数据，有逻辑删除按照逻辑删除执行
+     * <p>不支持联合主键</p>
+     *
+     * @param id 主键Id
+     */
+    @GetMapping("/remove/{id}")
+    public void removeById(@PathVariable("id") Integer id) {
+        userRoleService.deleteById(id);
     }
 
     /**
@@ -55,18 +61,14 @@ public class UserRoleController extends BaseController<UserRoleService, UserRole
      */
     @PostMapping("/saveBatch")
     public void saveBatch(@RequestBody List<UserRoleDTO> entityDTOList) {
-        super.iService.saveBatch(entityDTOList.stream().map(UserRoleDTO::of).collect(Collectors.toList()), 500);
+        userRoleService.saveBatch(entityDTOList.stream().map(UserRoleDTO::convert).collect(Collectors.toList()));
     }
 
     /**
-     * 条件分页查询
-     *
-     * @param pageParams 分页参数
-     * @return 返回分页查询信息
+     * 分页查询
      */
-    @PostMapping("/page/get")
-    public Page<UserRole> getPage(@RequestBody PageParams<UserRoleDTO> pageParams) {
-        Page<UserRole> page = Pages.initPage(pageParams, UserRole.class);
-        return userRoleService.page(page, pageParams.getParams());
+    @PostMapping("/list")
+    public Page<UserRole> list(PageParams<UserRoleDTO> pageParams) {
+        return userRoleService.list(pageParams.getParams().convert(), Pages.initPage(pageParams));
     }
 }

@@ -42,7 +42,7 @@ public abstract class InjectionConfigBuilder {
             {
                 put("dto", packagePath + ".domain.dto");
                 put("repositoryJpa", packagePath + ".repository.jpa");
-                put("mapstructPkg", packagePath + ".domain.mapstruct");
+                put("mapstructPkg", packagePath + ".domain.convertor");
             }
         };
     }
@@ -58,7 +58,7 @@ public abstract class InjectionConfigBuilder {
     public static CustomFile cteateMapStructCustomFile(CodeGenConfig codeGenConfig) {
         return new CustomFile.Builder()
                 .templatePath(CodeGenConst.MAPSTRUCT_TEMPLATE)
-                .packageName("domain.mapstruct")
+                .packageName("domain.convertor")
                 .fileName(ConstVal.JAVA_SUFFIX)
                 .formatNameFunction(tableInfo -> converterMapstructFileName.convert(tableInfo.getEntityName())).build();
     }

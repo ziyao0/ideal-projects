@@ -1,32 +1,23 @@
 package com.ziyao.ideal.uua.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.ziyao.ideal.uua.domain.dto.ApplicationDTO;
+import com.ziyao.ideal.uua.repository.jpa.ApplicationRepositoryJpa;
+import com.ziyao.ideal.jpa.extension.service.impl.JapServiceImpl;
 import com.ziyao.ideal.uua.domain.entity.Application;
-import com.ziyao.ideal.uua.repository.mapper.ApplicationMapper;
 import com.ziyao.ideal.uua.service.ApplicationService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import lombok.RequiredArgsConstructor;
 /**
- * <p>
- * 应用系统 服务实现类
+* <p>
+    * 应用系统 服务实现类
  * </p>
  *
- * @author zhangziyao
+ * @author ziyao
  */
 @Service
-public class ApplicationServiceImpl extends ServiceImpl<ApplicationMapper, Application> implements ApplicationService {
+@RequiredArgsConstructor
+public class ApplicationServiceImpl extends
+    JapServiceImpl< ApplicationRepositoryJpa, Application,Integer> implements ApplicationService {
 
-    @Autowired
-    private ApplicationMapper applicationMapper;
+    private final ApplicationRepositoryJpa applicationRepositoryJpa;
 
-    @Override
-    public Page<Application> page(Page<Application> page, ApplicationDTO applicationDTO) {
-        LambdaQueryWrapper<Application> wrapper = applicationDTO.initWrapper();
-        // to do 2023/5/6 默认排序字段 sort/sorted(默认是为ASC)值越小、越往前
-        return applicationMapper.selectPage(page, wrapper);
-    }
 }

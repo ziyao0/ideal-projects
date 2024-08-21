@@ -1,8 +1,8 @@
 package com.ziyao.ideal.uua.service.app;
 
 import com.ziyao.ideal.core.Assert;
-import com.ziyao.ideal.uua.repository.redis.ApplicationRepositoryRedis;
 import com.ziyao.ideal.security.oauth2.core.RegisteredApp;
+import com.ziyao.ideal.uua.repository.redis.ApplicationRepositoryRedis;
 
 /**
  * @author ziyao
@@ -12,7 +12,6 @@ public class RedisRegisteredAppService extends AbstractRegisteredAppService {
     private final ApplicationRepositoryRedis applicationRepositoryRedis;
 
     public RedisRegisteredAppService(ApplicationRepositoryRedis applicationRepositoryRedis) {
-        super();
         this.applicationRepositoryRedis = applicationRepositoryRedis;
     }
 

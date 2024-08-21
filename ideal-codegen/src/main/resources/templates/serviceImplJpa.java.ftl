@@ -17,7 +17,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 <#list table.fields as field>
 <#if field.keyFlag>
-public class ${table.serviceImplName} extends ${superServiceImplClass}< ${entity}RepositoryJpa, ${entity},${field.propertyType}> implements ${table.serviceName} {
+public class ${table.serviceImplName} extends
+    ${superServiceImplClass}< ${entity}RepositoryJpa, ${entity},${field.propertyType}> implements ${table.serviceName} {
 
     private final ${entity}RepositoryJpa ${entity?uncap_first}RepositoryJpa;
 

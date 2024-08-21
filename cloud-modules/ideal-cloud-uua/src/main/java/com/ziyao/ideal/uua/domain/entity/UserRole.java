@@ -1,14 +1,10 @@
 package com.ziyao.ideal.uua.domain.entity;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableName;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import lombok.*;
 
-
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -17,33 +13,49 @@ import java.time.LocalDateTime;
  *
  * </p>
  *
- * @author zhangziyao
+ * @author ziyao
  */
 @Getter
 @Setter
-@TableName("user_role")
+@Builder
 @Entity(name = "user_role")
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserRole implements Serializable {
 
-    
+    @Serial
     private static final long serialVersionUID = 1L;
 
+
+    /**
+     * userId:
+     */
     @Id
     private Integer userId;
 
+    /**
+     * roleId:
+     */
+    @Id
     private Integer roleId;
 
-    @TableField("role")
+    /**
+     * role:
+     */
     private String role;
 
-    @TableField("category")
+    /**
+     * category:
+     */
     private Integer category;
 
-    @TableField("access_level")
+    /**
+     * accessLevel:
+     */
     private String accessLevel;
 
-    @TableField(value = "created_at", fill = FieldFill.INSERT)
+    /**
+     * createdAt:
+     */
     private LocalDateTime createdAt;
-
-
 }

@@ -1,15 +1,14 @@
 package com.ziyao.ideal.uua.controllers;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.ziyao.ideal.security.core.Authentication;
-import com.ziyao.ideal.security.core.context.SecurityContextHolder;
+import com.ziyao.ideal.jpa.extension.controllers.JpaBaseController;
 import com.ziyao.ideal.uua.domain.dto.UserDTO;
 import com.ziyao.ideal.uua.domain.entity.User;
 import com.ziyao.ideal.uua.service.UserService;
-import com.ziyao.ideal.web.base.BaseController;
 import com.ziyao.ideal.web.base.PageParams;
 import com.ziyao.ideal.web.base.Pages;
-import com.ziyao.ideal.web.exception.Exceptions;
+import com.ziyao.ideal.web.exception.ServiceException;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,40 +20,40 @@ import java.util.stream.Collectors;
  * 用户表 前端控制器
  * </p>
  *
- * @author zhangziyao
+ * @author ziyao
  */
 @RestController
-@RequestMapping("/usercenter/user")
-public class UserController extends BaseController<UserService, User> {
+@RequiredArgsConstructor
+@RequestMapping("/user")
+public class UserController extends JpaBaseController<UserService, User, Integer> {
 
     private final UserService userService;
 
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
-
-    /**
-     * 保存用户信息
-     */
     @PostMapping("/save")
     public void save(@RequestBody UserDTO entityDTO) {
-        super.iService.save(entityDTO.of());
+        userService.save(entityDTO.convert());
     }
 
     /**
-     * 保存或更新
+     * 通过主键id进行更新
      */
-    @PostMapping("/saveOrUpdate")
-    public void saveOrUpdate(@RequestBody UserDTO entityDTO) {
-        super.iService.saveOrUpdate(entityDTO.of());
-    }
-
     @PostMapping("/updateById")
     public void updateById(@RequestBody UserDTO entityDTO) {
         if (ObjectUtils.isEmpty(entityDTO.getId())) {
-            throw Exceptions.createIllegalArgumentException(null);
+            throw new ServiceException(400, "主键参数不能为空");
         }
-        super.iService.updateById(entityDTO.of());
+        userService.save(entityDTO.convert());
+    }
+
+    /**
+     * 通过id删除数据，有逻辑删除按照逻辑删除执行
+     * <p>不支持联合主键</p>
+     *
+     * @param id 主键Id
+     */
+    @GetMapping("/remove/{id}")
+    public void removeById(@PathVariable("id") Integer id) {
+        userService.deleteById(id);
     }
 
     /**
@@ -62,23 +61,14 @@ public class UserController extends BaseController<UserService, User> {
      */
     @PostMapping("/saveBatch")
     public void saveBatch(@RequestBody List<UserDTO> entityDTOList) {
-        super.iService.saveBatch(entityDTOList.stream().map(UserDTO::of).collect(Collectors.toList()), 500);
+        userService.saveBatch(entityDTOList.stream().map(UserDTO::convert).collect(Collectors.toList()));
     }
 
     /**
-     * 条件分页查询
-     *
-     * @param pageParams 分页参数
-     * @return 返回分页查询信息
+     * 分页查询
      */
-    @PostMapping("/page/get")
-    public Page<User> getPage(@RequestBody PageParams<UserDTO> pageParams) {
-        Page<User> page = Pages.initPage(pageParams, User.class);
-        return userService.page(page, pageParams.getParams());
-    }
-
-    @GetMapping("/current")
-    public Authentication userDetails() {
-        return SecurityContextHolder.getContext().getAuthentication();
+    @PostMapping("/list")
+    public Page<User> list(PageParams<UserDTO> pageParams) {
+        return userService.list(pageParams.getParams().convert(), Pages.initPage(pageParams));
     }
 }

@@ -1,13 +1,9 @@
 package com.ziyao.ideal.uua.domain.dto;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.ziyao.ideal.web.orm.EntityDTO;
+import com.ziyao.ideal.uua.domain.convertor.RoleMenuConvertor;
 import com.ziyao.ideal.uua.domain.entity.RoleMenu;
-import com.ziyao.ideal.uua.domain.mapstruct.RoleMenuMapstruct;
+import com.ziyao.ideal.web.orm.EntityDTO;
 import lombok.Data;
-import java.util.Objects;
-import com.ziyao.ideal.core.Strings;
 
 
 import java.io.Serializable;
@@ -43,20 +39,7 @@ public class RoleMenuDTO implements EntityDTO<RoleMenu>, Serializable {
      */
     private LocalDateTime createdAt;
 
-    /**
-     * 组装查询条件，可根据具体情况做出修改
-     *
-     * @see LambdaQueryWrapper
-     */
-    public LambdaQueryWrapper<RoleMenu> initWrapper() {
-
-        return Wrappers.lambdaQuery(RoleMenu.class)
-                // 创建时间
-                .eq(Objects.nonNull(createdAt), RoleMenu::getCreatedAt, createdAt)
-                ;
-    }
-
-    public RoleMenu of() {
-        return RoleMenuMapstruct.INSTANCE.of(this);
+    public RoleMenu convert() {
+        return RoleMenuConvertor.INSTANCE.convert(this);
     }
 }

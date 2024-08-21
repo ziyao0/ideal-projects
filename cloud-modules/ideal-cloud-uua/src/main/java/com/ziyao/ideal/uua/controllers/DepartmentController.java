@@ -1,72 +1,73 @@
 package com.ziyao.ideal.uua.controllers;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.ziyao.ideal.web.base.BaseController;
-import com.ziyao.ideal.web.base.PageParams;
-import com.ziyao.ideal.web.base.Pages;
-import com.ziyao.ideal.web.exception.Exceptions;
 import com.ziyao.ideal.uua.domain.dto.DepartmentDTO;
 import com.ziyao.ideal.uua.domain.entity.Department;
 import com.ziyao.ideal.uua.service.DepartmentService;
-import lombok.RequiredArgsConstructor;
+import com.ziyao.ideal.jpa.extension.controllers.JpaBaseController;
+import com.ziyao.ideal.web.base.PageParams;
+import com.ziyao.ideal.web.base.Pages;
+import org.springframework.data.domain.Page;
 import org.springframework.util.ObjectUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.ziyao.ideal.web.exception.ServiceException;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import lombok.RequiredArgsConstructor;
 
 /**
  * <p>
  * 部门表 前端控制器
  * </p>
  *
- * @author zhangziyao
+ * @author ziyao
  */
 @RestController
-@RequestMapping("/usercenter/department")
 @RequiredArgsConstructor
-public class DepartmentController extends BaseController<DepartmentService, Department> {
+@RequestMapping("/department")
+public class DepartmentController extends JpaBaseController<DepartmentService, Department, Integer> {
 
     private final DepartmentService departmentService;
 
     @PostMapping("/save")
     public void save(@RequestBody DepartmentDTO entityDTO) {
-        super.iService.save(entityDTO.of());
+        departmentService.save(entityDTO.convert());
     }
 
-    @PostMapping("/saveOrUpdate")
-    public void saveOrUpdate(@RequestBody DepartmentDTO entityDTO) {
-        super.iService.saveOrUpdate(entityDTO.of());
-    }
-
+    /**
+     * 通过主键id进行更新
+     */
     @PostMapping("/updateById")
     public void updateById(@RequestBody DepartmentDTO entityDTO) {
         if (ObjectUtils.isEmpty(entityDTO.getId())) {
-            throw Exceptions.createIllegalArgumentException(null);
+            throw new ServiceException(400, "主键参数不能为空");
         }
-        super.iService.updateById(entityDTO.of());
+        departmentService.save(entityDTO.convert());
     }
 
+    /**
+    * 通过id删除数据，有逻辑删除按照逻辑删除执行
+    * <p>不支持联合主键</p>
+    *
+    * @param id 主键Id
+    */
+    @GetMapping("/remove/{id}")
+    public void removeById(@PathVariable("id") Integer id) {
+        departmentService.deleteById(id);
+    }
     /**
      * 默认一次插入500条
      */
     @PostMapping("/saveBatch")
     public void saveBatch(@RequestBody List<DepartmentDTO> entityDTOList) {
-        super.iService.saveBatch(entityDTOList.stream().map(DepartmentDTO::of).collect(Collectors.toList()), 500);
+        departmentService.saveBatch(entityDTOList.stream().map(DepartmentDTO::convert).collect(Collectors.toList()));
     }
 
     /**
-     * 条件分页查询
-     *
-     * @param pageParams 分页参数
-     * @return 返回分页查询信息
+     * 分页查询
      */
-    @PostMapping("/page/get")
-    public Page<Department> getPage(@RequestBody PageParams<DepartmentDTO> pageParams) {
-        Page<Department> page = Pages.initPage(pageParams, Department.class);
-        return departmentService.page(page, pageParams.getParams());
+    @PostMapping("/list")
+    public Page<Department> list(PageParams<DepartmentDTO> pageParams) {
+        return departmentService.list(pageParams.getParams().convert(), Pages.initPage(pageParams));
     }
 }
