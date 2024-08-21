@@ -3,8 +3,6 @@ dependencies {
     api(project(":security-core"))
     api(project(":spring-data-jpa-extension"))
     api("jakarta.servlet:jakarta.servlet-api")
-    api("com.baomidou:mybatis-plus-annotation")
-    api("com.baomidou:mybatis-plus-extension")
     api("javax.validation:validation-api")
     api("org.springframework:spring-webmvc")
     api("org.springframework:spring-context")

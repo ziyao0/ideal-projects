@@ -9,12 +9,12 @@ import org.mapstruct.factory.Mappers;
  * @author ${author}
  */
 @Mapper
-public interface ${entity}Mapstruct {
+public interface ${entity}Convertor {
 
-    ${entity}Mapstruct INSTANCE = Mappers.getMapper(${entity}Mapstruct.class);
+    ${entity}Convertor INSTANCE = Mappers.getMapper(${entity}Convertor.class);
 
     /**
      * 转换
      */
-    ${entity} of(${entity}DTO ${entity?uncap_first}DTO);
+    ${entity} convert(${entity}DTO ${entity?uncap_first}DTO);
 }

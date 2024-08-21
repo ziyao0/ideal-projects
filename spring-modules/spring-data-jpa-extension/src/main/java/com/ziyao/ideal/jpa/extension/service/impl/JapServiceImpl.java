@@ -123,7 +123,7 @@ public abstract class JapServiceImpl<JPA extends JpaRepository<T, ID>, T, ID> im
     }
 
     @Override
-    public <S extends T> Page<S> searchSimilar(S entity, Pageable pageable) {
+    public <S extends T> Page<S> list(S entity, Pageable pageable) {
         ExampleMatcher matcher = ExampleMatcher.matching()
                 .withIgnoreNullValues()
                 .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING); // Use CONTAINING for partial matches

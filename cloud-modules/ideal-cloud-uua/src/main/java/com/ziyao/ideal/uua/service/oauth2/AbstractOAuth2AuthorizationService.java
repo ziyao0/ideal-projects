@@ -1,10 +1,13 @@
 package com.ziyao.ideal.uua.service.oauth2;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ziyao.ideal.core.Dates;
 import com.ziyao.ideal.core.Strings;
 import com.ziyao.ideal.security.oauth2.core.*;
+import com.ziyao.ideal.security.oauth2.core.jackson2.Jackson2Modules;
+import com.ziyao.ideal.security.oauth2.core.jackson2.OAuth2AuthorizationServerJackson2Module;
 import com.ziyao.ideal.security.oauth2.core.support.AuthorizationGrantTypes;
 import com.ziyao.ideal.security.oauth2.core.token.OAuth2ParameterNames;
 import com.ziyao.ideal.uua.domain.entity.Authorization;
@@ -12,6 +15,7 @@ import org.springframework.lang.Nullable;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
@@ -22,6 +26,13 @@ public abstract class AbstractOAuth2AuthorizationService implements OAuth2Author
 
 
     private final ObjectMapper objectMapper = new ObjectMapper();
+
+    public AbstractOAuth2AuthorizationService(){
+        ClassLoader classLoader = JpaOAuth2AuthorizationService.class.getClassLoader();
+        List<Module> securityModules = Jackson2Modules.getModules(classLoader);
+        this.objectMapper.registerModules(securityModules);
+        this.objectMapper.registerModule(new OAuth2AuthorizationServerJackson2Module());
+    }
 
     protected static boolean isComplete(OAuth2Authorization authorization) {
         return authorization.getAccessToken() != null;

@@ -29,11 +29,6 @@ public class JpaOAuth2AuthorizationService extends AbstractOAuth2AuthorizationSe
     public JpaOAuth2AuthorizationService(AuthorizationRepositoryJpa authorizationRepository) {
 
         this.authorizationRepository = authorizationRepository;
-
-        ClassLoader classLoader = JpaOAuth2AuthorizationService.class.getClassLoader();
-        List<Module> securityModules = Jackson2Modules.getModules(classLoader);
-        this.objectMapper.registerModules(securityModules);
-        this.objectMapper.registerModule(new OAuth2AuthorizationServerJackson2Module());
     }
 
 

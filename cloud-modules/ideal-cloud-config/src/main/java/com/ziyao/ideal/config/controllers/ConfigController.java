@@ -3,7 +3,7 @@ package com.ziyao.ideal.config.controllers;
 import com.ziyao.ideal.config.domain.dto.ConfigDTO;
 import com.ziyao.ideal.config.domain.entity.Config;
 import com.ziyao.ideal.config.service.ConfigService;
-import com.ziyao.ideal.web.base.JpaBaseController;
+import com.ziyao.ideal.jpa.extension.controllers.JpaBaseController;
 import com.ziyao.ideal.web.base.PageParams;
 import com.ziyao.ideal.web.base.Pages;
 import com.ziyao.ideal.web.exception.ServiceException;
@@ -56,8 +56,8 @@ public class ConfigController extends JpaBaseController<ConfigService, Config, I
     /**
      * 分页查询
      */
-    @PostMapping("/searchSimilar")
-    public Page<Config> searchSimilar(PageParams<ConfigDTO> pageParams) {
-        return configService.searchSimilar(pageParams.getParams().of(), Pages.initPage(pageParams));
+    @PostMapping("/list")
+    public Page<Config> list(PageParams<ConfigDTO> pageParams) {
+        return configService.list(pageParams.getParams().of(), Pages.initPage(pageParams));
     }
 }

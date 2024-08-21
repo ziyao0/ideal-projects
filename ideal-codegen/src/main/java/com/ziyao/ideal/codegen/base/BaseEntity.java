@@ -1,7 +1,6 @@
 package com.ziyao.ideal.codegen.base;
 
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -19,7 +18,6 @@ public class BaseEntity implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    @TableId("ID")
     private Integer id;
     /**
      * 创建人id

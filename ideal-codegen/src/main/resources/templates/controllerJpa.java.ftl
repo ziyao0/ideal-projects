@@ -11,9 +11,7 @@ import com.ziyao.ideal.web.base.Pages;
 import org.springframework.data.domain.Page;
 import org.springframework.util.ObjectUtils;
 import com.ziyao.ideal.web.exception.ServiceException;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 <#if restControllerStyle>
 import org.springframework.web.bind.annotation.RestController;
 <#else>
@@ -42,7 +40,7 @@ public class ${table.controllerName} extends ${superControllerClass}<${table.ser
 
     @PostMapping("/save")
     public void save(@RequestBody ${entity}DTO entityDTO) {
-        ${table.serviceName?uncap_first}.save(entityDTO.of());
+        ${table.serviceName?uncap_first}.save(entityDTO.convert());
     }
 
     /**
@@ -53,23 +51,33 @@ public class ${table.controllerName} extends ${superControllerClass}<${table.ser
         if (ObjectUtils.isEmpty(entityDTO.getId())) {
             throw new ServiceException(400, "主键参数不能为空");
         }
-        ${table.serviceName?uncap_first}.save(entityDTO.of());
+        ${table.serviceName?uncap_first}.save(entityDTO.convert());
     }
 
+    /**
+    * 通过id删除数据，有逻辑删除按照逻辑删除执行
+    * <p>不支持联合主键</p>
+    *
+    * @param id 主键Id
+    */
+    @GetMapping("/remove/{id}")
+    public void removeById(@PathVariable("id") ${field.propertyType} id) {
+        ${table.serviceName?uncap_first}.deleteById(id);
+    }
     /**
      * 默认一次插入500条
      */
     @PostMapping("/saveBatch")
     public void saveBatch(@RequestBody List<${entity}DTO> entityDTOList) {
-        ${table.serviceName?uncap_first}.saveBatch(entityDTOList.stream().map(${entity}DTO::of).collect(Collectors.toList()));
+        ${table.serviceName?uncap_first}.saveBatch(entityDTOList.stream().map(${entity}DTO::convert).collect(Collectors.toList()));
     }
 
     /**
      * 分页查询
      */
-    @PostMapping("/searchSimilar")
-    public Page<${entity}> searchSimilar(PageParams<${entity}DTO> pageParams) {
-        return ${table.serviceName?uncap_first}.searchSimilar(pageParams.getParams().of(), Pages.initPage(pageParams));
+    @PostMapping("/list")
+    public Page<${entity}> list(PageParams<${entity}DTO> pageParams) {
+        return ${table.serviceName?uncap_first}.list(pageParams.getParams().convert(), Pages.initPage(pageParams));
     }
 }
 </#if>
