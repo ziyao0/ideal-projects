@@ -1,7 +1,8 @@
 package com.ziyao.ideal.config.core;
 
-import com.ziyao.ideal.crypto.Property;
+import com.ziyao.ideal.core.Strings;
 import com.ziyao.ideal.core.lang.NonNull;
+import com.ziyao.ideal.crypto.Property;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.LoaderOptions;
 import org.yaml.snakeyaml.Yaml;
@@ -24,7 +25,7 @@ import java.util.regex.Pattern;
  */
 public class OriginTrackedYamlProcessor extends YamlProcessor {
 
-    public OriginTrackedYamlProcessor(String yamlContent){
+    public OriginTrackedYamlProcessor(String yamlContent) {
         setYamlContent(yamlContent);
     }
 
@@ -77,7 +78,7 @@ public class OriginTrackedYamlProcessor extends YamlProcessor {
         @Override
         public Object getData() throws NoSuchElementException {
             Object data = super.getData();
-            if (data instanceof CharSequence charSequence && charSequence.isEmpty()) {
+            if (data instanceof CharSequence && !Strings.hasLength(((CharSequence) data))) {
                 return null;
             }
             return data;

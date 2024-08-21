@@ -1,5 +1,6 @@
 package com.ziyao.ideal.gateway.filter.intercept;
 
+import com.google.common.collect.Lists;
 import com.ziyao.ideal.core.Assert;
 import lombok.Getter;
 
@@ -15,7 +16,7 @@ public class DelegatingInterceptor implements GatewayInterceptor {
 
     public DelegatingInterceptor(List<GatewayInterceptor> gatewayInterceptors) {
         Assert.notNull(gatewayInterceptors, "interceptors cannot be empty");
-        this.interceptors = List.copyOf(gatewayInterceptors);
+        this.interceptors = Lists.newArrayList(gatewayInterceptors);
     }
 
     @Override

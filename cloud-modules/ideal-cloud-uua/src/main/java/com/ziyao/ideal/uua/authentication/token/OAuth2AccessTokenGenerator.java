@@ -1,6 +1,7 @@
 package com.ziyao.ideal.uua.authentication.token;
 
 import com.alibaba.fastjson2.JSON;
+import com.google.common.collect.Maps;
 import com.ziyao.ideal.crypto.keygen.Base64StringKeyGenerator;
 import com.ziyao.ideal.crypto.keygen.StringKeyGenerator;
 import com.ziyao.ideal.core.Strings;
@@ -65,7 +66,7 @@ public final class OAuth2AccessTokenGenerator implements OAuth2TokenGenerator<OA
         OAuth2AccessToken accessToken = new OAuth2AccessTokenClaims(OAuth2AccessToken.TokenType.Bearer,
                 // TODO accessTokenClaimsSet.getClaims()
                 this.accessTokenGenerator.generateKey(), accessTokenClaimsSet.getIssuedAt(),
-                accessTokenClaimsSet.getExpiresAt(), context.getAuthorizedScopes(), Map.of());
+                accessTokenClaimsSet.getExpiresAt(), context.getAuthorizedScopes(), Maps.newHashMap());
         if (log.isDebugEnabled()) {
             log.debug("generate access token to {}", JSON.toJSONString(accessToken));
         }

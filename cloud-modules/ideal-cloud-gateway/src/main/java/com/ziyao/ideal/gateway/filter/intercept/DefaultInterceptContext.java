@@ -4,7 +4,17 @@ package com.ziyao.ideal.gateway.filter.intercept;
  * @author ziyao
  * @see <a href="https://blog.zziyao.cn">https://blog.zziyao.cn</a>
  */
-public record DefaultInterceptContext(String clientIp, String requestUri, String domains) implements InterceptContext {
+public class DefaultInterceptContext implements InterceptContext {
+
+    private final String clientIp;
+    private final String requestUri;
+    private final String domains;
+
+    public DefaultInterceptContext(String clientIp, String requestUri, String domains) {
+        this.clientIp = clientIp;
+        this.requestUri = requestUri;
+        this.domains = domains;
+    }
 
     public static DefaultInterceptContext of(String clientIp, String requestUri, String domains) {
         return new DefaultInterceptContext(clientIp, requestUri, domains);
@@ -12,6 +22,21 @@ public record DefaultInterceptContext(String clientIp, String requestUri, String
 
     public static Builder withRequestUri(String requestUri) {
         return new Builder().withRequestUri(requestUri);
+    }
+
+    @Override
+    public String clientIp() {
+        return this.clientIp;
+    }
+
+    @Override
+    public String requestUri() {
+        return this.requestUri;
+    }
+
+    @Override
+    public String domains() {
+        return this.domains;
     }
 
 

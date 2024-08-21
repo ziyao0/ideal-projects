@@ -59,9 +59,14 @@ public class OAuth2AuthorizationSerializer extends JsonSerializer<OAuth2Authoriz
 
             Map<String, Object> metadata = authorizationToken.getMetadata();
 
-            Map<String, String> writeMap = new HashMap<>(Map.of("tokenValue", token.getTokenValue(),
-                    "issuedAt", token.getIssuedAt().toString(),
-                    "expiresAt", token.getExpiresAt().toString()));
+            Map<String, String> writeMap = new HashMap<String, String>() {
+                private static final long serialVersionUID = -6169056380797051213L;
+
+                {
+                put("tokenValue", token.getTokenValue());
+                put("issuedAt", token.getIssuedAt().toString());
+                put("expiresAt", token.getExpiresAt().toString());
+            }};
 
             if (OAuth2AccessToken.class.isAssignableFrom(key)) {
                 OAuth2AccessToken accessToken = (OAuth2AccessToken) token;

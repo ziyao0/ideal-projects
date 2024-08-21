@@ -5,8 +5,8 @@ import java.util.Objects;
 /**
  * @author ziyao zhang
  */
-public record AuthorizationGrantType(String value) {
-
+public class AuthorizationGrantType {
+    private final String value;
     public static final AuthorizationGrantType AUTHORIZATION_CODE = new AuthorizationGrantType("authorization_code");
 
     public static final AuthorizationGrantType REFRESH_TOKEN = new AuthorizationGrantType("refresh_token");
@@ -19,6 +19,13 @@ public record AuthorizationGrantType(String value) {
 
     public static final AuthorizationGrantType DEVICE_CODE = new AuthorizationGrantType("urn:ietf:params:oauth:grant-type:device_code");
 
+    public AuthorizationGrantType(String value) {
+        this.value = value;
+    }
+
+    public String value() {
+        return value;
+    }
 
     public boolean matches(String code) {
         return Objects.equals(this.value, code);

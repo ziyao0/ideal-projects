@@ -1,18 +1,16 @@
 package com.ziyao.ideal.uua.service.security;
 
 import com.ziyao.ideal.security.core.Authentication;
-import com.ziyao.ideal.security.oauth2.core.*;
+import com.ziyao.ideal.security.core.AuthenticationUtils;
 import com.ziyao.ideal.security.core.UserDetails;
+import com.ziyao.ideal.security.core.context.SecurityContextHolder;
+import com.ziyao.ideal.security.oauth2.core.*;
 import com.ziyao.ideal.security.oauth2.core.token.DefaultOAuth2TokenContext;
 import com.ziyao.ideal.uua.authentication.AuthenticationManager;
 import com.ziyao.ideal.uua.authentication.token.OAuth2AccessTokenAuthenticationToken;
 import com.ziyao.ideal.uua.authentication.token.OAuth2TokenGenerator;
-import com.ziyao.ideal.uua.response.AccessTokenResponse;
-import com.ziyao.ideal.uua.response.OAuth2AuthorizationCodeResponse;
 import com.ziyao.ideal.uua.service.app.RegisteredAppService;
 import com.ziyao.ideal.uua.service.oauth2.OAuth2AuthorizationService;
-import com.ziyao.ideal.security.core.context.SecurityContextHolder;
-import com.ziyao.ideal.security.core.AuthenticationUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.stereotype.Service;
@@ -30,7 +28,7 @@ public class PrincipalAuthorizationCenter implements AuthorizationCenter {
     private final OAuth2AuthorizationService authorizationService;
 
     @Override
-    public OAuth2AuthorizationCodeResponse authorize(Integer appId, String state, String grantType) {
+    public Object authorize(Integer appId, String state, String grantType) {
 
         RegisteredApp registeredApp = registeredAppService.findById(appId);
         if (registeredApp == null) {
@@ -63,11 +61,12 @@ public class PrincipalAuthorizationCenter implements AuthorizationCenter {
                 .build();
 
         authorizationService.save(authorization);
-        return OAuth2AuthorizationCodeResponse.create(authorizationCode.getTokenValue(), "");
+//        return OAuth2AuthorizationCodeResponse.create(authorizationCode.getTokenValue(), "");
+        return authorization;
     }
 
     @Override
-    public AccessTokenResponse token(Authentication authentication) {
+    public Object token(Authentication authentication) {
 
 
         OAuth2AccessTokenAuthenticationToken authenticationToken = (OAuth2AccessTokenAuthenticationToken) this.authenticationManager.authenticate(authentication);
@@ -75,9 +74,10 @@ public class PrincipalAuthorizationCenter implements AuthorizationCenter {
             // TODO
         }
 
-        return AccessTokenResponse.witchTokenType(authenticationToken.getAccessToken().getTokenType().getValue())
-                .accessToken(authenticationToken.getAccessToken().getTokenValue())
-                .refreshToken(authenticationToken.getRefreshToken().getTokenValue())
-                .build();
+//        return AccessTokenResponse.witchTokenType(authenticationToken.getAccessToken().getTokenType().getValue())
+//                .accessToken(authenticationToken.getAccessToken().getTokenValue())
+//                .refreshToken(authenticationToken.getRefreshToken().getTokenValue())
+//                .build();
+        return authenticationToken;
     }
 }

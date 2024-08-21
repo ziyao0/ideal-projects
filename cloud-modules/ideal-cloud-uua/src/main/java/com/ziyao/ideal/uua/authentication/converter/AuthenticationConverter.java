@@ -2,7 +2,8 @@ package com.ziyao.ideal.uua.authentication.converter;
 
 import com.ziyao.ideal.security.core.Authentication;
 import com.ziyao.ideal.uua.request.AuthenticationRequest;
-import jakarta.servlet.http.HttpServletRequest;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author ziyao

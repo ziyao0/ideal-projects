@@ -1,5 +1,6 @@
 package com.ziyao.ideal.uua.authentication.token;
 
+import com.google.common.collect.Lists;
 import com.ziyao.ideal.core.Assert;
 import com.ziyao.ideal.security.oauth2.core.OAuth2Token;
 import com.ziyao.ideal.security.oauth2.core.token.OAuth2TokenContext;
@@ -20,7 +21,7 @@ public final class DelegatingOAuth2TokenGenerator implements OAuth2TokenGenerato
     public DelegatingOAuth2TokenGenerator(OAuth2TokenGenerator<? extends OAuth2Token>... tokenGenerators) {
         Assert.notNull(tokenGenerators, "tokenGenerators cannot be empty");
         Assert.noNullElements(tokenGenerators, "tokenGenerator cannot be null");
-        this.tokenGenerators = List.copyOf(asList(tokenGenerators));
+        this.tokenGenerators = Lists.newArrayList(asList(tokenGenerators));
     }
 
     @Override

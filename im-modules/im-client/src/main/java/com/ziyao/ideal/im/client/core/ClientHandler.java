@@ -1,5 +1,6 @@
 package com.ziyao.ideal.im.client.core;
 
+import com.google.common.collect.Lists;
 import com.ziyao.ideal.im.api.Event;
 import com.ziyao.ideal.im.api.Live;
 import com.ziyao.ideal.im.api.Packet;

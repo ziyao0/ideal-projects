@@ -26,10 +26,7 @@ public abstract class CodecContextFactory {
 
     private <T> T load(Class<T> clazz) {
         ServiceLoader<T> services = ServiceLoader.load(clazz);
-        return services.stream()
-                .map(ServiceLoader.Provider::get)
-                //按照排序取出最大优先级的
-                .findFirst().orElse(null);
+        return services.iterator().next();
     }
 
 

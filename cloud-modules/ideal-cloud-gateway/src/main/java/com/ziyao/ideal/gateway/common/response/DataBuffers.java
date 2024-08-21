@@ -4,7 +4,6 @@ import com.ziyao.ideal.core.Strings;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.web.server.ServerWebExchange;
@@ -24,7 +23,7 @@ public abstract class DataBuffers {
     /**
      * 组装响应对象
      */
-    public static Mono<Void> writeWith(ServerHttpResponse response, ResponseMetadata responseMetadata, HttpStatusCode statusCode) {
+    public static Mono<Void> writeWith(ServerHttpResponse response, ResponseMetadata responseMetadata, HttpStatus statusCode) {
         return writeWith(response, ResponseMetadata.getInstance(statusCode.value(), responseMetadata.getMessage()));
     }
 
@@ -50,7 +49,7 @@ public abstract class DataBuffers {
         // 设置响应状态码
         HttpStatus httpStatus = HttpStatus.resolve(status);
         if (Objects.nonNull(httpStatus)) {
-            response.setStatusCode(HttpStatusCode.valueOf(status));
+            response.setStatusCode(HttpStatus.valueOf(status));
         }
         // 填充响应体
         DataBuffer dataBuffer = response.bufferFactory()

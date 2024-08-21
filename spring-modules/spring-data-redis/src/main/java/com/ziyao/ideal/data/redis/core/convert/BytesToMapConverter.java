@@ -3,6 +3,7 @@ package com.ziyao.ideal.data.redis.core.convert;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.collect.Maps;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.redis.serializer.SerializationException;
 
@@ -17,7 +18,7 @@ import java.util.Map;
 public class BytesToMapConverter implements Converter<byte[], Map<String, Object>> {
 
 
-    public final TypeReference<Map<String, Object>> mapTypeReference = new TypeReference<>() {
+    public final TypeReference<Map<String, Object>> mapTypeReference = new TypeReference<Map<String, Object>>() {
     };
 
     private final ObjectMapper mapper = new ObjectMapper();
@@ -32,7 +33,7 @@ public class BytesToMapConverter implements Converter<byte[], Map<String, Object
     public Map<String, Object> convert(byte[] source) {
 
         if (source.length == 0) {
-            return Map.of();
+            return Maps.newHashMap();
         }
         try {
             return mapper.readValue(source, mapTypeReference);

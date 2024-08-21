@@ -35,7 +35,7 @@ public abstract class InjectionConfigBuilder {
 
     public static Map<String, Object> cteateCustomMap(CodeGenConfig codeGenConfig) {
         String packagePath = codeGenConfig.getParent() + "." + codeGenConfig.getModuleName();
-        return new HashMap<>() {
+        return new HashMap<String, Object>() {
             
             private static final long serialVersionUID = 7702519044952153375L;
 

@@ -22,7 +22,8 @@ public abstract class OAuth2AuthenticationUtils {
         builder.token(accessToken, metadata -> {
 
             // TODO 如何设置额外数据
-            if (token instanceof ClaimAccessor claimAccessor) {
+            if (token instanceof ClaimAccessor) {
+                ClaimAccessor claimAccessor = (ClaimAccessor) token;
                 metadata.put(OAuth2Authorization.Token.CLAIMS_METADATA_NAME, claimAccessor.getClaims());
             }
             metadata.put(OAuth2Authorization.Token.INVALIDATED_METADATA_NAME, false);

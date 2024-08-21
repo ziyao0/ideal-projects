@@ -11,7 +11,6 @@ import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.core.convert.support.GenericConversionService;
-import org.springframework.data.mapping.InstanceCreatorMetadata;
 import org.springframework.data.mapping.MappingException;
 import org.springframework.data.mapping.PersistentPropertyAccessor;
 import org.springframework.data.mapping.PropertyHandler;
@@ -25,6 +24,7 @@ import org.springframework.data.redis.core.mapping.RedisMappingContext;
 import org.springframework.data.redis.core.mapping.RedisPersistentEntity;
 import org.springframework.data.redis.core.mapping.RedisPersistentProperty;
 import org.springframework.data.redis.serializer.SerializationException;
+import org.springframework.data.util.ClassTypeInformation;
 import org.springframework.data.util.ProxyUtils;
 import org.springframework.data.util.TypeInformation;
 import org.springframework.lang.NonNull;
@@ -42,7 +42,6 @@ import java.util.regex.Pattern;
 
 /**
  * @author ziyao zhang
- *
  */
 final class ObjectConversionProvider implements ConversionProvider {
 
@@ -156,7 +155,7 @@ final class ObjectConversionProvider implements ConversionProvider {
         newSource.setKeyspace(source.getKeyspace());
         newSource.setTimeToLive(source.getTimeToLive());
 
-        TypeInformation<?> readType = typeMapper.readType(newSource.getContainer().getPath(), TypeInformation.of(type));
+        TypeInformation<?> readType = typeMapper.readType(newSource.getContainer().getPath(), ClassTypeInformation.from(type));
 
         return readType.isCollectionLike()
                 ? (T) readCollectionOrArray("", ArrayList.class, Object.class, newSource.getContainer())
@@ -187,7 +186,7 @@ final class ObjectConversionProvider implements ConversionProvider {
     @SuppressWarnings("unchecked")
     private <R> R doReadInternal(String path, Class<R> type, RedisRawData source) {
 
-        TypeInformation<?> readType = typeMapper.readType(source.getContainer().getPath(), TypeInformation.of(type));
+        TypeInformation<?> readType = typeMapper.readType(source.getContainer().getPath(), ClassTypeInformation.from(type));
 
         if (converters.canConvert(Map.class, readType.getType())) {
 
@@ -231,12 +230,13 @@ final class ObjectConversionProvider implements ConversionProvider {
         PersistentPropertyAccessor<Object> accessor = entity.getPropertyAccessor(instance);
 
         entity.doWithProperties((PropertyHandler<RedisPersistentProperty>) persistentProperty -> {
-
-            InstanceCreatorMetadata<RedisPersistentProperty> creator = entity.getInstanceCreatorMetadata();
-
-            if (creator != null && creator.isCreatorParameter(persistentProperty)) {
-                return;
-            }
+            //TODO jdk8兼容以下注释掉的代码
+//
+//            InstanceCreatorMetadata<RedisPersistentProperty> creator = entity.getInstanceCreatorMetadata();
+//
+//            if (creator != null && creator.isCreatorParameter(persistentProperty)) {
+//                return;
+//            }
 
             Object targetValue = readProperty(path, source, persistentProperty);
 
@@ -329,7 +329,7 @@ final class ObjectConversionProvider implements ConversionProvider {
     private Class<?> getTypeHint(String path, Container container, Class<?> fallback) {
 
         TypeInformation<?> typeInformation = typeMapper.readType(container.getPropertyPath(path),
-                TypeInformation.of(fallback));
+                ClassTypeInformation.from(fallback));
         return typeInformation.getType();
     }
 
@@ -381,7 +381,7 @@ final class ObjectConversionProvider implements ConversionProvider {
             Object mapKey = extractMapKeyForPath(path, key, keyType);
 
             TypeInformation<?> typeInformation = typeMapper.readType(source.getContainer().getPropertyPath(key),
-                    TypeInformation.of(valueType));
+                    ClassTypeInformation.from(valueType));
 
             Object o = readInternal(key, typeInformation.getType(), new RedisRawData(partial));
             target.put(mapKey, o);
@@ -413,8 +413,8 @@ final class ObjectConversionProvider implements ConversionProvider {
 
     public byte[] toBytes(Object source) {
 
-        if (source instanceof byte[] bytes) {
-            return bytes;
+        if (source instanceof byte[]) {
+            return (byte[]) source;
         }
 
         return converters.convert(source, byte[].class);
@@ -438,7 +438,7 @@ final class ObjectConversionProvider implements ConversionProvider {
             Container elementData = container.extract(key);
 
             TypeInformation<?> typeInformation = typeMapper.readType(elementData.getPropertyPath(key),
-                    TypeInformation.of(valueType));
+                    ClassTypeInformation.from(valueType));
 
             Class<?> typeToUse = typeInformation.getType();
             if (this.converters.canConvert(byte[].class, typeToUse)) {
@@ -573,7 +573,7 @@ final class ObjectConversionProvider implements ConversionProvider {
                         String.format(INVALID_TYPE_ASSIGNMENT, entry.getValue().getClass(), currentPath, mapValueType));
             }
 
-            writeInternal(keyspace, currentPath, entry.getValue(), TypeInformation.of(mapValueType), sink);
+            writeInternal(keyspace, currentPath, entry.getValue(), ClassTypeInformation.from(mapValueType), sink);
 
         }
     }
@@ -618,7 +618,7 @@ final class ObjectConversionProvider implements ConversionProvider {
 
     private void writeToBucket(String path, @Nullable Object value, RedisRawData sink) {
 
-        if (value == null || (value instanceof Optional && ((Optional<?>) value).isEmpty())) {
+        if (value == null || (value instanceof Optional && !((Optional<?>) value).isPresent())) {
             return;
         }
 

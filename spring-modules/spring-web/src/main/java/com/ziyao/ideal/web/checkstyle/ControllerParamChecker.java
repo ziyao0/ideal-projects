@@ -2,8 +2,8 @@ package com.ziyao.ideal.web.checkstyle;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.ziyao.ideal.web.ApplicationContextUtils;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.BeansException;
 import org.springframework.boot.context.event.ApplicationReadyEvent;

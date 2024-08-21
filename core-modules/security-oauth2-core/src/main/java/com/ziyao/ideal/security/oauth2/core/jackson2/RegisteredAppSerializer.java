@@ -66,7 +66,8 @@ public class RegisteredAppSerializer extends JsonSerializer<RegisteredApp> {
                 settings.remove(entry.getKey());
             }
 
-            if (entry.getValue() instanceof Duration duration) {
+            if (entry.getValue() instanceof Duration) {
+                Duration duration = (Duration) entry.getValue();
                 settingsMap.put(entry.getKey(), duration.toString());
             } else
                 settingsMap.put(entry.getKey(), entry.getValue());

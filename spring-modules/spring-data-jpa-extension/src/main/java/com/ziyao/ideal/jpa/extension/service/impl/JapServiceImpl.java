@@ -1,5 +1,6 @@
 package com.ziyao.ideal.jpa.extension.service.impl;
 
+import com.google.common.collect.Lists;
 import com.ziyao.ideal.core.Collections;
 import com.ziyao.ideal.jpa.extension.service.JapService;
 import lombok.extern.slf4j.Slf4j;

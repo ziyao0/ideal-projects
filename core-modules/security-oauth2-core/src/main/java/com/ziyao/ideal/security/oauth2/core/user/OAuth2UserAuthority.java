@@ -1,5 +1,6 @@
 package com.ziyao.ideal.security.oauth2.core.user;
 
+import com.google.common.collect.Sets;
 import com.ziyao.ideal.security.core.GrantedAuthority;
 import com.ziyao.ideal.security.core.Permission;
 import lombok.Getter;

@@ -1,5 +1,6 @@
 package com.ziyao.ideal.security.oauth2.core.settings;
 
+import com.google.common.collect.Maps;
 import lombok.Getter;
 import org.springframework.util.Assert;
 
@@ -26,7 +27,7 @@ public abstract class AbstractSettings implements Serializable {
 
     protected AbstractSettings(Map<String, Object> settings) {
         Assert.notEmpty(settings, "settings cannot be empty");
-        this.settings = Map.copyOf(settings);
+        this.settings =  Maps.newHashMap(settings);
     }
 
     /**

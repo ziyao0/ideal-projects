@@ -1,5 +1,6 @@
 package com.ziyao.ideal.config.service.impl;
 
+import com.google.common.collect.Lists;
 import com.ziyao.ideal.config.domain.entity.ConfigItem;
 import com.ziyao.ideal.config.repository.jpa.ConfigItemRepositoryJpa;
 import com.ziyao.ideal.config.service.ConfigItemService;

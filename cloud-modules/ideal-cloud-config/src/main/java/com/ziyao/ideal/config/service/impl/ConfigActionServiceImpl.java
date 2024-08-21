@@ -95,7 +95,7 @@ public class ConfigActionServiceImpl implements ConfigActionService {
             } catch (ParseException e) {
                 throw new RuntimeException(e);
             }
-        }).toList();
+        }).collect(Collectors.toList());
 
         // 推送配置
         if (Collections.nonNull(properties)) {

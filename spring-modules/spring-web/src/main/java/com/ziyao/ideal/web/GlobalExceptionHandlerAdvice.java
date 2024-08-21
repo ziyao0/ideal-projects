@@ -181,7 +181,8 @@ public class GlobalExceptionHandlerAdvice {
             sb.append("参数校验失败: ");
             violations.forEach(error -> {
                 sb.append("[");
-                if (error instanceof FieldError fieldError) {
+                if (error instanceof FieldError) {
+                    FieldError fieldError = (FieldError) error;
                     sb.append(fieldError.getField()).append(":");
                 }
                 sb.append(error.getMessage());
@@ -200,8 +201,10 @@ public class GlobalExceptionHandlerAdvice {
             sb.append("参数校验失败: ");
             errors.forEach(error -> {
                 sb.append("[");
-                if (error instanceof FieldError fieldError)
+                if (error instanceof FieldError) {
+                    FieldError fieldError = (FieldError) error;
                     sb.append(fieldError.getField()).append(":");
+                }
                 sb.append(error.getDefaultMessage());
                 sb.append("] ");
             });

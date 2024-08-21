@@ -51,7 +51,7 @@ public class DefaultRedisSetRepository<T, ID>
 
         Optional<T> optional = entities.stream().findFirst();
 
-        if (optional.isEmpty()) {
+        if (!optional.isPresent()) {
             return;
         }
 

@@ -1,8 +1,8 @@
 package com.ziyao.ideal.uua.domain.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.proxy.HibernateProxy;

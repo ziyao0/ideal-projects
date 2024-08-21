@@ -16,10 +16,14 @@ public class DelegatingRegisteredAppService implements RegisteredAppService {
     public DelegatingRegisteredAppService(List<RegisteredAppService> registeredAppServices) {
         for (RegisteredAppService registeredAppService : registeredAppServices) {
             switch (registeredAppService.model()) {
-                case caffeine -> this.memoryRegisteredAppService = registeredAppService;
-                case redis -> this.redisRegisteredAppService = registeredAppService;
-                case jpa -> this.jpaRegisteredAppService = registeredAppService;
-                default -> throw new IllegalStateException("Unexpected value: " + registeredAppService.model());
+                case caffeine:
+                    this.memoryRegisteredAppService = registeredAppService;
+                case redis:
+                    this.redisRegisteredAppService = registeredAppService;
+                case jpa:
+                    this.jpaRegisteredAppService = registeredAppService;
+                default:
+                    throw new IllegalStateException("Unexpected value: " + registeredAppService.model());
             }
         }
     }

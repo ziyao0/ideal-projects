@@ -1,5 +1,8 @@
 package com.ziyao.ideal.data.redis.core.repository;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 import com.ziyao.ideal.core.Collections;
 import com.ziyao.ideal.core.Strings;
 import com.ziyao.ideal.data.redis.core.RedisAdapter;
@@ -36,7 +39,7 @@ public class DefaultRedisHashRepository<K, V>
             Map<byte[], byte[]> entries = connection.hGetAll(rawKey);
 
             if (Collections.isEmpty(entries)) {
-                return Map.of();
+                return Maps.newHashMap();
             }
             Map<K, V> map = new LinkedHashMap<>(entries.size());
             for (Map.Entry<byte[], byte[]> entry : entries.entrySet()) {

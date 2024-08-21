@@ -19,7 +19,6 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @author ziyao zhang
- *
  */
 @SuppressWarnings("deprecation")
 public class DefaultRedisAdapter implements RedisAdapter {
@@ -158,7 +157,7 @@ public class DefaultRedisAdapter implements RedisAdapter {
     }
 
     public byte[] toBytes(Object source) {
-        return source instanceof byte[] bytes ? bytes
+        return source instanceof byte[] ? ((byte[]) source)
                 : conversionProvider.convert(source, byte[].class);
     }
 

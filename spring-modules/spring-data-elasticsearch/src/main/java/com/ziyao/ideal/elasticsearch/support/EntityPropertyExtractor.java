@@ -7,6 +7,7 @@ import org.springframework.data.elasticsearch.core.mapping.SimpleElasticsearchPe
 import org.springframework.data.mapping.PersistentPropertyAccessor;
 import org.springframework.data.mapping.model.Property;
 import org.springframework.data.mapping.model.SimpleTypeHolder;
+import org.springframework.data.util.ClassTypeInformation;
 import org.springframework.data.util.TypeInformation;
 import org.springframework.util.Assert;
 
@@ -71,7 +72,7 @@ public final class EntityPropertyExtractor<T> {
         PropertyDescriptor propertyDescriptor = createPropertyDescriptor(fieldName);
 
         return new SimpleElasticsearchPersistentProperty(
-                Property.of(TypeInformation.of(entityClass), propertyDescriptor),
+                Property.of(ClassTypeInformation.from(entityClass), propertyDescriptor),
                 persistentEntity, SimpleTypeHolder.DEFAULT);
     }
 }

@@ -204,7 +204,7 @@ public abstract class AbstractOAuth2AuthorizationService implements OAuth2Author
 
     protected Map<String, Object> parseMap(String data) {
         try {
-            return this.objectMapper.readValue(data, new TypeReference<>() {
+            return this.objectMapper.readValue(data, new TypeReference<Map<String, Object>>() {
             });
         } catch (Exception ex) {
             throw new IllegalArgumentException(ex.getMessage(), ex);

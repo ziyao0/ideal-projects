@@ -1,5 +1,6 @@
 package com.ziyao.ideal.uua.authentication.token;
 
+import com.google.common.collect.Lists;
 import com.ziyao.ideal.web.response.ResponseDetails;
 import com.ziyao.ideal.security.core.Authentication;
 import com.ziyao.ideal.security.core.GrantedAuthority;

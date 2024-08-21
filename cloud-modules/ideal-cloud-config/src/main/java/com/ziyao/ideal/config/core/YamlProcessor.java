@@ -1,5 +1,6 @@
 package com.ziyao.ideal.config.core;
 
+import com.google.common.collect.Lists;
 import com.ziyao.ideal.core.Assert;
 import com.ziyao.ideal.core.Dates;
 import com.ziyao.ideal.core.Strings;
@@ -20,7 +21,6 @@ import org.yaml.snakeyaml.representer.Representer;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
-
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -107,7 +107,7 @@ public abstract class YamlProcessor {
         } else {
             Assert.noNullElements(supportedTypes, "'supportedTypes' must not contain null elements");
             this.supportedTypes = Arrays.stream(supportedTypes).map(Class::getName)
-                    .collect(Collectors.toUnmodifiableSet());
+                    .collect(Collectors.toSet());
         }
     }
 
@@ -292,12 +292,12 @@ public abstract class YamlProcessor {
     private Map<String, Object> asMap(Object object) {
         // YAML can have numbers as keys
         Map<String, Object> result = new LinkedHashMap<>();
-        if (!(object instanceof Map map)) {
+        if (!(object instanceof Map)) {
             // A document can be a text literal
             result.put("document", object);
             return result;
         }
-
+        Map map = (Map) object;
         map.forEach((key, value) -> {
             if (value instanceof Map) {
                 value = asMap(value);
@@ -353,7 +353,7 @@ public abstract class YamlProcessor {
 
     private Properties createStringAdaptingProperties() {
         return new SortedProperties(false) {
-            
+
             private static final long serialVersionUID = 2515427249366884977L;
 
             @Override
@@ -391,10 +391,11 @@ public abstract class YamlProcessor {
             }
             if (value instanceof String) {
                 result.put(key, value);
-            } else if (value instanceof Map map) {
+            } else if (value instanceof Map) {
                 // Need a compound key
-                buildFlattenedMap(result, map, key);
-            } else if (value instanceof Collection collection) {
+                buildFlattenedMap(result, (Map<String, Object>) value, key);
+            } else if (value instanceof Collection) {
+                Collection collection = (Collection) value;
                 // Need a compound key
                 if (collection.isEmpty()) {
                     result.put(key, "");

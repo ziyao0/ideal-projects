@@ -1,5 +1,6 @@
 package com.ziyao.ideal.security.core.context;
 
+import com.google.common.collect.Lists;
 import com.ziyao.ideal.security.core.Authentication;
 import com.ziyao.ideal.security.core.GrantedAuthority;
 import com.ziyao.ideal.security.core.UserDetails;

@@ -1,5 +1,6 @@
 package com.ziyao.ideal.config.service;
 
+import com.google.common.collect.Lists;
 import com.ziyao.ideal.crypto.Property;
 
 import java.util.List;

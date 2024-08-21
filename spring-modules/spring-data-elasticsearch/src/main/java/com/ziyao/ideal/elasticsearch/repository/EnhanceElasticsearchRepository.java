@@ -1,6 +1,5 @@
 package com.ziyao.ideal.elasticsearch.repository;
 
-import co.elastic.clients.elasticsearch._types.query_dsl.Operator;
 import com.ziyao.ideal.elasticsearch.query.BetweenQueries;
 import com.ziyao.ideal.elasticsearch.support.EntityPropertyExtractor;
 import org.slf4j.Logger;
@@ -67,19 +66,19 @@ public class EnhanceElasticsearchRepository<T, ID> implements ElasticsearchRepos
 
     @Override
     public Page<T> searchSimilar(@NonNull T entity, @Nullable String[] fields, BetweenQueries betweenQueries, @NonNull Pageable pageable) {
-        return searchSimilar(entity, fields, betweenQueries, pageable, Operator.And);
+        return searchSimilar(entity, fields, betweenQueries, pageable, Criteria.Operator.AND);
     }
 
 
     @Override
-    public Page<T> searchSimilar(T entity, @Nullable String[] fields, BetweenQueries betweenQueries, Pageable pageable, Operator operator) {
+    public Page<T> searchSimilar(T entity, @Nullable String[] fields, BetweenQueries betweenQueries, Pageable pageable, Criteria.Operator operator) {
         Assert.notNull(entity, "Cannot search similar records for 'null'.");
         Assert.notNull(pageable, "'pageable' cannot be 'null'");
 
         return search(
-                CriteriaQuery.builder(
-                                createCriteria(entity, fields, betweenQueries, operator))
-                        .withPageable(pageable).build());
+                new CriteriaQuery(
+                        createCriteria(entity, fields, betweenQueries, operator), pageable)
+        );
     }
 
     @Override
@@ -87,7 +86,7 @@ public class EnhanceElasticsearchRepository<T, ID> implements ElasticsearchRepos
         Assert.notNull(criteria, "Query 不能为空");
         Assert.notNull(pageable, "Query 不能为空");
         return search(
-                CriteriaQuery.builder(criteria).withPageable(pageable).build());
+             new   CriteriaQuery(criteria,pageable));
     }
 
     @Override
@@ -116,9 +115,9 @@ public class EnhanceElasticsearchRepository<T, ID> implements ElasticsearchRepos
     @Override
     public long count(T entity, BetweenQueries betweenQueries) {
         return operations.count(
-                CriteriaQuery.builder(
-                        createCriteria(entity, null, betweenQueries, Operator.And)
-                ).build(), entityClass);
+                new CriteriaQuery(
+                        createCriteria(entity, null, betweenQueries, Criteria.Operator.AND)
+                ), entityClass);
     }
 
     private boolean shouldCreateIndexAndMapping() {
@@ -205,7 +204,7 @@ public class EnhanceElasticsearchRepository<T, ID> implements ElasticsearchRepos
         if (unwrappedSearchHits != null) {
             return (List<T>) unwrappedSearchHits;
         } else {
-            return Lists.newArrayList();
+            return new ArrayList<>();
         }
     }
 
@@ -352,7 +351,7 @@ public class EnhanceElasticsearchRepository<T, ID> implements ElasticsearchRepos
     }
 
     protected @Nullable String stringIdRepresentation(@Nullable ID id) {
-        return operations.convertId(id);
+        return id.toString();
     }
 
     private IndexCoordinates getIndexCoordinates() {
@@ -398,15 +397,18 @@ public class EnhanceElasticsearchRepository<T, ID> implements ElasticsearchRepos
     /**
      * 创建并组装查询条件
      */
-    private Criteria createCriteria(T entity, @Nullable String[] fields, BetweenQueries betweenQueries, Operator operator) {
+    private Criteria createCriteria(T entity, @Nullable String[] fields, BetweenQueries betweenQueries, Criteria.Operator operator) {
         Criteria criteria = new Criteria();
 
         Map<String, Object> properties = extractPropertyFromEntity(entity, fields);
         doCreateCriteria(properties, betweenQueries).forEach(condition -> {
             switch (operator) {
-                case And -> criteria.and(condition);
-                case Or -> criteria.or(condition);
-                default -> LOGGER.error("未知的操作类型:{}", operator.jsonValue());
+                case AND:
+                    criteria.and(condition);
+                case OR:
+                    criteria.or(condition);
+                default:
+                    LOGGER.error("未知的操作类型:{}", operator);
             }
         });
         return criteria;
@@ -427,7 +429,7 @@ public class EnhanceElasticsearchRepository<T, ID> implements ElasticsearchRepos
         }
         List<BetweenQueries.BetweenQuery> queries = betweenQueries.getQueries();
         // Query conditions for assembly range
-        queries.forEach(query -> criteriaList.add(new Criteria(query.field()).between(query.lowerBound(), query.upperBound())));
+        queries.forEach(query -> criteriaList.add(new Criteria(query.getField()).between(query.getLowerBound(), query.getUpperBound())));
         return criteriaList;
     }
 

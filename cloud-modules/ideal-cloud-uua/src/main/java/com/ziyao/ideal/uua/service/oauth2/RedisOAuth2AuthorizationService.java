@@ -6,6 +6,7 @@ import com.ziyao.ideal.security.oauth2.core.OAuth2TokenType;
 import com.ziyao.ideal.uua.repository.redis.AuthorizationRepositoryRedis;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author ziyao
@@ -39,7 +40,8 @@ public class RedisOAuth2AuthorizationService extends AbstractOAuth2Authorization
         Assert.notNull(token, "token must not be null");
         Assert.notNull(tokenType, "tokenType must not be null");
 
-        List<OAuth2Authorization> oauth2Authorizations = oauth2AuthorizationRepositoryRedis.findAll().stream().map(this::toObject).toList();
+        List<OAuth2Authorization> oauth2Authorizations = oauth2AuthorizationRepositoryRedis.findAll()
+                .stream().map(this::toObject).collect(Collectors.toList());
         for (OAuth2Authorization authorization : oauth2Authorizations) {
             if (hasToken(authorization, token, tokenType)) {
                 return authorization;

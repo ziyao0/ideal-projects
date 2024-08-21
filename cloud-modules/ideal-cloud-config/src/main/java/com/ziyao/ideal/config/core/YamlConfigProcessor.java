@@ -1,5 +1,6 @@
 package com.ziyao.ideal.config.core;
 
+import com.google.common.collect.Lists;
 import com.ziyao.ideal.crypto.Property;
 import com.ziyao.ideal.core.Collections;
 import com.ziyao.ideal.core.Strings;

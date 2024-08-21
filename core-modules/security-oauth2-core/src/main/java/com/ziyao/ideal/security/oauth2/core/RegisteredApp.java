@@ -2,6 +2,7 @@ package com.ziyao.ideal.security.oauth2.core;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.google.common.collect.Sets;
 import com.ziyao.ideal.core.Assert;
 import com.ziyao.ideal.core.Collections;
 import com.ziyao.ideal.core.lang.NonNull;
@@ -187,13 +188,13 @@ public class RegisteredApp implements Serializable {
             RegisteredApp registeredApp = new RegisteredApp();
             registeredApp.appId = this.appId;
             registeredApp.appType = this.appType;
-            registeredApp.authorizationGrantTypes = Set.copyOf(this.authorizationGrantTypes);
+            registeredApp.authorizationGrantTypes = Sets.newHashSet(this.authorizationGrantTypes);
             registeredApp.state = this.state;
             registeredApp.issuedAt = this.issuedAt;
             registeredApp.appSecret = this.appSecret;
             registeredApp.appSecretExpiresAt = this.appSecretExpiresAt;
             registeredApp.appName = this.appName;
-            registeredApp.scopes = Set.copyOf(this.scopes);
+            registeredApp.scopes = Sets.newHashSet(this.scopes);
             registeredApp.redirectUri = this.redirectUri;
             registeredApp.postLogoutRedirectUri = this.postLogoutRedirectUri;
             registeredApp.tokenSettings = this.tokenSettings;

@@ -49,15 +49,24 @@ public enum ConfigValueType {
     @SuppressWarnings("unchecked")
     public <T> T getObject(String value) throws ParseException {
 
-        return switch (this) {
-            case STRING, OBJECT -> (T) value;
-            case INTEGER -> (T) Integer.valueOf(value);
-            case LONG -> (T) Long.valueOf(value);
-            case DOUBLE -> (T) Double.valueOf(value);
-            case BOOLEAN -> (T) Boolean.valueOf(value);
-            case DATE -> (T) DateFormat.getDateInstance().parse(value);
-            case ARRAY -> (T) Strings.commaDelimitedListToList(value);
-            default -> (T) this.classType.cast(value);
-        };
+        switch (this) {
+            case STRING:
+            case OBJECT:
+                return (T) value;
+            case INTEGER:
+                return (T) Integer.valueOf(value);
+            case LONG:
+                return (T) Long.valueOf(value);
+            case DOUBLE:
+                return (T) Double.valueOf(value);
+            case BOOLEAN:
+                return (T) Boolean.valueOf(value);
+            case DATE:
+                return (T) DateFormat.getDateInstance().parse(value);
+            case ARRAY:
+                return (T) Strings.commaDelimitedListToList(value);
+            default:
+                return (T) this.classType.cast(value);
+        }
     }
 }

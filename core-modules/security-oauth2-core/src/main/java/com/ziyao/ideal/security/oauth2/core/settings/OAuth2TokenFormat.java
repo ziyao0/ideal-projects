@@ -2,15 +2,16 @@ package com.ziyao.ideal.security.oauth2.core.settings;
 
 import org.springframework.util.Assert;
 
-
 import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * @author ziyao zhang
  */
-public record OAuth2TokenFormat(String value) implements Serializable {
-    
+public class OAuth2TokenFormat implements Serializable {
+
+    private final String value;
+
     private static final long serialVersionUID = -5595881899154576597L;
 
     /**
@@ -31,8 +32,9 @@ public record OAuth2TokenFormat(String value) implements Serializable {
      *
      * @param value the value of the token format
      */
-    public OAuth2TokenFormat {
+    public OAuth2TokenFormat(String value) {
         Assert.hasText(value, "value cannot be empty");
+        this.value = value;
     }
 
     /**
@@ -40,7 +42,6 @@ public record OAuth2TokenFormat(String value) implements Serializable {
      *
      * @return the value of the token format
      */
-    @Override
     public String value() {
         return this.value;
     }

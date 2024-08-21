@@ -2,6 +2,7 @@ package com.ziyao.ideal.data.redis.core;
 
 import com.ziyao.ideal.core.Collections;
 import lombok.Getter;
+import org.springframework.data.util.ClassTypeInformation;
 import org.springframework.data.util.TypeInformation;
 import org.springframework.util.Assert;
 
@@ -34,12 +35,12 @@ public class DefaultRepositoryMetadata implements RepositoryMetadata {
         Assert.isTrue(repositoryInterface.isInterface(), "Given type must be an interface");
 
         this.repositoryInterface = repositoryInterface;
-        this.typeInformation = TypeInformation.of(repositoryInterface);
+        this.typeInformation = ClassTypeInformation.from(repositoryInterface);
 
         Assert.isTrue(RedisRepository.class.isAssignableFrom(repositoryInterface), MUST_BE_A_REPOSITORY);
 
 
-        TypeInformation<?> redisTypeInformation = TypeInformation.of(repositoryInterface)//
+        TypeInformation<?> redisTypeInformation = ClassTypeInformation.from(repositoryInterface)//
                 .getSuperTypeInformation(RedisRepository.class);
         if (redisTypeInformation != null) {
             List<TypeInformation<?>> hashArguments = redisTypeInformation.getTypeArguments();
@@ -68,11 +69,11 @@ public class DefaultRepositoryMetadata implements RepositoryMetadata {
 
 
     public TypeInformation<?> getIdTypeInformation() {
-        return Objects.requireNonNullElseGet(this.idTypeInformation, () -> TypeInformation.of(Object.class));
+        return requireNonNullElseGet(this.idTypeInformation,ClassTypeInformation.from(Object.class));
     }
 
     public TypeInformation<?> getJavaTypeInformation() {
-        return Objects.requireNonNullElseGet(this.javaTypeInformation, () -> TypeInformation.of(Object.class));
+        return requireNonNullElseGet(this.javaTypeInformation, ClassTypeInformation.from(Object.class));
     }
 
     @Override
@@ -88,5 +89,8 @@ public class DefaultRepositoryMetadata implements RepositoryMetadata {
         }
 
         return arguments.get(index);
+    }
+    private TypeInformation<?> requireNonNullElseGet(TypeInformation<?> typeInformation, TypeInformation<?> typeInformation2){
+        return typeInformation == null ? typeInformation2 : typeInformation;
     }
 }

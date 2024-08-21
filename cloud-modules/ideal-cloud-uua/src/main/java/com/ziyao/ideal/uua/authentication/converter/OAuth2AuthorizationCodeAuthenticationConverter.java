@@ -9,7 +9,8 @@ import com.ziyao.ideal.security.oauth2.core.support.OAuth2EndpointUtils;
 import com.ziyao.ideal.security.oauth2.core.token.OAuth2ParameterNames;
 import com.ziyao.ideal.uua.authentication.token.OAuth2AuthorizationCodeAuthenticationToken;
 import com.ziyao.ideal.uua.request.AuthenticationRequest;
-import jakarta.servlet.http.HttpServletRequest;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author ziyao

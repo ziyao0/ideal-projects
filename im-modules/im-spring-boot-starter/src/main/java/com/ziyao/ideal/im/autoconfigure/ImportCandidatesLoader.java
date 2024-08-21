@@ -1,7 +1,6 @@
 package com.ziyao.ideal.im.autoconfigure;
 
 import lombok.Getter;
-import org.springframework.boot.context.annotation.ImportCandidates;
 import org.springframework.core.io.UrlResource;
 import org.springframework.lang.NonNull;
 import org.springframework.util.Assert;
@@ -45,7 +44,7 @@ public class ImportCandidatesLoader implements Iterable<String> {
 
     private static ClassLoader decideClassloader(ClassLoader classLoader) {
         if (classLoader == null) {
-            return ImportCandidates.class.getClassLoader();
+            return ImportCandidatesLoader.class.getClassLoader();
         }
         return classLoader;
     }

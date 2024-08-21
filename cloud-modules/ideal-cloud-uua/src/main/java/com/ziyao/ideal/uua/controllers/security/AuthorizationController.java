@@ -5,16 +5,14 @@ import com.ziyao.ideal.security.core.Authentication;
 import com.ziyao.ideal.security.core.context.SecurityContextHolder;
 import com.ziyao.ideal.security.oauth2.core.token.OAuth2ParameterNames;
 import com.ziyao.ideal.uua.authentication.converter.AuthenticationConverter;
-import com.ziyao.ideal.uua.response.AccessTokenResponse;
-import com.ziyao.ideal.uua.response.OAuth2AuthorizationCodeResponse;
 import com.ziyao.ideal.uua.service.security.AuthorizationCenter;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
 /**
@@ -37,7 +35,7 @@ public class AuthorizationController {
      * 授权
      */
     @GetMapping("/authorize")
-    public OAuth2AuthorizationCodeResponse authorize(HttpServletRequest request) {
+    public Object authorize(HttpServletRequest request) {
 
         if (SecurityContextHolder.unauthorized()) {
             // 如果未授权则跳转发到认证服务器
@@ -51,7 +49,7 @@ public class AuthorizationController {
     }
 
     @GetMapping("/token")
-    public AccessTokenResponse token(HttpServletRequest request) {
+    public Object token(HttpServletRequest request) {
         try {
             Authentication authentication = authenticationConverter.convert(request);
 

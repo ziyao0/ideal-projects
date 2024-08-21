@@ -1,5 +1,6 @@
 package com.ziyao.ideal.data.redis.core.repository;
 
+import com.google.common.collect.Lists;
 import com.ziyao.ideal.core.Collections;
 import com.ziyao.ideal.data.redis.core.RedisAdapter;
 import com.ziyao.ideal.data.redis.core.RepositoryInformation;

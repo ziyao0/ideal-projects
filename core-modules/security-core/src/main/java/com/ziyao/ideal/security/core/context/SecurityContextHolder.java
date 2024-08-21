@@ -100,16 +100,16 @@ public abstract class SecurityContextHolder {
     public static SecurityContextHolderStrategy doCreateStrategy(StrategyMode strategyMode) {
 
         switch (strategyMode) {
-            case MODE_TTL -> {
+            case MODE_TTL: {
                 return new TTLSecurityContextHolderStrategy();
             }
-            case MODE_DEBUG -> {
+            case MODE_DEBUG: {
                 return new DebugLocalSecurityContextHolderStrategy();
             }
-            case MODE_THREAD_LOCAL -> {
+            case MODE_THREAD_LOCAL: {
                 return new ThreadLocalSecurityContextHolderStrategy();
             }
-            default -> {
+            default: {
                 log.warn("未知的策略名称：{}", strategyName);
                 return new ThreadLocalSecurityContextHolderStrategy();
             }

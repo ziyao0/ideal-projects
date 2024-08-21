@@ -11,7 +11,7 @@ spring:
         import-check:
           enabled: false
         shared-configs:
-          - data-id: database.yml
+          - data-id: datasource.yml
           - data-id: redis.yml
 dubbo:
   registry:

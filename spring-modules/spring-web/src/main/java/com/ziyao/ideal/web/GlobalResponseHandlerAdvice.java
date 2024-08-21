@@ -1,5 +1,6 @@
 package com.ziyao.ideal.web;
 
+import com.google.common.collect.Lists;
 import com.ziyao.ideal.web.response.ResponseDetails;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
@@ -43,8 +44,8 @@ public class GlobalResponseHandlerAdvice implements ResponseBodyAdvice<Object> {
             return body;
         }
         // 如果 body 是 Map 类型并且包含异常信息的字段
-        if (body instanceof Map map && map.keySet().containsAll(paramNames)) {
-
+        if (body instanceof Map && ((Map) body).keySet().containsAll(paramNames)) {
+            Map map = (Map) body;
             return ResponseBuilder.of(
                     Integer.parseInt(String.valueOf(map.get("status"))),
                     map.get("error").toString(),

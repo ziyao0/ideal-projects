@@ -6,7 +6,6 @@ import com.ziyao.ideal.security.core.UserInfo;
 import lombok.Getter;
 import lombok.Setter;
 
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,7 +15,7 @@ import java.util.Map;
 @Getter
 public class AuthorizationSuccessful implements Authorization {
 
-    
+
     private static final long serialVersionUID = 1906018666555325676L;
     private transient Map<String, Object> claims;
     private final String token;
@@ -36,7 +35,8 @@ public class AuthorizationSuccessful implements Authorization {
         } else {
             Map<String, Object> finalClaims = new HashMap<>(claims.size());
             for (Map.Entry<String, ?> entry : claims.entrySet()) {
-                if (entry.getValue() instanceof Claim claim) {
+                if (entry.getValue() instanceof Claim) {
+                    Claim claim = (Claim) entry.getValue();
                     finalClaims.put(entry.getKey(), claim.as(Object.class));
                 } else {
                     finalClaims.put(entry.getKey(), entry.getValue());

@@ -8,11 +8,21 @@ import java.util.Objects;
 /**
  * @author ziyao zhang
  */
-public record OAuth2TokenType(String value) {
+public class OAuth2TokenType {
+
+    private final String value;
 
     public static final OAuth2TokenType ACCESS_TOKEN = new OAuth2TokenType(OAuth2ParameterNames.ACCESS_TOKEN);
 
     public static final OAuth2TokenType REFRESH_TOKEN = new OAuth2TokenType(OAuth2ParameterNames.REFRESH_TOKEN);
+
+    public OAuth2TokenType(String value) {
+        this.value = value;
+    }
+
+    public String value() {
+        return value;
+    }
 
     @Override
     public boolean equals(Object o) {

@@ -65,7 +65,8 @@ public class RegisteredAppDeserializer extends JsonDeserializer<RegisteredApp> {
         }
 
         for (Map.Entry<String, Object> entry : settings.entrySet()) {
-            if (entry.getValue() instanceof String value) {
+            if (entry.getValue() instanceof String) {
+                String value = entry.getValue().toString();
                 settings.put(entry.getKey(), Duration.parse(value));
             }
         }

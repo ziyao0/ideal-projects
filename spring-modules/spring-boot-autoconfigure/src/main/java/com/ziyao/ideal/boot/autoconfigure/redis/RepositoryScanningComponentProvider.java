@@ -85,13 +85,13 @@ public class RepositoryScanningComponentProvider extends ClassPathScanningCandid
         filterPlusInterface.add(includeFilter);
         filterPlusInterface.add(new RepositoryScanningComponentProvider.InterfaceTypeFilter(RedisRepository.class));
 
-        super.addIncludeFilter(new RepositoryScanningComponentProvider.AllTypeFilter(filterPlusInterface));
+        super.addIncludeFilter(new AllTypeFilter(filterPlusInterface));
 
         List<TypeFilter> filterPlusAnnotation = new ArrayList<>(2);
         filterPlusAnnotation.add(includeFilter);
         filterPlusAnnotation.add(new AnnotationTypeFilter(RepositoryDefinition.class, true, true));
 
-        super.addIncludeFilter(new RepositoryScanningComponentProvider.AllTypeFilter(filterPlusAnnotation));
+        super.addIncludeFilter(new AllTypeFilter(filterPlusAnnotation));
     }
 
     @Override
@@ -152,11 +152,13 @@ public class RepositoryScanningComponentProvider extends ClassPathScanningCandid
      *
      * @author Oliver Gierke
      */
-    private record AllTypeFilter(List<TypeFilter> delegates) implements TypeFilter {
+    private static class AllTypeFilter implements TypeFilter {
+        private final List<TypeFilter> delegates;
 
-        private AllTypeFilter {
+        private AllTypeFilter(List<TypeFilter> delegates) {
 
             Assert.notNull(delegates, "TypeFilter deleages must not be null");
+            this.delegates = delegates;
         }
 
         public boolean match(@NonNull MetadataReader metadataReader, @NonNull MetadataReaderFactory metadataReaderFactory)

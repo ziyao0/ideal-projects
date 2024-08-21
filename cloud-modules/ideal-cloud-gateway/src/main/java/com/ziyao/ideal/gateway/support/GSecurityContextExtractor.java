@@ -35,7 +35,7 @@ public abstract class GSecurityContextExtractor {
                 .timestamp(headers.getFirst(RequestAttributes.TIMESTAMP))
                 .digest(RequestAttributes.DIGEST)
                 .resourceUri(RequestAttributes.RESOURCE)
-                .requestUri(exchange.getAttributes().get(ServerWebExchangeUtils.GATEWAY_PREDICATE_PATH_CONTAINER_ATTR).toString())
+                .requestUri(exchange.getAttributes().get(ServerWebExchangeUtils.GATEWAY_PREDICATE_MATCHED_PATH_ATTR).toString())
                 .ip(IpUtils.getIP(exchange))
                 .name("accessControl")
                 .build();

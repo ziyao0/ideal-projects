@@ -15,7 +15,6 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @RequiredArgsConstructor
-@SuppressWarnings("deprecation")
 public class MonitoringMetricsPostProcessor implements AuthenticationPostProcessor {
 
 

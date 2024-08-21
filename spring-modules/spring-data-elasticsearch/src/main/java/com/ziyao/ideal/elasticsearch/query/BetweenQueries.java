@@ -1,9 +1,11 @@
 package com.ziyao.ideal.elasticsearch.query;
 
+import com.google.common.collect.Lists;
 import lombok.Getter;
 import org.springframework.data.elasticsearch.core.query.Field;
 import org.springframework.data.elasticsearch.core.query.SimpleField;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,7 +33,16 @@ public class BetweenQueries {
         return new BetweenQuery(field, upperBound, lowerBound);
     }
 
-    public record BetweenQuery(Field field, Object upperBound, Object lowerBound) {
+    @Getter
+    public static class BetweenQuery {
+        private final Field field;
+        private final Object upperBound;
+        private final Object lowerBound;
 
+        public BetweenQuery(Field field, Object upperBound, Object lowerBound) {
+            this.field = field;
+            this.upperBound = upperBound;
+            this.lowerBound = lowerBound;
+        }
     }
 }

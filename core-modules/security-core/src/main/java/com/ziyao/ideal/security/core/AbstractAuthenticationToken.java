@@ -1,5 +1,6 @@
 package com.ziyao.ideal.security.core;
 
+import com.google.common.collect.Sets;
 import com.ziyao.ideal.core.Strings;
 import lombok.Getter;
 
@@ -78,7 +79,8 @@ public abstract class AbstractAuthenticationToken implements Authentication, Cre
         if (getPrincipal() == null) {
             return Strings.EMPTY;
         }
-        if (getPrincipal() instanceof UserDetails userDetails) {
+        if (getPrincipal() instanceof UserDetails ) {
+            UserDetails userDetails = (UserDetails) getPrincipal();
             return userDetails.getUsername();
         }
         return getPrincipal().toString();
@@ -91,16 +93,18 @@ public abstract class AbstractAuthenticationToken implements Authentication, Cre
     }
 
     private void eraseSecret(Object secret) {
-        if (secret instanceof CredentialsContainer container) {
+        if (secret instanceof CredentialsContainer) {
+            CredentialsContainer container = (CredentialsContainer) secret;
             container.eraseCredentials();
         }
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof AbstractAuthenticationToken test)) {
+        if (!(obj instanceof AbstractAuthenticationToken)) {
             return false;
         }
+        AbstractAuthenticationToken test = (AbstractAuthenticationToken) obj;
         if (!this.authorities.equals(test.authorities)) {
             return false;
         }

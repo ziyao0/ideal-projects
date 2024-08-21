@@ -103,7 +103,8 @@ public class EnvironmentDecryptApplicationInitializerDecryptor
                         PropertySource<?> propertySource) {
         ApplicationContext parent = applicationContext;
         while (parent != null) {
-            if (parent.getEnvironment() instanceof ConfigurableEnvironment mutable) {
+            if (parent.getEnvironment() instanceof ConfigurableEnvironment) {
+                ConfigurableEnvironment mutable = (ConfigurableEnvironment) parent.getEnvironment();
                 insert(mutable.getPropertySources(), propertySource);
             }
             parent = parent.getParent();

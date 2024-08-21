@@ -1,5 +1,6 @@
 package com.ziyao.ideal.data.redis.core.convert;
 
+import com.google.common.collect.Lists;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.Nullable;
 

@@ -88,8 +88,8 @@ public abstract class AbstractEnvironmentDecryptor {
                 merge(context, nested, properties);
             }
 
-        } else if (source instanceof EnumerablePropertySource<?> enumerable) {
-
+        } else if (source instanceof EnumerablePropertySource<?>) {
+            EnumerablePropertySource<?> enumerable = (EnumerablePropertySource<?>) source;
             LinkedHashMap<String, Object> otherCollectionProperties = new LinkedHashMap<>();
             boolean sourceHasDecryptedCollection = false;
 

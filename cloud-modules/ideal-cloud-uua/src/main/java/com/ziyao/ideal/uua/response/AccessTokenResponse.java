@@ -1,9 +1,22 @@
 package com.ziyao.ideal.uua.response;
 
+import lombok.Getter;
+
 /**
  * @author ziyao zhang
  */
-public record AccessTokenResponse(String tokenType, String accessToken, String refreshToken) {
+@Getter
+public class AccessTokenResponse {
+
+    private final String tokenType;
+    private final String accessToken;
+    private final String refreshToken;
+
+    public AccessTokenResponse(String tokenType, String accessToken, String refreshToken) {
+        this.tokenType = tokenType;
+        this.accessToken = accessToken;
+        this.refreshToken = refreshToken;
+    }
 
     public static AccessTokenResponse create(String tokenType, String accessToken, String refreshToken) {
         return new AccessTokenResponse(tokenType, accessToken, refreshToken);

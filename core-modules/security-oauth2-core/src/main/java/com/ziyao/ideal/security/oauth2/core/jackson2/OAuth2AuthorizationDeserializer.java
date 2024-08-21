@@ -6,6 +6,8 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 import com.ziyao.ideal.core.Strings;
 import com.ziyao.ideal.security.oauth2.core.*;
 import org.apache.commons.logging.Log;
@@ -50,7 +52,7 @@ public class OAuth2AuthorizationDeserializer extends JsonDeserializer<OAuth2Auth
                 .attributes(
                         att -> att.putAll(
                                 Optional.ofNullable(JsonNodeUtils.findValue(jsonNode, "attributes", JsonNodeUtils.STRING_OBJECT_MAP, mapper))
-                                        .orElse(Map.of()))
+                                        .orElse(Maps.newHashMap()))
                 );
 
         Map<String, Object> tokens = JsonNodeUtils.findValue(jsonNode, "tokens", JsonNodeUtils.STRING_OBJECT_MAP, mapper);
@@ -63,7 +65,7 @@ public class OAuth2AuthorizationDeserializer extends JsonDeserializer<OAuth2Auth
             String tokenValue = tokenMap.get("tokenValue");
             Instant issuedAt = Optional.ofNullable(tokenMap.get("issuedAt")).map(Instant::parse).orElse(null);
             Instant expiresAt = Optional.ofNullable(tokenMap.get("expiresAt")).map(Instant::parse).orElse(null);
-            Map<String,Object> metadata = Optional.ofNullable(tokenMap.get("metadata")).map(m->mapper.convertValue(m, JsonNodeUtils.STRING_OBJECT_MAP)).orElse(Map.of());
+            Map<String,Object> metadata = Optional.ofNullable(tokenMap.get("metadata")).map(m->mapper.convertValue(m, JsonNodeUtils.STRING_OBJECT_MAP)).orElse(Maps.newHashMap());
 
             if (OAuth2AuthorizationCode.class.getSimpleName().equals(tokenClassName)) {
                 // 创建授权码

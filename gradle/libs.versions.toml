@@ -1,12 +1,11 @@
 [versions]
 
 jackson-bom = "2.17.0"
-dubbo-bom = "3.2.1"
-spring-framework-bom = "6.1.5"
-spring-boot-dependencies = "3.2.4"
-spring-ai-bom = "1.0.0-M1"
-spring-cloud-dependencies = "2023.0.1"
-spring-cloud-alibaba-dependencies = "2023.0.1.0"
+dubbo-bom = "3.2.10"
+spring-framework-bom = "5.3.15"
+spring-boot-dependencies = "2.6.13"
+spring-cloud-dependencies = "2021.0.5"
+spring-cloud-alibaba-dependencies = "2021.0.5.0"
 
 [libraries]
 
@@ -15,7 +14,6 @@ com-fasterxml-jackson-jackson-bom = { module = "com.fasterxml.jackson:jackson-bo
 org-apache-dubbo-dubbo-bom = { module = "org.apache.dubbo:dubbo-bom", version.ref = "dubbo-bom" }
 org-springframework-spring-framework-bom = { module = "org.springframework:spring-framework-bom", version.ref = "spring-framework-bom" }
 org-springframework-boot-spring-boot-dependencies = { module = "org.springframework.boot:spring-boot-dependencies", version.ref = "spring-boot-dependencies" }
-org-springframework-ai-spring-ai-bom = { module = "org.springframework.ai:spring-ai-bom", version.ref = "spring-ai-bom" }
 com-alibaba-cloud-spring-cloud-alibaba-dependencies = { module = "com.alibaba.cloud:spring-cloud-alibaba-dependencies", version.ref = "spring-cloud-alibaba-dependencies" }
 org-springframework-cloud-spring-cloud-dependencies = { module = "org.springframework.cloud:spring-cloud-dependencies", version.ref = "spring-cloud-dependencies" }
 

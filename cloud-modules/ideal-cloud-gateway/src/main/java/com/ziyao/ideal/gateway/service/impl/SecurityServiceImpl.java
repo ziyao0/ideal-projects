@@ -1,7 +1,7 @@
 package com.ziyao.ideal.gateway.service.impl;
 
 import com.ziyao.ideal.gateway.service.SecurityService;
-import jakarta.annotation.Resource;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.ReactiveStringRedisTemplate;
 import org.springframework.stereotype.Service;
@@ -11,10 +11,10 @@ import org.springframework.stereotype.Service;
  */
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class SecurityServiceImpl implements SecurityService {
 
-    @Resource
-    private ReactiveStringRedisTemplate reactiveStringRedisTemplate;
+    private final ReactiveStringRedisTemplate reactiveStringRedisTemplate;
 
     @Override
     public void offline(String token) {

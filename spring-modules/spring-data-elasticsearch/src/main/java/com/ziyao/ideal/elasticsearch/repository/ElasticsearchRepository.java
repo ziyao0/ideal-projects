@@ -1,6 +1,5 @@
 package com.ziyao.ideal.elasticsearch.repository;
 
-import co.elastic.clients.elasticsearch._types.query_dsl.Operator;
 import com.ziyao.ideal.elasticsearch.query.BetweenQueries;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -65,10 +64,10 @@ public interface ElasticsearchRepository<T, ID> extends PagingAndSortingReposito
      * @param fields         搜索条件
      * @param betweenQueries 范围搜索条件
      * @param pageable       分页信息
-     * @param operator       关联类型。默认{@link Operator#And}
+     * @param operator       关联类型。默认{@link  Criteria.Operator#AND}
      * @return 返回搜到到的结果，分页展示
      */
-    Page<T> searchSimilar(T entity, @Nullable String[] fields, BetweenQueries betweenQueries, Pageable pageable, Operator operator);
+    Page<T> searchSimilar(T entity, @Nullable String[] fields, BetweenQueries betweenQueries, Pageable pageable, Criteria.Operator operator);
 
     /**
      * 分页搜索数据
