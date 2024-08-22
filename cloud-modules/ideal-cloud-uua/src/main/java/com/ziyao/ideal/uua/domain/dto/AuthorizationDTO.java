@@ -5,7 +5,6 @@ import com.ziyao.ideal.uua.domain.entity.Authorization;
 import com.ziyao.ideal.web.orm.EntityDTO;
 import lombok.Data;
 
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -19,7 +18,7 @@ import java.time.LocalDateTime;
 @Data
 public class AuthorizationDTO implements EntityDTO<Authorization>, Serializable {
 
-    
+
     private static final long serialVersionUID = 1L;
 
     /**

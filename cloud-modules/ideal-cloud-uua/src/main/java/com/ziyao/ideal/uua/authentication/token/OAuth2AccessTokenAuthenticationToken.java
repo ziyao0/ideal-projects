@@ -10,9 +10,7 @@ import com.ziyao.ideal.security.oauth2.core.OAuth2RefreshToken;
 import com.ziyao.ideal.security.oauth2.core.RegisteredApp;
 import lombok.Getter;
 
-
 import java.util.Collection;
-import java.util.Set;
 
 /**
  * @author ziyao
@@ -20,7 +18,7 @@ import java.util.Set;
 @Getter
 public class OAuth2AccessTokenAuthenticationToken extends AbstractAuthenticationToken {
 
-    
+
     private static final long serialVersionUID = -3997191320888560056L;
     /**
      * 经过认证的用法身份信息

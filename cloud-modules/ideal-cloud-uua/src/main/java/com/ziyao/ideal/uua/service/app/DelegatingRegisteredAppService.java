@@ -18,10 +18,13 @@ public class DelegatingRegisteredAppService implements RegisteredAppService {
             switch (registeredAppService.model()) {
                 case caffeine:
                     this.memoryRegisteredAppService = registeredAppService;
+                    break;
                 case redis:
                     this.redisRegisteredAppService = registeredAppService;
+                    break;
                 case jpa:
                     this.jpaRegisteredAppService = registeredAppService;
+                    break;
                 default:
                     throw new IllegalStateException("Unexpected value: " + registeredAppService.model());
             }

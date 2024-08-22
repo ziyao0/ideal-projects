@@ -5,7 +5,6 @@ import com.ziyao.ideal.uua.domain.entity.UserRole;
 import com.ziyao.ideal.web.orm.EntityDTO;
 import lombok.Data;
 
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -19,7 +18,7 @@ import java.time.LocalDateTime;
 @Data
 public class UserRoleDTO implements EntityDTO<UserRole>, Serializable {
 
-    
+
     private static final long serialVersionUID = 1L;
 
     /**

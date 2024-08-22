@@ -62,12 +62,12 @@ public class UAAAutoConfiguration implements ApplicationContextAware {
     }
 
     @Bean
-    public OAuth2AuthorizationService delegatingOAuth2AuthorizationService(AuthorizationRepositoryJpa authorizationRepository,
-                                                                           AuthorizationRepositoryRedis oAuth2AuthorizationRepository) {
+    public OAuth2AuthorizationService delegatingOAuth2AuthorizationService(AuthorizationRepositoryJpa authorizationRepositoryJpa,
+                                                                           AuthorizationRepositoryRedis authorizationRepositoryRedis) {
         return new DelegatingOAuth2AuthorizationService(
                 Lists.newArrayList(
-                        new JpaOAuth2AuthorizationService(authorizationRepository),
-                        new RedisOAuth2AuthorizationService(oAuth2AuthorizationRepository),
+                        new JpaOAuth2AuthorizationService(authorizationRepositoryJpa),
+                        new RedisOAuth2AuthorizationService(authorizationRepositoryRedis),
                         new CaffeineOAuth2AuthorizationService()
                 )
         );

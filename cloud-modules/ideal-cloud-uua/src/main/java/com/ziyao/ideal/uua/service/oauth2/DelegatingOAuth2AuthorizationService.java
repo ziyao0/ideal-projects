@@ -20,10 +20,13 @@ public class DelegatingOAuth2AuthorizationService implements OAuth2Authorization
             switch (authorizationService.model()) {
                 case jpa:
                     this.jpaOAuth2AuthorizationService = authorizationService;
+                    break;
                 case caffeine:
                     this.caffeineOAuth2AuthorizationService = authorizationService;
+                    break;
                 case redis:
                     this.redisOAuth2AuthorizationService = authorizationService;
+                    break;
                 default:
                     throw new IllegalStateException("Unexpected value: " + authorizationService);
             }

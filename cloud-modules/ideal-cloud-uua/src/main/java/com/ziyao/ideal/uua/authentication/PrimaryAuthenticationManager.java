@@ -1,9 +1,9 @@
 package com.ziyao.ideal.uua.authentication;
 
 import com.ziyao.ideal.core.Assert;
+import com.ziyao.ideal.security.core.Authentication;
 import com.ziyao.ideal.uua.authentication.core.AuthenticatedUser;
 import com.ziyao.ideal.uua.authentication.provider.AuthenticationProvider;
-import com.ziyao.ideal.security.core.Authentication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -4,7 +4,6 @@ import com.ziyao.ideal.uua.domain.convertor.LoginConfigConvertor;
 import com.ziyao.ideal.uua.domain.entity.LoginConfig;
 import lombok.Data;
 
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -18,7 +17,7 @@ import java.time.LocalDateTime;
 @Data
 public class LoginConfigDTO implements Serializable {
 
-    
+
     private static final long serialVersionUID = 1L;
 
     /**

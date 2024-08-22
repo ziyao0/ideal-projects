@@ -1,14 +1,15 @@
 package com.ziyao.ideal.uua.service.impl;
 
-import com.ziyao.ideal.uua.repository.jpa.GlobalLoginRestrictionRepositoryJpa;
 import com.ziyao.ideal.jpa.extension.service.impl.JapServiceImpl;
 import com.ziyao.ideal.uua.domain.entity.GlobalLoginRestriction;
+import com.ziyao.ideal.uua.repository.jpa.GlobalLoginRestrictionRepositoryJpa;
 import com.ziyao.ideal.uua.service.GlobalLoginRestrictionService;
-import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
 /**
-* <p>
-    * 全局登录限制表 服务实现类
+ * <p>
+ * 全局登录限制表 服务实现类
  * </p>
  *
  * @author ziyao
@@ -16,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class GlobalLoginRestrictionServiceImpl extends
-    JapServiceImpl< GlobalLoginRestrictionRepositoryJpa, GlobalLoginRestriction,Integer> implements GlobalLoginRestrictionService {
+        JapServiceImpl<GlobalLoginRestrictionRepositoryJpa, GlobalLoginRestriction, Integer> implements GlobalLoginRestrictionService {
 
     private final GlobalLoginRestrictionRepositoryJpa globalLoginRestrictionRepositoryJpa;
 

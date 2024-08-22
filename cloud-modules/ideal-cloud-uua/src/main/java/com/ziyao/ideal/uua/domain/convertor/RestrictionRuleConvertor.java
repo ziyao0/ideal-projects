@@ -1,7 +1,7 @@
 package com.ziyao.ideal.uua.domain.convertor;
 
-import com.ziyao.ideal.uua.domain.entity.RestrictionRule;
 import com.ziyao.ideal.uua.domain.dto.RestrictionRuleDTO;
+import com.ziyao.ideal.uua.domain.entity.RestrictionRule;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

@@ -1,7 +1,7 @@
 package com.ziyao.ideal.uua.domain.convertor;
 
-import com.ziyao.ideal.uua.domain.entity.Menu;
 import com.ziyao.ideal.uua.domain.dto.MenuDTO;
+import com.ziyao.ideal.uua.domain.entity.Menu;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

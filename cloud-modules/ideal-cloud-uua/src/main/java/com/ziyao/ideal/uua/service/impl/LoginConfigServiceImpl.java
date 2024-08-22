@@ -2,21 +2,21 @@ package com.ziyao.ideal.uua.service.impl;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
-import com.ziyao.ideal.uua.repository.jpa.LoginConfigRepositoryJpa;
 import com.ziyao.ideal.jpa.extension.service.impl.JapServiceImpl;
 import com.ziyao.ideal.uua.domain.entity.LoginConfig;
+import com.ziyao.ideal.uua.repository.jpa.LoginConfigRepositoryJpa;
 import com.ziyao.ideal.uua.repository.redis.LoginConfigRepositoryRedis;
 import com.ziyao.ideal.uua.service.LoginConfigService;
 import com.ziyao.ideal.web.exception.ServiceException;
-import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 /**
-* <p>
-    * 登录配置表 服务实现类
+ * <p>
+ * 登录配置表 服务实现类
  * </p>
  *
  * @author ziyao
@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit;
 @Service
 @RequiredArgsConstructor
 public class LoginConfigServiceImpl extends
-    JapServiceImpl< LoginConfigRepositoryJpa, LoginConfig,Long> implements LoginConfigService {
+        JapServiceImpl<LoginConfigRepositoryJpa, LoginConfig, Long> implements LoginConfigService {
 
     private static final String DEFAULT_LOGIN_METHOD = "PASSWD";
 

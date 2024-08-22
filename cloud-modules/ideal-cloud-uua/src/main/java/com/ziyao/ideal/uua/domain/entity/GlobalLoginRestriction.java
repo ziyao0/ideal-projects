@@ -1,10 +1,9 @@
 package com.ziyao.ideal.uua.domain.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import lombok.*;
 
-import java.io.Serial;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -23,7 +22,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class GlobalLoginRestriction implements Serializable {
 
-    @Serial
+
     private static final long serialVersionUID = 1L;
 
 

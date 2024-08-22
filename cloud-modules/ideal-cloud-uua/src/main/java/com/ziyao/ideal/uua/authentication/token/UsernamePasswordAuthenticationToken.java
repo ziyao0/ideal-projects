@@ -4,7 +4,6 @@ import com.ziyao.ideal.security.core.AbstractAuthenticationToken;
 import com.ziyao.ideal.security.core.GrantedAuthority;
 import org.springframework.data.keyvalue.annotation.KeySpace;
 
-
 import java.util.Collection;
 
 /**
@@ -13,7 +12,7 @@ import java.util.Collection;
 @KeySpace("security:authentication")
 public class UsernamePasswordAuthenticationToken extends AbstractAuthenticationToken {
 
-    
+
     private static final long serialVersionUID = 5517018814206006638L;
 
     private final Object principal;

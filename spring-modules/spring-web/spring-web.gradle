@@ -2,7 +2,7 @@ dependencies {
     api(project(":security-crypto"))
     api(project(":security-core"))
     api(project(":spring-data-jpa-extension"))
-    api("jakarta.servlet:jakarta.servlet-api")
+    api("javax.servlet:javax.servlet-api")
     api("javax.validation:validation-api")
     api("org.springframework:spring-webmvc")
     api("org.springframework:spring-context")

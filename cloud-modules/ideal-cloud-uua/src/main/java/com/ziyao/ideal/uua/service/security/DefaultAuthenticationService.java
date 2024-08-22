@@ -1,9 +1,9 @@
 package com.ziyao.ideal.uua.service.security;
 
-import com.ziyao.ideal.uua.authentication.AuthenticationHandler;
-import com.ziyao.ideal.uua.authentication.AuthenticationManager;
 import com.ziyao.ideal.security.core.Authentication;
 import com.ziyao.ideal.security.core.AuthenticationUtils;
+import com.ziyao.ideal.uua.authentication.AuthenticationHandler;
+import com.ziyao.ideal.uua.authentication.AuthenticationManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

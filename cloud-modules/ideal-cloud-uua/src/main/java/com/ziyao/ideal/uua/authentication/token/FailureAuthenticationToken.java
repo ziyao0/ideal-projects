@@ -1,14 +1,12 @@
 package com.ziyao.ideal.uua.authentication.token;
 
 import com.google.common.collect.Lists;
-import com.ziyao.ideal.web.response.ResponseDetails;
 import com.ziyao.ideal.security.core.Authentication;
 import com.ziyao.ideal.security.core.GrantedAuthority;
+import com.ziyao.ideal.web.response.ResponseDetails;
 import lombok.Getter;
 
-
 import java.util.Collection;
-import java.util.List;
 
 /**
  * @author ziyao
@@ -17,7 +15,7 @@ import java.util.List;
 @Getter
 public class FailureAuthenticationToken implements Authentication {
 
-    
+
     private static final long serialVersionUID = -9065289292026217351L;
 
     private final Integer status;

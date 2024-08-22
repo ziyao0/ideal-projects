@@ -1,7 +1,7 @@
 package com.ziyao.ideal.uua.domain.convertor;
 
-import com.ziyao.ideal.uua.domain.entity.Authorization;
 import com.ziyao.ideal.uua.domain.dto.AuthorizationDTO;
+import com.ziyao.ideal.uua.domain.entity.Authorization;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

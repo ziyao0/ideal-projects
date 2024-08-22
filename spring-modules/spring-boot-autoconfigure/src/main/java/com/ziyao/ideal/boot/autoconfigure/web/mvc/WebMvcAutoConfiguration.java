@@ -1,7 +1,6 @@
 package com.ziyao.ideal.boot.autoconfigure.web.mvc;
 
 import com.ziyao.ideal.web.ApplicationContextUtils;
-import jakarta.servlet.Servlet;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
@@ -32,7 +31,7 @@ import java.util.List;
 @Slf4j
 @Configuration
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
-@ConditionalOnClass({Servlet.class, DispatcherServlet.class, WebMvcConfigurer.class})
+@ConditionalOnClass({javax.servlet.Servlet.class, DispatcherServlet.class, WebMvcConfigurer.class})
 public class WebMvcAutoConfiguration implements WebMvcConfigurer, ApplicationContextAware, InitializingBean {
 
 

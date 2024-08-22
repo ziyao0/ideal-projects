@@ -5,7 +5,6 @@ import com.ziyao.ideal.uua.domain.entity.AuthorizationRecord;
 import com.ziyao.ideal.web.orm.EntityDTO;
 import lombok.Data;
 
-
 import java.io.Serializable;
 
 /**
@@ -18,7 +17,7 @@ import java.io.Serializable;
 @Data
 public class AuthorizationRecordDTO implements EntityDTO<AuthorizationRecord>, Serializable {
 
-    
+
     private static final long serialVersionUID = 1L;
 
     /**

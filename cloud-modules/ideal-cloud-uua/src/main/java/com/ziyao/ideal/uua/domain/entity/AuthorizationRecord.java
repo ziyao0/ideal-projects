@@ -1,10 +1,9 @@
 package com.ziyao.ideal.uua.domain.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import lombok.*;
 
-import java.io.Serial;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.io.Serializable;
 
 /**
@@ -22,7 +21,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class AuthorizationRecord implements Serializable {
 
-    @Serial
+
     private static final long serialVersionUID = 1L;
 
 

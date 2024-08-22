@@ -1,17 +1,12 @@
 package com.ziyao.ideal.uua.service.oauth2;
 
-import com.fasterxml.jackson.databind.Module;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ziyao.ideal.core.Assert;
 import com.ziyao.ideal.security.oauth2.core.OAuth2Authorization;
 import com.ziyao.ideal.security.oauth2.core.OAuth2TokenType;
-import com.ziyao.ideal.security.oauth2.core.jackson2.Jackson2Modules;
-import com.ziyao.ideal.security.oauth2.core.jackson2.OAuth2AuthorizationServerJackson2Module;
 import com.ziyao.ideal.security.oauth2.core.token.OAuth2ParameterNames;
 import com.ziyao.ideal.uua.domain.entity.Authorization;
 import com.ziyao.ideal.uua.repository.jpa.AuthorizationRepositoryJpa;
 
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -24,10 +19,7 @@ public class JpaOAuth2AuthorizationService extends AbstractOAuth2AuthorizationSe
 
     private final AuthorizationRepositoryJpa authorizationRepository;
 
-    private final ObjectMapper objectMapper = new ObjectMapper();
-
     public JpaOAuth2AuthorizationService(AuthorizationRepositoryJpa authorizationRepository) {
-
         this.authorizationRepository = authorizationRepository;
     }
 

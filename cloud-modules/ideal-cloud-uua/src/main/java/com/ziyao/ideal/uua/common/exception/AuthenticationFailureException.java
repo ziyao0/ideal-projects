@@ -1,15 +1,14 @@
 package com.ziyao.ideal.uua.common.exception;
 
-import com.ziyao.ideal.web.response.ResponseDetails;
 import com.ziyao.ideal.security.core.AuthenticationException;
-
+import com.ziyao.ideal.web.response.ResponseDetails;
 
 
 /**
  * @author ziyao zhang
  */
 public class AuthenticationFailureException extends AuthenticationException implements ResponseDetails {
-    
+
     private static final long serialVersionUID = 2065959447074513639L;
 
     private final ResponseDetails responseDetails;

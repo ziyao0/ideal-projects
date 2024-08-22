@@ -1,5 +1,7 @@
 package com.ziyao.ideal.uua.authentication.provider;
 
+import com.ziyao.ideal.security.core.Authentication;
+import com.ziyao.ideal.security.core.UserDetails;
 import com.ziyao.ideal.uua.authentication.codec.BCryptCredentialsEncryptor;
 import com.ziyao.ideal.uua.authentication.codec.CredentialsEncryptor;
 import com.ziyao.ideal.uua.authentication.support.UserDetailsValidator;
@@ -7,8 +9,6 @@ import com.ziyao.ideal.uua.authentication.token.UsernamePasswordAuthenticationTo
 import com.ziyao.ideal.uua.common.exception.AuthenticationFailureException;
 import com.ziyao.ideal.uua.common.exception.Errors;
 import com.ziyao.ideal.uua.service.user.UserDetailsService;
-import com.ziyao.ideal.security.core.Authentication;
-import com.ziyao.ideal.security.core.UserDetails;
 import org.springframework.stereotype.Component;
 
 /**

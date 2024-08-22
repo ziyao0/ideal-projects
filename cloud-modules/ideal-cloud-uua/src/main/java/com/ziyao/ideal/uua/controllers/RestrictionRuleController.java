@@ -1,19 +1,19 @@
 package com.ziyao.ideal.uua.controllers;
 
+import com.ziyao.ideal.jpa.extension.controllers.JpaBaseController;
 import com.ziyao.ideal.uua.domain.dto.RestrictionRuleDTO;
 import com.ziyao.ideal.uua.domain.entity.RestrictionRule;
 import com.ziyao.ideal.uua.service.RestrictionRuleService;
-import com.ziyao.ideal.jpa.extension.controllers.JpaBaseController;
 import com.ziyao.ideal.web.base.PageParams;
 import com.ziyao.ideal.web.base.Pages;
+import com.ziyao.ideal.web.exception.ServiceException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.util.ObjectUtils;
-import com.ziyao.ideal.web.exception.ServiceException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import lombok.RequiredArgsConstructor;
 
 /**
  * <p>
@@ -46,15 +46,16 @@ public class RestrictionRuleController extends JpaBaseController<RestrictionRule
     }
 
     /**
-    * 通过id删除数据，有逻辑删除按照逻辑删除执行
-    * <p>不支持联合主键</p>
-    *
-    * @param id 主键Id
-    */
+     * 通过id删除数据，有逻辑删除按照逻辑删除执行
+     * <p>不支持联合主键</p>
+     *
+     * @param id 主键Id
+     */
     @GetMapping("/remove/{id}")
     public void removeById(@PathVariable("id") Integer id) {
         restrictionRuleService.deleteById(id);
     }
+
     /**
      * 默认一次插入500条
      */

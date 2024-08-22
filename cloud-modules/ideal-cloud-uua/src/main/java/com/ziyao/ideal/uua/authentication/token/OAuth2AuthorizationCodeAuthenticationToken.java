@@ -1,11 +1,10 @@
 package com.ziyao.ideal.uua.authentication.token;
 
+import com.ziyao.ideal.security.core.Authentication;
 import com.ziyao.ideal.security.oauth2.core.AuthorizationGrantType;
 import com.ziyao.ideal.uua.authentication.provider.OAuth2AuthorizationCodeAuthenticationProvider;
-import com.ziyao.ideal.security.core.Authentication;
 import lombok.Getter;
 import org.springframework.util.Assert;
-
 
 
 /**
@@ -15,7 +14,7 @@ import org.springframework.util.Assert;
  */
 @Getter
 public class OAuth2AuthorizationCodeAuthenticationToken extends OAuth2AuthorizationGrantAuthenticationToken {
-    
+
     private static final long serialVersionUID = -4774441664615838808L;
 
     private final String code;
