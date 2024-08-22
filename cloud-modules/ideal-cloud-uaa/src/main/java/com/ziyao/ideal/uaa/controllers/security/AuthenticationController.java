@@ -7,7 +7,7 @@ import com.ziyao.ideal.uaa.authentication.token.FailureAuthenticationToken;
 import com.ziyao.ideal.uaa.service.security.AuthenticationService;
 import com.ziyao.ideal.security.core.Authentication;
 import com.ziyao.ideal.security.core.AuthenticationUtils;
-import jakarta.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

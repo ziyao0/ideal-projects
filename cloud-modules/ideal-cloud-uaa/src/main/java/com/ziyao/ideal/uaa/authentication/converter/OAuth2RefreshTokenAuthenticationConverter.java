@@ -1,5 +1,6 @@
 package com.ziyao.ideal.uaa.authentication.converter;
 
+import com.google.common.collect.Sets;
 import com.ziyao.ideal.core.Strings;
 import com.ziyao.ideal.security.core.Authentication;
 import com.ziyao.ideal.security.core.context.SecurityContextHolder;
@@ -9,7 +10,7 @@ import com.ziyao.ideal.security.oauth2.core.support.OAuth2EndpointUtils;
 import com.ziyao.ideal.security.oauth2.core.token.OAuth2ParameterNames;
 import com.ziyao.ideal.uaa.authentication.token.OAuth2RefreshTokenAuthenticationToken;
 import com.ziyao.ideal.uaa.request.AuthenticationRequest;
-import jakarta.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequest;
 
 import java.util.Set;
 
@@ -54,7 +55,7 @@ public class OAuth2RefreshTokenAuthenticationConverter implements Authentication
 
             String scope = request.getParameter(OAuth2ParameterNames.SCOPE);
 
-            return new OAuth2RefreshTokenAuthenticationToken(refreshToken, authentication, Set.of(scope));
+            return new OAuth2RefreshTokenAuthenticationToken(refreshToken, authentication, Sets.newHashSet(scope));
         }
 
         return null;

@@ -6,7 +6,7 @@ import com.ziyao.ideal.security.oauth2.core.token.OAuth2ParameterNames;
 import com.ziyao.ideal.uaa.authentication.token.UsernamePasswordAuthenticationToken;
 import com.ziyao.ideal.uaa.request.AuthenticationRequest;
 import com.ziyao.ideal.security.core.Authentication;
-import jakarta.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequest;
 
 import java.util.Optional;
 

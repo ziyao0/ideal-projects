@@ -8,7 +8,7 @@ import com.ziyao.ideal.uaa.authentication.converter.AuthenticationConverter;
 import com.ziyao.ideal.uaa.response.AccessTokenResponse;
 import com.ziyao.ideal.uaa.response.OAuth2AuthorizationCodeResponse;
 import com.ziyao.ideal.uaa.service.security.AuthorizationCenter;
-import jakarta.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
