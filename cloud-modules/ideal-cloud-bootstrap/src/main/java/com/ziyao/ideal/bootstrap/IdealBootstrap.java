@@ -1,7 +1,7 @@
 package com.ziyao.ideal.bootstrap;
 
 import com.ziyao.ideal.config.ConfigInitiator;
-import com.ziyao.ideal.uua.UAAInitiator;
+import com.ziyao.ideal.uaa.UAAInitiator;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationListener;

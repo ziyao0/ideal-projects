@@ -1,6 +1,6 @@
 dependencies {
     implementation(project(":ideal-cloud-config"))
-    implementation(project(":ideal-cloud-uua"))
+    implementation(project(":ideal-cloud-uaa"))
 //    implementation(project(":ideal-cloud-gateway"))
     implementation "org.springframework.boot:spring-boot-starter-web"
     implementation "org.springframework.boot:spring-boot-autoconfigure"

@@ -42,8 +42,8 @@ public class CodeGenStarter {
         gc.setPassword("Zzy@1996");
 
         gc.setParent("com.ziyao.ideal");
-        gc.setProjectDir(System.getProperty("user.dir") + "/cloud-modules/ideal-cloud-uua");
-        gc.setModuleName("uua");
+        gc.setProjectDir(System.getProperty("user.dir") + "/cloud-modules/ideal-cloud-uaa");
+        gc.setModuleName("uaa");
         gc.setEnableJpa(true);
 
         gc.setInclude("application,authorization,authorization_record,department,global_login_restriction,login_config,login_record,menu,restriction_rule,role,role_menu,user,user_login_restriction,user_role");
