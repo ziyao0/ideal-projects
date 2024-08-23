@@ -3,7 +3,7 @@ package com.ziyao.ideal.web.checkstyle;
 import com.ziyao.ideal.web.ApplicationContextUtils;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
-import org.jetbrains.annotations.NotNull;
+import com.ziyao.ideal.core.lang.NonNull;
 import org.springframework.beans.BeansException;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationContext;
@@ -61,7 +61,7 @@ public class ControllerParamChecker implements ApplicationListener<ApplicationRe
 
 
     @Override
-    public void setApplicationContext(@NotNull ApplicationContext applicationContext) throws BeansException {
+    public void setApplicationContext(@NonNull ApplicationContext applicationContext) throws BeansException {
         ApplicationContextUtils.setApplicationContext(applicationContext);
     }
 }
