@@ -90,7 +90,6 @@ public class TemplateConfig {
      */
     private TemplateConfig() {
         this.entity = ConstVal.TEMPLATE_ENTITY_JAVA;
-        this.entityKt = ConstVal.TEMPLATE_ENTITY_KT;
         this.controller = ConstVal.TEMPLATE_CONTROLLER;
         this.mapper = ConstVal.TEMPLATE_MAPPER;
         this.xml = ConstVal.TEMPLATE_XML;
@@ -111,22 +110,6 @@ public class TemplateConfig {
     }
 
     /**
-     * 获取实体模板路径
-     *
-     * @param kotlin 是否kotlin
-     * @return 模板路径
-     */
-    public String getEntity(boolean kotlin) {
-        if (!this.disableEntity) {
-            if (kotlin) {
-                return Strings.isEmpty(this.entityKt) ? ConstVal.TEMPLATE_ENTITY_KT : this.entityKt;
-            }
-            return Strings.isEmpty(this.entity) ? ConstVal.TEMPLATE_ENTITY_JAVA : this.entity;
-        }
-        return null;
-    }
-
-    /**
      * 禁用模板
      *
      * @param templateTypes 模板类型
@@ -139,7 +122,7 @@ public class TemplateConfig {
      * @see Mapper.Builder#disable()
      * @see Mapper.Builder#disableMapper()
      * @see Mapper.Builder#disableMapperXml()
-     * @since 3.3.2
+
      * @deprecated 3.5.6
      */
     @Deprecated

@@ -129,6 +129,8 @@ public class StrategyConfig {
 
     private final Service.Builder serviceBuilder = new Service.Builder(this);
 
+    private final Repository.Builder repositoryBuilder = new Repository.Builder(this);
+
     private Entity entity;
 
     private Controller controller;
@@ -136,6 +138,8 @@ public class StrategyConfig {
     private Mapper mapper;
 
     private Service service;
+
+    private Repository repository;
 
     private IOutputFile outputFile = (path, ot) -> new File(path);
 
@@ -231,6 +235,17 @@ public class StrategyConfig {
         return service;
     }
 
+    public Repository.Builder repositoryBuilder() {
+        return repositoryBuilder;
+    }
+
+    public Repository repository() {
+        if (repository == null) {
+            this.repository = repositoryBuilder.get();
+        }
+        return repository;
+    }
+
     /**
      * 大写命名、字段符合大写字母数字下划线命名
      *
@@ -244,7 +259,7 @@ public class StrategyConfig {
      * 表名称匹配过滤表前缀
      *
      * @param tableName 表名称
-     * @since 3.3.2
+
      */
     public boolean startsWithTablePrefix(@NonNull String tableName) {
         return this.tablePrefix.stream().anyMatch(tableName::startsWith);

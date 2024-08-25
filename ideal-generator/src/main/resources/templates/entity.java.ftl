@@ -42,7 +42,7 @@ public class ${entity} implements Serializable {
 </#if>
 <#-- ----------  BEGIN 字段循环遍历  ---------->
 <#list table.fields as field>
-    <#if field.keyFlag>
+    <#if field.idKey>
         <#assign keyPropertyName="${field.propertyName}"/>
     </#if>
 
@@ -51,9 +51,9 @@ public class ${entity} implements Serializable {
      * ${field.comment}
      */
         </#if>
-    <#if field.keyFlag>
+    <#if field.idKey>
         <#-- 主键 -->
-        <#if field.keyIdentityFlag>
+        <#if field.autoIncrIdKey>
     @TableId(value = "${field.annotationColumnName}", type = IdType.AUTO)
         <#elseif idType??>
     @TableId(value = "${field.annotationColumnName}", type = IdType.${idType})

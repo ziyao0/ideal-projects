@@ -1,7 +1,7 @@
 package ${mapstructPkg};
 
 import ${package.Entity}.${entity};
-import ${dto}.${entity}DTO;
+import ${package.DTO}.${table.dtoName};
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -16,5 +16,5 @@ public interface ${entity}Convertor {
     /**
      * 转换
      */
-    ${entity} convert(${entity}DTO ${entity?uncap_first}DTO);
+    ${entity} convert(${table.dtoName} ${table.dtoName?uncap_first});
 }

@@ -1,8 +1,8 @@
-package ${dto};
+package ${package.DTO};
 
 import com.ziyao.ideal.web.orm.EntityDTO;
 import ${package.Entity}.${entity};
-import ${mapstructPkg}.${entity}Convertor;
+<#--import ${mapstructPkg}.${entity}Convertor;-->
 import lombok.Data;
 import java.util.Objects;
 import com.ziyao.ideal.core.Strings;
@@ -24,7 +24,7 @@ import java.time.LocalDateTime;
 <#if entityLombokModel>
 @Data
 </#if>
-public class ${entity}DTO implements EntityDTO<${entity}>, Serializable {
+public class ${table.dtoName} implements EntityDTO<${entity}>, Serializable {
 
 <#if entitySerialVersionUID>
     @Serial

@@ -28,7 +28,7 @@ package com.ziyao.ideal.generator.mybatisplus;
  * </pre>
  * </p>
  *
- * @since 3.5.6
+ * 
  */
 public interface IJsonTypeHandler<T> {
 

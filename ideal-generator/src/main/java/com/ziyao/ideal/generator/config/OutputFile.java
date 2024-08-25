@@ -23,10 +23,12 @@ package com.ziyao.ideal.generator.config;
  */
 public enum OutputFile {
     entity,
+    dto,
     service,
     serviceImpl,
     mapper,
     xml,
     controller,
+    repository,
     parent;
 }

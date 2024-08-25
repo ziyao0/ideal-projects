@@ -22,9 +22,11 @@ import com.ziyao.ideal.generator.config.GlobalConfig;
 import com.ziyao.ideal.generator.config.StrategyConfig;
 import com.ziyao.ideal.generator.config.builder.ConfigBuilder;
 import com.ziyao.ideal.generator.config.builder.Entity;
-import com.ziyao.ideal.generator.config.builder.Service;
+import com.ziyao.ideal.generator.config.rules.IColumnType;
+import com.ziyao.ideal.generator.mybatisplus.*;
 import lombok.Getter;
 
+import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -35,6 +37,7 @@ import java.util.stream.Collectors;
  * @author YangHu, lanjerry
  * @since 2016/8/30
  */
+@Getter
 public class TableInfo {
 
     /**
@@ -55,55 +58,53 @@ public class TableInfo {
     /**
      * 是否转换
      */
-    @Getter
     private boolean convert;
 
     /**
      * 表名称
      */
-    @Getter
-    private String name;
+    private final String name;
 
     /**
      * 表注释
      */
-    @Getter
     private String comment;
 
     /**
      * 实体名称
      */
-    @Getter
     private String entityName;
-
+    /**
+     * dto
+     */
+    private String dtoName;
     /**
      * mapper名称
      */
-    @Getter
     private String mapperName;
+    /**
+     * mapper名称
+     */
+    private String repositoryName;
 
     /**
      * xml名称
      */
-    @Getter
     private String xmlName;
 
     /**
      * service名称
      */
-    @Getter
     private String serviceName;
 
     /**
      * serviceImpl名称
      */
-    @Getter
     private String serviceImplName;
 
     /**
      * controller名称
      */
-    @Getter
     private String controllerName;
 
     /**
@@ -114,7 +115,6 @@ public class TableInfo {
     /**
      * 是否有主键
      */
-    @Getter
     private boolean havePrimaryKey;
 
     /**
@@ -131,6 +131,10 @@ public class TableInfo {
      * 实体
      */
     private final Entity entity;
+    /**
+     * 主键类型
+     */
+    private String idPropertyType;
 
     /**
      * 构造方法
@@ -185,6 +189,9 @@ public class TableInfo {
         } else {
             this.fields.add(field);
         }
+        if (field.isIdKey()) {
+            idPropertyType = field.getPropertyType();
+        }
     }
 
     /**
@@ -214,72 +221,73 @@ public class TableInfo {
      * 导包处理
      */
     public void importPackage() {
-//        String superEntity = entity.getSuperClass();
-//        if (Strings.hasLength(superEntity)) {
-//            // 自定义父类
-//            this.importPackages.add(superEntity);
-//        }
-//        if (entity.isSerialVersionUID() || entity.isActiveRecord()) {
-//            this.importPackages.add(Serializable.class.getCanonicalName());
-//        }
-//        if (this.isConvert()) {
-//            this.importPackages.add(TableName.class.getCanonicalName());
-//        }
-//        IdType idType = entity.getIdType();
-//        if (null != idType && this.isHavePrimaryKey()) {
-//            // 指定需要 IdType 场景
-//            this.importPackages.add(IdType.class.getCanonicalName());
-//            this.importPackages.add(TableId.class.getCanonicalName());
-//        }
-//        this.fields.forEach(field -> {
-//            IColumnType columnType = field.getColumnType();
-//            if (null != columnType && null != columnType.getPkg()) {
-//                importPackages.add(columnType.getPkg());
-//            }
-//            if (field.isKeyFlag()) {
-//                // 主键
-//                if (field.isConvert() || field.isKeyIdentityFlag()) {
-//                    importPackages.add(TableId.class.getCanonicalName());
-//                }
-//                // 自增
-//                if (field.isKeyIdentityFlag()) {
-//                    importPackages.add(IdType.class.getCanonicalName());
-//                }
-//            } else if (field.isConvert()) {
-//                // 普通字段
-//                importPackages.add(TableField.class.getCanonicalName());
-//            }
-//            if (null != field.getFill()) {
-//                // 填充字段
-//                importPackages.add(TableField.class.getCanonicalName());
-//                //TODO 好像default的不用处理也行,这个做优化项目.
-//                importPackages.add(FieldFill.class.getCanonicalName());
-//            }
-//            if (field.isVersionField()) {
-//                this.importPackages.add(Version.class.getCanonicalName());
-//            }
-//            if (field.isLogicDeleteField()) {
-//                this.importPackages.add(TableLogic.class.getCanonicalName());
-//            }
-//        });
+        String superEntity = entity.getSuperClass();
+        if (Strings.hasLength(superEntity)) {
+            // 自定义父类
+            this.importPackages.add(superEntity);
+        }
+        if (entity.isSerialVersionUID() || entity.isActiveRecord()) {
+            this.importPackages.add(Serializable.class.getCanonicalName());
+        }
+        if (this.isConvert()) {
+            this.importPackages.add(TableName.class.getCanonicalName());
+        }
+        IdType idType = entity.getIdType();
+        if (null != idType && this.isHavePrimaryKey()) {
+            // 指定需要 IdType 场景
+            this.importPackages.add(IdType.class.getCanonicalName());
+            this.importPackages.add(TableId.class.getCanonicalName());
+        }
+        this.fields.forEach(field -> {
+            IColumnType columnType = field.getColumnType();
+            if (null != columnType && null != columnType.getPkg()) {
+                importPackages.add(columnType.getPkg());
+            }
+            if (field.isIdKey()) {
+                // 主键
+                if (field.isConvert() || field.isAutoIncrIdKey()) {
+                    importPackages.add(TableId.class.getCanonicalName());
+                }
+                // 自增
+                if (field.isAutoIncrIdKey()) {
+                    importPackages.add(IdType.class.getCanonicalName());
+                }
+            } else if (field.isConvert()) {
+                // 普通字段
+                importPackages.add(TableField.class.getCanonicalName());
+            }
+            if (null != field.getFill()) {
+                // 填充字段
+                importPackages.add(TableField.class.getCanonicalName());
+                //TODO 好像default的不用处理也行,这个做优化项目.
+                importPackages.add(FieldFill.class.getCanonicalName());
+            }
+            if (field.isVersionField()) {
+                this.importPackages.add(Version.class.getCanonicalName());
+            }
+            if (field.isLogicDeleteField()) {
+                this.importPackages.add(TableLogic.class.getCanonicalName());
+            }
+        });
     }
 
     /**
      * 处理表信息(文件名与导包)
      */
     public void processTable() {
-//        String entityName = entity.getNameConvert().entityNameConvert(this);
-//        this.setEntityName(entity.getConverterFileName().convert(entityName));
-//        this.mapperName = strategyConfig.mapper().getConverterMapperFileName().convert(entityName);
-//        this.xmlName = strategyConfig.mapper().getConverterXmlFileName().convert(entityName);
-//        this.serviceName = strategyConfig.service().getConverterServiceFileName().convert(entityName);
-//        this.serviceImplName = strategyConfig.service().getConverterServiceImplFileName().convert(entityName);
-//        this.controllerName = strategyConfig.controller().getConverterFileName().convert(entityName);
-//        this.importPackage();
+        String entityName = entity.getNameConvert().entityNameConvert(this);
+        this.entityName = entity.getConverterFileName().convert(entityName);
+        this.dtoName = entity.getConverterDTOFileName().convert(entityName);
+        this.mapperName = strategyConfig.mapper().getConverterMapperFileName().convert(entityName);
+        this.xmlName = strategyConfig.mapper().getConverterXmlFileName().convert(entityName);
+        this.serviceName = strategyConfig.service().getConverterServiceFileName().convert(entityName);
+        this.serviceImplName = strategyConfig.service().getConverterServiceImplFileName().convert(entityName);
+        this.controllerName = strategyConfig.controller().getConverterFileName().convert(entityName);
+        this.repositoryName = strategyConfig.repository().getConverterFileName().convert(entityName);
+        this.importPackage();
     }
 
     public TableInfo setComment(String comment) {
-        //TODO 暂时挪动到这
         this.comment = this.globalConfig.isSwagger()
                 && Strings.hasLength(comment) ? comment.replace("\"", "\\\"") : comment;
         return this;
@@ -308,15 +316,5 @@ public class TableInfo {
     @NonNull
     public List<TableField> getCommonFields() {
         return commonFields;
-    }
-
-    /**
-     * 获取是否生成service接口
-     *
-     * @deprecated {@link Service.Builder#disableService()}
-     */
-    @Deprecated
-    public boolean isServiceInterface() {
-        return globalConfig.isServiceInterface();
     }
 }

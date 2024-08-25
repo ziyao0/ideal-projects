@@ -74,7 +74,7 @@ public class Controller implements ITemplate {
     /**
      * 是否覆盖已有文件（默认 false）
      *
-     * @since 3.5.2
+     
      */
     @Getter
     private boolean fileOverride;
@@ -82,7 +82,7 @@ public class Controller implements ITemplate {
     /**
      * 是否生成
      *
-     * @since 3.5.6
+     * 
      */
     @Getter
     private boolean generate = true;
@@ -90,7 +90,7 @@ public class Controller implements ITemplate {
     /**
      * 模板路径
      *
-     * @since 3.5.6
+     * 
      */
     @Getter
     private String templatePath = ConstVal.TEMPLATE_CONTROLLER;
@@ -202,7 +202,7 @@ public class Controller implements ITemplate {
         /**
          * 覆盖已有文件
          *
-         * @since 3.5.3
+         * 
          */
         public Builder enableFileOverride() {
             this.controller.fileOverride = true;
@@ -213,7 +213,7 @@ public class Controller implements ITemplate {
          * 禁用生成
          *
          * @return this
-         * @since 3.5.6
+         * 
          */
         public Builder disable() {
             this.controller.generate = false;
@@ -225,7 +225,7 @@ public class Controller implements ITemplate {
          *
          * @param template 模板路径
          * @return this
-         * @since 3.5.6
+         * 
          */
         public Builder template(@NonNull String template) {
             this.controller.templatePath = template;

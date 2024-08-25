@@ -1,6 +1,6 @@
 package ${package.ServiceImpl};
 
-import ${repositoryJpa}.${entity}RepositoryJpa;
+import ${package.RepositoryJpa}.${table.repositoryName};
 import ${superServiceImplClassPackage};
 import ${package.Entity}.${entity};
 import ${package.Service}.${table.serviceName};
@@ -15,13 +15,8 @@ import lombok.RequiredArgsConstructor;
  */
 @Service
 @RequiredArgsConstructor
-<#list table.fields as field>
-<#if field.keyFlag>
 public class ${table.serviceImplName} extends
-    ${superServiceImplClass}< ${entity}RepositoryJpa, ${entity},${field.propertyType}> implements ${table.serviceName} {
+    ${superServiceImplClass}< ${entity}RepositoryJpa, ${entity},${table.idPropertyType}> implements ${table.serviceName} {
 
-    private final ${entity}RepositoryJpa ${entity?uncap_first}RepositoryJpa;
-
+    private final ${table.repositoryName} ${table.repositoryName?uncap_first};
 }
-</#if>
-</#list>

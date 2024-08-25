@@ -69,23 +69,36 @@ class PathInfoHandler {
      * @param strategyConfig 模板配置
      */
     private void setDefaultPathInfo(GlobalConfig globalConfig, StrategyConfig strategyConfig) {
+        boolean isJpa = globalConfig.isJpa();
         Entity entity = strategyConfig.entity();
-        if (entity.isGenerate()) {
-            putPathInfo(globalConfig.isKotlin() ? entity.getKotlinTemplate() : entity.getJavaTemplate(), OutputFile.entity, ConstVal.ENTITY);
+        if (entity.isGenerateEntity()) {
+            putPathInfo(isJpa ? entity.getEntityJpaTemplate() : entity.getEntityTemplate(), OutputFile.entity, ConstVal.ENTITY);
         }
-        Mapper mapper = strategyConfig.mapper();
-        if (mapper.isGenerateMapper()) {
-            putPathInfo(mapper.getMapperTemplatePath(), OutputFile.mapper, ConstVal.MAPPER);
+        if (entity.isGenerateDTO()) {
+            putPathInfo(entity.getDtoTemplate(), OutputFile.dto, ConstVal.DTO);
         }
-        if (mapper.isGenerateMapperXml()) {
-            putPathInfo(mapper.getMapperXmlTemplatePath(), OutputFile.xml, ConstVal.XML);
+        if (isJpa) {
+            Repository repository = strategyConfig.repository();
+            if (repository.isGenerateRepository()) {
+                putPathInfo(repository.getRepositoryTemplate(), OutputFile.repository, ConstVal.REPOSITORY);
+            }
+        } else {
+            Mapper mapper = strategyConfig.mapper();
+            if (mapper.isGenerateMapper()) {
+                putPathInfo(mapper.getMapperTemplatePath(), OutputFile.mapper, ConstVal.MAPPER);
+            }
+            if (mapper.isGenerateMapperXml()) {
+                putPathInfo(mapper.getMapperXmlTemplatePath(), OutputFile.xml, ConstVal.XML);
+            }
         }
+
+
         Service service = strategyConfig.service();
         if (service.isGenerateService()) {
-            putPathInfo(service.getServiceTemplate(), OutputFile.service, ConstVal.SERVICE);
+            putPathInfo(isJpa ? service.getServiceJpaTemplate() : service.getServiceTemplate(), OutputFile.service, ConstVal.SERVICE);
         }
         if (service.isGenerateServiceImpl()) {
-            putPathInfo(service.getServiceImplTemplate(), OutputFile.serviceImpl, ConstVal.SERVICE_IMPL);
+            putPathInfo(isJpa ? service.getServiceImplJpaTemplate() : service.getServiceImplTemplate(), OutputFile.serviceImpl, ConstVal.SERVICE_IMPL);
         }
         Controller controller = strategyConfig.controller();
         if (controller.isGenerate()) {

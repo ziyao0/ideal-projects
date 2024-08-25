@@ -83,7 +83,7 @@ public class ConfigBuilder {
     /**
      * 数据查询实例
      *
-     * @since 3.5.3
+     * 
      */
     private final IDatabaseQuery databaseQuery;
 

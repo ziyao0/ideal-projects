@@ -33,7 +33,7 @@ import java.util.stream.Collectors;
 /**
  * 数据库查询抽象类
  *
- * @since 3.5.3
+ * 
  */
 public abstract class AbstractDatabaseQuery implements IDatabaseQuery {
 

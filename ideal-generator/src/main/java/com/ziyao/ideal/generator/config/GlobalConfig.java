@@ -16,10 +16,8 @@
 package com.ziyao.ideal.generator.config;
 
 import com.ziyao.ideal.core.lang.NonNull;
-import com.ziyao.ideal.generator.config.builder.Service;
 import com.ziyao.ideal.generator.config.rules.DateType;
 import lombok.Getter;
-import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -57,13 +55,7 @@ public class GlobalConfig {
      * 作者
      */
     @Getter
-    private String author = "baomidou";
-
-    /**
-     * 开启 Kotlin 模式（默认 false）
-     */
-    @Getter
-    private boolean kotlin;
+    private String author = "ziyao";
 
     /**
      * 开启 swagger 模式（默认 false 与 springdoc 不可同时使用）
@@ -80,22 +72,13 @@ public class GlobalConfig {
      */
     private DateType dateType = DateType.TIME_PACK;
 
+    @Getter
+    private boolean jpa = false;
+
     /**
      * 获取注释日期
      */
     private Supplier<String> commentDate = () -> new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-
-    /**
-     * 是否生成service 接口（默认 true）
-     * 增加此开关的原因：在某些项目实践中，只需要生成service实现类，不需要抽象sevice接口
-     * 针对某些项目，生成service接口，开发时反而麻烦，这种情况，可以将该属性设置为false
-     *
-     * @deprecated 3.5.6 {@link Service.Builder#disableService()}
-     */
-    @Getter
-    @Setter
-    @Deprecated
-    private boolean serviceInterface = true;
 
     public boolean isSwagger() {
         // springdoc 设置优先于 swagger
@@ -134,6 +117,10 @@ public class GlobalConfig {
             return this;
         }
 
+        public Builder enableJpa(){
+            this.globalConfig.jpa = true;
+            return this;
+        }
         /**
          * 输出目录
          */
@@ -151,14 +138,6 @@ public class GlobalConfig {
         }
 
         /**
-         * 开启 kotlin 模式
-         */
-        public Builder enableKotlin() {
-            this.globalConfig.kotlin = true;
-            return this;
-        }
-
-        /**
          * 开启 swagger 模式
          */
         public Builder enableSwagger() {
@@ -171,14 +150,6 @@ public class GlobalConfig {
          */
         public Builder enableSpringdoc() {
             this.globalConfig.springdoc = true;
-            return this;
-        }
-
-        /**
-         * 不生成service接口
-         */
-        public Builder disableServiceInterface() {
-            this.globalConfig.serviceInterface = false;
             return this;
         }
 

@@ -119,13 +119,12 @@ public class SQLQuery extends AbstractDatabaseQuery {
                 if (isId) {
                     field.primaryKey(dbQuery.isKeyIdentity(result.getResultSet()));
                     tableInfo.setHavePrimaryKey(true);
-                    if (field.isKeyIdentityFlag() && entity.getIdType() != null) {
+                    if (field.isAutoIncrIdKey() && entity.getIdType() != null) {
                         LOGGER.warn("当前表[{}]的主键为自增主键，会导致全局主键的ID类型设置失效!", tableName);
                     }
                 }
                 // 处理ID
                 field.setColumnName(columnName)
-                        .setType(result.getStringResult(dbQuery.fieldType()))
                         .setComment(result.getFiledComment())
                         .setCustomMap(dbQuery.getCustomFields(result.getResultSet()));
                 String propertyName = entity.getNameConvert().propertyNameConvert(field);

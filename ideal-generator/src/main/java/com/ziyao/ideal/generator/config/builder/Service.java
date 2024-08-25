@@ -43,8 +43,6 @@ public class Service implements ITemplate {
 
     /**
      * 是否生成serviceImpl
-     *
-     * @since 3.5.6
      */
     @Getter
     private boolean generateServiceImpl = true;
@@ -52,23 +50,22 @@ public class Service implements ITemplate {
 
     /**
      * 是否生成service
-     *
-     * @since 3.5.6
      */
     @Getter
     private boolean generateService = true;
 
     /**
-     * @since 3.5.6
+     *
      */
     @Getter
     private String serviceTemplate = ConstVal.TEMPLATE_SERVICE;
 
-    /**
-     * @since 3.5.6
-     */
+    @Getter
+    private String serviceJpaTemplate = ConstVal.TEMPLATE_SERVICE_JPA;
     @Getter
     private String serviceImplTemplate = ConstVal.TEMPLATE_SERVICE_IMPL;
+    @Getter
+    private String serviceImplJpaTemplate = ConstVal.TEMPLATE_SERVICE_IMPL_JPA;
 
     /**
      * 自定义继承的Service类全称，带包名
@@ -103,7 +100,7 @@ public class Service implements ITemplate {
     /**
      * 是否覆盖已有文件（默认 false）
      *
-     * @since 3.5.2
+     
      */
     @Getter
     private boolean fileOverride;
@@ -247,7 +244,6 @@ public class Service implements ITemplate {
          * 禁用生成Service
          *
          * @return this
-         * @since 3.5.6
          */
         public Builder disable() {
             this.service.generateService = false;
@@ -259,7 +255,6 @@ public class Service implements ITemplate {
          * 禁用生成
          *
          * @return this
-         * @since 3.5.6
          */
         public Builder disableService() {
             this.service.generateService = false;
@@ -270,7 +265,6 @@ public class Service implements ITemplate {
          * 禁用生成ServiceImpl
          *
          * @return this
-         * @since 3.5.6
          */
         public Builder disableServiceImpl() {
             this.service.generateServiceImpl = false;
@@ -281,7 +275,6 @@ public class Service implements ITemplate {
          * Service模板路径
          *
          * @return this
-         * @since 3.5.6
          */
         public Builder serviceTemplate(@NonNull String template) {
             this.service.serviceTemplate = template;
@@ -289,13 +282,32 @@ public class Service implements ITemplate {
         }
 
         /**
+         * Service模板路径
+         *
+         * @return this
+         */
+        public Builder serviceJpaTemplate(@NonNull String template) {
+            this.service.serviceJpaTemplate = template;
+            return this;
+        }
+
+        /**
          * ServiceImpl模板路径
          *
          * @return this
-         * @since 3.5.6
          */
         public Builder serviceImplTemplate(@NonNull String template) {
             this.service.serviceImplTemplate = template;
+            return this;
+        }
+
+        /**
+         * ServiceImpl模板路径
+         *
+         * @return this
+         */
+        public Builder serviceImplJpaTemplate(@NonNull String template) {
+            this.service.serviceImplJpaTemplate = template;
             return this;
         }
 

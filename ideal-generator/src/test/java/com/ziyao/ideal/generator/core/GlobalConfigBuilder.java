@@ -18,6 +18,7 @@ public class GlobalConfigBuilder {
         builder.outputDir(codeGenConfig.getProjectDir() + "/src/main/java")
                 .author(codeGenConfig.getAuthor())
                 .dateType(DateType.TIME_PACK)
+                .enableJpa()
                 .disableOpenDir();
     }
 }

@@ -45,7 +45,7 @@ import java.util.Map;
  * 1.Mysql无法读取表注释: 链接增加属性 remarks=true&useInformationSchema=true 或者通过{@link DataSourceConfig.Builder#addConnectionProperty(String, String)}设置
  * 2.Oracle无法读取注释: 增加属性remarks=true，也有些驱动版本说是增加remarksReporting=true {@link DataSourceConfig.Builder#addConnectionProperty(String, String)}
  * </p>
- * @since 3.5.3
+ * 
  */
 public class DefaultQuery extends AbstractDatabaseQuery {
 
@@ -114,7 +114,7 @@ public class DefaultQuery extends AbstractDatabaseQuery {
             if (columnInfo.isPrimaryKey()) {
                 field.primaryKey(columnInfo.isAutoIncrement());
                 tableInfo.setHavePrimaryKey(true);
-                if (field.isKeyIdentityFlag() && entity.getIdType() != null) {
+                if (field.isAutoIncrIdKey() && entity.getIdType() != null) {
                     LOGGER.warn("当前表[{}]的主键为自增主键，会导致全局主键的ID类型设置失效!", tableName);
                 }
             }

@@ -12,9 +12,6 @@ import ${superServiceClassPackage};
 *
 * @author ${author}
  */
-<#if kotlin>
-interface ${table.serviceName} : ${superServiceClass}<${entity}>
-<#else>
 public interface ${table.serviceName} extends ${superServiceClass}<${entity}> {
 
     /**
@@ -22,4 +19,3 @@ public interface ${table.serviceName} extends ${superServiceClass}<${entity}> {
      */
     Page<${entity}> page(Page<${entity}> page, ${entity}DTO ${entity?uncap_first}DTO);
 }
-</#if>

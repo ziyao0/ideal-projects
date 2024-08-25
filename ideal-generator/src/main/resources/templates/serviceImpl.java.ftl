@@ -3,9 +3,9 @@ package ${package.ServiceImpl};
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import ${superServiceImplClassPackage};
-import ${dto}.${entity}DTO;
+import ${package.DTO}.${table.entityDTO};
 import ${package.Entity}.${entity};
-import ${package.Mapper}.${table.mapperName};
+import ${package.Mapper}.${table.dtoName};
 import ${package.Service}.${table.serviceName};
 import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
@@ -18,11 +18,6 @@ import lombok.RequiredArgsConstructor;
  */
 @Service
 @RequiredArgsConstructor
-<#if kotlin>
-open class ${table.serviceImplName} : ${superServiceImplClass}<${table.mapperName}, ${entity}>(), ${table.serviceName} {
-
-}
-<#else>
 public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.mapperName}, ${entity}> implements ${table.serviceName} {
 
     private final ${table.mapperName} ${table.mapperName?uncap_first};
@@ -34,4 +29,3 @@ public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.m
         return ${table.mapperName?uncap_first}.selectPage(page, wrapper);
     }
 }
-</#if>

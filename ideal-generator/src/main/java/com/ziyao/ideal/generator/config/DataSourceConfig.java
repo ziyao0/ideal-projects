@@ -71,7 +71,7 @@ public class DataSourceConfig {
     /**
      * 关键字处理器
      *
-     * @since 3.3.2
+
      */
     private IKeyWordsHandler keyWordsHandler;
 
@@ -103,7 +103,7 @@ public class DataSourceConfig {
     /**
      * 数据库连接属性
      *
-     * @since 3.5.3
+     * 
      */
     private final Map<String, String> connectionProperties = new HashMap<>();
 
@@ -112,14 +112,14 @@ public class DataSourceConfig {
      *
      * @see DefaultQuery 默认查询方式，配合{@link #getTypeConvertHandler()} 使用
      * @see SQLQuery SQL语句查询方式，配合{@link #typeConvert} 使用
-     * @since 3.5.3
+     * 
      */
     private Class<? extends AbstractDatabaseQuery> databaseQueryClass = DefaultQuery.class;
 
     /**
      * 类型转换处理
      *
-     * @since 3.5.3
+     * 
      */
     private ITypeConvertHandler typeConvertHandler;
 
@@ -428,7 +428,7 @@ public class DataSourceConfig {
          *
          * @param databaseQueryClass 查询类
          * @return this
-         * @since 3.5.3
+         * 
          */
         public Builder databaseQueryClass(@NonNull Class<? extends AbstractDatabaseQuery> databaseQueryClass) {
             this.dataSourceConfig.databaseQueryClass = databaseQueryClass;
@@ -440,7 +440,7 @@ public class DataSourceConfig {
          *
          * @param typeConvertHandler 类型转换器
          * @return this
-         * @since 3.5.3
+         * 
          */
         public Builder typeConvertHandler(@NonNull ITypeConvertHandler typeConvertHandler) {
             this.dataSourceConfig.typeConvertHandler = typeConvertHandler;
@@ -453,7 +453,7 @@ public class DataSourceConfig {
          * @param key   属性名
          * @param value 属性值
          * @return this
-         * @since 3.5.3
+         * 
          */
         public Builder addConnectionProperty(@NonNull String key, @NonNull String value) {
             this.dataSourceConfig.connectionProperties.put(key, value);

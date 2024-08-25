@@ -40,55 +40,44 @@ import java.util.Map;
  * @author YangHu
  * @since 2016-12-03
  */
+@Getter
 public class TableField {
 
     /**
      * 是否做注解转换
      */
-    @Getter
     private boolean convert;
 
     /**
      * 是否主键
      */
-    @Getter
-    private boolean keyFlag;
+    private boolean idKey;
 
     /**
      * 主键是否为自增类型
      */
-    @Getter
-    private boolean keyIdentityFlag;
+    private boolean autoIncrIdKey;
 
     /**
      * 字段名称
      */
-    @Getter
-    private String name;
+    private final String name;
 
-    /**
-     * 字段类型（已弃用，使用 {@link #columnType} 代替）
-     */
-    @Getter
-    @Deprecated
-    private String type;
 
     /**
      * 属性名称
      */
-    @Getter
     private String propertyName;
 
     /**
      * 字段类型
      */
-    @Getter
     private IColumnType columnType;
 
     /**
      * 字段注释
      */
-    @Getter
+
     private String comment;
 
     /**
@@ -98,32 +87,24 @@ public class TableField {
 
     /**
      * 是否关键字
-     *
-     * @since 3.3.2
      */
-    @Getter
     private boolean keyWords;
 
     /**
      * 数据库字段（关键字含转义符号）
-     *
-     * @since 3.3.2
      */
-    @Getter
     private String columnName;
 
     /**
      * 自定义查询字段列表
      */
     @Setter
-    @Getter
     private Map<String, Object> customMap;
 
     /**
      * 字段元数据信息
      */
     @Setter
-    @Getter
     private MetaInfo metaInfo;
 
     /**
@@ -180,7 +161,7 @@ public class TableField {
         if (entity.isTableFieldAnnotationEnable()) {
             this.convert = true;
         } else {
-            if (this.keyFlag) {
+            if (this.idKey) {
                 this.convert = !ConstVal.DEFAULT_ID_NAME.equals(propertyName);
             }
         }
@@ -217,7 +198,6 @@ public class TableField {
      * 获取注解字段名称
      *
      * @return 字段
-     * @since 3.3.2
      */
     public String getAnnotationColumnName() {
         if (keyWords) {
@@ -258,17 +238,8 @@ public class TableField {
      * @param autoIncrement 自增标识
      */
     public void primaryKey(boolean autoIncrement) {
-        this.keyFlag = true;
-        this.keyIdentityFlag = autoIncrement;
-    }
-
-    /**
-     * @param type 类型
-     * @return this
-     */
-    public TableField setType(String type) {
-        this.type = type;
-        return this;
+        this.idKey = true;
+        this.autoIncrIdKey = autoIncrement;
     }
 
     public TableField setComment(String comment) {
@@ -303,62 +274,59 @@ public class TableField {
      * <p>
      * 2021/2/8
      */
+    @Getter
     public static class MetaInfo {
 
         /**
          * 表名称
          */
-        @Getter
         private String tableName;
 
         /**
          * 字段名称
          */
-        @Getter
         private String columnName;
 
         /**
          * 字段长度
          */
-        @Getter
         private int length;
 
         /**
          * 是否非空
          */
-        @Getter
         private boolean nullable;
 
         /**
          * 字段注释
          */
-        @Getter
+
         private String remarks;
 
         /**
          * 字段默认值
          */
-        @Getter
+
         private String defaultValue;
 
         /**
          * 字段精度
          */
-        @Getter
+
         private int scale;
 
         /**
          * JDBC类型
          */
-        @Getter
+
         private JdbcType jdbcType;
 
         /**
          * 类型名称(可用做额外判断处理,例如在pg下,json,uuid,jsonb,tsquery这种都认为是OHTER 1111)
          *
-         * @since 3.5.3
+         * 
          */
-        @Getter
+
         private String typeName;
 
         /**

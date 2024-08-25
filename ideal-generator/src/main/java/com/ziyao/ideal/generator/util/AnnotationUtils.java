@@ -24,7 +24,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * @since 3.5.6
+ * 
  */
 @UtilityClass
 public class AnnotationUtils {

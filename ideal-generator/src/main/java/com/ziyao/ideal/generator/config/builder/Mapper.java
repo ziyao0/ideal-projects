@@ -62,7 +62,7 @@ public class Mapper implements ITemplate {
     /**
      * Mapper标记注解
      *
-     * @since 3.5.3
+     * 
      */
     private Class<? extends Annotation> mapperAnnotationClass;
 
@@ -93,7 +93,7 @@ public class Mapper implements ITemplate {
     /**
      * 是否覆盖已有文件（默认 false）
      *
-     * @since 3.5.2
+     
      */
     @Getter
     private boolean fileOverride;
@@ -106,7 +106,7 @@ public class Mapper implements ITemplate {
     /**
      * 是否生成XML
      *
-     * @since 3.5.6
+     * 
      */
     @Getter
     private boolean generateMapperXml = true;
@@ -114,7 +114,7 @@ public class Mapper implements ITemplate {
     /**
      * 是否生成Mapper
      *
-     * @since 3.5.6
+     * 
      */
     @Getter
     private boolean generateMapper = true;
@@ -122,7 +122,7 @@ public class Mapper implements ITemplate {
     /**
      * Mapper模板路径
      *
-     * @since 3.5.6
+     * 
      */
     @Getter
     private String mapperTemplatePath = ConstVal.TEMPLATE_MAPPER;
@@ -130,7 +130,7 @@ public class Mapper implements ITemplate {
     /**
      * MapperXml模板路径
      *
-     * @since 3.5.6
+     * 
      */
     @Getter
     private String mapperXmlTemplatePath = ConstVal.TEMPLATE_XML;
@@ -221,7 +221,7 @@ public class Mapper implements ITemplate {
          *
          * @param annotationClass 注解Class
          * @return this
-         * @since 3.5.3
+         * 
          */
         public Builder mapperAnnotation(Class<? extends Annotation> annotationClass) {
             this.mapper.mapperAnnotationClass = annotationClass;
@@ -325,7 +325,7 @@ public class Mapper implements ITemplate {
          * Service模板路径
          *
          * @return this
-         * @since 3.5.6
+         * 
          */
         public Builder mapperTemplate(@NonNull String template) {
             this.mapper.mapperTemplatePath = template;
@@ -336,7 +336,7 @@ public class Mapper implements ITemplate {
          * ServiceImpl模板路径
          *
          * @return this
-         * @since 3.5.6
+         * 
          */
         public Builder mapperXmlTemplate(@NonNull String template) {
             this.mapper.mapperXmlTemplatePath = template;
@@ -347,7 +347,7 @@ public class Mapper implements ITemplate {
          * 禁用Mapper生成
          *
          * @return this
-         * @since 3.5.6
+         * 
          */
         public Builder disable() {
             this.mapper.generateMapper = false;
@@ -359,7 +359,7 @@ public class Mapper implements ITemplate {
          * 禁用Mapper接口生成
          *
          * @return this
-         * @since 3.5.6
+         * 
          */
         public Builder disableMapper() {
             this.mapper.generateMapper = false;
@@ -370,7 +370,7 @@ public class Mapper implements ITemplate {
          * 禁用MapperXml生成
          *
          * @return this
-         * @since 3.5.6
+         * 
          */
         public Builder disableMapperXml() {
             this.mapper.generateMapperXml = false;

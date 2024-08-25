@@ -29,6 +29,7 @@ import java.util.Map;
  * @author YangHu, tangguo, hubin
  * @since 2016-08-30
  */
+@Getter
 public class PackageConfig {
 
     private PackageConfig() {
@@ -37,54 +38,57 @@ public class PackageConfig {
     /**
      * 父包名。如果为空，将下面子包名必须写全部， 否则就只需写子包名
      */
-    private String parent = "com.baomidou";
+    private String parent = "com.ziyao.ideal";
 
     /**
      * 父包模块名
      */
-    @Getter
+
     private String moduleName = "";
 
     /**
      * Entity包名
      */
-    @Getter
-    private String entity = "entity";
+
+    private String entity = "domain.entity";
+
+    private String dto = "domain.dto";
+
+    private String repository = "repository.jpa";
 
     /**
      * Service包名
      */
-    @Getter
+
     private String service = "service";
 
     /**
      * Service Impl包名
      */
-    @Getter
+
     private String serviceImpl = "service.impl";
 
     /**
      * Mapper包名
      */
-    @Getter
+
     private String mapper = "mapper";
 
     /**
      * Mapper XML包名
      */
-    @Getter
+
     private String xml = "mapper.xml";
 
     /**
      * Controller包名
      */
-    @Getter
-    private String controller = "controller";
+
+    private String controller = "controllers";
 
     /**
      * 路径配置信息
      */
-    @Getter
     private Map<OutputFile, String> pathInfo;
 
     /**
@@ -125,6 +129,8 @@ public class PackageConfig {
         if (packageInfo.isEmpty()) {
             packageInfo.put(ConstVal.MODULE_NAME, this.getModuleName());
             packageInfo.put(ConstVal.ENTITY, this.joinPackage(this.getEntity()));
+            packageInfo.put(ConstVal.DTO, this.joinPackage(this.getDto()));
+            packageInfo.put(ConstVal.REPOSITORY, this.joinPackage(this.getRepository()));
             packageInfo.put(ConstVal.MAPPER, this.joinPackage(this.getMapper()));
             packageInfo.put(ConstVal.XML, this.joinPackage(this.getXml()));
             packageInfo.put(ConstVal.SERVICE, this.joinPackage(this.getService()));
@@ -192,6 +198,28 @@ public class PackageConfig {
          */
         public Builder entity(@NonNull String entity) {
             this.packageConfig.entity = entity;
+            return this;
+        }
+
+        /**
+         * 指定实体包名
+         *
+         * @param dto dto包名
+         * @return this
+         */
+        public Builder dto(@NonNull String dto) {
+            this.packageConfig.dto = dto;
+            return this;
+        }
+
+        /**
+         * 指定repository包名
+         *
+         * @param repository repository包名
+         * @return this
+         */
+        public Builder repository(@NonNull String repository) {
+            this.packageConfig.repository = repository;
             return this;
         }
 

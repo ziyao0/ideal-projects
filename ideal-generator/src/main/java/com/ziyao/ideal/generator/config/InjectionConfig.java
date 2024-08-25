@@ -52,7 +52,7 @@ public class InjectionConfig {
     /**
      * 自定义模板文件列表
      *
-     * @since 3.5.3
+     * 
      */
     private final List<CustomFile> customFiles = new ArrayList<>();
 

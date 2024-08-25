@@ -37,17 +37,16 @@ public class CodeGenStarter {
         CodeGenConfig gc = new CodeGenConfig();
 
 
-        gc.setUrl("jdbc:mysql://:3306/code_harbor"); //?useUnicode=true&useSSL=false&characterEncoding=utf8
-        gc.setUserName("");
-        gc.setPassword("");
 
         gc.setParent("com.ziyao.ideal");
-        gc.setProjectDir(System.getProperty("user.dir") + "/cloud-modules/ideal-cloud-uaa");
-        gc.setModuleName("uaa");
+//        gc.setProjectDir(System.getProperty("user.dir") + "/cloud-modules/ideal-cloud-uaa");
+        gc.setProjectDir(System.getProperty("user.dir") + "/ideal-generator");
+        gc.setModuleName("code");
         gc.setEnableJpa(true);
 
-        gc.setInclude("application,authorization,authorization_record,department,global_login_restriction,login_config,login_record,menu,restriction_rule,role,role_menu,user,user_login_restriction,user_role");
 
+        gc.setInclude("application");
         return gc;
     }
 }
+

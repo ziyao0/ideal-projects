@@ -46,6 +46,7 @@ import java.util.stream.Collectors;
  * <p>
  * 2020/10/11.
  */
+@Getter
 public class Entity implements ITemplate {
 
     private final AnnotationHandler annotationHandler = new AnnotationHandler() {
@@ -55,17 +56,12 @@ public class Entity implements ITemplate {
 
     /**
      * Java模板默认路径
-     *
-     * @since 3.5.6
      */
-    @Getter
-    private String javaTemplate = ConstVal.TEMPLATE_ENTITY_JAVA;
+    private String entityTemplate = ConstVal.TEMPLATE_ENTITY_JAVA;
 
-    /**
-     * Kotlin模板默认撸
-     */
-    @Getter
-    private String kotlinTemplate = ConstVal.TEMPLATE_ENTITY_KT;
+    private String entityJpaTemplate = ConstVal.TEMPLATE_ENTITY_JAVA_JPA;
+
+    private String dtoTemplate = ConstVal.TEMPLATE_DTO_JAVA;
 
     private Entity() {
     }
@@ -83,7 +79,7 @@ public class Entity implements ITemplate {
     /**
      * 自定义基础的Entity类，公共字段
      */
-    @Getter
+
     private final Set<String> superEntityColumns = new HashSet<>();
 
     /**
@@ -95,7 +91,7 @@ public class Entity implements ITemplate {
     /**
      * 实体是否生成 serialVersionUID
      */
-    @Getter
+
     private boolean serialVersionUID = true;
 
     /**
@@ -103,35 +99,33 @@ public class Entity implements ITemplate {
      * -----------------------------------<br>
      * public static final String ID = "test_id";
      */
-    @Getter
+
     private boolean columnConstant;
 
     /**
      * 【实体】是否为链式模型（默认 false）
-     *
-     * @since 3.3.2
      */
-    @Getter
+
     private boolean chain;
 
     /**
      * 【实体】是否为lombok模型（默认 false）<br>
      * <a href="https://projectlombok.org/">document</a>
      */
-    @Getter
+
     private boolean lombok;
 
     /**
      * Boolean类型字段是否移除is前缀（默认 false）<br>
      * 比如 : 数据库字段名称 : 'is_xxx',类型为 : tinyint. 在映射实体的时候则会去掉is,在实体类中映射最终结果为 xxx
      */
-    @Getter
+
     private boolean booleanColumnRemoveIsPrefix;
 
     /**
      * 是否生成实体时，生成字段注解（默认 false）
      */
-    @Getter
+
     private boolean tableFieldAnnotationEnable;
 
     /**
@@ -173,7 +167,7 @@ public class Entity implements ITemplate {
     /**
      * 开启 ActiveRecord 模式（默认 false）
      */
-    @Getter
+
     private boolean activeRecord;
 
     /**
@@ -187,21 +181,24 @@ public class Entity implements ITemplate {
     private ConverterFileName converterFileName = (entityName -> entityName);
 
     /**
-     * 是否覆盖已有文件（默认 false）
-     *
-     * @since 3.5.2
+     * 转换输出控制器文件名称
      */
-    @Getter
-    private boolean fileOverride;
+    private ConverterFileName converterDTOFileName = (entityName -> entityName + ConstVal.DTO);
 
 
     /**
-     * 是否生成
-     *
-     * @since 3.5.6
+     * 是否覆盖已有文件（默认 false）
      */
-    @Getter
-    private boolean generate = true;
+    private boolean fileOverride;
+
+    private boolean dtoFileOverride;
+
+    /**
+     * 是否生成
+     */
+    private boolean generateEntity = true;
+
+    private boolean generateDTO = true;
 
     /**
      * <p>
@@ -303,6 +300,11 @@ public class Entity implements ITemplate {
     @NonNull
     public ConverterFileName getConverterFileName() {
         return converterFileName;
+    }
+
+    @NonNull
+    public ConverterFileName getConverterDTOFileName() {
+        return converterDTOFileName;
     }
 
     @Override
@@ -574,6 +576,17 @@ public class Entity implements ITemplate {
         }
 
         /**
+         * 转换输出文件名称
+         *
+         * @param converter 　转换处理
+         * @return this
+         */
+        public Builder converterDTOFileName(@NonNull ConverterFileName converter) {
+            this.entity.converterDTOFileName = converter;
+            return this;
+        }
+
+        /**
          * 格式化文件名称
          *
          * @param format 　格式
@@ -597,8 +610,6 @@ public class Entity implements ITemplate {
 
         /**
          * 覆盖已有文件
-         *
-         * @since 3.5.3
          */
         public Builder enableFileOverride() {
             this.entity.fileOverride = true;
@@ -606,14 +617,10 @@ public class Entity implements ITemplate {
         }
 
         /**
-         * 指定模板路径
-         *
-         * @param template 模板路径
-         * @return this
-         * @since 3.5.6
+         * 覆盖已有文件
          */
-        public Builder javaTemplate(String template) {
-            this.entity.javaTemplate = template;
+        public Builder enableDTOFileOverride() {
+            this.entity.dtoFileOverride = true;
             return this;
         }
 
@@ -622,10 +629,25 @@ public class Entity implements ITemplate {
          *
          * @param template 模板路径
          * @return this
-         * @since 3.5.6
          */
-        public Builder kotlinTemplatePath(String template) {
-            this.entity.kotlinTemplate = template;
+        public Builder entityTemplate(String template) {
+            this.entity.entityTemplate = template;
+            return this;
+        }
+
+        /**
+         * 指定模板路径
+         *
+         * @param entityJpaTemplate 模板路径
+         * @return this
+         */
+        public Builder entityJpaTemplate(String entityJpaTemplate) {
+            this.entity.entityJpaTemplate = entityJpaTemplate;
+            return this;
+        }
+
+        public Builder dtoTemplate(String dtoTemplate) {
+            this.entity.dtoTemplate = dtoTemplate;
             return this;
         }
 
@@ -633,10 +655,14 @@ public class Entity implements ITemplate {
          * 禁用实体生成
          *
          * @return this
-         * @since 3.5.6
          */
-        public Builder disable() {
-            this.entity.generate = false;
+        public Builder disableEntity() {
+            this.entity.generateEntity = false;
+            return this;
+        }
+
+        public Builder disableDTO() {
+            this.entity.generateDTO = false;
             return this;
         }
 

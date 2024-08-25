@@ -53,6 +53,10 @@ public class BaseBuilder implements IConfigBuilder<StrategyConfig> {
     }
 
     @NonNull
+    public Repository.Builder repositoryBuilder() {
+        return strategyConfig.repositoryBuilder();
+    }
+    @NonNull
     @Override
     public StrategyConfig build() {
         this.strategyConfig.validate();

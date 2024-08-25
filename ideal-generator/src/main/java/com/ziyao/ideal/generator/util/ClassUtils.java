@@ -134,7 +134,7 @@ public final class ClassUtils {
      * @param clazzName 类名
      * @param <T>       类型
      * @return 实例
-     * @since 3.3.2
+
      */
     @SuppressWarnings("unchecked")
     public static <T> T newInstance(String clazzName) {
@@ -259,7 +259,7 @@ public final class ClassUtils {
      * ClassLoader isn't accessible)
      * @see Thread#getContextClassLoader()
      * @see ClassLoader#getSystemClassLoader()
-     * @since 3.3.2
+
      */
     public static ClassLoader getDefaultClassLoader() {
         ClassLoader cl = null;

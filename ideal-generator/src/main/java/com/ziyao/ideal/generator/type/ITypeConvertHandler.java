@@ -25,7 +25,7 @@ import com.ziyao.ideal.generator.config.rules.IColumnType;
  * <p>
  * 2022/5/12.
  *
- * @since 3.5.3
+ * 
  */
 public interface ITypeConvertHandler {
 

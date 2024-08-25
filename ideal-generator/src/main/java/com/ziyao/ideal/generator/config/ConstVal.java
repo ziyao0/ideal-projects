@@ -28,10 +28,12 @@ public interface ConstVal {
     String MODULE_NAME = "ModuleName";
 
     String ENTITY = "Entity";
+    String DTO = "DTO";
     String SERVICE = "Service";
     String SERVICE_IMPL = "ServiceImpl";
     String MAPPER = "Mapper";
     String XML = "Xml";
+    String REPOSITORY = "RepositoryJpa";
     String CONTROLLER = "Controller";
     String PARENT = "Parent";
 
@@ -40,18 +42,16 @@ public interface ConstVal {
     String UNDERLINE = "_";
 
     String JAVA_SUFFIX = ".java";
-    String KT_SUFFIX = ".kt";
     String XML_SUFFIX = ".xml";
 
     /**
      * 实体模板路径
      */
     String TEMPLATE_ENTITY_JAVA = "/templates/entity.java";
+    String TEMPLATE_DTO_JAVA = "/templates/entityDTO.java";
 
-    /**
-     * 实体模板路径(kotlin模板)
-     */
-    String TEMPLATE_ENTITY_KT = "/templates/entity.kt";
+    String TEMPLATE_ENTITY_JAVA_JPA = "/templates/entityJpa.java";
+    String TEMPLATE_REPOSITORY_JAVA_JPA = "/templates/repositoryJpa.java";
 
     /**
      * 控制器模板路径
@@ -72,7 +72,8 @@ public interface ConstVal {
      * Service模板路径
      */
     String TEMPLATE_SERVICE = "/templates/service.java";
-
+    String TEMPLATE_SERVICE_JPA = "/templates/serviceJpa.java";
+    String TEMPLATE_SERVICE_IMPL_JPA = "/templates/serviceImplJpa.java";
     /**
      * ServiceImpl模板路径
      */

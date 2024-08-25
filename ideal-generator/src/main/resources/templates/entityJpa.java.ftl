@@ -37,7 +37,7 @@ public class ${entity} implements Serializable {
      * ${field.propertyName}:${field.comment}
      */
      <#-- 主键 -->
-     <#if field.keyFlag>
+     <#if field.idKey>
     @Id
      </#if>
     private ${field.propertyType} ${field.propertyName};

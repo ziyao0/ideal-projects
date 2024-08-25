@@ -1,10 +1,9 @@
 package ${package.Controller};
 
-import ${dto}.${entity}DTO;
+import ${package.DTO}.${table.dtoName};
 <#if superControllerClassPackage??>
 import ${package.Entity}.${entity};
 import ${package.Service}.${table.serviceName};
-import ${superControllerClassPackage};
 </#if>
 import com.ziyao.ideal.web.base.PageParams;
 import com.ziyao.ideal.web.base.Pages;
@@ -12,11 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.util.ObjectUtils;
 import com.ziyao.ideal.web.exception.ServiceException;
 import org.springframework.web.bind.annotation.*;
-<#if restControllerStyle>
 import org.springframework.web.bind.annotation.RestController;
-<#else>
-import org.springframework.stereotype.Controller;
-</#if>
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,14 +27,12 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/${table.entityPath}")
-<#list table.fields as field>
-<#if field.keyFlag>
-public class ${table.controllerName} extends ${superControllerClass}<${table.serviceName}, ${entity}, ${field.propertyType}> {
+public class ${table.controllerName} {
 
     private final ${table.serviceName} ${table.serviceName?uncap_first};
 
     @PostMapping("/save")
-    public void save(@RequestBody ${entity}DTO entityDTO) {
+    public void save(@RequestBody ${table.dtoName} entityDTO) {
         ${table.serviceName?uncap_first}.save(entityDTO.convert());
     }
 
@@ -47,7 +40,7 @@ public class ${table.controllerName} extends ${superControllerClass}<${table.ser
      * 通过主键id进行更新
      */
     @PostMapping("/updateById")
-    public void updateById(@RequestBody ${entity}DTO entityDTO) {
+    public void updateById(@RequestBody ${table.dtoName} entityDTO) {
         if (ObjectUtils.isEmpty(entityDTO.getId())) {
             throw new ServiceException(400, "主键参数不能为空");
         }
@@ -61,14 +54,14 @@ public class ${table.controllerName} extends ${superControllerClass}<${table.ser
     * @param id 主键Id
     */
     @GetMapping("/remove/{id}")
-    public void removeById(@PathVariable("id") ${field.propertyType} id) {
+    public void removeById(@PathVariable("id") ${table.idPropertyType} id) {
         ${table.serviceName?uncap_first}.deleteById(id);
     }
     /**
      * 默认一次插入500条
      */
     @PostMapping("/saveBatch")
-    public void saveBatch(@RequestBody List<${entity}DTO> entityDTOList) {
+    public void saveBatch(@RequestBody List<${table.dtoName}> entityDTOList) {
         ${table.serviceName?uncap_first}.saveBatch(entityDTOList.stream().map(${entity}DTO::convert).collect(Collectors.toList()));
     }
 
@@ -76,9 +69,7 @@ public class ${table.controllerName} extends ${superControllerClass}<${table.ser
      * 分页查询
      */
     @PostMapping("/list")
-    public Page<${entity}> list(PageParams<${entity}DTO> pageParams) {
+    public Page<${entity}> list(PageParams<${table.dtoName}> pageParams) {
         return ${table.serviceName?uncap_first}.list(pageParams.getParams().convert(), Pages.initPage(pageParams));
     }
 }
-</#if>
-</#list>
