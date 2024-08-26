@@ -3,7 +3,7 @@ package com.ziyao.ideal.crypto.asymmetric;
 
 /**
  * @author ziyao
- * @since 2023/4/23
+ * 
  */
 public interface AsymmetricEncryptor {
 

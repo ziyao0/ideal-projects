@@ -15,15 +15,14 @@
  */
 package com.ziyao.ideal.generator.config.builder;
 
-import com.ziyao.ideal.core.Strings;
 import com.ziyao.ideal.core.lang.NonNull;
 import com.ziyao.ideal.core.lang.Nullable;
 import com.ziyao.ideal.generator.ITemplate;
 import com.ziyao.ideal.generator.config.ConstVal;
 import com.ziyao.ideal.generator.config.StrategyConfig;
 import com.ziyao.ideal.generator.config.po.TableInfo;
+import com.ziyao.ideal.generator.core.Template;
 import com.ziyao.ideal.generator.function.ConverterFileName;
-import com.ziyao.ideal.generator.util.ClassUtils;
 import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,24 +43,6 @@ public class Controller implements ITemplate {
     }
 
     /**
-     * 生成 <code>@RestController</code> 控制器（默认 false）
-     * <pre>
-     *      <code>@Controller</code> -> <code>@RestController</code>
-     * </pre>
-     */
-    @Getter
-    private boolean restStyle;
-
-    /**
-     * 驼峰转连字符（默认 false）
-     * <pre>
-     *      <code>@RequestMapping("/managerUserActionHistory")</code> -> <code>@RequestMapping("/manager-user-action-history")</code>
-     * </pre>
-     */
-    @Getter
-    private boolean hyphenStyle;
-
-    /**
      * 自定义继承的Controller类全称，带包名
      */
     private String superClass;
@@ -73,27 +54,21 @@ public class Controller implements ITemplate {
 
     /**
      * 是否覆盖已有文件（默认 false）
-     *
-     
      */
     @Getter
     private boolean fileOverride;
 
     /**
      * 是否生成
-     *
-     * 
      */
     @Getter
     private boolean generate = true;
 
     /**
      * 模板路径
-     *
-     * 
      */
     @Getter
-    private String templatePath = ConstVal.TEMPLATE_CONTROLLER;
+    private String template = Template.controller.getTemplate();
 
     @Nullable
     public String getSuperClass() {
@@ -108,13 +83,7 @@ public class Controller implements ITemplate {
     @Override
     @NonNull
     public Map<String, Object> renderData(@NonNull TableInfo tableInfo) {
-        Map<String, Object> data = new HashMap<>(5);
-        data.put("controllerMappingHyphen", Strings.camelToHyphen(tableInfo.getEntityPath()));
-        data.put("controllerMappingHyphenStyle", this.hyphenStyle);
-        data.put("restControllerStyle", this.restStyle);
-        data.put("superControllerClassPackage", Strings.isEmpty(superClass) ? null : superClass);
-        data.put("superControllerClass", ClassUtils.getSimpleName(this.superClass));
-        return data;
+        return new HashMap<>(5);
     }
 
     public static class Builder extends BaseBuilder {
@@ -143,26 +112,6 @@ public class Controller implements ITemplate {
          */
         public Builder superClass(@NonNull String superClass) {
             this.controller.superClass = superClass;
-            return this;
-        }
-
-        /**
-         * 开启驼峰转连字符
-         *
-         * @return this
-         */
-        public Builder enableHyphenStyle() {
-            this.controller.hyphenStyle = true;
-            return this;
-        }
-
-        /**
-         * 开启生成@RestController控制器
-         *
-         * @return this
-         */
-        public Builder enableRestStyle() {
-            this.controller.restStyle = true;
             return this;
         }
 
@@ -201,8 +150,6 @@ public class Controller implements ITemplate {
 
         /**
          * 覆盖已有文件
-         *
-         * 
          */
         public Builder enableFileOverride() {
             this.controller.fileOverride = true;
@@ -213,7 +160,6 @@ public class Controller implements ITemplate {
          * 禁用生成
          *
          * @return this
-         * 
          */
         public Builder disable() {
             this.controller.generate = false;
@@ -225,10 +171,9 @@ public class Controller implements ITemplate {
          *
          * @param template 模板路径
          * @return this
-         * 
          */
         public Builder template(@NonNull String template) {
-            this.controller.templatePath = template;
+            this.controller.template = template;
             return this;
         }
 

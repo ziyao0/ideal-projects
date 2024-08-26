@@ -1,7 +1,6 @@
 package com.ziyao.ideal.generator.core;
 
 
-import com.ziyao.ideal.generator.CodeGenConst;
 import com.ziyao.ideal.generator.config.CodeGenConfig;
 import com.ziyao.ideal.generator.config.StrategyConfig;
 import com.ziyao.ideal.generator.config.rules.NamingStrategy;
@@ -24,13 +23,9 @@ public class StrategyConfigBuilder {
                 .entityBuilder()
                 .enableFileOverride()
                 .enableLombok()
-                .naming(NamingStrategy.underline_to_camel)
-                .columnNaming(NamingStrategy.underline_to_camel)
                 // controller 相关策略
                 .controllerBuilder()
-                .template("/templates/controllerJpa.java")
                 .superClass(codeGenConfig.getSuperControllerClass())
-                .enableRestStyle()
                 // service 相关策略
                 .serviceBuilder()
 
@@ -39,11 +34,8 @@ public class StrategyConfigBuilder {
 
         if (codeGenConfig.isEnableJpa()) {
             builder.controllerBuilder()
-                    .template(CodeGenConst.JPA_CONTROLLER_TEMPLATE)
                     .serviceBuilder()
                     .superServiceClass(JapService.class)
-                    .serviceTemplate(CodeGenConst.JPA_SERVICE_TEMPLATE)
-                    .serviceImplTemplate(CodeGenConst.JPA_SERVICE_IMPL_TEMPLATE)
                     .superServiceImplClass(JapServiceImpl.class)
                     .mapperBuilder()
                     .disable()

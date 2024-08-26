@@ -92,7 +92,7 @@ public abstract class AbstractTemplateEngine {
         if (entity.isGenerateEntity()) {
             String entityFile = String.format((entityPath + File.separator + "%s" + suffixJava()), entityName);
             outputFile(getOutputFile(entityFile, OutputFile.entity), objectMap,
-                    templateFilePath(isJpa() ? entity.getEntityJpaTemplate() : entity.getEntityTemplate()), getConfigBuilder().getStrategyConfig().entity().isFileOverride());
+                    templateFilePath(entity.getTemplate()), getConfigBuilder().getStrategyConfig().entity().isFileOverride());
         }
         if (entity.isGenerateDTO()) {
             String dtoFile = String.format((dtoPath + File.separator + tableInfo.getDtoName() + suffixJava()), entityName);
@@ -120,14 +120,14 @@ public abstract class AbstractTemplateEngine {
         if (mapper.isGenerateMapper()) {
             String mapperFile = String.format((mapperPath + File.separator + tableInfo.getMapperName() + suffixJava()), entityName);
             outputFile(getOutputFile(mapperFile, OutputFile.mapper), objectMap,
-                    templateFilePath(mapper.getMapperTemplatePath()), getConfigBuilder().getStrategyConfig().mapper().isFileOverride());
+                    templateFilePath(mapper.getMapperTemplate()), getConfigBuilder().getStrategyConfig().mapper().isFileOverride());
         }
         // MpMapper.xml
         String xmlPath = getPathInfo(OutputFile.xml);
         if (mapper.isGenerateMapperXml()) {
             String xmlFile = String.format((xmlPath + File.separator + tableInfo.getXmlName() + ConstVal.XML_SUFFIX), entityName);
             outputFile(getOutputFile(xmlFile, OutputFile.xml), objectMap,
-                    templateFilePath(mapper.getMapperXmlTemplatePath()), getConfigBuilder().getStrategyConfig().mapper().isFileOverride());
+                    templateFilePath(mapper.getMapperXmlTemplate()), getConfigBuilder().getStrategyConfig().mapper().isFileOverride());
         }
     }
 
@@ -144,7 +144,7 @@ public abstract class AbstractTemplateEngine {
         if (repository.isGenerateRepository()) {
             String mapperFile = String.format((repositoryPath + File.separator + tableInfo.getRepositoryName() + suffixJava()), entityName);
             outputFile(getOutputFile(mapperFile, OutputFile.repository), objectMap,
-                    templateFilePath(repository.getRepositoryTemplate()), getConfigBuilder().getStrategyConfig().repository().isFileOverride());
+                    templateFilePath(repository.getTemplate()), getConfigBuilder().getStrategyConfig().repository().isFileOverride());
         }
     }
 
@@ -163,14 +163,14 @@ public abstract class AbstractTemplateEngine {
             String servicePath = getPathInfo(OutputFile.service);
             String serviceFile = String.format((servicePath + File.separator + tableInfo.getServiceName() + suffixJava()), entityName);
             outputFile(getOutputFile(serviceFile, OutputFile.service), objectMap,
-                    templateFilePath(isJpa() ? service.getServiceJpaTemplate() : service.getServiceTemplate()), getConfigBuilder().getStrategyConfig().service().isFileOverride());
+                    templateFilePath(service.getServiceTemplate()), getConfigBuilder().getStrategyConfig().service().isFileOverride());
         }
         // MpServiceImpl.java
         String serviceImplPath = getPathInfo(OutputFile.serviceImpl);
         if (service.isGenerateServiceImpl()) {
             String implFile = String.format((serviceImplPath + File.separator + tableInfo.getServiceImplName() + suffixJava()), entityName);
             outputFile(getOutputFile(implFile, OutputFile.serviceImpl), objectMap,
-                    templateFilePath(isJpa() ? service.getServiceImplJpaTemplate() : service.getServiceImplTemplate()), getConfigBuilder().getStrategyConfig().service().isFileOverride());
+                    templateFilePath(service.getServiceImplTemplate()), getConfigBuilder().getStrategyConfig().service().isFileOverride());
         }
     }
 
@@ -188,7 +188,7 @@ public abstract class AbstractTemplateEngine {
             String entityName = tableInfo.getEntityName();
             String controllerFile = String.format((controllerPath + File.separator + tableInfo.getControllerName() + suffixJava()), entityName);
             outputFile(getOutputFile(controllerFile, OutputFile.controller), objectMap,
-                    templateFilePath(controller.getTemplatePath()), getConfigBuilder().getStrategyConfig().controller().isFileOverride());
+                    templateFilePath(controller.getTemplate()), getConfigBuilder().getStrategyConfig().controller().isFileOverride());
         }
     }
 
@@ -344,6 +344,7 @@ public abstract class AbstractTemplateEngine {
         objectMap.put("schemaName", schemaName);
         objectMap.put("table", tableInfo);
         objectMap.put("entity", tableInfo.getEntityName());
+        objectMap.put("isJpa", config.getGlobalConfig().isJpa());
         return objectMap;
     }
 

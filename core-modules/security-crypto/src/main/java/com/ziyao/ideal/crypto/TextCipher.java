@@ -4,7 +4,7 @@ import com.ziyao.ideal.core.codec.StringCodec;
 
 /**
  * @author ziyao
- * @since 2023/4/23
+ * 
  */
 public interface TextCipher extends Algorithm {
 

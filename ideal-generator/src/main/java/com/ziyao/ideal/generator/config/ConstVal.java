@@ -20,8 +20,6 @@ import java.nio.charset.StandardCharsets;
 /**
  * 定义常量
  *
- * @author YangHu, tangguo, hubin
- * @since 2016-08-31
  */
 public interface ConstVal {
 
@@ -44,40 +42,6 @@ public interface ConstVal {
     String JAVA_SUFFIX = ".java";
     String XML_SUFFIX = ".xml";
 
-    /**
-     * 实体模板路径
-     */
-    String TEMPLATE_ENTITY_JAVA = "/templates/entity.java";
-    String TEMPLATE_DTO_JAVA = "/templates/entityDTO.java";
-
-    String TEMPLATE_ENTITY_JAVA_JPA = "/templates/entityJpa.java";
-    String TEMPLATE_REPOSITORY_JAVA_JPA = "/templates/repositoryJpa.java";
-
-    /**
-     * 控制器模板路径
-     */
-    String TEMPLATE_CONTROLLER = "/templates/controller.java";
-
-    /**
-     * Mapper模板路径
-     */
-    String TEMPLATE_MAPPER = "/templates/mapper.java";
-
-    /**
-     * MapperXml模板路径
-     */
-    String TEMPLATE_XML = "/templates/mapper.xml";
-
-    /**
-     * Service模板路径
-     */
-    String TEMPLATE_SERVICE = "/templates/service.java";
-    String TEMPLATE_SERVICE_JPA = "/templates/serviceJpa.java";
-    String TEMPLATE_SERVICE_IMPL_JPA = "/templates/serviceImplJpa.java";
-    /**
-     * ServiceImpl模板路径
-     */
-    String TEMPLATE_SERVICE_IMPL = "/templates/serviceImpl.java";
 
     String VM_LOAD_PATH_KEY = "file.resource.loader.class";
     String VM_LOAD_PATH_VALUE = "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader";

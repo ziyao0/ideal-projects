@@ -26,6 +26,7 @@ import com.ziyao.ideal.generator.config.INameConvert;
 import com.ziyao.ideal.generator.config.StrategyConfig;
 import com.ziyao.ideal.generator.config.po.TableInfo;
 import com.ziyao.ideal.generator.config.rules.NamingStrategy;
+import com.ziyao.ideal.generator.core.Template;
 import com.ziyao.ideal.generator.core.metadata.TableInfoHelper;
 import com.ziyao.ideal.generator.function.ConverterFileName;
 import com.ziyao.ideal.generator.mybatisplus.AnnotationHandler;
@@ -44,7 +45,6 @@ import java.util.stream.Collectors;
 /**
  * 实体属性配置
  * <p>
- * 2020/10/11.
  */
 @Getter
 public class Entity implements ITemplate {
@@ -57,11 +57,11 @@ public class Entity implements ITemplate {
     /**
      * Java模板默认路径
      */
-    private String entityTemplate = ConstVal.TEMPLATE_ENTITY_JAVA;
-
-    private String entityJpaTemplate = ConstVal.TEMPLATE_ENTITY_JAVA_JPA;
-
-    private String dtoTemplate = ConstVal.TEMPLATE_DTO_JAVA;
+    private String template = Template.entity.getTemplate();
+    /**
+     * DTO模板
+     */
+    private String dtoTemplate = Template.entity_dto.getTemplate();
 
     private Entity() {
     }
@@ -162,7 +162,7 @@ public class Entity implements ITemplate {
      * 数据库表字段映射到实体的命名策略
      * <p>未指定按照 naming 执行</p>
      */
-    private NamingStrategy columnNaming = null;
+    private NamingStrategy columnNaming = NamingStrategy.underline_to_camel;
 
     /**
      * 开启 ActiveRecord 模式（默认 false）
@@ -630,19 +630,8 @@ public class Entity implements ITemplate {
          * @param template 模板路径
          * @return this
          */
-        public Builder entityTemplate(String template) {
-            this.entity.entityTemplate = template;
-            return this;
-        }
-
-        /**
-         * 指定模板路径
-         *
-         * @param entityJpaTemplate 模板路径
-         * @return this
-         */
-        public Builder entityJpaTemplate(String entityJpaTemplate) {
-            this.entity.entityJpaTemplate = entityJpaTemplate;
+        public Builder template(String template) {
+            this.entity.template = template;
             return this;
         }
 

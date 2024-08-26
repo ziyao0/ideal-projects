@@ -19,6 +19,7 @@ import com.ziyao.ideal.core.Strings;
 import com.ziyao.ideal.core.lang.NonNull;
 import com.ziyao.ideal.generator.config.*;
 import com.ziyao.ideal.generator.engine.AbstractTemplateEngine;
+import com.ziyao.ideal.generator.engine.FreemarkerTemplateEngine;
 
 import java.util.Scanner;
 import java.util.function.BiConsumer;
@@ -29,7 +30,6 @@ import java.util.function.Function;
  * mybatis plus FastAutoGenerator
  *
  * @author L.cm, lanjerry
- * @since 2021-07-22
  */
 public final class FastAutoGenerator {
 
@@ -58,13 +58,6 @@ public final class FastAutoGenerator {
      */
     private final InjectionConfig.Builder injectionConfigBuilder;
 
-    /**
-     * 模板配置 Builder
-     *
-     * @deprecated 3.5.6 {@link #strategyConfigBuilder}
-     */
-    @Deprecated
-    private final TemplateConfig.Builder templateConfigBuilder;
 
     /**
      * 模板引擎
@@ -77,7 +70,6 @@ public final class FastAutoGenerator {
         this.packageConfigBuilder = new PackageConfig.Builder();
         this.strategyConfigBuilder = new StrategyConfig.Builder();
         this.injectionConfigBuilder = new InjectionConfig.Builder();
-        this.templateConfigBuilder = new TemplateConfig.Builder();
     }
 
     public static FastAutoGenerator create(@NonNull String url, String username, String password) {
@@ -189,28 +181,6 @@ public final class FastAutoGenerator {
         return this;
     }
 
-    /**
-     * 模板配置
-     *
-     * @param consumer 自定义模板配置
-     * @return FastAutoGenerator
-     * @deprecated 3.5.6 {@link #strategyConfig(Consumer)}
-     */
-    @Deprecated
-    public FastAutoGenerator templateConfig(Consumer<TemplateConfig.Builder> consumer) {
-        consumer.accept(this.templateConfigBuilder);
-        return this;
-    }
-
-    /**
-     * @return FastAutoGenerator
-     * @deprecated 3.5.6 {@link #strategyConfig(BiConsumer)}
-     */
-    @Deprecated
-    public FastAutoGenerator templateConfig(BiConsumer<Function<String, String>, TemplateConfig.Builder> biConsumer) {
-        biConsumer.accept(this::scannerNext, this.templateConfigBuilder);
-        return this;
-    }
 
     /**
      * 模板引擎配置
@@ -233,9 +203,7 @@ public final class FastAutoGenerator {
                 .strategy(this.strategyConfigBuilder.build())
                 // 注入配置
                 .injection(this.injectionConfigBuilder.build())
-                // 模板配置
-                .template(this.templateConfigBuilder.build())
                 // 执行
-                .execute(this.templateEngine);
+                .execute(this.templateEngine != null ? this.templateEngine : new FreemarkerTemplateEngine());
     }
 }

@@ -21,7 +21,6 @@ import java.io.File;
  * 输出文件接口
  *
  * @author hubin
- * @since 2023-08-04
  */
 public interface IOutputFile {
 

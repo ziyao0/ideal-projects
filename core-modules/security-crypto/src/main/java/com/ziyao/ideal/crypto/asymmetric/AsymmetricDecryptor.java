@@ -5,7 +5,7 @@ package com.ziyao.ideal.crypto.asymmetric;
  * Asymmetric
  *
  * @author ziyao zhang
- * @since 2023/10/18
+ * 
  */
 public interface AsymmetricDecryptor {
 

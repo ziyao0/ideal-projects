@@ -6,7 +6,6 @@ import lombok.Getter;
 
 /**
  * @author ziyao zhang
- * @since 2023/10/23
  */
 @Getter
 public class Sm2BytesCipher implements BytesCipher {

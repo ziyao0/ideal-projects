@@ -2,7 +2,7 @@ package com.ziyao.ideal.crypto.symmetric;
 
 /**
  * @author ziyao zhang
- * @since 2023/10/19
+ * 
  */
 public enum SymmetricAlgorithm {
 

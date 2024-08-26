@@ -3,8 +3,10 @@ package com.ziyao.ideal.generator;
 
 import com.ziyao.ideal.generator.config.CodeGenConfig;
 import com.ziyao.ideal.generator.config.DataSourceConfig;
-import com.ziyao.ideal.generator.core.*;
-import com.ziyao.ideal.generator.engine.FreemarkerTemplateEngine;
+import com.ziyao.ideal.generator.core.DataSourceConfigBuilder;
+import com.ziyao.ideal.generator.core.GlobalConfigBuilder;
+import com.ziyao.ideal.generator.core.PackageConfigBuilder;
+import com.ziyao.ideal.generator.core.StrategyConfigBuilder;
 
 /**
  * @author zhangziyao
@@ -25,17 +27,12 @@ public class CodeGenStarter {
                 .packageConfig(builder -> PackageConfigBuilder.packageConfig(builder, config))
                 // 策略配置
                 .strategyConfig(builder -> StrategyConfigBuilder.strategyConfig(builder, config))
-                // 自定义配置 可以生成自定义文件
-                .injectionConfig(builder -> InjectionConfigBuilder.injectionConfig(builder, config))
-                // 使用Freemarker引擎模板，默认的是Velocity引擎模板
-                .templateEngine(new FreemarkerTemplateEngine())
                 .execute();
     }
 
 
     private static CodeGenConfig generatorConfig() {
         CodeGenConfig gc = new CodeGenConfig();
-
 
 
         gc.setParent("com.ziyao.ideal");

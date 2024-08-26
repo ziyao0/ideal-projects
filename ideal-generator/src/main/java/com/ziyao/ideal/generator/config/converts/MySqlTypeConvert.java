@@ -28,8 +28,6 @@ import static com.ziyao.ideal.generator.config.rules.DbColumnType.*;
  * MYSQL 数据库字段类型转换
  * bit类型数据转换 bit(1) -> Boolean类型  bit(2->64)  -> Byte类型
  *
- * @author hubin, hanchunlin, xiaoliang
- * @since 2017-01-20
  */
 public class MySqlTypeConvert implements ITypeConvert {
     public static final MySqlTypeConvert INSTANCE = new MySqlTypeConvert();

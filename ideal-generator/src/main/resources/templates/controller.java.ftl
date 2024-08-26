@@ -1,19 +1,17 @@
 package ${package.Controller};
 
+<#if !isJpa>
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.ziyao.core.error.Exceptions;
-import ${package.DTO}.${table.dtoName};
-<#if superControllerClassPackage??>
-import ${package.Entity}.${entity};
-import ${package.Service}.${table.serviceName};
-import ${superControllerClassPackage};
+<#else>
+import org.springframework.data.domain.Page;
 </#if>
+import ${package.DTO}.${table.dtoName};
+import ${package.Entity}.${entity};
+impost ${package.Service}.${table.serviceName};
 import com.ziyao.ideal.web.base.PageParams;
 import com.ziyao.ideal.web.base.Pages;
 import org.springframework.util.ObjectUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -29,46 +27,64 @@ import lombok.RequiredArgsConstructor;
  */
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/${package.ModuleName}")
-public class ${table.controllerName} extends ${superControllerClass}<${table.serviceName}, ${entity}> {
+@RequestMapping("/${table.entityPath}")
+public class ${table.controllerName} {
 
     private final ${table.serviceName} ${table.serviceName?uncap_first};
 
     @PostMapping("/save")
     public void save(@RequestBody ${table.dtoName} entityDTO) {
-        super.iService.save(entityDTO.of());
+        ${table.serviceName?uncap_first}.save(entityDTO.convert());
     }
 
-    @PostMapping("/saveOrUpdate")
-    public void saveOrUpdate(@RequestBody ${table.dtoName} entityDTO) {
-        super.iService.saveOrUpdate(entityDTO.of());
-    }
-
+    /**
+     * 通过主键id进行更新
+     */
     @PostMapping("/updateById")
     public void updateById(@RequestBody ${table.dtoName} entityDTO) {
+        <#if !isJpa>
         if (ObjectUtils.isEmpty(entityDTO.getId())) {
-            throw Exceptions.createIllegalArgumentException(null);
+            throw new ServiceException(400, "主键参数不能为空");
         }
-        super.iService.updateById(entityDTO.of());
-}
-
-    /**
-    * 默认一次插入500条
-    */
-    @PostMapping("/saveBatch")
-    public void saveBatch(@RequestBody List<${table.dtoName}> entityDTOList) {
-        super.iService.saveBatch(entityDTOList.stream().map(${table.dtoName}::of).collect(Collectors.toList()), 500);
+        ${table.serviceName?uncap_first}.updateById(entityDTO.convert());
+        <#else>
+        ${table.serviceName?uncap_first}.save(entityDTO.convert());
+        </#if>
     }
 
     /**
-     * 条件分页查询
-     *
-     * @param pageParams 分页参数
-     * @return 返回分页查询信息
+    * 通过id删除数据，有逻辑删除按照逻辑删除执行
+    * <p>不支持联合主键</p>
+    *
+    * @param id 主键Id
+    */
+    @GetMapping("/remove/{id}")
+    public void removeById(@PathVariable("id") ${table.idPropertyType} id) {
+        ${table.serviceName?uncap_first}.deleteById(id);
+    }
+    /**
+     * 默认一次插入500条
      */
-    @PostMapping("/page/get")
-    public Page<${entity}> getPage(@RequestBody PageParams<${table.dtoName}> pageParams) {
+    @PostMapping("/saveBatch")
+    public void saveBatch(@RequestBody List<${table.dtoName}> entityDTOList) {
+
+    <#if isJpa>
+        ${table.serviceName?uncap_first}.saveBatch(entityDTOList.stream().map(${entity}DTO::convert).collect(Collectors.toList()));
+    <#else>
+        ${table.serviceName?uncap_first}.saveBatch(entityDTOList.stream().map(${table.dtoName}::of).collect(Collectors.toList()), 500);
+    </#if>
+    }
+
+    /**
+     * 分页查询
+     */
+    @PostMapping("/list")
+    public Page<${entity}> list(PageParams<${table.dtoName}> pageParams) {
+    <#if isJpa>
+        return ${table.serviceName?uncap_first}.list(pageParams.getParams().convert(), Pages.initPage(pageParams));
+    <#else>
         Page<${entity}> page = Pages.initPage(pageQuery, ${entity}.class);
         return ${table.serviceName?uncap_first}.page(page, pageParams.getParams());
+    </#if>
     }
 }

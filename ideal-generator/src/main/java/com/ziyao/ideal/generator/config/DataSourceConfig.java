@@ -43,8 +43,6 @@ import java.util.Properties;
 /**
  * 数据库配置
  *
- * @author YangHu, hcl, hubin
- * @since 2016/8/30
  */
 public class DataSourceConfig {
 

@@ -20,6 +20,7 @@ import com.ziyao.ideal.generator.ITemplate;
 import com.ziyao.ideal.generator.config.ConstVal;
 import com.ziyao.ideal.generator.config.StrategyConfig;
 import com.ziyao.ideal.generator.config.po.TableInfo;
+import com.ziyao.ideal.generator.core.Template;
 import com.ziyao.ideal.generator.function.ConverterFileName;
 import com.ziyao.ideal.generator.util.ClassUtils;
 import lombok.Getter;
@@ -34,6 +35,7 @@ import java.util.Map;
  * <p>
  * 2020/10/11.
  */
+@Getter
 public class Service implements ITemplate {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(Service.class);
@@ -44,28 +46,25 @@ public class Service implements ITemplate {
     /**
      * 是否生成serviceImpl
      */
-    @Getter
+
     private boolean generateServiceImpl = true;
 
 
     /**
      * 是否生成service
      */
-    @Getter
+
     private boolean generateService = true;
 
     /**
      *
      */
-    @Getter
-    private String serviceTemplate = ConstVal.TEMPLATE_SERVICE;
 
-    @Getter
-    private String serviceJpaTemplate = ConstVal.TEMPLATE_SERVICE_JPA;
-    @Getter
-    private String serviceImplTemplate = ConstVal.TEMPLATE_SERVICE_IMPL;
-    @Getter
-    private String serviceImplJpaTemplate = ConstVal.TEMPLATE_SERVICE_IMPL_JPA;
+    private String serviceTemplate = Template.service.getTemplate();
+
+
+    private String serviceImplTemplate = Template.service_impl.getTemplate();
+
 
     /**
      * 自定义继承的Service类全称，带包名
@@ -99,10 +98,8 @@ public class Service implements ITemplate {
 
     /**
      * 是否覆盖已有文件（默认 false）
-     *
-     
      */
-    @Getter
+
     private boolean fileOverride;
 
     @NonNull
@@ -282,16 +279,6 @@ public class Service implements ITemplate {
         }
 
         /**
-         * Service模板路径
-         *
-         * @return this
-         */
-        public Builder serviceJpaTemplate(@NonNull String template) {
-            this.service.serviceJpaTemplate = template;
-            return this;
-        }
-
-        /**
          * ServiceImpl模板路径
          *
          * @return this
@@ -301,15 +288,6 @@ public class Service implements ITemplate {
             return this;
         }
 
-        /**
-         * ServiceImpl模板路径
-         *
-         * @return this
-         */
-        public Builder serviceImplJpaTemplate(@NonNull String template) {
-            this.service.serviceImplJpaTemplate = template;
-            return this;
-        }
 
         @NonNull
         public Service get() {

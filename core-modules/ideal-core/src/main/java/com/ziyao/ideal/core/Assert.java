@@ -206,7 +206,6 @@ public abstract class Assert {
      * @param messageSupplier a supplier for the exception message to use if the
      *                        assertion fails
      * @throws IllegalStateException if {@code expression} is {@code false}
-     * @since 5.0
      */
     public static void state(boolean expression, Supplier<String> messageSupplier) {
         if (!expression) {

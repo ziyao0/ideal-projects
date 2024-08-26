@@ -5,6 +5,7 @@ import com.ziyao.ideal.generator.ITemplate;
 import com.ziyao.ideal.generator.config.ConstVal;
 import com.ziyao.ideal.generator.config.StrategyConfig;
 import com.ziyao.ideal.generator.config.po.TableInfo;
+import com.ziyao.ideal.generator.core.Template;
 import com.ziyao.ideal.generator.function.ConverterFileName;
 import lombok.Getter;
 import org.slf4j.Logger;
@@ -24,7 +25,7 @@ public class Repository implements ITemplate {
 
     private boolean generateRepository = true;
 
-    private String repositoryTemplate = ConstVal.TEMPLATE_REPOSITORY_JAVA_JPA;
+    private String template = Template.repository.getTemplate();
 
     private boolean fileOverride = false;
     /**
@@ -44,8 +45,8 @@ public class Repository implements ITemplate {
             super(strategyConfig);
         }
 
-        public Builder repositoryTemplate(@NonNull String template) {
-            this.repository.repositoryTemplate = template;
+        public Builder template(@NonNull String template) {
+            this.repository.template = template;
             return this;
         }
 

@@ -21,6 +21,7 @@ import com.ziyao.ideal.generator.config.builder.Controller;
 import com.ziyao.ideal.generator.config.builder.Entity;
 import com.ziyao.ideal.generator.config.builder.Mapper;
 import com.ziyao.ideal.generator.config.builder.Service;
+import com.ziyao.ideal.generator.core.Template;
 import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,6 +37,7 @@ import org.slf4j.LoggerFactory;
  * @since 2017-06-17
  * deprecated 3.5.6 {@link StrategyConfig}
  */
+@Getter
 public class TemplateConfig {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TemplateConfig.class);
@@ -45,39 +47,38 @@ public class TemplateConfig {
      */
     private String entity;
 
-    /**
-     * 设置实体模板路径(kotlin模板)
-     */
-    private String entityKt;
+    private String dto;
+
+    private String repository;
 
     /**
      * 设置控制器模板路径
      */
-    @Getter
+
     private String controller;
 
     /**
      * 设置Mapper模板路径
      */
-    @Getter
+
     private String mapper;
 
     /**
      * 设置MapperXml模板路径
      */
-    @Getter
+
     private String xml;
 
     /**
      * 设置Service模板路径
      */
-    @Getter
+
     private String service;
 
     /**
      * 设置ServiceImpl模板路径
      */
-    @Getter
+
     private String serviceImpl;
 
     /**
@@ -89,12 +90,14 @@ public class TemplateConfig {
      * 不对外爆露
      */
     private TemplateConfig() {
-        this.entity = ConstVal.TEMPLATE_ENTITY_JAVA;
-        this.controller = ConstVal.TEMPLATE_CONTROLLER;
-        this.mapper = ConstVal.TEMPLATE_MAPPER;
-        this.xml = ConstVal.TEMPLATE_XML;
-        this.service = ConstVal.TEMPLATE_SERVICE;
-        this.serviceImpl = ConstVal.TEMPLATE_SERVICE_IMPL;
+        this.entity = Template.entity.getTemplate();
+        this.dto = Template.entity_dto.getTemplate();
+        this.repository = Template.repository.getTemplate();
+        this.mapper = Template.mapper_java.getTemplate();
+        this.xml = Template.mapper_xml.getTemplate();
+        this.service = Template.service.getTemplate();
+        this.serviceImpl = Template.service_impl.getTemplate();
+        this.controller = Template.controller.getTemplate();
     }
 
     /**
@@ -114,7 +117,6 @@ public class TemplateConfig {
      *
      * @param templateTypes 模板类型
      * @return this
-     * @see Entity.Builder#disable()
      * @see Service.Builder#disable()
      * @see Service.Builder#disableService()
      * @see Service.Builder#disableServiceImpl()
@@ -122,60 +124,38 @@ public class TemplateConfig {
      * @see Mapper.Builder#disable()
      * @see Mapper.Builder#disableMapper()
      * @see Mapper.Builder#disableMapperXml()
-
      * @deprecated 3.5.6
      */
     @Deprecated
     public TemplateConfig disable(@NonNull TemplateType... templateTypes) {
-        if (templateTypes != null) {
-            for (TemplateType templateType : templateTypes) {
-                switch (templateType) {
-                    case ENTITY:
-                        this.entity = null;
-                        this.entityKt = null;
-                        //暂时没其他多的需求,使用一个单独的boolean变量进行支持一下.
-                        this.disableEntity = true;
-                        break;
-                    case CONTROLLER:
-                        this.controller = null;
-                        break;
-                    case MAPPER:
-                        this.mapper = null;
-                        break;
-                    case XML:
-                        this.xml = null;
-                        break;
-                    case SERVICE:
-                        this.service = null;
-                        break;
-                    case SERVICE_IMPL:
-                        this.serviceImpl = null;
-                        break;
-                    default:
-                }
+        for (TemplateType templateType : templateTypes) {
+            switch (templateType) {
+                case ENTITY:
+                    this.entity = null;
+                    //暂时没其他多的需求,使用一个单独的boolean变量进行支持一下.
+                    this.disableEntity = true;
+                    break;
+                case CONTROLLER:
+                    this.controller = null;
+                    break;
+                case MAPPER:
+                    this.mapper = null;
+                    break;
+                case XML:
+                    this.xml = null;
+                    break;
+                case SERVICE:
+                    this.service = null;
+                    break;
+                case SERVICE_IMPL:
+                    this.serviceImpl = null;
+                    break;
+                default:
             }
         }
         return this;
     }
 
-    /**
-     * 禁用全部模板
-     *
-     * @return this
-     * @see Entity.Builder#disable()
-     * @see Service.Builder#disable()
-     * @see Service.Builder#disableService()
-     * @see Service.Builder#disableServiceImpl()
-     * @see Controller.Builder#disable()
-     * @see Mapper.Builder#disable()
-     * @see Mapper.Builder#disableMapper()
-     * @see Mapper.Builder#disableMapperXml()
-     * @deprecated 3.5.6
-     */
-    @Deprecated
-    public TemplateConfig disable() {
-        return disable(TemplateType.values());
-    }
 
     /**
      * 模板路径配置构建者
@@ -195,16 +175,6 @@ public class TemplateConfig {
         }
 
         /**
-         * 禁用所有模板
-         *
-         * @return this
-         */
-        public Builder disable() {
-            this.templateConfig.disable();
-            return this;
-        }
-
-        /**
          * 禁用模板
          *
          * @return this
@@ -214,33 +184,6 @@ public class TemplateConfig {
             return this;
         }
 
-        /**
-         * 设置实体模板路径(JAVA)
-         *
-         * @param entityTemplate 实体模板
-         * @return this
-         * @deprecated {@link Entity.Builder#javaTemplate}
-         */
-        @Deprecated
-        public Builder entity(@NonNull String entityTemplate) {
-            this.templateConfig.disableEntity = false;
-            this.templateConfig.entity = entityTemplate;
-            return this;
-        }
-
-        /**
-         * 设置实体模板路径(kotlin)
-         *
-         * @param entityKtTemplate 实体模板
-         * @return this
-         * @deprecated {@link Entity.Builder#javaTemplate}
-         */
-        @Deprecated
-        public Builder entityKt(@NonNull String entityKtTemplate) {
-            this.templateConfig.disableEntity = false;
-            this.templateConfig.entityKt = entityKtTemplate;
-            return this;
-        }
 
         /**
          * 设置service模板路径

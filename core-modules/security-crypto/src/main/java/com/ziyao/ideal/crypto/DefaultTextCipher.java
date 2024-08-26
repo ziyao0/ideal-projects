@@ -5,7 +5,6 @@ import com.ziyao.ideal.core.codec.StringCodec;
 
 /**
  * @author ziyao zhang
- * @since 2023/10/23
  */
 public class DefaultTextCipher implements TextCipher {
 

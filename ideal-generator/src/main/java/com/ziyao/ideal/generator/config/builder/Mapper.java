@@ -20,6 +20,7 @@ import com.ziyao.ideal.generator.ITemplate;
 import com.ziyao.ideal.generator.config.ConstVal;
 import com.ziyao.ideal.generator.config.StrategyConfig;
 import com.ziyao.ideal.generator.config.po.TableInfo;
+import com.ziyao.ideal.generator.core.Template;
 import com.ziyao.ideal.generator.function.ConverterFileName;
 import com.ziyao.ideal.generator.util.ClassUtils;
 import lombok.Getter;
@@ -61,8 +62,6 @@ public class Mapper implements ITemplate {
 
     /**
      * Mapper标记注解
-     *
-     * 
      */
     private Class<? extends Annotation> mapperAnnotationClass;
 
@@ -92,8 +91,6 @@ public class Mapper implements ITemplate {
 
     /**
      * 是否覆盖已有文件（默认 false）
-     *
-     
      */
     @Getter
     private boolean fileOverride;
@@ -105,35 +102,27 @@ public class Mapper implements ITemplate {
 
     /**
      * 是否生成XML
-     *
-     * 
      */
     @Getter
     private boolean generateMapperXml = true;
 
     /**
      * 是否生成Mapper
-     *
-     * 
      */
     @Getter
     private boolean generateMapper = true;
 
     /**
      * Mapper模板路径
-     *
-     * 
      */
     @Getter
-    private String mapperTemplatePath = ConstVal.TEMPLATE_MAPPER;
+    private String mapperTemplate = Template.mapper_java.getTemplate();
 
     /**
      * MapperXml模板路径
-     *
-     * 
      */
     @Getter
-    private String mapperXmlTemplatePath = ConstVal.TEMPLATE_XML;
+    private String mapperXmlTemplate = Template.mapper_xml.getTemplate();
 
     @NonNull
     public String getSuperClass() {
@@ -221,7 +210,6 @@ public class Mapper implements ITemplate {
          *
          * @param annotationClass 注解Class
          * @return this
-         * 
          */
         public Builder mapperAnnotation(Class<? extends Annotation> annotationClass) {
             this.mapper.mapperAnnotationClass = annotationClass;
@@ -325,10 +313,9 @@ public class Mapper implements ITemplate {
          * Service模板路径
          *
          * @return this
-         * 
          */
         public Builder mapperTemplate(@NonNull String template) {
-            this.mapper.mapperTemplatePath = template;
+            this.mapper.mapperTemplate = template;
             return this;
         }
 
@@ -336,10 +323,9 @@ public class Mapper implements ITemplate {
          * ServiceImpl模板路径
          *
          * @return this
-         * 
          */
         public Builder mapperXmlTemplate(@NonNull String template) {
-            this.mapper.mapperXmlTemplatePath = template;
+            this.mapper.mapperXmlTemplate = template;
             return this;
         }
 
@@ -347,7 +333,6 @@ public class Mapper implements ITemplate {
          * 禁用Mapper生成
          *
          * @return this
-         * 
          */
         public Builder disable() {
             this.mapper.generateMapper = false;
@@ -359,7 +344,6 @@ public class Mapper implements ITemplate {
          * 禁用Mapper接口生成
          *
          * @return this
-         * 
          */
         public Builder disableMapper() {
             this.mapper.generateMapper = false;
@@ -370,7 +354,6 @@ public class Mapper implements ITemplate {
          * 禁用MapperXml生成
          *
          * @return this
-         * 
          */
         public Builder disableMapperXml() {
             this.mapper.generateMapperXml = false;

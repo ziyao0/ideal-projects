@@ -23,8 +23,6 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 /**
- * @author 唐振超
- * @since 2023-02-25
  */
 public interface AnnotationHandler {
 

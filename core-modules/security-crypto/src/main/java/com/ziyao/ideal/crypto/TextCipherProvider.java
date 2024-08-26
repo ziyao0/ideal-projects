@@ -6,7 +6,6 @@ import java.util.List;
 
 /**
  * @author ziyao zhang
- * @since 2023/10/25
  */
 public record TextCipherProvider(List<TextCipher> textCiphers) {
 
