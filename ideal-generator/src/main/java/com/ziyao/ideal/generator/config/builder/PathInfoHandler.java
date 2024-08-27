@@ -1,24 +1,10 @@
-/*
- * Copyright (c) 2011-2024, baomidou (jobob@qq.com).
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.ziyao.ideal.generator.config.builder;
 
 import com.ziyao.ideal.core.Collections;
 import com.ziyao.ideal.core.Strings;
 import com.ziyao.ideal.core.text.StrPool;
 import com.ziyao.ideal.generator.config.*;
+import com.ziyao.ideal.generator.core.NameTemplate;
 import lombok.Getter;
 
 import java.io.File;
@@ -28,7 +14,6 @@ import java.util.Map;
 /**
  * 路径信息处理
  * <p>
- * hubin
  */
 class PathInfoHandler {
 
@@ -70,20 +55,20 @@ class PathInfoHandler {
         boolean isJpa = globalConfig.isJpa();
         Entity entity = strategyConfig.entity();
         if (entity.isGenerateEntity()) {
-            putPathInfo(entity.getTemplate(), OutputFile.entity, ConstVal.ENTITY);
+            putPathInfo(entity.getTemplate(), OutputFile.entity, NameTemplate.Entity.name());
         }
         if (entity.isGenerateDTO()) {
-            putPathInfo(entity.getDtoTemplate(), OutputFile.dto, ConstVal.DTO);
+            putPathInfo(entity.getDtoTemplate(), OutputFile.dto, NameTemplate.Dto.name());
         }
         if (isJpa) {
             Repository repository = strategyConfig.repository();
             if (repository.isGenerateRepository()) {
-                putPathInfo(repository.getTemplate(), OutputFile.repository, ConstVal.REPOSITORY);
+                putPathInfo(repository.getTemplate(), OutputFile.repository, NameTemplate.Repository.name());
             }
         } else {
             Mapper mapper = strategyConfig.mapper();
             if (mapper.isGenerateMapper()) {
-                putPathInfo(mapper.getMapperTemplate(), OutputFile.mapper, ConstVal.MAPPER);
+                putPathInfo(mapper.getMapperTemplate(), OutputFile.mapper, NameTemplate.Mapper.name());
             }
             if (mapper.isGenerateMapperXml()) {
                 putPathInfo(mapper.getMapperXmlTemplate(), OutputFile.xml, ConstVal.XML);
@@ -93,14 +78,14 @@ class PathInfoHandler {
 
         Service service = strategyConfig.service();
         if (service.isGenerateService()) {
-            putPathInfo(service.getServiceTemplate(), OutputFile.service, ConstVal.SERVICE);
+            putPathInfo(service.getServiceTemplate(), OutputFile.service, NameTemplate.Service.name());
         }
         if (service.isGenerateServiceImpl()) {
-            putPathInfo(service.getServiceImplTemplate(), OutputFile.serviceImpl, ConstVal.SERVICE_IMPL);
+            putPathInfo(service.getServiceImplTemplate(), OutputFile.serviceImpl, NameTemplate.ServiceImpl.name());
         }
         Controller controller = strategyConfig.controller();
         if (controller.isGenerate()) {
-            putPathInfo(controller.getTemplate(), OutputFile.controller, ConstVal.CONTROLLER);
+            putPathInfo(controller.getTemplate(), OutputFile.controller, NameTemplate.Controller.name());
         }
         putPathInfo(OutputFile.parent, ConstVal.PARENT);
     }

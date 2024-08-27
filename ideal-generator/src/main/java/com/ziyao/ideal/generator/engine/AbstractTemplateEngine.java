@@ -1,25 +1,13 @@
-/*
- * Copyright (c) 2011-2024, baomidou (jobob@qq.com).
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.ziyao.ideal.generator.engine;
 
 import com.ziyao.ideal.core.Strings;
 import com.ziyao.ideal.core.lang.NonNull;
 import com.ziyao.ideal.core.lang.Nullable;
 import com.ziyao.ideal.core.text.StrPool;
-import com.ziyao.ideal.generator.config.*;
+import com.ziyao.ideal.generator.config.ConstVal;
+import com.ziyao.ideal.generator.config.GlobalConfig;
+import com.ziyao.ideal.generator.config.OutputFile;
+import com.ziyao.ideal.generator.config.StrategyConfig;
 import com.ziyao.ideal.generator.config.builder.*;
 import com.ziyao.ideal.generator.config.po.TableInfo;
 import com.ziyao.ideal.generator.util.FileUtils;
@@ -32,15 +20,11 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.function.Function;
 
 
 /**
  * 模板引擎抽象类
- *
- * @author hubin
- * @since 2018-01-10
  */
 public abstract class AbstractTemplateEngine {
 
@@ -214,24 +198,6 @@ public abstract class AbstractTemplateEngine {
                 throw new RuntimeException(exception);
             }
         }
-    }
-
-    /**
-     * 获取模板路径
-     *
-     * @param function function
-     * @return 模板路径
-     * @deprecated 3.5.6
-     */
-    @NonNull
-    @Deprecated
-    protected Optional<String> getTemplateFilePath(@NonNull Function<TemplateConfig, String> function) {
-        TemplateConfig templateConfig = getConfigBuilder().getTemplateConfig();
-        String filePath = function.apply(templateConfig);
-        if (Strings.hasLength(filePath)) {
-            return Optional.of(templateFilePath(filePath));
-        }
-        return Optional.empty();
     }
 
     /**

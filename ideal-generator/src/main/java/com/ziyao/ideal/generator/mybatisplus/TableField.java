@@ -1,18 +1,3 @@
-/*
- * Copyright (c) 2011-2024, baomidou (jobob@qq.com).
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.ziyao.ideal.generator.mybatisplus;
 
 import org.apache.ibatis.mapping.ParameterMapping;
@@ -25,9 +10,6 @@ import java.lang.annotation.*;
 
 /**
  * 表字段标识
- *
- * @author hubin sjy tantan
- * @since 2016-09-09
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
@@ -77,8 +59,6 @@ public @interface TableField {
      * NOT_NULL: insert into table_a(<if test="columnProperty != null">column</if>) values (<if test="columnProperty != null">#{columnProperty}</if>)
      * NOT_EMPTY: insert into table_a(<if test="columnProperty != null and columnProperty!=''">column</if>) values (<if test="columnProperty != null and columnProperty!=''">#{columnProperty}</if>)
      * NOT_EMPTY 如果针对的是非 CharSequence 类型的字段则效果等于 NOT_NULL
-     *
-     * @since 3.1.2
      */
     FieldStrategy insertStrategy() default FieldStrategy.DEFAULT;
 
@@ -89,8 +69,6 @@ public @interface TableField {
      * NOT_NULL: update table_a set <if test="columnProperty != null">column=#{columnProperty}</if>
      * NOT_EMPTY: update table_a set <if test="columnProperty != null and columnProperty!=''">column=#{columnProperty}</if>
      * NOT_EMPTY 如果针对的是非 CharSequence 类型的字段则效果等于 NOT_NULL
-     *
-     * @since 3.1.2
      */
     FieldStrategy updateStrategy() default FieldStrategy.DEFAULT;
 
@@ -101,8 +79,6 @@ public @interface TableField {
      * NOT_NULL: <if test="columnProperty != null">column=#{columnProperty}</if>
      * NOT_EMPTY: <if test="columnProperty != null and columnProperty!=''">column=#{columnProperty}</if>
      * NOT_EMPTY 如果针对的是非 CharSequence 类型的字段则效果等于 NOT_NULL
-     *
-     * @since 3.1.2
      */
     FieldStrategy whereStrategy() default FieldStrategy.DEFAULT;
 
@@ -125,15 +101,11 @@ public @interface TableField {
      * <p>
      * 只生效于 既设置了全局的 columnFormat 也设置了上面 {@link #value()} 的值
      * 如果是 false , 全局的 columnFormat 不生效
-     *
-     * @since 3.1.1
      */
     boolean keepGlobalFormat() default false;
 
     /**
      * {@link ResultMapping#property} and {@link ParameterMapping#property}
-     *
-     * @since 3.4.4
      */
     String property() default "";
 
@@ -143,8 +115,6 @@ public @interface TableField {
      * 建议配合 {@link TableName#autoResultMap()} 一起使用
      * <p>
      * {@link ResultMapping#jdbcType} and {@link ParameterMapping#jdbcType}
-     *
-     * @since 3.1.2
      */
     JdbcType jdbcType() default JdbcType.UNDEFINED;
 
@@ -154,8 +124,6 @@ public @interface TableField {
      * 建议配合 {@link TableName#autoResultMap()} 一起使用
      * <p>
      * {@link ResultMapping#typeHandler} and {@link ParameterMapping#typeHandler}
-     *
-     * @since 3.1.2
      */
     Class<? extends TypeHandler> typeHandler() default UnknownTypeHandler.class;
 
@@ -164,8 +132,6 @@ public @interface TableField {
      * <p>
      * 一般情况下不推荐使用
      * {@link ParameterMapping#javaType}
-     *
-     * @since 3.4.0 @2020-07-23
      */
     boolean javaType() default false;
 
@@ -175,8 +141,6 @@ public @interface TableField {
      * 建议配合 {@link TableName#autoResultMap()} 一起使用
      * <p>
      * {@link ParameterMapping#numericScale}
-     *
-     * @since 3.1.2
      */
     String numericScale() default "";
 }

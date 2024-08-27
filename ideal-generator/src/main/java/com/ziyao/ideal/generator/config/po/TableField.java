@@ -1,18 +1,3 @@
-/*
- * Copyright (c) 2011-2024, baomidou (jobob@qq.com).
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.ziyao.ideal.generator.config.po;
 
 import com.ziyao.ideal.core.Strings;
@@ -36,9 +21,6 @@ import java.util.Map;
 
 /**
  * 表字段信息
- *
- * @author YangHu
- * @since 2016-12-03
  */
 @Getter
 public class TableField {
@@ -271,8 +253,6 @@ public class TableField {
 
     /**
      * 元数据信息
-     * <p>
-     * 2021/2/8
      */
     @Getter
     public static class MetaInfo {
@@ -323,16 +303,12 @@ public class TableField {
 
         /**
          * 类型名称(可用做额外判断处理,例如在pg下,json,uuid,jsonb,tsquery这种都认为是OHTER 1111)
-         *
-         * 
          */
 
         private String typeName;
 
         /**
          * 是否为生成列
-         *
-         * @since 3.5.8
          */
         private boolean generatedColumn;
 

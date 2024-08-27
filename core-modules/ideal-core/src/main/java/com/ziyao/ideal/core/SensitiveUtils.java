@@ -14,7 +14,6 @@ public abstract class SensitiveUtils {
      * @param str  字符串
      * @param type 脱敏类型;可以脱敏：用户id、中文名、身份证号、座机号、手机号、地址、电子邮件、密码
      * @return 脱敏之后的字符串
-     * @author dazer and neusoft and qiaomu
      */
     public static String masking(CharSequence str, SensitiveType type) {
         if (Strings.isEmpty(str)) {

@@ -1,18 +1,3 @@
-/*
- * Copyright (c) 2011-2024, baomidou (jobob@qq.com).
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.ziyao.ideal.generator.config.builder;
 
 import com.ziyao.ideal.core.lang.NonNull;
@@ -27,18 +12,8 @@ import java.util.regex.Pattern;
 
 /**
  * 配置汇总 传递给文件生成工具
- *
- * @author YangHu, tangguo, hubin, Juzi, lanjerry
- * @since 2016-08-30
  */
 public class ConfigBuilder {
-
-    /**
-     * 模板路径配置信息
-     * <p>
-     * deprecated 3.5.6
-     */
-    private final TemplateConfig templateConfig;
 
     /**
      * 数据库表信息
@@ -82,8 +57,6 @@ public class ConfigBuilder {
 
     /**
      * 数据查询实例
-     *
-     * 
      */
     private final IDatabaseQuery databaseQuery;
 
@@ -93,16 +66,14 @@ public class ConfigBuilder {
      * @param packageConfig    包配置
      * @param dataSourceConfig 数据源配置
      * @param strategyConfig   表配置
-     * @param templateConfig   模板配置
      * @param globalConfig     全局配置
      */
     public ConfigBuilder(@Nullable PackageConfig packageConfig, @NonNull DataSourceConfig dataSourceConfig,
-                         @Nullable StrategyConfig strategyConfig, @Nullable TemplateConfig templateConfig,
-                         @Nullable GlobalConfig globalConfig, @Nullable InjectionConfig injectionConfig) {
+                         @Nullable StrategyConfig strategyConfig, @Nullable GlobalConfig globalConfig,
+                         @Nullable InjectionConfig injectionConfig) {
         this.dataSourceConfig = dataSourceConfig;
         this.strategyConfig = Optional.ofNullable(strategyConfig).orElseGet(GeneratorBuilder::strategyConfig);
         this.globalConfig = Optional.ofNullable(globalConfig).orElseGet(GeneratorBuilder::globalConfig);
-        this.templateConfig = Optional.ofNullable(templateConfig).orElseGet(GeneratorBuilder::templateConfig);
         this.packageConfig = Optional.ofNullable(packageConfig).orElseGet(GeneratorBuilder::packageConfig);
         this.injectionConfig = Optional.ofNullable(injectionConfig).orElseGet(GeneratorBuilder::injectionConfig);
         this.pathInfo.putAll(new PathInfoHandler(this.globalConfig, this.strategyConfig, this.packageConfig).getPathInfo());
@@ -141,18 +112,6 @@ public class ConfigBuilder {
     public ConfigBuilder setInjectionConfig(@NonNull InjectionConfig injectionConfig) {
         this.injectionConfig = injectionConfig;
         return this;
-    }
-
-    /**
-     * 获取模板配置
-     *
-     * @return 模板配置
-     * @deprecated 3.5.6 {@link #strategyConfig}
-     */
-    @NonNull
-    @Deprecated
-    public TemplateConfig getTemplateConfig() {
-        return templateConfig;
     }
 
     @NonNull

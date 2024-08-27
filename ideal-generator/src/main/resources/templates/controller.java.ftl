@@ -5,12 +5,11 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 <#else>
 import org.springframework.data.domain.Page;
 </#if>
-import ${package.DTO}.${table.dtoName};
+import ${package.Dto}.${table.dtoName};
 import ${package.Entity}.${entity};
-impost ${package.Service}.${table.serviceName};
+import ${package.Service}.${table.serviceName};
 import com.ziyao.ideal.web.base.PageParams;
 import com.ziyao.ideal.web.base.Pages;
-import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,7 +33,7 @@ public class ${table.controllerName} {
 
     @PostMapping("/save")
     public void save(@RequestBody ${table.dtoName} entityDTO) {
-        ${table.serviceName?uncap_first}.save(entityDTO.convert());
+        ${table.serviceName?uncap_first}.save(entityDTO.getEntity());
     }
 
     /**
@@ -46,9 +45,9 @@ public class ${table.controllerName} {
         if (ObjectUtils.isEmpty(entityDTO.getId())) {
             throw new ServiceException(400, "主键参数不能为空");
         }
-        ${table.serviceName?uncap_first}.updateById(entityDTO.convert());
+        ${table.serviceName?uncap_first}.updateById(entityDTO.getEntity());
         <#else>
-        ${table.serviceName?uncap_first}.save(entityDTO.convert());
+        ${table.serviceName?uncap_first}.save(entityDTO.getEntity());
         </#if>
     }
 
@@ -69,7 +68,7 @@ public class ${table.controllerName} {
     public void saveBatch(@RequestBody List<${table.dtoName}> entityDTOList) {
 
     <#if isJpa>
-        ${table.serviceName?uncap_first}.saveBatch(entityDTOList.stream().map(${entity}DTO::convert).collect(Collectors.toList()));
+        ${table.serviceName?uncap_first}.saveBatch(entityDTOList.stream().map(${entity}DTO::getEntity).collect(Collectors.toList()));
     <#else>
         ${table.serviceName?uncap_first}.saveBatch(entityDTOList.stream().map(${table.dtoName}::of).collect(Collectors.toList()), 500);
     </#if>
@@ -81,7 +80,7 @@ public class ${table.controllerName} {
     @PostMapping("/list")
     public Page<${entity}> list(PageParams<${table.dtoName}> pageParams) {
     <#if isJpa>
-        return ${table.serviceName?uncap_first}.list(pageParams.getParams().convert(), Pages.initPage(pageParams));
+        return ${table.serviceName?uncap_first}.list(pageParams.getParams().getEntity(), Pages.initPage(pageParams));
     <#else>
         Page<${entity}> page = Pages.initPage(pageQuery, ${entity}.class);
         return ${table.serviceName?uncap_first}.page(page, pageParams.getParams());

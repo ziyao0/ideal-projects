@@ -3,10 +3,10 @@ package ${package.ServiceImpl};
 <#if !isJpa>
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import ${package.DTO}.${table.dtoName};
+import ${package.Dto}.${table.dtoName};
 import ${package.Mapper}.${table.mapperName};
 </#if>
-import ${package.RepositoryJpa}.${table.repositoryName};
+import ${package.Repository}.${table.repositoryName};
 import ${superServiceImplClassPackage};
 import ${package.Entity}.${entity};
 import ${package.Service}.${table.serviceName};

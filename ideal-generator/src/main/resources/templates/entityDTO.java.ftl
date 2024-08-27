@@ -1,4 +1,4 @@
-package ${package.DTO};
+package ${package.Dto};
 
 import com.ziyao.ideal.web.orm.EntityDTO;
 import ${package.Entity}.${entity};

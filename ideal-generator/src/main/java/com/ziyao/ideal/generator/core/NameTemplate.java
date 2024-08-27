@@ -11,9 +11,9 @@ import lombok.Getter;
 public enum NameTemplate {
 
     Dto((entityName -> entityName + "DTO")),
-    Entity((entityName -> entityName + "Entity")),
+    Entity((entityName -> entityName)),
     Mapper((entityName -> entityName + "Mapper")),
-    Repository((entityName -> entityName + "Repository")),
+    Repository((entityName -> entityName + "RepositoryJpa")),
     Service((entityName -> entityName + "Service")),
     ServiceImpl((entityName -> entityName + "ServiceImpl")),
     Controller((entityName -> entityName + "Controller")),

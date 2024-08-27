@@ -1,22 +1,8 @@
-/*
- * Copyright (c) 2011-2024, baomidou (jobob@qq.com).
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.ziyao.ideal.generator.config;
 
 import com.ziyao.ideal.core.Strings;
 import com.ziyao.ideal.core.lang.NonNull;
+import com.ziyao.ideal.generator.core.NameTemplate;
 import lombok.Getter;
 
 import java.util.Collections;
@@ -25,9 +11,6 @@ import java.util.Map;
 
 /**
  * 包相关的配置项
- *
- * @author YangHu, tangguo, hubin
- * @since 2016-08-30
  */
 @Getter
 public class PackageConfig {
@@ -72,7 +55,7 @@ public class PackageConfig {
      * Mapper包名
      */
 
-    private String mapper = "mapper";
+    private String mapper = "repository.mapper";
 
     /**
      * Mapper XML包名
@@ -128,14 +111,14 @@ public class PackageConfig {
     public Map<String, String> getPackageInfo() {
         if (packageInfo.isEmpty()) {
             packageInfo.put(ConstVal.MODULE_NAME, this.getModuleName());
-            packageInfo.put(ConstVal.ENTITY, this.joinPackage(this.getEntity()));
-            packageInfo.put(ConstVal.DTO, this.joinPackage(this.getDto()));
-            packageInfo.put(ConstVal.REPOSITORY, this.joinPackage(this.getRepository()));
-            packageInfo.put(ConstVal.MAPPER, this.joinPackage(this.getMapper()));
+            packageInfo.put(NameTemplate.Entity.name(), this.joinPackage(this.getEntity()));
+            packageInfo.put(NameTemplate.Dto.name(), this.joinPackage(this.getDto()));
+            packageInfo.put(NameTemplate.Repository.name(), this.joinPackage(this.getRepository()));
+            packageInfo.put(NameTemplate.Mapper.name(), this.joinPackage(this.getMapper()));
             packageInfo.put(ConstVal.XML, this.joinPackage(this.getXml()));
-            packageInfo.put(ConstVal.SERVICE, this.joinPackage(this.getService()));
-            packageInfo.put(ConstVal.SERVICE_IMPL, this.joinPackage(this.getServiceImpl()));
-            packageInfo.put(ConstVal.CONTROLLER, this.joinPackage(this.getController()));
+            packageInfo.put(NameTemplate.Service.name(), this.joinPackage(this.getService()));
+            packageInfo.put(NameTemplate.ServiceImpl.name(), this.joinPackage(this.getServiceImpl()));
+            packageInfo.put(NameTemplate.Controller.name(), this.joinPackage(this.getController()));
             packageInfo.put(ConstVal.PARENT, this.getParent());
         }
         return Collections.unmodifiableMap(this.packageInfo);

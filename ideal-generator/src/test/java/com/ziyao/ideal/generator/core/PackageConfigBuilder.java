@@ -17,11 +17,6 @@ public class PackageConfigBuilder {
     public static void packageConfig(
             PackageConfig.Builder builder, CodeGenConfig codeGenConfig) {
         builder.moduleName(codeGenConfig.getModuleName())// 设置父包模块名
-                .parent(codeGenConfig.getParent()) // 设置父包名
-                .mapper("repository.mapper")
-                .entity("domain.entity")
-                .controller("controllers")
-                .pathInfo(Collections.singletonMap(
-                        OutputFile.xml, codeGenConfig.getProjectDir() + "/src/main/resources/mapper"));// 设置mapperXml生成路径
+                .parent(codeGenConfig.getParent()); // 设置父包名;// 设置mapperXml生成路径
     }
 }

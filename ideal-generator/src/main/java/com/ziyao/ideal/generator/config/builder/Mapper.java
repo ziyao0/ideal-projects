@@ -1,18 +1,3 @@
-/*
- * Copyright (c) 2011-2024, baomidou (jobob@qq.com).
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.ziyao.ideal.generator.config.builder;
 
 import com.ziyao.ideal.core.lang.NonNull;
@@ -20,6 +5,7 @@ import com.ziyao.ideal.generator.ITemplate;
 import com.ziyao.ideal.generator.config.ConstVal;
 import com.ziyao.ideal.generator.config.StrategyConfig;
 import com.ziyao.ideal.generator.config.po.TableInfo;
+import com.ziyao.ideal.generator.core.NameTemplate;
 import com.ziyao.ideal.generator.core.Template;
 import com.ziyao.ideal.generator.function.ConverterFileName;
 import com.ziyao.ideal.generator.util.ClassUtils;
@@ -36,7 +22,6 @@ import java.util.Map;
 /**
  * 控制器属性配置
  * <p>
- * 2020/10/11.
  */
 public class Mapper implements ITemplate {
 
@@ -49,16 +34,6 @@ public class Mapper implements ITemplate {
      * 自定义继承的Mapper类全称，带包名
      */
     private String superClass = ConstVal.SUPER_MAPPER_CLASS;
-
-    /**
-     * 是否添加 @Mapper 注解（默认 false）
-     *
-     * @see #mapperAnnotationClass
-     * @since 3.5.1
-     * @deprecated 3.5.4
-     */
-    @Deprecated
-    private boolean mapperAnnotation;
 
     /**
      * Mapper标记注解
@@ -81,13 +56,13 @@ public class Mapper implements ITemplate {
      * 转换输出Mapper文件名称
      */
     @Getter
-    private ConverterFileName converterMapperFileName = (entityName -> entityName + ConstVal.MAPPER);
+    private ConverterFileName converterMapperFileName = NameTemplate.Mapper.getConverter();
 
     /**
      * 转换输出Xml文件名称
      */
     @Getter
-    private ConverterFileName converterXmlFileName = (entityName -> entityName + ConstVal.MAPPER);
+    private ConverterFileName converterXmlFileName = NameTemplate.Mapper.getConverter();
 
     /**
      * 是否覆盖已有文件（默认 false）
@@ -187,22 +162,6 @@ public class Mapper implements ITemplate {
          */
         public Builder superClass(@NonNull Class<?> superClass) {
             return superClass(superClass.getName());
-        }
-
-        /**
-         * 开启 @Mapper 注解
-         *
-         * @return this
-         * @see #mapperAnnotation(Class)
-         * @since 3.5.1
-         * @deprecated 3.5.4
-         */
-        @Deprecated
-        public Builder enableMapperAnnotation() {
-            this.mapper.mapperAnnotation = true;
-            //TODO 因为现在mybatis-plus传递mybatis-spring依赖，这里是没问题的，但后面如果考虑脱离mybatis-spring的时候就需要把这里处理掉，建议使用mapperAnnotation方法来标记自己的注解。
-            this.mapper.mapperAnnotationClass = org.apache.ibatis.annotations.Mapper.class;
-            return this;
         }
 
         /**

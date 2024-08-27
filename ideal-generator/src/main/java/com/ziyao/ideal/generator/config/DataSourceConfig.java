@@ -1,18 +1,3 @@
-/*
- * Copyright (c) 2011-2024, baomidou (jobob@qq.com).
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.ziyao.ideal.generator.config;
 
 import com.ziyao.ideal.core.Strings;
@@ -42,7 +27,6 @@ import java.util.Properties;
 
 /**
  * 数据库配置
- *
  */
 public class DataSourceConfig {
 
@@ -68,8 +52,6 @@ public class DataSourceConfig {
 
     /**
      * 关键字处理器
-     *
-
      */
     private IKeyWordsHandler keyWordsHandler;
 
@@ -100,8 +82,6 @@ public class DataSourceConfig {
 
     /**
      * 数据库连接属性
-     *
-     * 
      */
     private final Map<String, String> connectionProperties = new HashMap<>();
 
@@ -110,14 +90,11 @@ public class DataSourceConfig {
      *
      * @see DefaultQuery 默认查询方式，配合{@link #getTypeConvertHandler()} 使用
      * @see SQLQuery SQL语句查询方式，配合{@link #typeConvert} 使用
-     * 
      */
     private Class<? extends AbstractDatabaseQuery> databaseQueryClass = DefaultQuery.class;
 
     /**
      * 类型转换处理
-     *
-     * 
      */
     private ITypeConvertHandler typeConvertHandler;
 
@@ -426,7 +403,6 @@ public class DataSourceConfig {
          *
          * @param databaseQueryClass 查询类
          * @return this
-         * 
          */
         public Builder databaseQueryClass(@NonNull Class<? extends AbstractDatabaseQuery> databaseQueryClass) {
             this.dataSourceConfig.databaseQueryClass = databaseQueryClass;
@@ -438,7 +414,6 @@ public class DataSourceConfig {
          *
          * @param typeConvertHandler 类型转换器
          * @return this
-         * 
          */
         public Builder typeConvertHandler(@NonNull ITypeConvertHandler typeConvertHandler) {
             this.dataSourceConfig.typeConvertHandler = typeConvertHandler;
@@ -451,7 +426,6 @@ public class DataSourceConfig {
          * @param key   属性名
          * @param value 属性值
          * @return this
-         * 
          */
         public Builder addConnectionProperty(@NonNull String key, @NonNull String value) {
             this.dataSourceConfig.connectionProperties.put(key, value);

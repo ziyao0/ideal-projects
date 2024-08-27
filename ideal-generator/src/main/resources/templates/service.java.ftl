@@ -2,7 +2,7 @@ package ${package.Service};
 
 <#if !isJpa>
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import ${package.DTO}.${table.dtoName};
+import ${package.Dto}.${table.dtoName};
 </#if>
 import ${package.Entity}.${entity};
 import ${superServiceClassPackage};

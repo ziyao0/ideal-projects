@@ -1,18 +1,3 @@
-/*
- * Copyright (c) 2011-2024, baomidou (jobob@qq.com).
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.ziyao.ideal.generator.config.converts;
 
 import com.ziyao.ideal.generator.config.ITypeConvert;
@@ -23,9 +8,6 @@ import com.ziyao.ideal.generator.mybatisplus.DbType;
 
 /**
  * 该注册器负责注册并查询类型注册器
- *
- * @author nieqiuqiu, hanchunlin
- * @since 3.3.1
  */
 public class TypeConverts {
 
@@ -36,33 +18,11 @@ public class TypeConverts {
      * @return 返回转换器
      */
     public static ITypeConvert getTypeConvert(DbType dbType) {
-        switch (dbType) {
-            case ORACLE:
-                return OracleTypeConvert.INSTANCE;
-            case DB2:
-                return DB2TypeConvert.INSTANCE;
-            case DM:
-            case GAUSS:
-                return DmTypeConvert.INSTANCE;
-            case KINGBASE_ES:
-                return KingbaseESTypeConvert.INSTANCE;
-            case OSCAR:
-                return OscarTypeConvert.INSTANCE;
-            case MYSQL:
-            case MARIADB:
-                return MySqlTypeConvert.INSTANCE;
-            case POSTGRE_SQL:
-                return PostgreSqlTypeConvert.INSTANCE;
-            case SQLITE:
-                return SqliteTypeConvert.INSTANCE;
-            case SQL_SERVER:
-                return SqlServerTypeConvert.INSTANCE;
-            case FIREBIRD:
-                return FirebirdTypeConvert.INSTANCE;
-            case CLICK_HOUSE:
-                return ClickHouseTypeConvert.INSTANCE;
-        }
-        return null;
+        return switch (dbType) {
+            case MYSQL, MARIADB -> MySqlTypeConvert.INSTANCE;
+            case SQLITE -> SqliteTypeConvert.INSTANCE;
+            default -> null;
+        };
     }
 
     /**

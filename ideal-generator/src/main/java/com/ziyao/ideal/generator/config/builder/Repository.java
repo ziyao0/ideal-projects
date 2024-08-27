@@ -2,9 +2,9 @@ package com.ziyao.ideal.generator.config.builder;
 
 import com.ziyao.ideal.core.lang.NonNull;
 import com.ziyao.ideal.generator.ITemplate;
-import com.ziyao.ideal.generator.config.ConstVal;
 import com.ziyao.ideal.generator.config.StrategyConfig;
 import com.ziyao.ideal.generator.config.po.TableInfo;
+import com.ziyao.ideal.generator.core.NameTemplate;
 import com.ziyao.ideal.generator.core.Template;
 import com.ziyao.ideal.generator.function.ConverterFileName;
 import lombok.Getter;
@@ -31,7 +31,7 @@ public class Repository implements ITemplate {
     /**
      * 转换输出控制器文件名称
      */
-    private ConverterFileName converterFileName = (entityName -> entityName + ConstVal.REPOSITORY);
+    private ConverterFileName converterFileName = NameTemplate.Repository.getConverter();
 
     /**
      * 自定义继承的Mapper类全称，带包名

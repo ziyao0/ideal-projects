@@ -1,18 +1,3 @@
-/*
- * Copyright (c) 2011-2024, baomidou (jobob@qq.com).
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.ziyao.ideal.generator;
 
 import com.ziyao.ideal.core.lang.NonNull;
@@ -29,7 +14,6 @@ import java.util.List;
 
 /**
  * 生成文件
- *
  */
 @Getter
 public class AutoGenerator {
@@ -56,13 +40,6 @@ public class AutoGenerator {
      * 包 相关配置
      */
     private PackageConfig packageInfo;
-    /**
-     * 模板 相关配置
-     *
-     * @deprecated 3.5.6 {@link #strategy}
-     */
-    @Deprecated
-    private TemplateConfig template;
     /**
      * 全局 相关配置
      */
@@ -116,19 +93,6 @@ public class AutoGenerator {
     }
 
     /**
-     * 指定模板配置
-     *
-     * @param templateConfig 模板配置
-     * @return this
-     * <p>
-     * deprecated 3.5.6 {@link #strategy(StrategyConfig)}
-     */
-    public AutoGenerator template(@NonNull TemplateConfig templateConfig) {
-        this.template = templateConfig;
-        return this;
-    }
-
-    /**
      * 指定全局配置
      *
      * @param globalConfig 全局配置
@@ -167,7 +131,7 @@ public class AutoGenerator {
         logger.debug("==========================准备生成文件...==========================");
         // 初始化配置
         if (null == config) {
-            config = new ConfigBuilder(packageInfo, dataSource, strategy, template, globalConfig, injection);
+            config = new ConfigBuilder(packageInfo, dataSource, strategy, globalConfig, injection);
         }
         if (null == templateEngine) {
             templateEngine = new FreemarkerTemplateEngine();

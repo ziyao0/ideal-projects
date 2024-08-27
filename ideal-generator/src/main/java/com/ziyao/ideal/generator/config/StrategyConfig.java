@@ -1,18 +1,3 @@
-/*
- * Copyright (c) 2011-2024, baomidou (jobob@qq.com).
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.ziyao.ideal.generator.config;
 
 import com.ziyao.ideal.core.Strings;
@@ -30,9 +15,6 @@ import java.util.Set;
 
 /**
  * 策略配置项
- *
- * @author YangHu, tangguo, hubin
- * @since 2016/8/30
  */
 public class StrategyConfig {
 
@@ -92,8 +74,6 @@ public class StrategyConfig {
 
     /**
      * 启用sql过滤，语法不能支持使用sql过滤表的话，可以考虑关闭此开关.
-     *
-     * @since 3.3.1
      */
     @Getter
     private boolean enableSqlFilter = true;
@@ -106,8 +86,6 @@ public class StrategyConfig {
 
     /**
      * 包含表名
-     *
-     * @since 3.3.0
      */
     private LikeTable likeTable;
 
@@ -116,8 +94,6 @@ public class StrategyConfig {
      * <p>
      * 只在{@link com.ziyao.ideal.generator.query.SQLQuery}模式下生效.
      * </p>
-     *
-     * @since 3.3.0
      */
     private LikeTable notLikeTable;
 
@@ -259,7 +235,6 @@ public class StrategyConfig {
      * 表名称匹配过滤表前缀
      *
      * @param tableName 表名称
-
      */
     public boolean startsWithTablePrefix(@NonNull String tableName) {
         return this.tablePrefix.stream().anyMatch(tableName::startsWith);
@@ -372,8 +347,6 @@ public class StrategyConfig {
 
     /**
      * 策略配置构建者
-     * <p>
-     * 2020/10/11.
      */
     public static class Builder extends BaseBuilder {
 
@@ -418,7 +391,6 @@ public class StrategyConfig {
          * 启用 schema
          *
          * @return this
-         * @since 3.5.1
          */
         public Builder enableSchema() {
             this.strategyConfig.enableSchema = true;
@@ -445,7 +417,6 @@ public class StrategyConfig {
          *
          * @param tableSuffix 过滤表后缀
          * @return this
-         * @since 3.5.1
          */
         public Builder addTableSuffix(String... tableSuffix) {
             return addTableSuffix(Arrays.asList(tableSuffix));
@@ -476,7 +447,6 @@ public class StrategyConfig {
          *
          * @param fieldSuffix 过滤字段后缀
          * @return this
-         * @since 3.5.1
          */
         public Builder addFieldSuffix(@NonNull String... fieldSuffix) {
             return addFieldSuffix(Arrays.asList(fieldSuffix));

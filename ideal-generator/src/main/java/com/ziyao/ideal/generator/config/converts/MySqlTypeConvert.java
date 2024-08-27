@@ -1,18 +1,3 @@
-/*
- * Copyright (c) 2011-2024, baomidou (jobob@qq.com).
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.ziyao.ideal.generator.config.converts;
 
 import com.ziyao.ideal.generator.config.GlobalConfig;
@@ -27,7 +12,6 @@ import static com.ziyao.ideal.generator.config.rules.DbColumnType.*;
 /**
  * MYSQL 数据库字段类型转换
  * bit类型数据转换 bit(1) -> Boolean类型  bit(2->64)  -> Byte类型
- *
  */
 public class MySqlTypeConvert implements ITypeConvert {
     public static final MySqlTypeConvert INSTANCE = new MySqlTypeConvert();
@@ -63,32 +47,20 @@ public class MySqlTypeConvert implements ITypeConvert {
      */
     public static IColumnType toDateType(GlobalConfig config, String type) {
         String dateType = type.replaceAll("\\(\\d+\\)", "");
-        switch (config.getDateType()) {
-            case ONLY_DATE:
-                return DbColumnType.DATE;
-            case SQL_PACK:
-                switch (dateType) {
-                    case "date":
-                    case "year":
-                        return DbColumnType.DATE_SQL;
-                    case "time":
-                        return DbColumnType.TIME;
-                    default:
-                        return DbColumnType.TIMESTAMP;
-                }
-            case TIME_PACK:
-                switch (dateType) {
-                    case "date":
-                        return DbColumnType.LOCAL_DATE;
-                    case "time":
-                        return DbColumnType.LOCAL_TIME;
-                    case "year":
-                        return DbColumnType.YEAR;
-                    default:
-                        return DbColumnType.LOCAL_DATE_TIME;
-                }
-        }
-        return STRING;
+        return switch (config.getDateType()) {
+            case ONLY_DATE -> DbColumnType.DATE;
+            case SQL_PACK -> switch (dateType) {
+                case "date", "year" -> DbColumnType.DATE_SQL;
+                case "time" -> DbColumnType.TIME;
+                default -> DbColumnType.TIMESTAMP;
+            };
+            case TIME_PACK -> switch (dateType) {
+                case "date" -> DbColumnType.LOCAL_DATE;
+                case "time" -> DbColumnType.LOCAL_TIME;
+                case "year" -> DbColumnType.YEAR;
+                default -> DbColumnType.LOCAL_DATE_TIME;
+            };
+        };
     }
 
 }
