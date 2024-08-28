@@ -43,4 +43,18 @@ public class ${entity} implements Serializable {
     private ${field.propertyType} ${field.propertyName};
 </#list>
 <#------------  END 字段循环遍历  ---------->
+
+    public static class Builder {
+        private final ${entity} ${entity} ${entity?uncap_first} = new ${entity}();
+    <#list table.fields as field>
+        public Builder ${field.propertyName}(${field.propertyType} ${field.propertyName}){
+            this.${entity?uncap_first}.${field.propertyName} = ${field.propertyName};
+            return this;
+        }
+    </#list>
+
+        public ${entity} build(){
+            return this.${entity?uncap_first};
+        }
+    }
 }

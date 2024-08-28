@@ -1,4 +1,4 @@
-package com.ziyao.ideal.generator.core;
+package com.ziyao.ideal.generator;
 
 import lombok.Getter;
 
@@ -7,7 +7,7 @@ import lombok.Getter;
  * @link <a href="https://blog.zziyao.cn">https://blog.zziyao.cn</a>
  */
 @Getter
-public enum Template {
+public enum Templates {
     /**
      * 实体模板路径
      */
@@ -46,7 +46,7 @@ public enum Template {
      */
     private final String template;
 
-    Template(String template) {
+    Templates(String template) {
         this.template = template;
     }
 }

@@ -1,25 +1,37 @@
 package com.ziyao.ideal.generator;
 
 
-import com.ziyao.ideal.generator.config.CodeGenConfig;
 import com.ziyao.ideal.generator.config.DataSourceConfig;
 import com.ziyao.ideal.generator.config.rules.DateType;
 import com.ziyao.ideal.generator.fill.Column;
 import com.ziyao.ideal.generator.mybatisplus.FieldFill;
+import com.ziyao.ideal.generator.util.PropertyKeyUtils;
 import com.ziyao.ideal.jpa.extension.service.JapService;
 import com.ziyao.ideal.jpa.extension.service.impl.JapServiceImpl;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PropertiesLoaderUtils;
+
+import java.io.IOException;
+import java.util.Properties;
 
 /**
  * @author zhangziyao
  */
 public class CodeGenStarter {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
-        CodeGenConfig config = generatorConfig();
+        Resource resource = new ClassPathResource("generator.properties");
+
+        Properties properties = PropertiesLoaderUtils.loadProperties(resource);
+
         // 代码生成器
         FastAutoGenerator.create(
-                        new DataSourceConfig.Builder(config.getUrl(), config.getUserName(), config.getPassword()))
+                        new DataSourceConfig.Builder(
+                                properties.getProperty(PropertyKeyUtils.DB_URL),
+                                properties.getProperty(PropertyKeyUtils.DB_USERNAME),
+                                properties.getProperty(PropertyKeyUtils.DB_PASSWORD)))
                 // 全局配置
                 .globalConfig(builder -> {
                     builder.outputDir(System.getProperty("user.dir") + "/ideal-generator" + "/src/main/java")
@@ -43,18 +55,12 @@ public class CodeGenStarter {
                             .controllerBuilder()
                             // service 相关策略
                             .serviceBuilder()
-                            .formatServiceFileName("%sService")
                             .build();
                     boolean isEnableJpa = true;
                     if (isEnableJpa) {
-                        builder.controllerBuilder()
-                                .serviceBuilder()
+                        builder.serviceBuilder()
                                 .superServiceClass(JapService.class)
                                 .superServiceImplClass(JapServiceImpl.class)
-                                .mapperBuilder()
-                                .disable()
-                                .disableMapperXml()
-                                .disableMapper()
                                 .entityBuilder();
 
                     } else {
@@ -70,15 +76,6 @@ public class CodeGenStarter {
                     }
                 })
                 .execute();
-    }
-
-
-    private static CodeGenConfig generatorConfig() {
-        CodeGenConfig gc = new CodeGenConfig();
-        gc.setEnableJpa(true);
-
-        gc.setInclude("application");
-        return gc;
     }
 }
 

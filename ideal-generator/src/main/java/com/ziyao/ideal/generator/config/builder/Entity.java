@@ -10,10 +10,10 @@ import com.ziyao.ideal.generator.config.INameConvert;
 import com.ziyao.ideal.generator.config.StrategyConfig;
 import com.ziyao.ideal.generator.config.po.TableInfo;
 import com.ziyao.ideal.generator.config.rules.NamingStrategy;
-import com.ziyao.ideal.generator.core.NameTemplate;
-import com.ziyao.ideal.generator.core.Template;
+import com.ziyao.ideal.generator.NameEnum;
+import com.ziyao.ideal.generator.Templates;
 import com.ziyao.ideal.generator.core.metadata.TableInfoHelper;
-import com.ziyao.ideal.generator.function.ConverterFileName;
+import com.ziyao.ideal.generator.NameConvertor;
 import com.ziyao.ideal.generator.mybatisplus.AnnotationHandler;
 import com.ziyao.ideal.generator.mybatisplus.IdType;
 import com.ziyao.ideal.generator.mybatisplus.TableField;
@@ -42,11 +42,11 @@ public class Entity implements ITemplate {
     /**
      * Java模板默认路径
      */
-    private String template = Template.entity.getTemplate();
+    private String template = Templates.entity.getTemplate();
     /**
      * DTO模板
      */
-    private String dtoTemplate = Template.entity_dto.getTemplate();
+    private String dtoTemplate = Templates.entity_dto.getTemplate();
 
     private Entity() {
     }
@@ -163,12 +163,12 @@ public class Entity implements ITemplate {
     /**
      * 转换输出文件名称
      */
-    private ConverterFileName converterFileName = NameTemplate.Entity.getConverter();
+    private NameConvertor nameConvertor = NameEnum.Entity.getConverter();
 
     /**
      * 转换输出控制器文件名称
      */
-    private ConverterFileName converterDTOFileName = NameTemplate.Dto.getConverter();
+    private NameConvertor converterDTOFileName = NameEnum.Dto.getConverter();
 
 
     /**
@@ -283,12 +283,12 @@ public class Entity implements ITemplate {
     }
 
     @NonNull
-    public ConverterFileName getConverterFileName() {
-        return converterFileName;
+    public NameConvertor getNameConvertor() {
+        return nameConvertor;
     }
 
     @NonNull
-    public ConverterFileName getConverterDTOFileName() {
+    public NameConvertor getConverterDTOFileName() {
         return converterDTOFileName;
     }
 
@@ -555,8 +555,8 @@ public class Entity implements ITemplate {
          * @param converter 　转换处理
          * @return this
          */
-        public Builder convertFileName(@NonNull ConverterFileName converter) {
-            this.entity.converterFileName = converter;
+        public Builder convertFileName(@NonNull NameConvertor converter) {
+            this.entity.nameConvertor = converter;
             return this;
         }
 
@@ -566,7 +566,7 @@ public class Entity implements ITemplate {
          * @param converter 　转换处理
          * @return this
          */
-        public Builder converterDTOFileName(@NonNull ConverterFileName converter) {
+        public Builder converterDTOFileName(@NonNull NameConvertor converter) {
             this.entity.converterDTOFileName = converter;
             return this;
         }
@@ -579,18 +579,6 @@ public class Entity implements ITemplate {
          */
         public Builder formatFileName(String format) {
             return convertFileName((entityName) -> String.format(format, entityName));
-        }
-
-        /**
-         * 覆盖已有文件（该方法后续会删除，替代方法为enableFileOverride方法）
-         *
-         * @see #enableFileOverride()
-         */
-        @Deprecated
-        public Builder fileOverride() {
-            LOGGER.warn("fileOverride方法后续会删除，替代方法为enableFileOverride方法");
-            this.entity.fileOverride = true;
-            return this;
         }
 
         /**

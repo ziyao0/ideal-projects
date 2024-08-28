@@ -10,7 +10,7 @@ import java.text.MessageFormat;
 /**
  * 运行工具类
  */
-public class RuntimeUtils {
+public abstract class RuntimeUtils {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RuntimeUtils.class);
 

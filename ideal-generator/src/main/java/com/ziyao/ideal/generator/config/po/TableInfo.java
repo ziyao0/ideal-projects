@@ -258,14 +258,14 @@ public class TableInfo {
      */
     public void processTable() {
         String entityName = entity.getNameConvert().entityNameConvert(this);
-        this.entityName = entity.getConverterFileName().convert(entityName);
+        this.entityName = entity.getNameConvertor().convert(entityName);
         this.dtoName = entity.getConverterDTOFileName().convert(entityName);
         this.mapperName = strategyConfig.mapper().getConverterMapperFileName().convert(entityName);
         this.xmlName = strategyConfig.mapper().getConverterXmlFileName().convert(entityName);
         this.serviceName = strategyConfig.service().getConverterServiceFileName().convert(entityName);
         this.serviceImplName = strategyConfig.service().getConverterServiceImplFileName().convert(entityName);
-        this.controllerName = strategyConfig.controller().getConverterFileName().convert(entityName);
-        this.repositoryName = strategyConfig.repository().getConverterFileName().convert(entityName);
+        this.controllerName = strategyConfig.controller().getNameConvertor().convert(entityName);
+        this.repositoryName = strategyConfig.repository().getNameConvertor().convert(entityName);
         this.importPackage();
     }
 

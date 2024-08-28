@@ -1,6 +1,5 @@
-package com.ziyao.ideal.generator.core;
+package com.ziyao.ideal.generator;
 
-import com.ziyao.ideal.generator.function.ConverterFileName;
 import lombok.Getter;
 
 /**
@@ -8,7 +7,7 @@ import lombok.Getter;
  * @link <a href="https://blog.zziyao.cn">https://blog.zziyao.cn</a>
  */
 @Getter
-public enum NameTemplate {
+public enum NameEnum {
 
     Dto((entityName -> entityName + "DTO")),
     Entity((entityName -> entityName)),
@@ -20,9 +19,9 @@ public enum NameTemplate {
     ;
 
 
-    private final ConverterFileName converter;
+    private final NameConvertor converter;
 
-    NameTemplate(ConverterFileName converter) {
+    NameEnum(NameConvertor converter) {
         this.converter = converter;
     }
 }

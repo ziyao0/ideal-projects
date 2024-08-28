@@ -4,7 +4,7 @@ import com.ziyao.ideal.core.Collections;
 import com.ziyao.ideal.core.Strings;
 import com.ziyao.ideal.core.text.StrPool;
 import com.ziyao.ideal.generator.config.*;
-import com.ziyao.ideal.generator.core.NameTemplate;
+import com.ziyao.ideal.generator.NameEnum;
 import lombok.Getter;
 
 import java.io.File;
@@ -55,20 +55,20 @@ class PathInfoHandler {
         boolean isJpa = globalConfig.isJpa();
         Entity entity = strategyConfig.entity();
         if (entity.isGenerateEntity()) {
-            putPathInfo(entity.getTemplate(), OutputFile.entity, NameTemplate.Entity.name());
+            putPathInfo(entity.getTemplate(), OutputFile.entity, NameEnum.Entity.name());
         }
         if (entity.isGenerateDTO()) {
-            putPathInfo(entity.getDtoTemplate(), OutputFile.dto, NameTemplate.Dto.name());
+            putPathInfo(entity.getDtoTemplate(), OutputFile.dto, NameEnum.Dto.name());
         }
         if (isJpa) {
             Repository repository = strategyConfig.repository();
             if (repository.isGenerateRepository()) {
-                putPathInfo(repository.getTemplate(), OutputFile.repository, NameTemplate.Repository.name());
+                putPathInfo(repository.getTemplate(), OutputFile.repository, NameEnum.Repository.name());
             }
         } else {
             Mapper mapper = strategyConfig.mapper();
             if (mapper.isGenerateMapper()) {
-                putPathInfo(mapper.getMapperTemplate(), OutputFile.mapper, NameTemplate.Mapper.name());
+                putPathInfo(mapper.getMapperTemplate(), OutputFile.mapper, NameEnum.Mapper.name());
             }
             if (mapper.isGenerateMapperXml()) {
                 putPathInfo(mapper.getMapperXmlTemplate(), OutputFile.xml, ConstVal.XML);
@@ -78,14 +78,14 @@ class PathInfoHandler {
 
         Service service = strategyConfig.service();
         if (service.isGenerateService()) {
-            putPathInfo(service.getServiceTemplate(), OutputFile.service, NameTemplate.Service.name());
+            putPathInfo(service.getServiceTemplate(), OutputFile.service, NameEnum.Service.name());
         }
         if (service.isGenerateServiceImpl()) {
-            putPathInfo(service.getServiceImplTemplate(), OutputFile.serviceImpl, NameTemplate.ServiceImpl.name());
+            putPathInfo(service.getServiceImplTemplate(), OutputFile.serviceImpl, NameEnum.ServiceImpl.name());
         }
         Controller controller = strategyConfig.controller();
         if (controller.isGenerate()) {
-            putPathInfo(controller.getTemplate(), OutputFile.controller, NameTemplate.Controller.name());
+            putPathInfo(controller.getTemplate(), OutputFile.controller, NameEnum.Controller.name());
         }
         putPathInfo(OutputFile.parent, ConstVal.PARENT);
     }

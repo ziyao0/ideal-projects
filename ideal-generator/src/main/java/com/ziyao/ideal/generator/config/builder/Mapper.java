@@ -5,9 +5,9 @@ import com.ziyao.ideal.generator.ITemplate;
 import com.ziyao.ideal.generator.config.ConstVal;
 import com.ziyao.ideal.generator.config.StrategyConfig;
 import com.ziyao.ideal.generator.config.po.TableInfo;
-import com.ziyao.ideal.generator.core.NameTemplate;
-import com.ziyao.ideal.generator.core.Template;
-import com.ziyao.ideal.generator.function.ConverterFileName;
+import com.ziyao.ideal.generator.NameEnum;
+import com.ziyao.ideal.generator.Templates;
+import com.ziyao.ideal.generator.NameConvertor;
 import com.ziyao.ideal.generator.util.ClassUtils;
 import lombok.Getter;
 import org.apache.ibatis.cache.Cache;
@@ -56,13 +56,13 @@ public class Mapper implements ITemplate {
      * 转换输出Mapper文件名称
      */
     @Getter
-    private ConverterFileName converterMapperFileName = NameTemplate.Mapper.getConverter();
+    private NameConvertor converterMapperFileName = NameEnum.Mapper.getConverter();
 
     /**
      * 转换输出Xml文件名称
      */
     @Getter
-    private ConverterFileName converterXmlFileName = NameTemplate.Mapper.getConverter();
+    private NameConvertor converterXmlFileName = NameEnum.Mapper.getConverter();
 
     /**
      * 是否覆盖已有文件（默认 false）
@@ -91,22 +91,17 @@ public class Mapper implements ITemplate {
      * Mapper模板路径
      */
     @Getter
-    private String mapperTemplate = Template.mapper_java.getTemplate();
+    private String mapperTemplate = Templates.mapper_java.getTemplate();
 
     /**
      * MapperXml模板路径
      */
     @Getter
-    private String mapperXmlTemplate = Template.mapper_xml.getTemplate();
+    private String mapperXmlTemplate = Templates.mapper_xml.getTemplate();
 
     @NonNull
     public String getSuperClass() {
         return superClass;
-    }
-
-    @Deprecated
-    public boolean isMapperAnnotation() {
-        return mapperAnnotationClass != null;
     }
 
     public Class<? extends Cache> getCache() {
@@ -212,7 +207,7 @@ public class Mapper implements ITemplate {
          * @param converter 　转换处理
          * @return this
          */
-        public Builder convertMapperFileName(@NonNull ConverterFileName converter) {
+        public Builder convertMapperFileName(@NonNull NameConvertor converter) {
             this.mapper.converterMapperFileName = converter;
             return this;
         }
@@ -223,7 +218,7 @@ public class Mapper implements ITemplate {
          * @param converter 　转换处理
          * @return this
          */
-        public Builder convertXmlFileName(@NonNull ConverterFileName converter) {
+        public Builder convertXmlFileName(@NonNull NameConvertor converter) {
             this.mapper.converterXmlFileName = converter;
             return this;
         }
@@ -246,18 +241,6 @@ public class Mapper implements ITemplate {
          */
         public Builder formatXmlFileName(@NonNull String format) {
             return convertXmlFileName((entityName) -> String.format(format, entityName));
-        }
-
-        /**
-         * 覆盖已有文件（该方法后续会删除，替代方法为enableFileOverride方法）
-         *
-         * @see #enableFileOverride()
-         */
-        @Deprecated
-        public Builder fileOverride() {
-            LOGGER.warn("fileOverride方法后续会删除，替代方法为enableFileOverride方法");
-            this.mapper.fileOverride = true;
-            return this;
         }
 
         /**

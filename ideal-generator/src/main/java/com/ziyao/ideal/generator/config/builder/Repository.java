@@ -4,9 +4,9 @@ import com.ziyao.ideal.core.lang.NonNull;
 import com.ziyao.ideal.generator.ITemplate;
 import com.ziyao.ideal.generator.config.StrategyConfig;
 import com.ziyao.ideal.generator.config.po.TableInfo;
-import com.ziyao.ideal.generator.core.NameTemplate;
-import com.ziyao.ideal.generator.core.Template;
-import com.ziyao.ideal.generator.function.ConverterFileName;
+import com.ziyao.ideal.generator.NameEnum;
+import com.ziyao.ideal.generator.Templates;
+import com.ziyao.ideal.generator.NameConvertor;
 import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,13 +25,13 @@ public class Repository implements ITemplate {
 
     private boolean generateRepository = true;
 
-    private String template = Template.repository.getTemplate();
+    private String template = Templates.repository.getTemplate();
 
     private boolean fileOverride = false;
     /**
      * 转换输出控制器文件名称
      */
-    private ConverterFileName converterFileName = NameTemplate.Repository.getConverter();
+    private NameConvertor nameConvertor = NameEnum.Repository.getConverter();
 
     /**
      * 自定义继承的Mapper类全称，带包名
@@ -56,8 +56,8 @@ public class Repository implements ITemplate {
          * @param converter 　转换处理
          * @return this
          */
-        public Builder convertFileName(@NonNull ConverterFileName converter) {
-            this.repository.converterFileName = converter;
+        public Builder convertFileName(@NonNull NameConvertor converter) {
+            this.repository.nameConvertor = converter;
             return this;
         }
 
@@ -78,8 +78,8 @@ public class Repository implements ITemplate {
     }
 
     @NonNull
-    public ConverterFileName getConverterFileName() {
-        return converterFileName;
+    public NameConvertor getNameConvertor() {
+        return nameConvertor;
     }
 
 

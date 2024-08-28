@@ -427,7 +427,7 @@ public class DataSourceConfig {
          * @param value 属性值
          * @return this
          */
-        public Builder addConnectionProperty(@NonNull String key, @NonNull String value) {
+        public Builder  addConnectionProperty(@NonNull String key, @NonNull String value) {
             this.dataSourceConfig.connectionProperties.put(key, value);
             return this;
         }

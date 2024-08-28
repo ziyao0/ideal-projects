@@ -5,9 +5,9 @@ import com.ziyao.ideal.core.lang.Nullable;
 import com.ziyao.ideal.generator.ITemplate;
 import com.ziyao.ideal.generator.config.StrategyConfig;
 import com.ziyao.ideal.generator.config.po.TableInfo;
-import com.ziyao.ideal.generator.core.NameTemplate;
-import com.ziyao.ideal.generator.core.Template;
-import com.ziyao.ideal.generator.function.ConverterFileName;
+import com.ziyao.ideal.generator.NameEnum;
+import com.ziyao.ideal.generator.Templates;
+import com.ziyao.ideal.generator.NameConvertor;
 import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,7 +34,7 @@ public class Controller implements ITemplate {
      * 转换输出控制器文件名称
      */
 
-    private ConverterFileName converterFileName = NameTemplate.Controller.getConverter();
+    private NameConvertor nameConvertor = NameEnum.Controller.getConverter();
 
     /**
      * 是否覆盖已有文件（默认 false）
@@ -52,7 +52,7 @@ public class Controller implements ITemplate {
      * 模板路径
      */
     @Getter
-    private String template = Template.controller.getTemplate();
+    private String template = Templates.controller.getTemplate();
 
     @Nullable
     public String getSuperClass() {
@@ -60,8 +60,8 @@ public class Controller implements ITemplate {
     }
 
     @NonNull
-    public ConverterFileName getConverterFileName() {
-        return converterFileName;
+    public NameConvertor getNameConvertor() {
+        return nameConvertor;
     }
 
     @Override
@@ -105,8 +105,8 @@ public class Controller implements ITemplate {
          * @param converter 　转换处理
          * @return this
          */
-        public Builder convertFileName(@NonNull ConverterFileName converter) {
-            this.controller.converterFileName = converter;
+        public Builder convertFileName(@NonNull NameConvertor converter) {
+            this.controller.nameConvertor = converter;
             return this;
         }
 
@@ -118,18 +118,6 @@ public class Controller implements ITemplate {
          */
         public Builder formatFileName(@NonNull String format) {
             return convertFileName((entityName) -> String.format(format, entityName));
-        }
-
-        /**
-         * 覆盖已有文件（该方法后续会删除，替代方法为enableFileOverride方法）
-         *
-         * @see #enableFileOverride()
-         */
-        @Deprecated
-        public Builder fileOverride() {
-            LOGGER.warn("fileOverride方法后续会删除，替代方法为enableFileOverride方法");
-            this.controller.fileOverride = true;
-            return this;
         }
 
         /**

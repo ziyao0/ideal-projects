@@ -6,7 +6,7 @@ import java.io.IOException;
 /**
  * 文件处理工具类 {@link FileUtils}
  */
-public class FileUtils {
+public abstract class FileUtils {
 
     /**
      * Makes a directory, including any necessary but nonexistent parent

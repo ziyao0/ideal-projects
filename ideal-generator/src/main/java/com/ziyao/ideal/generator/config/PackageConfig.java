@@ -2,7 +2,7 @@ package com.ziyao.ideal.generator.config;
 
 import com.ziyao.ideal.core.Strings;
 import com.ziyao.ideal.core.lang.NonNull;
-import com.ziyao.ideal.generator.core.NameTemplate;
+import com.ziyao.ideal.generator.NameEnum;
 import lombok.Getter;
 
 import java.util.Collections;
@@ -111,14 +111,14 @@ public class PackageConfig {
     public Map<String, String> getPackageInfo() {
         if (packageInfo.isEmpty()) {
             packageInfo.put(ConstVal.MODULE_NAME, this.getModuleName());
-            packageInfo.put(NameTemplate.Entity.name(), this.joinPackage(this.getEntity()));
-            packageInfo.put(NameTemplate.Dto.name(), this.joinPackage(this.getDto()));
-            packageInfo.put(NameTemplate.Repository.name(), this.joinPackage(this.getRepository()));
-            packageInfo.put(NameTemplate.Mapper.name(), this.joinPackage(this.getMapper()));
+            packageInfo.put(NameEnum.Entity.name(), this.joinPackage(this.getEntity()));
+            packageInfo.put(NameEnum.Dto.name(), this.joinPackage(this.getDto()));
+            packageInfo.put(NameEnum.Repository.name(), this.joinPackage(this.getRepository()));
+            packageInfo.put(NameEnum.Mapper.name(), this.joinPackage(this.getMapper()));
             packageInfo.put(ConstVal.XML, this.joinPackage(this.getXml()));
-            packageInfo.put(NameTemplate.Service.name(), this.joinPackage(this.getService()));
-            packageInfo.put(NameTemplate.ServiceImpl.name(), this.joinPackage(this.getServiceImpl()));
-            packageInfo.put(NameTemplate.Controller.name(), this.joinPackage(this.getController()));
+            packageInfo.put(NameEnum.Service.name(), this.joinPackage(this.getService()));
+            packageInfo.put(NameEnum.ServiceImpl.name(), this.joinPackage(this.getServiceImpl()));
+            packageInfo.put(NameEnum.Controller.name(), this.joinPackage(this.getController()));
             packageInfo.put(ConstVal.PARENT, this.getParent());
         }
         return Collections.unmodifiableMap(this.packageInfo);

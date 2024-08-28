@@ -10,10 +10,8 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public final class ClassUtils {
+public abstract class ClassUtils {
 
-    private ClassUtils() {
-    }
 
     private static ClassLoader systemClassLoader;
 
@@ -264,4 +262,6 @@ public final class ClassUtils {
         return cl;
     }
 
+    private ClassUtils() {
+    }
 }

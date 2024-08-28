@@ -453,17 +453,4 @@ public abstract class Randoms {
         return baseString.charAt(randomInt(baseString.length()));
     }
 
-    /**
-     * 生成随机颜色
-     *
-     * @return 随机颜色
-     * @deprecated 使用ImgUtil.randomColor()
-     */
-    @Deprecated
-    public static Color randomColor() {
-        final Random random = getRandom();
-        return new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256));
-    }
-
-
 }

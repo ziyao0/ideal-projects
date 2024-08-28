@@ -1,5 +1,6 @@
 package com.ziyao.ideal.generator.config;
 
+import com.ziyao.ideal.core.Strings;
 import com.ziyao.ideal.core.lang.NonNull;
 import com.ziyao.ideal.generator.config.rules.DateType;
 import lombok.Getter;
@@ -14,6 +15,7 @@ import java.util.function.Supplier;
 /**
  * 全局配置
  */
+@Getter
 public class GlobalConfig {
 
     private GlobalConfig() {
@@ -24,19 +26,16 @@ public class GlobalConfig {
     /**
      * 生成文件的输出目录【 windows:D://  linux or mac:/tmp 】
      */
-    @Getter
     private String outputDir = System.getProperty("os.name").toLowerCase().contains("windows") ? "D://" : "/tmp";
 
     /**
      * 是否打开输出目录
      */
-    @Getter
     private boolean open = true;
 
     /**
      * 作者
      */
-    @Getter
     private String author = "ziyao";
 
     /**
@@ -46,7 +45,6 @@ public class GlobalConfig {
     /**
      * 开启 springdoc 模式（默认 false 与 swagger 不可同时使用）
      */
-    @Getter
     private boolean springdoc;
 
     /**
@@ -54,7 +52,7 @@ public class GlobalConfig {
      */
     private DateType dateType = DateType.TIME_PACK;
 
-    @Getter
+
     private boolean jpa = false;
 
     /**
@@ -77,6 +75,14 @@ public class GlobalConfig {
         return commentDate.get();
     }
 
+
+    public String getOutputDir() {
+        if (Strings.hasText(outputDir)) {
+            return outputDir;
+        }
+        // 如果自定义输出目录为空，则输出到当前项目目录下
+return null;
+    }
 
     /**
      * 全局配置构建

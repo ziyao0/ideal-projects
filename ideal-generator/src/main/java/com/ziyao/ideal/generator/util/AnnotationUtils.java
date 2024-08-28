@@ -1,7 +1,5 @@
 package com.ziyao.ideal.generator.util;
 
-import lombok.experimental.UtilityClass;
-
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -9,14 +7,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 
-@UtilityClass
-public class AnnotationUtils {
+public abstract class AnnotationUtils {
 
-    public <T extends Annotation> T findFirstAnnotation(Class<T> annotationClazz, Field field) {
+    public static <T extends Annotation> T findFirstAnnotation(Class<T> annotationClazz, Field field) {
         return getAnnotation(annotationClazz, new HashSet<>(), field.getDeclaredAnnotations());
     }
 
-    public <T extends Annotation> T findFirstAnnotation(Class<T> annotationClazz, Class<?> clz) {
+    public static <T extends Annotation> T findFirstAnnotation(Class<T> annotationClazz, Class<?> clz) {
         Set<Class<? extends Annotation>> hashSet = new HashSet<>();
         T annotation = getAnnotation(annotationClazz, hashSet, clz.getDeclaredAnnotations());
         if (annotation != null) {
@@ -33,12 +30,12 @@ public class AnnotationUtils {
         return null;
     }
 
-    public <T extends Annotation> T findFirstAnnotation(Class<T> annotationClazz, Method method) {
+    public static <T extends Annotation> T findFirstAnnotation(Class<T> annotationClazz, Method method) {
         return getAnnotation(annotationClazz, new HashSet<>(), method.getDeclaredAnnotations());
     }
 
     @SuppressWarnings("unchecked")
-    private <T extends Annotation> T getAnnotation(Class<T> annotationClazz, Set<Class<? extends Annotation>> annotationSet, Annotation... annotations) {
+    private static <T extends Annotation> T getAnnotation(Class<T> annotationClazz, Set<Class<? extends Annotation>> annotationSet, Annotation... annotations) {
         for (Annotation annotation : annotations) {
             if (annotationSet.add(annotation.annotationType())) {
                 if (annotationClazz.isAssignableFrom(annotation.annotationType())) {
@@ -53,4 +50,6 @@ public class AnnotationUtils {
         return null;
     }
 
+    private AnnotationUtils() {
+    }
 }
