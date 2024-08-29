@@ -65,4 +65,16 @@ public class TemplateStrategy {
         return this.controllerBuilder;
     }
 
+    public static class Builder extends AbstractTemplate.AbstractTemplateBuilder {
+        private final TemplateStrategy strategyConfig;
+
+        public Builder() {
+            super(new TemplateStrategy());
+            strategyConfig = super.build();
+        }
+
+        public TemplateStrategy build() {
+            return strategyConfig;
+        }
+    }
 }

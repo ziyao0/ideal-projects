@@ -1,9 +1,9 @@
 package com.ziyao.ideal.generator.config.rules;
 
 /**
- * 表字段类型
+ * java对应数据库的基本类型
  */
-public enum DbColumnType implements IColumnType {
+public enum JavaType implements IColumnType {
     // 基本类型
     BASE_BYTE("byte", null),
     BASE_SHORT("short", null),
@@ -58,7 +58,7 @@ public enum DbColumnType implements IColumnType {
      */
     private final String pkg;
 
-    DbColumnType(final String type, final String pkg) {
+    JavaType(final String type, final String pkg) {
         this.type = type;
         this.pkg = pkg;
     }

@@ -2,13 +2,13 @@ package com.ziyao.ideal.generator.config.converts;
 
 import com.ziyao.ideal.generator.config.GlobalConfig;
 import com.ziyao.ideal.generator.config.ITypeConvert;
-import com.ziyao.ideal.generator.config.rules.DbColumnType;
+import com.ziyao.ideal.generator.config.rules.JavaType;
 import com.ziyao.ideal.generator.config.rules.IColumnType;
 
 import static com.ziyao.ideal.generator.config.converts.MySqlTypeConvert.toDateType;
 import static com.ziyao.ideal.generator.config.converts.TypeConverts.contains;
 import static com.ziyao.ideal.generator.config.converts.TypeConverts.containsAny;
-import static com.ziyao.ideal.generator.config.rules.DbColumnType.*;
+import static com.ziyao.ideal.generator.config.rules.JavaType.*;
 
 /**
  * SQLite 字段类型转换
@@ -34,7 +34,7 @@ public class SqliteTypeConvert implements ITypeConvert {
                 .test(contains("float").then(FLOAT))
                 .test(contains("double").then(DOUBLE))
                 .test(containsAny("date", "time", "year").then(t -> toDateType(config, t)))
-                .or(DbColumnType.STRING);
+                .or(JavaType.STRING);
     }
 
 }

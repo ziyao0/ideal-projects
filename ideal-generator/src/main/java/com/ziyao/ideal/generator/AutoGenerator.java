@@ -6,6 +6,7 @@ import com.ziyao.ideal.generator.config.builder.ConfigBuilder;
 import com.ziyao.ideal.generator.config.po.TableInfo;
 import com.ziyao.ideal.generator.engine.AbstractTemplateEngine;
 import com.ziyao.ideal.generator.engine.FreemarkerTemplateEngine;
+import com.ziyao.ideal.generator.template.TemplateStrategy;
 import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -133,6 +134,8 @@ public class AutoGenerator {
         if (null == config) {
             config = new ConfigBuilder(packageInfo, dataSource, strategy, globalConfig, injection);
         }
+        ConfigManager configManager = new ConfigManager(packageInfo, dataSource, new TemplateStrategy.Builder().build(), globalConfig);
+
         if (null == templateEngine) {
             templateEngine = new FreemarkerTemplateEngine();
         }

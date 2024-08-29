@@ -71,7 +71,6 @@ public abstract class AbstractTemplate implements Template {
             return strategy.repositoryBuilder();
         }
 
-        @NonNull
         public TemplateStrategy build() {
             return this.strategy;
         }

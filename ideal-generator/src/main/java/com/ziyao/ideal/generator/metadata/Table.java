@@ -1,18 +1,41 @@
 package com.ziyao.ideal.generator.metadata;
 
+import com.ziyao.ideal.core.Collections;
+import lombok.Getter;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author ziyao
  * @link <a href="https://blog.zziyao.cn">https://blog.zziyao.cn</a>
  */
-public record Table(String name, String comment, List<Column> columns) {
+@Getter
+public class Table {
 
-    public static Table of(String name, List<Column> columns) {
-        return of(name, null, columns);
+    private final String name;
+    private final String comment;
+    private final String type;
+    private List<Column> columns;
+
+    public Table(String name, String comment, String type) {
+        this.name = name;
+        this.comment = comment;
+        this.type = type;
     }
 
-    public static Table of(String name, String comment, List<Column> columns) {
-        return new Table(name, comment, columns);
+    public boolean isView() {
+        return "VIEW".equals(type);
+    }
+
+    public void setColumns(List<Column> columns) {
+        if (Collections.isEmpty(columns)) {
+            columns = new ArrayList<>();
+        }
+        this.columns = columns;
+    }
+
+    public static Table of(String name, String comment, String type) {
+        return new Table(name, comment, type);
     }
 }

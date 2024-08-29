@@ -27,7 +27,7 @@ public interface INameConvert {
      * @param field 表字段对象，如果属性表字段命名不一致注意 convert 属性的设置
      */
     @NonNull
-    String propertyNameConvert(@NonNull TableField field);
+    String  propertyNameConvert(@NonNull TableField field);
 
     /**
      * 默认名称转换接口类

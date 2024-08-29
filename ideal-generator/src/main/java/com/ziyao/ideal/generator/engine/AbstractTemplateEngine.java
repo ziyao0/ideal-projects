@@ -86,6 +86,9 @@ public abstract class AbstractTemplateEngine {
         }
     }
 
+    protected void outputCustom() {
+    }
+
     protected File getOutputFile(String filePath, OutputFile outputFile) {
         return getConfigBuilder().getStrategyConfig().getOutputFile().createFile(filePath, outputFile);
     }

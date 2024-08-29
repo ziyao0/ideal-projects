@@ -3,7 +3,7 @@ package com.ziyao.ideal.generator.type;
 import com.ziyao.ideal.generator.config.GlobalConfig;
 import com.ziyao.ideal.generator.config.po.TableField;
 import com.ziyao.ideal.generator.config.rules.DateType;
-import com.ziyao.ideal.generator.config.rules.DbColumnType;
+import com.ziyao.ideal.generator.config.rules.JavaType;
 import com.ziyao.ideal.generator.config.rules.IColumnType;
 
 import java.sql.Types;
@@ -22,46 +22,46 @@ public class TypeRegistry {
     public TypeRegistry(GlobalConfig globalConfig) {
         this.globalConfig = globalConfig;
         // byte[]
-        typeMap.put(Types.BINARY, DbColumnType.BYTE_ARRAY);
-        typeMap.put(Types.BLOB, DbColumnType.BYTE_ARRAY);
-        typeMap.put(Types.LONGVARBINARY, DbColumnType.BYTE_ARRAY);
-        typeMap.put(Types.VARBINARY, DbColumnType.BYTE_ARRAY);
+        typeMap.put(Types.BINARY, JavaType.BYTE_ARRAY);
+        typeMap.put(Types.BLOB, JavaType.BYTE_ARRAY);
+        typeMap.put(Types.LONGVARBINARY, JavaType.BYTE_ARRAY);
+        typeMap.put(Types.VARBINARY, JavaType.BYTE_ARRAY);
         //byte
-        typeMap.put(Types.TINYINT, DbColumnType.BYTE);
+        typeMap.put(Types.TINYINT, JavaType.BYTE);
         //long
-        typeMap.put(Types.BIGINT, DbColumnType.LONG);
+        typeMap.put(Types.BIGINT, JavaType.LONG);
         //boolean
-        typeMap.put(Types.BIT, DbColumnType.BOOLEAN);
-        typeMap.put(Types.BOOLEAN, DbColumnType.BOOLEAN);
+        typeMap.put(Types.BIT, JavaType.BOOLEAN);
+        typeMap.put(Types.BOOLEAN, JavaType.BOOLEAN);
         //short
-        typeMap.put(Types.SMALLINT, DbColumnType.SHORT);
+        typeMap.put(Types.SMALLINT, JavaType.SHORT);
         //string
-        typeMap.put(Types.CHAR, DbColumnType.STRING);
-        typeMap.put(Types.CLOB, DbColumnType.STRING);
-        typeMap.put(Types.VARCHAR, DbColumnType.STRING);
-        typeMap.put(Types.LONGVARCHAR, DbColumnType.STRING);
-        typeMap.put(Types.LONGNVARCHAR, DbColumnType.STRING);
-        typeMap.put(Types.NCHAR, DbColumnType.STRING);
-        typeMap.put(Types.NCLOB, DbColumnType.STRING);
-        typeMap.put(Types.NVARCHAR, DbColumnType.STRING);
+        typeMap.put(Types.CHAR, JavaType.STRING);
+        typeMap.put(Types.CLOB, JavaType.STRING);
+        typeMap.put(Types.VARCHAR, JavaType.STRING);
+        typeMap.put(Types.LONGVARCHAR, JavaType.STRING);
+        typeMap.put(Types.LONGNVARCHAR, JavaType.STRING);
+        typeMap.put(Types.NCHAR, JavaType.STRING);
+        typeMap.put(Types.NCLOB, JavaType.STRING);
+        typeMap.put(Types.NVARCHAR, JavaType.STRING);
         //date
-        typeMap.put(Types.DATE, DbColumnType.DATE);
+        typeMap.put(Types.DATE, JavaType.DATE);
         //timestamp
-        typeMap.put(Types.TIMESTAMP, DbColumnType.TIMESTAMP);
-        typeMap.put(Types.TIMESTAMP_WITH_TIMEZONE, DbColumnType.TIMESTAMP);
+        typeMap.put(Types.TIMESTAMP, JavaType.TIMESTAMP);
+        typeMap.put(Types.TIMESTAMP_WITH_TIMEZONE, JavaType.TIMESTAMP);
         //double
-        typeMap.put(Types.FLOAT, DbColumnType.DOUBLE);
-        typeMap.put(Types.REAL, DbColumnType.DOUBLE);
-        typeMap.put(Types.DOUBLE, DbColumnType.DOUBLE);
+        typeMap.put(Types.FLOAT, JavaType.DOUBLE);
+        typeMap.put(Types.REAL, JavaType.DOUBLE);
+        typeMap.put(Types.DOUBLE, JavaType.DOUBLE);
         //int
-        typeMap.put(Types.INTEGER, DbColumnType.INTEGER);
+        typeMap.put(Types.INTEGER, JavaType.INTEGER);
         //bigDecimal
-        typeMap.put(Types.NUMERIC, DbColumnType.BIG_DECIMAL);
-        typeMap.put(Types.DECIMAL, DbColumnType.BIG_DECIMAL);
+        typeMap.put(Types.NUMERIC, JavaType.BIG_DECIMAL);
+        typeMap.put(Types.DECIMAL, JavaType.BIG_DECIMAL);
         //TODO 类型需要补充完整
     }
 
-    public IColumnType getColumnType(TableField.MetaInfo metaInfo, DbColumnType defaultType) {
+    public IColumnType getColumnType(TableField.MetaInfo metaInfo, JavaType defaultType) {
         //TODO 是否用包装类??? 可以尝试判断字段是否允许为null来判断是否用包装类
         int typeCode = metaInfo.getJdbcType().TYPE_CODE;
         return switch (typeCode) {
@@ -76,61 +76,61 @@ public class TypeRegistry {
     }
 
     public IColumnType getColumnType(TableField.MetaInfo metaInfo) {
-        return getColumnType(metaInfo, DbColumnType.OBJECT);
+        return getColumnType(metaInfo, JavaType.OBJECT);
     }
 
     private IColumnType getBitType(TableField.MetaInfo metaInfo) {
         if (metaInfo.getLength() > 1) {
-            return DbColumnType.BYTE_ARRAY;
+            return JavaType.BYTE_ARRAY;
         }
-        return DbColumnType.BOOLEAN;
+        return JavaType.BOOLEAN;
     }
 
     private IColumnType getNumber(TableField.MetaInfo metaInfo) {
         if (metaInfo.getScale() > 0 || metaInfo.getLength() > 18) {
             return typeMap.get(metaInfo.getJdbcType().TYPE_CODE);
         } else if (metaInfo.getLength() > 9) {
-            return DbColumnType.LONG;
+            return JavaType.LONG;
         } else if (metaInfo.getLength() > 4) {
-            return DbColumnType.INTEGER;
+            return JavaType.INTEGER;
         } else {
-            return DbColumnType.SHORT;
+            return JavaType.SHORT;
         }
     }
 
     private IColumnType getDateType(TableField.MetaInfo metaInfo) {
-        DbColumnType dbColumnType;
+        JavaType javaType;
         DateType dateType = globalConfig.getDateType();
-        dbColumnType = switch (dateType) {
-            case SQL_PACK -> DbColumnType.DATE_SQL;
-            case TIME_PACK -> DbColumnType.LOCAL_DATE;
-            default -> DbColumnType.DATE;
+        javaType = switch (dateType) {
+            case SQL_PACK -> JavaType.DATE_SQL;
+            case TIME_PACK -> JavaType.LOCAL_DATE;
+            default -> JavaType.DATE;
         };
-        return dbColumnType;
+        return javaType;
     }
 
     private IColumnType getTimeType(TableField.MetaInfo metaInfo) {
-        DbColumnType dbColumnType;
+        JavaType javaType;
         DateType dateType = globalConfig.getDateType();
         if (dateType == DateType.TIME_PACK) {
-            dbColumnType = DbColumnType.LOCAL_TIME;
+            javaType = JavaType.LOCAL_TIME;
         } else {
-            dbColumnType = DbColumnType.TIME;
+            javaType = JavaType.TIME;
         }
-        return dbColumnType;
+        return javaType;
     }
 
     private IColumnType getTimestampType(TableField.MetaInfo metaInfo) {
-        DbColumnType dbColumnType;
+        JavaType javaType;
         DateType dateType = globalConfig.getDateType();
         if (dateType == DateType.TIME_PACK) {
-            dbColumnType = DbColumnType.LOCAL_DATE_TIME;
+            javaType = JavaType.LOCAL_DATE_TIME;
         } else if (dateType == DateType.ONLY_DATE) {
-            dbColumnType = DbColumnType.DATE;
+            javaType = JavaType.DATE;
         } else {
-            dbColumnType = DbColumnType.TIMESTAMP;
+            javaType = JavaType.TIMESTAMP;
         }
-        return dbColumnType;
+        return javaType;
     }
 
 }

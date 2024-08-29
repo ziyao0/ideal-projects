@@ -2,12 +2,12 @@ package com.ziyao.ideal.generator.config.converts;
 
 import com.ziyao.ideal.generator.config.GlobalConfig;
 import com.ziyao.ideal.generator.config.ITypeConvert;
-import com.ziyao.ideal.generator.config.rules.DbColumnType;
+import com.ziyao.ideal.generator.config.rules.JavaType;
 import com.ziyao.ideal.generator.config.rules.IColumnType;
 
 import static com.ziyao.ideal.generator.config.converts.TypeConverts.contains;
 import static com.ziyao.ideal.generator.config.converts.TypeConverts.containsAny;
-import static com.ziyao.ideal.generator.config.rules.DbColumnType.*;
+import static com.ziyao.ideal.generator.config.rules.JavaType.*;
 
 /**
  * MYSQL 数据库字段类型转换
@@ -48,17 +48,17 @@ public class MySqlTypeConvert implements ITypeConvert {
     public static IColumnType toDateType(GlobalConfig config, String type) {
         String dateType = type.replaceAll("\\(\\d+\\)", "");
         return switch (config.getDateType()) {
-            case ONLY_DATE -> DbColumnType.DATE;
+            case ONLY_DATE -> JavaType.DATE;
             case SQL_PACK -> switch (dateType) {
-                case "date", "year" -> DbColumnType.DATE_SQL;
-                case "time" -> DbColumnType.TIME;
-                default -> DbColumnType.TIMESTAMP;
+                case "date", "year" -> JavaType.DATE_SQL;
+                case "time" -> JavaType.TIME;
+                default -> JavaType.TIMESTAMP;
             };
             case TIME_PACK -> switch (dateType) {
-                case "date" -> DbColumnType.LOCAL_DATE;
-                case "time" -> DbColumnType.LOCAL_TIME;
-                case "year" -> DbColumnType.YEAR;
-                default -> DbColumnType.LOCAL_DATE_TIME;
+                case "date" -> JavaType.LOCAL_DATE;
+                case "time" -> JavaType.LOCAL_TIME;
+                case "year" -> JavaType.YEAR;
+                default -> JavaType.LOCAL_DATE_TIME;
             };
         };
     }

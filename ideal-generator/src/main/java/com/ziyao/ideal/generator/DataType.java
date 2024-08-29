@@ -1,9 +1,12 @@
 package com.ziyao.ideal.generator;
 
-import com.ziyao.ideal.generator.config.rules.DbColumnType;
 import lombok.Getter;
 
 import java.sql.Types;
+import java.util.Arrays;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * @author ziyao
@@ -11,49 +14,63 @@ import java.sql.Types;
  */
 @Getter
 public enum DataType {
-    BINARY(Types.BINARY, DbColumnType.BYTE_ARRAY),
-    BLOB(Types.BLOB, DbColumnType.BYTE_ARRAY),
-    LONGVARBINARY(Types.LONGVARBINARY, DbColumnType.BYTE_ARRAY),
-    VARBINARY(Types.VARBINARY, DbColumnType.BYTE_ARRAY),
+    BINARY(Types.BINARY, "byte[]", null),
+    BLOB(Types.BLOB, "byte[]", null),
+    LONG_VARBINARY(Types.LONGVARBINARY, "byte[]", null),
+    VARBINARY(Types.VARBINARY, "byte[]", null),
     //byte
-    TINYINT(Types.TINYINT, DbColumnType.BYTE),
+    TINYINT(Types.TINYINT, "Byte", null),
     //long
-    BIGINT(Types.BIGINT, DbColumnType.LONG),
+    BIGINT(Types.BIGINT, "Long", null),
     //boolean
-    BIT(Types.BIT, DbColumnType.BOOLEAN),
-    BOOLEAN(Types.BOOLEAN, DbColumnType.BOOLEAN),
+    BIT(Types.BIT, "Boolean", null),
+    BOOLEAN(Types.BOOLEAN, "Boolean", null),
     //short
-    SMALLINT(Types.SMALLINT, DbColumnType.SHORT),
+    SMALLINT(Types.SMALLINT, "Short", null),
     //string
-    CHAR(Types.CHAR, DbColumnType.STRING),
-    CLOB(Types.CLOB, DbColumnType.STRING),
-    VARCHAR(Types.VARCHAR, DbColumnType.STRING),
-    LONGVARCHAR(Types.LONGVARCHAR, DbColumnType.STRING),
-    LONGNVARCHAR(Types.LONGNVARCHAR, DbColumnType.STRING),
-    NCHAR(Types.NCHAR, DbColumnType.STRING),
-    NCLOB(Types.NCLOB, DbColumnType.STRING),
-    NVARCHAR(Types.NVARCHAR, DbColumnType.STRING),
+    CHAR(Types.CHAR, "String", null),
+    CLOB(Types.CLOB, "String", null),
+    VARCHAR(Types.VARCHAR, "String", null),
+    LONG_VARCHAR(Types.LONGVARCHAR, "String", null),
+    LONG_NVARCHAR(Types.LONGNVARCHAR, "String", null),
+    NCHAR(Types.NCHAR, "String", null),
+    NCLOB(Types.NCLOB, "String", null),
+    NVARCHAR(Types.NVARCHAR, "String", null),
     //date
-    DATE(Types.DATE, DbColumnType.DATE),
+    DATE(Types.DATE, "Date", "java.util.Date"),
     //timestamp
-    TIMESTAMP(Types.TIMESTAMP, DbColumnType.TIMESTAMP),
-    TIMESTAMP_WITH_TIMEZONE(Types.TIMESTAMP_WITH_TIMEZONE, DbColumnType.TIMESTAMP),
+    TIMESTAMP(Types.TIMESTAMP, "Timestamp", "java.sql.Timestamp"),
+    TIMESTAMP_WITH_TIMEZONE(Types.TIMESTAMP_WITH_TIMEZONE, "Timestamp", "java.sql.Timestamp"),
     //double
-    FLOAT(Types.FLOAT, DbColumnType.DOUBLE),
-    REAL(Types.REAL, DbColumnType.DOUBLE),
-    DOUBLE(Types.DOUBLE, DbColumnType.DOUBLE),
+    FLOAT(Types.FLOAT, "Double", null),
+    REAL(Types.REAL, "Double", null),
+    DOUBLE(Types.DOUBLE, "Double", null),
     //int
-    INTEGER(Types.INTEGER, DbColumnType.INTEGER),
+    INTEGER(Types.INTEGER, "Integer", null),
     //bigDecimal
-    NUMERIC(Types.NUMERIC, DbColumnType.BIG_DECIMAL),
-    DECIMAL(Types.DECIMAL, DbColumnType.BIG_DECIMAL),
+    NUMERIC(Types.NUMERIC, "BigDecimal", "java.math.BigDecimal"),
+    DECIMAL(Types.DECIMAL, "BigDecimal", "java.math.BigDecimal"),
+    OTHER(Types.OTHER, "String", null),
     ;
 
     private final int jdbcType;
-    private final DbColumnType javaType;
+    private final String javaType;
+    private final String pkg;
 
-    DataType(int jdbcType, DbColumnType javaType) {
+    DataType(int jdbcType, String javaType, String pkg) {
         this.jdbcType = jdbcType;
         this.javaType = javaType;
+        this.pkg = pkg;
+    }
+
+    private static final Map<Integer, DataType> TYPE_MAP;
+
+    static {
+        TYPE_MAP = Arrays.stream(values())
+                .collect(Collectors.toMap(DataType::getJdbcType, Function.identity()));
+    }
+
+    public static DataType forCode(int jdbcType) {
+        return TYPE_MAP.get(jdbcType);
     }
 }
