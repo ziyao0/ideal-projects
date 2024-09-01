@@ -1,9 +1,12 @@
 package com.ziyao.ideal.generator.template;
 
+import com.ziyao.ideal.core.Strings;
 import com.ziyao.ideal.core.lang.NonNull;
-import com.ziyao.ideal.generator.metadata.Metadata;
-import com.ziyao.ideal.generator.NameConvertor;
-import com.ziyao.ideal.generator.NameEnum;
+import com.ziyao.ideal.generator.core.Naming;
+import com.ziyao.ideal.generator.core.OutputNameConvertor;
+import com.ziyao.ideal.generator.core.Templates;
+import com.ziyao.ideal.generator.core.meta.TemplateContext;
+import com.ziyao.ideal.generator.settings.StrategySettings;
 
 import java.util.Map;
 
@@ -13,17 +16,25 @@ import java.util.Map;
  */
 public class ControllerTemplate extends AbstractTemplate {
 
-    private NameConvertor convertor = NameEnum.Controller.getConverter();
+    private OutputNameConvertor convertor = Naming.Controller.getConverter();
 
     @Override
-    public NameConvertor getConvertor() {
+    public OutputNameConvertor getConvertor() {
         return convertor;
     }
 
     @Override
-    public Map<String, Object> load(Metadata metadata) {
-        Map<String, Object> render = super.load(metadata);
-        render.put("controllerName", getConvertor().convert(metadata.getEntityName()));
+    public String getTemplate() {
+        if (Strings.isEmpty(template)) {
+            return Templates.controller.getTemplate();
+        }
+        return template;
+    }
+
+    @Override
+    public Map<String, Object> load(TemplateContext templateContext) {
+        Map<String, Object> render = super.load(templateContext);
+        render.put("controllerName", getConvertor().convert(templateContext.getEntityName()));
         return render;
     }
 
@@ -31,7 +42,7 @@ public class ControllerTemplate extends AbstractTemplate {
 
         private final ControllerTemplate template = new ControllerTemplate();
 
-        public Builder(TemplateStrategy strategy) {
+        public Builder(StrategySettings strategy) {
             super(strategy);
         }
 
@@ -45,8 +56,13 @@ public class ControllerTemplate extends AbstractTemplate {
             return this;
         }
 
-        public Builder convertor(@NonNull NameConvertor nameConvertor) {
-            this.template.convertor = nameConvertor;
+        public Builder template(String template) {
+            this.template.template = template;
+            return this;
+        }
+
+        public Builder convertor(@NonNull OutputNameConvertor outputNameConvertor) {
+            this.template.convertor = outputNameConvertor;
             return this;
         }
 

@@ -1,13 +1,16 @@
+<#assign jpa = "jpa">
+<#assign mybatisPlus = "mybatisPlus">
+<#assign tkMybatis = "tkMybatis">
 package ${package.Controller};
 
-<#if !isJpa>
+<#if persistType=="jpa">
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 <#else>
 import org.springframework.data.domain.Page;
 </#if>
-import ${package.Dto}.${table.dtoName};
-import ${package.Entity}.${entity};
-import ${package.Service}.${table.serviceName};
+import ${package.Dto}.${dtoName};
+import ${package.Entity}.${entityName};
+import ${package.Service}.${serviceName};
 import com.ziyao.ideal.web.base.PageParams;
 import com.ziyao.ideal.web.base.Pages;
 import org.springframework.web.bind.annotation.*;
@@ -19,35 +22,35 @@ import lombok.RequiredArgsConstructor;
 
 /**
  * <p>
- * ${table.comment!} 前端控制器
+ * ${context.comment!} 前端控制器
  * </p>
  *
  * @author ${author}
  */
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/${table.entityPath}")
-public class ${table.controllerName} {
+@RequestMapping("/${entityName}")
+public class ${controllerName} {
 
-    private final ${table.serviceName} ${table.serviceName?uncap_first};
+    private final ${serviceName} ${serviceName?uncap_first};
 
     @PostMapping("/save")
-    public void save(@RequestBody ${table.dtoName} entityDTO) {
-        ${table.serviceName?uncap_first}.save(entityDTO.getEntity());
+    public void save(@RequestBody ${dtoName} ${dtoName?uncap_first}) {
+        ${serviceName?uncap_first}.save(${dtoName?uncap_first}.toEntity());
     }
 
     /**
      * 通过主键id进行更新
      */
     @PostMapping("/updateById")
-    public void updateById(@RequestBody ${table.dtoName} entityDTO) {
-        <#if !isJpa>
-        if (ObjectUtils.isEmpty(entityDTO.getId())) {
+    public void updateById(@RequestBody ${dtoName} ${dtoName?uncap_first}) {
+        <#if persistType=="jpa">
+        ${serviceName?uncap_first}.save(${dtoName?uncap_first}.toEntity());
+        <#else>
+        if (ObjectUtils.isEmpty(${dtoName?uncap_first}.getId())) {
             throw new ServiceException(400, "主键参数不能为空");
         }
-        ${table.serviceName?uncap_first}.updateById(entityDTO.getEntity());
-        <#else>
-        ${table.serviceName?uncap_first}.save(entityDTO.getEntity());
+        ${serviceName?uncap_first}.updateById(${dtoName?uncap_first}.toEntity());
         </#if>
     }
 
@@ -58,32 +61,22 @@ public class ${table.controllerName} {
     * @param id 主键Id
     */
     @GetMapping("/remove/{id}")
-    public void removeById(@PathVariable("id") ${table.idPropertyType} id) {
-        ${table.serviceName?uncap_first}.deleteById(id);
-    }
-    /**
-     * 默认一次插入500条
-     */
-    @PostMapping("/saveBatch")
-    public void saveBatch(@RequestBody List<${table.dtoName}> entityDTOList) {
-
-    <#if isJpa>
-        ${table.serviceName?uncap_first}.saveBatch(entityDTOList.stream().map(${entity}DTO::getEntity).collect(Collectors.toList()));
-    <#else>
-        ${table.serviceName?uncap_first}.saveBatch(entityDTOList.stream().map(${table.dtoName}::of).collect(Collectors.toList()), 500);
-    </#if>
+    public void removeById(@PathVariable("id") ${primaryPropertyType} id) {
+        ${serviceName?uncap_first}.deleteById(id);
     }
 
     /**
      * 分页查询
      */
     @PostMapping("/list")
-    public Page<${entity}> list(PageParams<${table.dtoName}> pageParams) {
-    <#if isJpa>
-        return ${table.serviceName?uncap_first}.list(pageParams.getParams().getEntity(), Pages.initPage(pageParams));
-    <#else>
-        Page<${entity}> page = Pages.initPage(pageQuery, ${entity}.class);
-        return ${table.serviceName?uncap_first}.page(page, pageParams.getParams());
+    public Page<${entityName}> list(PageParams<${dtoName}> pageParams) {
+    <#if persistType==jpa>
+        return ${serviceName?uncap_first}.list(pageParams.getParams().toEntity(), Pages.initPage(pageParams));
+    <#elseif persistType==mybatisPlus>
+        Page<${entityName}> page = Pages.initPage(pageQuery, ${entityName}.class);
+        return ${serviceName?uncap_first}.page(pageParams.getParams(), page);
+    <#elseif persistType==tkMybatis>
+
     </#if>
     }
 }

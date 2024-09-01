@@ -1,16 +1,20 @@
+<#assign jpa = "jpa">
+<#assign mybatisPlus = "mybatisPlus">
+<#assign tkMybatis = "tkMybatis">
 package ${package.Entity};
 
 import java.io.Serial;
-<#list table.importPackages as pkg>
+<#list context.importPackages as pkg>
 import ${pkg};
 </#list>
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+<#list context.baseImportPackages as pkg>
+import ${pkg};
+</#list>
 import lombok.*;
 
 /**
  * <p>
- * ${table.comment!}
+ * ${context.comment!}
  * </p>
  *
  * @author ${author}
@@ -18,43 +22,57 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
-@Entity(name = "${table.name}")
+<#if persistType==jpa>
+@Entity(name = "${context.tableName}")
+<#elseif persistType==mybatisPlus>
+@TableName("${context.tableName}")
+<#elseif persistType==tkMybatis>
+@Table(name = "${context.tableName}")
+</#if>
 @NoArgsConstructor
 @AllArgsConstructor
 <#if superEntityClass??>
-public class ${entity} extends ${superEntityClass} {
+public class ${entityName} extends ${superEntityClass} {
 <#else>
-public class ${entity} implements Serializable {
+public class ${entityName} implements Serializable {
 </#if>
 
     @Serial
     private static final long serialVersionUID = 1L;
 
 <#-- ----------  BEGIN 字段循环遍历  ---------->
-<#list table.fields as field>
-
+<#list context.fields as field>
     /**
      * ${field.propertyName}:${field.comment}
      */
      <#-- 主键 -->
-     <#if field.idKey>
-    @Id
+     <#if field.primary>
+         <#if persistType==mybatisPlus>
+     @TableId
+         <#else>
+     @Id
+         </#if>
      </#if>
+    <#if persistType==mybatisPlus>
+    @TableField("${field.name}")
+    <#elseif persistType==tkMybatis>
+    @Column(name = "${field.name}")
+    </#if>
     private ${field.propertyType} ${field.propertyName};
 </#list>
 <#------------  END 字段循环遍历  ---------->
 
     public static class Builder {
-        private final ${entity} ${entity} ${entity?uncap_first} = new ${entity}();
-    <#list table.fields as field>
+        private final ${entityName} ${entityName?uncap_first} = new ${entityName}();
+    <#list context.fields as field>
         public Builder ${field.propertyName}(${field.propertyType} ${field.propertyName}){
-            this.${entity?uncap_first}.${field.propertyName} = ${field.propertyName};
+            this.${entityName?uncap_first}.${field.propertyName} = ${field.propertyName};
             return this;
         }
     </#list>
 
-        public ${entity} build(){
-            return this.${entity?uncap_first};
+        public ${entityName} build(){
+            return this.${entityName?uncap_first};
         }
     }
 }

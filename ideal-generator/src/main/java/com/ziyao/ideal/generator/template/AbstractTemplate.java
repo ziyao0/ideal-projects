@@ -1,9 +1,12 @@
 package com.ziyao.ideal.generator.template;
 
+import com.ziyao.ideal.core.Strings;
 import com.ziyao.ideal.core.lang.NonNull;
-import com.ziyao.ideal.generator.Template;
-import com.ziyao.ideal.generator.metadata.Metadata;
+import com.ziyao.ideal.generator.core.Template;
+import com.ziyao.ideal.generator.core.meta.TemplateContext;
+import com.ziyao.ideal.generator.settings.StrategySettings;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -32,22 +35,19 @@ public abstract class AbstractTemplate implements Template {
         return superClass;
     }
 
-    @Override
-    public String getTemplate() {
-        return template;
-    }
 
     @Override
-    public Map<String, Object> load(Metadata metadata) {
-
-        return Map.of();
+    public Map<String, Object> load(TemplateContext templateContext) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("isSupperClass", Strings.hasText(superClass));
+        return data;
     }
 
     public static abstract class AbstractTemplateBuilder {
 
-        private final TemplateStrategy strategy;
+        private final StrategySettings strategy;
 
-        public AbstractTemplateBuilder(@NonNull TemplateStrategy strategy) {
+        public AbstractTemplateBuilder(@NonNull StrategySettings strategy) {
             this.strategy = strategy;
         }
 
@@ -71,7 +71,7 @@ public abstract class AbstractTemplate implements Template {
             return strategy.repositoryBuilder();
         }
 
-        public TemplateStrategy build() {
+        public StrategySettings build() {
             return this.strategy;
         }
     }
