@@ -1,9 +1,8 @@
 <#assign jpa = "jpa">
-<#assign mybatisPlus = "mybatisPlus">
-<#assign tkMybatis = "tkMybatis">
+<#assign mybatisPlus = "mybatis-plus">
+<#assign tkMybatis = "tk-mybatis">
 package ${package.Entity};
 
-import java.io.Serial;
 <#list context.importPackages as pkg>
 import ${pkg};
 </#list>
@@ -11,6 +10,10 @@ import ${pkg};
 import ${pkg};
 </#list>
 import lombok.*;
+<#if serial>
+import java.io.Serial;
+import java.io.Serializable;
+</#if>
 
 /**
  * <p>
@@ -34,11 +37,15 @@ import lombok.*;
 <#if superEntityClass??>
 public class ${entityName} extends ${superEntityClass} {
 <#else>
+<#if serial>
 public class ${entityName} implements Serializable {
-</#if>
 
     @Serial
     private static final long serialVersionUID = 1L;
+<#else>
+public class ${entityName} {
+</#if>
+</#if>
 
 <#-- ----------  BEGIN 字段循环遍历  ---------->
 <#list context.fields as field>
@@ -48,9 +55,9 @@ public class ${entityName} implements Serializable {
      <#-- 主键 -->
      <#if field.primary>
          <#if persistType==mybatisPlus>
-     @TableId
+    @TableId
          <#else>
-     @Id
+    @Id
          </#if>
      </#if>
     <#if persistType==mybatisPlus>
@@ -59,16 +66,20 @@ public class ${entityName} implements Serializable {
     @Column(name = "${field.name}")
     </#if>
     private ${field.propertyType} ${field.propertyName};
+
 </#list>
 <#------------  END 字段循环遍历  ---------->
 
     public static class Builder {
+
         private final ${entityName} ${entityName?uncap_first} = new ${entityName}();
+
     <#list context.fields as field>
-        public Builder ${field.propertyName}(${field.propertyType} ${field.propertyName}){
+        public Builder ${field.propertyName}(${field.propertyType} ${field.propertyName}) {
             this.${entityName?uncap_first}.${field.propertyName} = ${field.propertyName};
             return this;
         }
+
     </#list>
 
         public ${entityName} build(){

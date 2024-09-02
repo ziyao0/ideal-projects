@@ -150,29 +150,4 @@ public class CodeGenInitializer {
                 // 执行
                 .generate();
     }
-
-    public static void main(String[] args) {
-        CodeGenInitializer generator = CodeGenInitializer.init("", "", "");
-
-        generator.globalProperties(new Consumer<GlobalSettings.Builder>() {
-                    @Override
-                    public void accept(GlobalSettings.Builder builder) {
-                        builder.outputDir(System.getProperty("user.dir") + "/ideal-generator-pro" + "/src/main/java");
-                        builder.persistType(PersistType.MYBATIS_PLUS);
-                    }
-                })
-                .packageProperties(new Consumer<PackageSettings.Builder>() {
-                    @Override
-                    public void accept(PackageSettings.Builder builder) {
-                        builder.moduleName("code");
-                    }
-                })
-                .strategyProperties(new Consumer<StrategySettings.Builder>() {
-                    @Override
-                    public void accept(StrategySettings.Builder builder) {
-                        builder.includes("application");
-                        builder.repositoryBuilder().superClass("org.springframework.data.jpa.repository.JpaRepository");
-                    }
-                }).generate();
-    }
 }

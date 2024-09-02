@@ -41,6 +41,11 @@ public class ServiceTemplate extends AbstractTemplate {
         Map<String, Object> render = super.load(templateContext);
         render.put("serviceName", templateContext.getServiceName());
         render.put("serviceImplName", templateContext.getServiceImplName());
+        if (Strings.hasText(superClass)) {
+            String[] array = superClass.split("\\.");
+            render.put("superServiceClass", array[array.length - 1]);
+            render.put("superServiceClassPackage", superClass);
+        }
         return render;
     }
 

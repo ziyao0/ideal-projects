@@ -18,11 +18,11 @@ public enum PersistType {
     /**
      * mybatis-plus
      */
-    MYBATIS_PLUS("mybatisPlus"),
+    MYBATIS_PLUS("mybatis-plus"),
     /**
      * tk-mybatis
      */
-    TK_MYBATIS("tkMybatis"),
+    TK_MYBATIS("tk-mybatis"),
     ;
 
     private final String type;

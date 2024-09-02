@@ -42,6 +42,7 @@ public class TemplateContext {
     private final List<Field> commonFields = new ArrayList<>();
     private Field primary;
     private String fieldNames;
+    private String fieldNamesForBr;
 
     public TemplateContext(ConfigSettings configSettings, String tableName) {
         this.strategy = configSettings.getStrategySettings();
@@ -71,10 +72,22 @@ public class TemplateContext {
 
     public String getFieldNames() {
         if (Strings.isEmpty(fieldNames)) {
-            Set<String> fields = this.fields.stream().map(Field::getName).collect(Collectors.toSet());
+            List<String> fields = this.fields.stream()
+                    .sorted(Comparator.comparing(Field::isPrimary).reversed())
+                    .map(Field::getName).collect(Collectors.toList());
             this.fieldNames = Strings.collectionToCommaDelimitedString(fields);
         }
         return fieldNames;
+    }
+
+    public String getFieldNamesForBr() {
+        if (Strings.isEmpty(fieldNamesForBr)) {
+            List<String> fields = this.fields.stream()
+                    .sorted(Comparator.comparing(Field::isPrimary).reversed())
+                    .map(Field::getName).collect(Collectors.toList());
+            this.fieldNamesForBr = Strings.collectionToDelimitedString(fields, ",\n        ");
+        }
+        return fieldNamesForBr;
     }
 
     public void addImportPackages(@NonNull String... packages) {

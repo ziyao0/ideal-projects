@@ -78,7 +78,7 @@ public abstract class OutputFileUtils {
                             joinPath(globalSettings.getOutputDir(), packageSettings.getPackage(Naming.Mapper)));
                     // mapper xml
                     outputDetails.put(OutputType.xml,
-                            joinPath(globalSettings.getOutputDir(), packageSettings.getPackage(Naming.Mapper)));
+                            joinPath(globalSettings.getXmlOutputDir(), packageSettings.getPackage(Naming.Xml)));
                 }
                 default -> log.info("没有匹配的持久化类型！");
             }

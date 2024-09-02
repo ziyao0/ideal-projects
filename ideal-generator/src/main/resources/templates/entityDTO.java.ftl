@@ -2,12 +2,11 @@ package ${package.Dto};
 
 import ${package.Entity}.${entityName};
 import lombok.Data;
-import java.util.Objects;
-import com.ziyao.ideal.core.Strings;
+import org.springframework.format.annotation.DateTimeFormat;
 <#list context.baseImportPackages as pkg>
 import ${pkg};
 </#list>
-<#if persistType=="mybatisPlus">
+<#if persistType=="mybatis-plus">
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 </#if>
@@ -31,10 +30,30 @@ public class ${dtoName} implements Serializable {
 
 <#-- ----------  BEGIN 字段循环遍历  ---------->
 <#list context.fields as field>
+
+    <#if field.propertyType=="LocalDateTime" || field.propertyType=="Date">
     /**
      * ${field.comment}
      */
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private ${field.propertyType} ${field.propertyName};
+    /**
+     * start time for ${field.comment}
+     */
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private ${field.propertyType} start${field.capitalName};
+
+     /**
+      * end time for ${field.comment}
+      */
+     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+     private ${field.propertyType} end${field.capitalName};
+    <#else>
+     /**
+      * ${field.comment}
+      */
+     private ${field.propertyType} ${field.propertyName};
+    </#if>
 </#list>
 <#------------  END 字段循环遍历  ---------->
 

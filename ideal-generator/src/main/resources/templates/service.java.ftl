@@ -1,16 +1,24 @@
+<#assign jpa = "jpa">
+<#assign mybatisPlus = "mybatis-plus">
+<#assign tkMybatis = "tk-mybatis">
 package ${package.Service};
 
-<#if persistType=="jpa">
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import ${package.Dto}.${dtoName};
-</#if>
 import ${package.Entity}.${entityName};
 <#if superServiceClass??>
 import ${superServiceClassPackage};
 </#if>
+<#if persistType==jpa>
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+<#elseif persistType==mybatisPlus>
+
+<#elseif persistType==tkMybatis>
+import com.github.pagehelper.PageInfo;
+</#if>
+
 /**
  * <p>
- * ${context.comment!} 服务类
+ *${context.comment!} 服务类
  * </p>
  *
  * @author ${author}
@@ -27,16 +35,16 @@ public interface ${serviceName} {
     /**
      * 保存 ${context.comment!}
      *
-     * @param ${entityName?uncap_first} 待存储对象
+     * @param ${dtoName?uncap_first} 待存储对象
      */
-    void save(${entityName} ${entityName?uncap_first});
+    void save(${dtoName} ${dtoName?uncap_first});
 
     /**
      * 通过主键修改 ${context.comment!}
      *
-     * @param ${entityName?uncap_first} 待修改对象
+     * @param ${dtoName?uncap_first} 待修改对象
      */
-    void updateById(${entityName} ${entityName?uncap_first});
+    void updateById(${dtoName} ${dtoName?uncap_first});
 
     /**
      * 通过主键删除 ${context.comment!}
@@ -55,7 +63,7 @@ public interface ${serviceName} {
      * @return 返回分页对象
      */
     Page<${entityName}> page(${dtoName} ${dtoName?uncap_first}, Pageable pageable);
-<#elseif persistType=="mybatisPlus">
+<#elseif persistType=="mybatis-plus">
     /**
      * 分页查询 ${context.comment!}
      *
@@ -64,7 +72,15 @@ public interface ${serviceName} {
      * @return 返回分页对象
      */
     Page<${entityName}> page(${dtoName} ${dtoName?uncap_first}, Page<${entityName}> page);
-<#elseif persistType=="tkMybatis">
-
+<#elseif persistType=="tk-mybatis">
+    /**
+     * 分页查询 ${context.comment!}
+     *
+     * @param ${dtoName?uncap_first} 查询对象
+     * @param pageNum 当前页
+     * @param pageSize 分页大小
+     * @return 返回分页对象
+     */
+    PageInfo<${entityName}> findByPage(${dtoName} ${dtoName?uncap_first}, int pageNum, int pageSize);
 </#if>
 }

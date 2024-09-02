@@ -39,7 +39,8 @@ public enum DataType {
     //date
     DATE(Types.DATE, "Date", "java.util.Date"),
     //timestamp
-    TIMESTAMP(Types.TIMESTAMP, "Timestamp", "java.sql.Timestamp"),
+//    TIMESTAMP(Types.TIMESTAMP, "Timestamp", "java.sql.Timestamp"),
+    TIMESTAMP(Types.TIMESTAMP, "LocalDateTime", "java.time.LocalDateTime"),
     TIMESTAMP_WITH_TIMEZONE(Types.TIMESTAMP_WITH_TIMEZONE, "Timestamp", "java.sql.Timestamp"),
     //double
     FLOAT(Types.FLOAT, "Double", null),

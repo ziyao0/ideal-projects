@@ -20,6 +20,7 @@ public class RepositoryTemplate extends AbstractTemplate {
 
     private OutputNameConvertor convertor = Naming.Repository.getConverter();
     private String xmlTemplate = Templates.mapper_xml.getTemplate();
+    private boolean baseResultMap = true;
 
     @Override
     public OutputNameConvertor getConvertor() {
@@ -43,7 +44,12 @@ public class RepositoryTemplate extends AbstractTemplate {
     public Map<String, Object> load(TemplateContext context) {
         Map<String, Object> render = super.load(context);
         render.put("repositoryName", context.getRepositoryName());
-        render.put("superRepositoryClass", superClass);
+        if (Strings.hasText(superClass)) {
+            String[] array = superClass.split("\\.");
+            render.put("superRepositoryClass", array[array.length - 1]);
+            render.put("superRepositoryClassPackage", superClass);
+        }
+        render.put("baseResultMap", baseResultMap);
         render.put("mapperName", Naming.Mapper.getConverter().convert(context.getEntityName()));
         return render;
     }
@@ -72,6 +78,11 @@ public class RepositoryTemplate extends AbstractTemplate {
 
         public Builder superClass(String superClass) {
             this.template.superClass = superClass;
+            return this;
+        }
+
+        public Builder baseResultMap(boolean baseResultMap) {
+            this.template.baseResultMap = baseResultMap;
             return this;
         }
 

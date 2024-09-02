@@ -1,5 +1,6 @@
 package com.ziyao.ideal.generator.settings;
 
+import com.ziyao.ideal.core.Strings;
 import com.ziyao.ideal.generator.core.PersistType;
 import lombok.Getter;
 
@@ -10,9 +11,14 @@ import lombok.Getter;
 @Getter
 public class GlobalSettings {
 
+    private static final String JAVA_DIR = "/src/main/java";
+    private static final String XML_DIR = "/src/main/resources";
+
     private PersistType persistType = PersistType.JPA;
 
-    private String outputDir = System.getProperty("user.dir") + "/src/main/java";
+    private String outputDir = System.getProperty("user.dir");
+
+    private String subproject;
 
     private String author = "ziyao";
 
@@ -23,6 +29,21 @@ public class GlobalSettings {
     private String commentDate;
 
     private boolean open = false;
+
+
+    public String getOutputDir() {
+        if (Strings.hasText(subproject)) {
+            return outputDir + "/" + subproject + JAVA_DIR;
+        }
+        return outputDir + JAVA_DIR;
+    }
+
+    public String getXmlOutputDir() {
+        if (Strings.hasText(subproject)) {
+            return outputDir + "/" + subproject + XML_DIR;
+        }
+        return outputDir + XML_DIR;
+    }
 
     public static class Builder {
         private final GlobalSettings globalSettings;
@@ -38,6 +59,11 @@ public class GlobalSettings {
 
         public Builder outputDir(String outputDir) {
             this.globalSettings.outputDir = outputDir;
+            return this;
+        }
+
+        public Builder subproject(String subproject) {
+            this.globalSettings.subproject = subproject;
             return this;
         }
 

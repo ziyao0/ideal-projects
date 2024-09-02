@@ -1,23 +1,20 @@
 <#assign jpa = "jpa">
-<#assign mybatisPlus = "mybatisPlus">
-<#assign tkMybatis = "tkMybatis">
+<#assign mybatisPlus = "mybatis-plus">
+<#assign tkMybatis = "tk-mybatis">
 package ${package.Controller};
 
-<#if persistType=="jpa">
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-<#else>
+<#if persistType==jpa>
 import org.springframework.data.domain.Page;
+<#elseif persistType==mybatisPlus>
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 </#if>
 import ${package.Dto}.${dtoName};
 import ${package.Entity}.${entityName};
 import ${package.Service}.${serviceName};
-import com.ziyao.ideal.web.base.PageParams;
-import com.ziyao.ideal.web.base.Pages;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import org.springframework.util.ObjectUtils;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -29,14 +26,14 @@ import lombok.RequiredArgsConstructor;
  */
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/${entityName}")
+@RequestMapping("/${entityName?uncap_first}")
 public class ${controllerName} {
 
     private final ${serviceName} ${serviceName?uncap_first};
 
     @PostMapping("/save")
     public void save(@RequestBody ${dtoName} ${dtoName?uncap_first}) {
-        ${serviceName?uncap_first}.save(${dtoName?uncap_first}.toEntity());
+        ${serviceName?uncap_first}.save(${dtoName?uncap_first});
     }
 
     /**
@@ -44,13 +41,14 @@ public class ${controllerName} {
      */
     @PostMapping("/updateById")
     public void updateById(@RequestBody ${dtoName} ${dtoName?uncap_first}) {
+        // TODO 待完善
         <#if persistType=="jpa">
-        ${serviceName?uncap_first}.save(${dtoName?uncap_first}.toEntity());
+        ${serviceName?uncap_first}.save(${dtoName?uncap_first});
         <#else>
-        if (ObjectUtils.isEmpty(${dtoName?uncap_first}.getId())) {
-            throw new ServiceException(400, "主键参数不能为空");
+        if (ObjectUtils.isEmpty(${dtoName?uncap_first}.get${context.primary.capitalName}())) {
+            throw new RuntimeException("主键参数不能为空");
         }
-        ${serviceName?uncap_first}.updateById(${dtoName?uncap_first}.toEntity());
+        ${serviceName?uncap_first}.updateById(${dtoName?uncap_first});
         </#if>
     }
 
@@ -69,14 +67,15 @@ public class ${controllerName} {
      * 分页查询
      */
     @PostMapping("/list")
-    public Page<${entityName}> list(PageParams<${dtoName}> pageParams) {
+    public Object list(@RequestBody ${dtoName} ${dtoName?uncap_first}) {
+        // TODO 由于没有统一的分页处理插件，需要自行在控制层处理接受参数和分页信息
     <#if persistType==jpa>
         return ${serviceName?uncap_first}.list(pageParams.getParams().toEntity(), Pages.initPage(pageParams));
     <#elseif persistType==mybatisPlus>
         Page<${entityName}> page = Pages.initPage(pageQuery, ${entityName}.class);
         return ${serviceName?uncap_first}.page(pageParams.getParams(), page);
     <#elseif persistType==tkMybatis>
-
+        return ${serviceName?uncap_first}.findByPage(${dtoName?uncap_first}, 1, 20);
     </#if>
     }
 }

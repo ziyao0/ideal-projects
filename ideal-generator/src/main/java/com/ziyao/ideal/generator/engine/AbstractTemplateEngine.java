@@ -58,10 +58,10 @@ public abstract class AbstractTemplateEngine {
         String dtoPath = getOutput(OutputType.dto);
         PersistentTemplate persistent = this.configSettings.getStrategySettings().persistent();
         if (persistent.isGenerate()) {
-            String entityFile = String.format((entityPath + File.separator + "%s" + suffixJava()), entityName);
+            String entityFile = entityPath + File.separator + entityName + suffixJava();
             outputFile(getOutputFile(entityFile, OutputType.entity), objectMap, templateFilePath(persistent.getTemplate()), persistent.isOverride());
 
-            String dtoFile = String.format((dtoPath + File.separator + templateContext.getDtoName() + suffixJava()), entityName);
+            String dtoFile = dtoPath + File.separator + templateContext.getDtoName() + suffixJava();
             outputFile(getOutputFile(dtoFile, OutputType.dto), objectMap,
                     templateFilePath(persistent.getDtoTemplate()), persistent.isOverride());
         }
@@ -86,14 +86,14 @@ public abstract class AbstractTemplateEngine {
         String mapperName = context.getMapperName();
         if (repository.isGenerate()) {
             String name = PersistType.JPA.equals(configSettings.getGlobalSettings().getPersistType()) ? repositoryName : mapperName;
-            String mapperFile = String.format((repositoryPath + File.separator + name + suffixJava()), entityName);
+            String mapperFile = repositoryPath + File.separator + name + suffixJava();
             outputFile(getOutputFile(mapperFile, OutputType.repository), objectMap,
                     templateFilePath(repository.getTemplate()), repository.isOverride());
 
             switch (configSettings.getGlobalSettings().getPersistType()) {
                 case MYBATIS_PLUS, TK_MYBATIS -> {
                     String xmlPath = getOutput(OutputType.xml);
-                    String xmlFile = String.format((xmlPath + File.separator + mapperName + ".xml"), entityName);
+                    String xmlFile = xmlPath + File.separator + mapperName + ".xml";
                     outputFile(getOutputFile(xmlFile, OutputType.xml), objectMap,
                             templateFilePath(repository.getXmlTemplate()), repository.isOverride());
                 }
@@ -115,14 +115,14 @@ public abstract class AbstractTemplateEngine {
         ServiceTemplate service = this.configSettings.getStrategySettings().service();
         if (service.isGenerate()) {
             String servicePath = getOutput(OutputType.service);
-            String serviceFile = String.format((servicePath + File.separator + templateContext.getServiceName() + suffixJava()), entityName);
+            String serviceFile = servicePath + File.separator + templateContext.getServiceName() + suffixJava();
             outputFile(getOutputFile(serviceFile, OutputType.service), objectMap,
                     templateFilePath(service.getTemplate()), service.isOverride());
         }
         // MpServiceImpl.java
         String serviceImplPath = getOutput(OutputType.serviceImpl);
 
-        String implFile = String.format((serviceImplPath + File.separator + templateContext.getServiceImplName() + suffixJava()), entityName);
+        String implFile = serviceImplPath + File.separator + templateContext.getServiceImplName() + suffixJava();
         outputFile(getOutputFile(implFile, OutputType.serviceImpl), objectMap,
                 templateFilePath(service.getImplTemplate()), service.isOverride());
 
@@ -140,7 +140,7 @@ public abstract class AbstractTemplateEngine {
         String controllerPath = getOutput(OutputType.controller);
         if (controller.isGenerate()) {
             String entityName = templateContext.getEntityName();
-            String controllerFile = String.format((controllerPath + File.separator + templateContext.getControllerName() + suffixJava()), entityName);
+            String controllerFile = controllerPath + File.separator + templateContext.getControllerName() + suffixJava();
             outputFile(getOutputFile(controllerFile, OutputType.controller), objectMap,
                     templateFilePath(controller.getTemplate()), this.configSettings.getStrategySettings().controller().isOverride());
         }

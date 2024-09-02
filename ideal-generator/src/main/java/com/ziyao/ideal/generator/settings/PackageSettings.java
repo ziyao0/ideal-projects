@@ -58,7 +58,7 @@ public class PackageSettings {
     /**
      * Mapper XML包名
      */
-    private String xml = "resources/mapper/auto";
+    private String xml = "mybatis/mapper/auto";
 
     /**
      * Controller包名
@@ -111,7 +111,8 @@ public class PackageSettings {
             packages.put(Naming.Dto.name(), this.joinPackage(this.getDto()));
             packages.put(Naming.Repository.name(), this.joinPackage(this.getRepository()));
             packages.put(Naming.Mapper.name(), this.joinPackage(this.getMapper()));
-            packages.put(Naming.Xml.name(), this.joinPackage(this.getXml()));
+            // xml文件直接输出到resource下
+            packages.put(Naming.Xml.name(), this.getXml());
             packages.put(Naming.Service.name(), this.joinPackage(this.getService()));
             packages.put(Naming.ServiceImpl.name(), this.joinPackage(this.getServiceImpl()));
             packages.put(Naming.Controller.name(), this.joinPackage(this.getController()));
