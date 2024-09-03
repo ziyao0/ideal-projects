@@ -1,6 +1,6 @@
 package com.ziyao.ideal.generator.mysql.query;
 
-import com.ziyao.ideal.generator.core.meta.TemplateContext;
+import com.ziyao.ideal.generator.core.GeneratorContext;
 
 import java.util.List;
 
@@ -10,5 +10,5 @@ import java.util.List;
  */
 public interface MetadataQuery {
 
-    List<TemplateContext> query();
+    List<GeneratorContext> query();
 }

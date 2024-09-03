@@ -14,15 +14,15 @@ public enum PersistType {
     /**
      * 使用spring提供的spring-data-jpa来生成持久层
      */
-    JPA("jpa"),
+    jpa("jpa"),
     /**
      * mybatis-plus
      */
-    MYBATIS_PLUS("mybatis-plus"),
+    mybatis_plus("mybatis-plus"),
     /**
      * tk-mybatis
      */
-    TK_MYBATIS("tk-mybatis"),
+    tk_mybatis("tk-mybatis"),
     ;
 
     private final String type;

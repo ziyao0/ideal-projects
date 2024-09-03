@@ -4,7 +4,7 @@ import com.ziyao.ideal.core.Strings;
 import com.ziyao.ideal.generator.ConfigSettings;
 import com.ziyao.ideal.generator.core.meta.Column;
 import com.ziyao.ideal.generator.core.meta.Table;
-import com.ziyao.ideal.generator.core.meta.TemplateContext;
+import com.ziyao.ideal.generator.core.GeneratorContext;
 import com.ziyao.ideal.generator.mysql.SqlScriptExecutor;
 import com.ziyao.ideal.generator.settings.DataSourceSettings;
 import com.ziyao.ideal.generator.settings.StrategySettings;
@@ -32,20 +32,20 @@ public class DefaultMetaInfoQuery implements MetadataQuery {
     }
 
     @Override
-    public List<TemplateContext> query() {
+    public List<GeneratorContext> query() {
         try {
-            List<TemplateContext> templateContexts = new ArrayList<>();
+            List<GeneratorContext> generatorContexts = new ArrayList<>();
             List<Table> tables = getTables();
             for (Table table : tables) {
                 if (Strings.hasText(table.getName())) {
-                    TemplateContext templateContext = new TemplateContext(this.configSettings, table.getName());
-                    templateContext.setComment(table.getComment());
-                    templateContexts.add(templateContext);
+                    GeneratorContext generatorContext = new GeneratorContext(this.configSettings, table.getName());
+                    generatorContext.setComment(table.getComment());
+                    generatorContexts.add(generatorContext);
                 }
             }
-            filter(templateContexts);
-            templateContexts.forEach(this::processField);
-            return templateContexts;
+            filter(generatorContexts);
+            generatorContexts.forEach(this::processField);
+            return generatorContexts;
         } catch (Exception e) {
             throw new RuntimeException(e);
         } finally {
@@ -59,7 +59,7 @@ public class DefaultMetaInfoQuery implements MetadataQuery {
      *
      * @param contexts 元数据信息
      */
-    private void filter(List<TemplateContext> contexts) {
+    private void filter(List<GeneratorContext> contexts) {
         StrategySettings strategySettings = this.configSettings.getStrategySettings();
         Set<String> excludes = strategySettings.getExcludes();
         Set<String> includes = strategySettings.getIncludes();
@@ -67,15 +67,15 @@ public class DefaultMetaInfoQuery implements MetadataQuery {
         contexts.removeIf(context -> excludes.contains(context.getTableName()));
     }
 
-    private void processField(TemplateContext templateContext) {
-        String tableName = templateContext.getTableName();
+    private void processField(GeneratorContext generatorContext) {
+        String tableName = generatorContext.getTableName();
         List<Column> columns = executor.getColumns(tableName);
         for (Column column : columns) {
             if (Strings.hasText(column.getName())) {
-                templateContext.addField(column);
+                generatorContext.addField(column);
             }
         }
-        templateContext.process();
+        generatorContext.process();
     }
 
     private List<Table> getTables() throws SQLException {

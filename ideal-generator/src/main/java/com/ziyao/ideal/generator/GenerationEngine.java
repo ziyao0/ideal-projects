@@ -15,8 +15,8 @@ import org.slf4j.LoggerFactory;
  * @link <a href="https://blog.zziyao.cn">https://blog.zziyao.cn</a>
  */
 @Getter
-public class CodeGeneratorEngine {
-    private static final Logger log = LoggerFactory.getLogger(CodeGeneratorEngine.class);
+public class GenerationEngine {
+    private static final Logger log = LoggerFactory.getLogger(GenerationEngine.class);
 
     private GlobalSettings globalSettings;
     private DataSourceSettings dataSourceSettings;
@@ -26,24 +26,24 @@ public class CodeGeneratorEngine {
     private final AbstractTemplateEngine templateEngine = new FreemarkerTemplateEngine();
 
 
-    private CodeGeneratorEngine() {
+    private GenerationEngine() {
     }
 
-    public CodeGeneratorEngine(DataSourceSettings dataSourceSettings) {
+    public GenerationEngine(DataSourceSettings dataSourceSettings) {
         this.dataSourceSettings = dataSourceSettings;
     }
 
-    public CodeGeneratorEngine global(GlobalSettings globalSettings) {
+    public GenerationEngine global(GlobalSettings globalSettings) {
         this.globalSettings = globalSettings;
         return this;
     }
 
-    public CodeGeneratorEngine strategy(StrategySettings strategySettings) {
+    public GenerationEngine strategy(StrategySettings strategySettings) {
         this.strategySettings = strategySettings;
         return this;
     }
 
-    public CodeGeneratorEngine packages(PackageSettings packageSettings) {
+    public GenerationEngine packages(PackageSettings packageSettings) {
         this.packageSettings = packageSettings;
         return this;
     }

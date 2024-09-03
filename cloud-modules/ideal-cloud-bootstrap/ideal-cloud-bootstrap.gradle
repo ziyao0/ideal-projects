@@ -1,11 +1,4 @@
 dependencies {
-    implementation(project(":ideal-cloud-config"))
-    implementation(project(":ideal-cloud-uaa"))
-//    implementation(project(":ideal-cloud-gateway"))
-    implementation "org.springframework.boot:spring-boot-starter-web"
-    implementation "org.springframework.boot:spring-boot-autoconfigure"
-    implementation "org.springframework.cloud:spring-cloud-starter-bootstrap"
-    implementation "com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config"
-    implementation "org.springframework.boot:spring-boot-configuration-processor"
-    implementation "com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery"
+//    implementation(project(":ideal-cloud-config"))
+//    implementation(project(":ideal-cloud-uaa"))
 }

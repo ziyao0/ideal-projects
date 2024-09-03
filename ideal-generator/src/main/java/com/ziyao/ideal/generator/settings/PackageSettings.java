@@ -2,6 +2,7 @@ package com.ziyao.ideal.generator.settings;
 
 import com.ziyao.ideal.core.Collections;
 import com.ziyao.ideal.core.Strings;
+import com.ziyao.ideal.generator.ConfigurationProperties;
 import com.ziyao.ideal.generator.core.Naming;
 import com.ziyao.ideal.generator.core.OutputType;
 import lombok.Getter;
@@ -15,6 +16,7 @@ import java.util.function.Consumer;
  * @link <a href="https://blog.zziyao.cn">https://blog.zziyao.cn</a>
  */
 @Getter
+@ConfigurationProperties(prefix = "pkg")
 public class PackageSettings {
 
     /**
@@ -121,10 +123,15 @@ public class PackageSettings {
     }
 
     public static class Builder {
+
         private final PackageSettings packageSettings;
 
         public Builder() {
             this.packageSettings = new PackageSettings();
+        }
+
+        public Builder(PackageSettings packageSettings) {
+            this.packageSettings = packageSettings;
         }
 
         public Builder parent(String parent) {

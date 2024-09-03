@@ -10,6 +10,13 @@ import ${pkg};
 import ${pkg};
 </#list>
 import lombok.*;
+<#if springdoc>
+import io.swagger.v3.oas.annotations.media.Schema;
+</#if>
+<#if swagger>
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+</#if>
 <#if serial>
 import java.io.Serial;
 import java.io.Serializable;
@@ -34,6 +41,12 @@ import java.io.Serializable;
 </#if>
 @NoArgsConstructor
 @AllArgsConstructor
+<#if springdoc>
+@Schema(description = "${context.comment!}")
+</#if>
+<#if swagger>
+@ApiModel(description = "${context.comment!}")
+</#if>
 <#if superEntityClass??>
 public class ${entityName} extends ${superEntityClass} {
 <#else>
@@ -60,6 +73,12 @@ public class ${entityName} {
     @Id
          </#if>
      </#if>
+    <#if springdoc>
+    @Schema(description = "${field.comment}")
+    </#if>
+    <#if swagger>
+    @ApiModelProperty("${field.comment}")
+    </#if>
     <#if persistType==mybatisPlus>
     @TableField("${field.name}")
     <#elseif persistType==tkMybatis>

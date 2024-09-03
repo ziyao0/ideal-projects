@@ -5,7 +5,7 @@ import com.ziyao.ideal.core.lang.NonNull;
 import com.ziyao.ideal.generator.core.Naming;
 import com.ziyao.ideal.generator.core.OutputNameConvertor;
 import com.ziyao.ideal.generator.core.Templates;
-import com.ziyao.ideal.generator.core.meta.TemplateContext;
+import com.ziyao.ideal.generator.core.GeneratorContext;
 import com.ziyao.ideal.generator.settings.StrategySettings;
 import lombok.Getter;
 
@@ -37,10 +37,10 @@ public class ServiceTemplate extends AbstractTemplate {
     }
 
     @Override
-    public Map<String, Object> load(TemplateContext templateContext) {
-        Map<String, Object> render = super.load(templateContext);
-        render.put("serviceName", templateContext.getServiceName());
-        render.put("serviceImplName", templateContext.getServiceImplName());
+    public Map<String, Object> load(GeneratorContext generatorContext) {
+        Map<String, Object> render = super.load(generatorContext);
+        render.put("serviceName", generatorContext.getServiceName());
+        render.put("serviceImplName", generatorContext.getServiceImplName());
         if (Strings.hasText(superClass)) {
             String[] array = superClass.split("\\.");
             render.put("superServiceClass", array[array.length - 1]);

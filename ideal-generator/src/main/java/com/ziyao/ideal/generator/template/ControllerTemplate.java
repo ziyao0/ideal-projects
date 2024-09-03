@@ -5,7 +5,7 @@ import com.ziyao.ideal.core.lang.NonNull;
 import com.ziyao.ideal.generator.core.Naming;
 import com.ziyao.ideal.generator.core.OutputNameConvertor;
 import com.ziyao.ideal.generator.core.Templates;
-import com.ziyao.ideal.generator.core.meta.TemplateContext;
+import com.ziyao.ideal.generator.core.GeneratorContext;
 import com.ziyao.ideal.generator.settings.StrategySettings;
 
 import java.util.Map;
@@ -32,9 +32,9 @@ public class ControllerTemplate extends AbstractTemplate {
     }
 
     @Override
-    public Map<String, Object> load(TemplateContext templateContext) {
-        Map<String, Object> render = super.load(templateContext);
-        render.put("controllerName", getConvertor().convert(templateContext.getEntityName()));
+    public Map<String, Object> load(GeneratorContext generatorContext) {
+        Map<String, Object> render = super.load(generatorContext);
+        render.put("controllerName", getConvertor().convert(generatorContext.getEntityName()));
         return render;
     }
 

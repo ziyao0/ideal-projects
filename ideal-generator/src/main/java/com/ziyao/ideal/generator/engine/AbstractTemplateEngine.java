@@ -4,9 +4,9 @@ import com.ziyao.ideal.core.Strings;
 import com.ziyao.ideal.core.lang.NonNull;
 import com.ziyao.ideal.core.lang.Nullable;
 import com.ziyao.ideal.generator.ConfigSettings;
+import com.ziyao.ideal.generator.core.GeneratorContext;
 import com.ziyao.ideal.generator.core.OutputType;
 import com.ziyao.ideal.generator.core.PersistType;
-import com.ziyao.ideal.generator.core.meta.TemplateContext;
 import com.ziyao.ideal.generator.settings.GlobalSettings;
 import com.ziyao.ideal.generator.settings.StrategySettings;
 import com.ziyao.ideal.generator.template.ControllerTemplate;
@@ -49,11 +49,11 @@ public abstract class AbstractTemplateEngine {
     /**
      * 输出实体文件
      *
-     * @param templateContext 表信息
-     * @param objectMap       渲染数据
+     * @param generatorContext 表信息
+     * @param objectMap        渲染数据
      */
-    protected void outputEntity(@NonNull TemplateContext templateContext, @NonNull Map<String, Object> objectMap) {
-        String entityName = templateContext.getEntityName();
+    protected void outputEntity(@NonNull GeneratorContext generatorContext, @NonNull Map<String, Object> objectMap) {
+        String entityName = generatorContext.getEntityName();
         String entityPath = getOutput(OutputType.entity);
         String dtoPath = getOutput(OutputType.dto);
         PersistentTemplate persistent = this.configSettings.getStrategySettings().persistent();
@@ -61,7 +61,7 @@ public abstract class AbstractTemplateEngine {
             String entityFile = entityPath + File.separator + entityName + suffixJava();
             outputFile(getOutputFile(entityFile, OutputType.entity), objectMap, templateFilePath(persistent.getTemplate()), persistent.isOverride());
 
-            String dtoFile = dtoPath + File.separator + templateContext.getDtoName() + suffixJava();
+            String dtoFile = dtoPath + File.separator + generatorContext.getDtoName() + suffixJava();
             outputFile(getOutputFile(dtoFile, OutputType.dto), objectMap,
                     templateFilePath(persistent.getDtoTemplate()), persistent.isOverride());
         }
@@ -78,20 +78,20 @@ public abstract class AbstractTemplateEngine {
      * @param context   表信息
      * @param objectMap 渲染数据
      */
-    protected void outputRepository(TemplateContext context, Map<String, Object> objectMap) {
+    protected void outputRepository(GeneratorContext context, Map<String, Object> objectMap) {
         String entityName = context.getEntityName();
         String repositoryPath = getOutput(OutputType.repository);
         RepositoryTemplate repository = this.configSettings.getStrategySettings().repository();
         String repositoryName = context.getRepositoryName();
         String mapperName = context.getMapperName();
         if (repository.isGenerate()) {
-            String name = PersistType.JPA.equals(configSettings.getGlobalSettings().getPersistType()) ? repositoryName : mapperName;
+            String name = PersistType.jpa.equals(configSettings.getGlobalSettings().getPersistType()) ? repositoryName : mapperName;
             String mapperFile = repositoryPath + File.separator + name + suffixJava();
             outputFile(getOutputFile(mapperFile, OutputType.repository), objectMap,
                     templateFilePath(repository.getTemplate()), repository.isOverride());
 
             switch (configSettings.getGlobalSettings().getPersistType()) {
-                case MYBATIS_PLUS, TK_MYBATIS -> {
+                case mybatis_plus, tk_mybatis -> {
                     String xmlPath = getOutput(OutputType.xml);
                     String xmlFile = xmlPath + File.separator + mapperName + ".xml";
                     outputFile(getOutputFile(xmlFile, OutputType.xml), objectMap,
@@ -105,24 +105,24 @@ public abstract class AbstractTemplateEngine {
     /**
      * 输出service文件
      *
-     * @param templateContext 表信息
-     * @param objectMap       渲染数据
+     * @param generatorContext 表信息
+     * @param objectMap        渲染数据
      */
-    protected void outputService(@NonNull TemplateContext templateContext, @NonNull Map<String, Object> objectMap) {
+    protected void outputService(@NonNull GeneratorContext generatorContext, @NonNull Map<String, Object> objectMap) {
         // IMpService.java
-        String entityName = templateContext.getEntityName();
+        String entityName = generatorContext.getEntityName();
         // 判断是否要生成service接口
         ServiceTemplate service = this.configSettings.getStrategySettings().service();
         if (service.isGenerate()) {
             String servicePath = getOutput(OutputType.service);
-            String serviceFile = servicePath + File.separator + templateContext.getServiceName() + suffixJava();
+            String serviceFile = servicePath + File.separator + generatorContext.getServiceName() + suffixJava();
             outputFile(getOutputFile(serviceFile, OutputType.service), objectMap,
                     templateFilePath(service.getTemplate()), service.isOverride());
         }
         // MpServiceImpl.java
         String serviceImplPath = getOutput(OutputType.serviceImpl);
 
-        String implFile = serviceImplPath + File.separator + templateContext.getServiceImplName() + suffixJava();
+        String implFile = serviceImplPath + File.separator + generatorContext.getServiceImplName() + suffixJava();
         outputFile(getOutputFile(implFile, OutputType.serviceImpl), objectMap,
                 templateFilePath(service.getImplTemplate()), service.isOverride());
 
@@ -131,16 +131,16 @@ public abstract class AbstractTemplateEngine {
     /**
      * 输出controller文件
      *
-     * @param templateContext 表信息
-     * @param objectMap       渲染数据
+     * @param generatorContext 表信息
+     * @param objectMap        渲染数据
      */
-    protected void outputController(@NonNull TemplateContext templateContext, @NonNull Map<String, Object> objectMap) {
+    protected void outputController(@NonNull GeneratorContext generatorContext, @NonNull Map<String, Object> objectMap) {
         // MpController.java
         ControllerTemplate controller = this.configSettings.getStrategySettings().controller();
         String controllerPath = getOutput(OutputType.controller);
         if (controller.isGenerate()) {
-            String entityName = templateContext.getEntityName();
-            String controllerFile = controllerPath + File.separator + templateContext.getControllerName() + suffixJava();
+            String entityName = generatorContext.getEntityName();
+            String controllerFile = controllerPath + File.separator + generatorContext.getControllerName() + suffixJava();
             outputFile(getOutputFile(controllerFile, OutputType.controller), objectMap,
                     templateFilePath(controller.getTemplate()), this.configSettings.getStrategySettings().controller().isOverride());
         }
@@ -187,8 +187,8 @@ public abstract class AbstractTemplateEngine {
     @NonNull
     public AbstractTemplateEngine batchOutput() {
         try {
-            List<TemplateContext> templateContextList = configSettings.getTemplateContexts();
-            templateContextList.forEach(metaInfo -> {
+            List<GeneratorContext> generatorContextList = configSettings.getGeneratorContexts();
+            generatorContextList.forEach(metaInfo -> {
                 Map<String, Object> objectMap = this.getObjectMap(configSettings, metaInfo);
 
                 // entity and dto
@@ -240,7 +240,7 @@ public abstract class AbstractTemplateEngine {
      * @return ignore
      */
     @NonNull
-    public Map<String, Object> getObjectMap(@NonNull ConfigSettings config, @NonNull TemplateContext context) {
+    public Map<String, Object> getObjectMap(@NonNull ConfigSettings config, @NonNull GeneratorContext context) {
         StrategySettings strategySettings = config.getStrategySettings();
         Map<String, Object> metadata = new HashMap<>();
         metadata.putAll(strategySettings.persistent().load(context));
@@ -253,6 +253,9 @@ public abstract class AbstractTemplateEngine {
         metadata.put("package", config.getPackageSettings().getPackages());
         GlobalSettings globalSettings = config.getGlobalSettings();
         metadata.put("author", globalSettings.getAuthor());
+        if (globalSettings.isSwagger() && globalSettings.isSpringdoc()) {
+            throw new IllegalArgumentException("不能同时开始swagger和springdoc");
+        }
         metadata.put("swagger", globalSettings.isSwagger());
         metadata.put("springdoc", globalSettings.isSpringdoc());
         metadata.put("date", globalSettings.getCommentDate());

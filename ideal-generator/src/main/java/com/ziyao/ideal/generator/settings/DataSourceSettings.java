@@ -1,5 +1,6 @@
 package com.ziyao.ideal.generator.settings;
 
+import com.ziyao.ideal.generator.ConfigurationProperties;
 import lombok.Getter;
 
 import javax.sql.DataSource;
@@ -9,6 +10,7 @@ import javax.sql.DataSource;
  * @link <a href="https://blog.zziyao.cn">https://blog.zziyao.cn</a>
  */
 @Getter
+@ConfigurationProperties(prefix = "db")
 public class DataSourceSettings {
     /**
      * schemaName
@@ -41,6 +43,10 @@ public class DataSourceSettings {
 
         public Builder() {
             this.dataSourceSettings = new DataSourceSettings();
+        }
+
+        public Builder(DataSourceSettings dataSourceSettings) {
+            this.dataSourceSettings = dataSourceSettings;
         }
 
         public Builder(String url, String username, String password) {

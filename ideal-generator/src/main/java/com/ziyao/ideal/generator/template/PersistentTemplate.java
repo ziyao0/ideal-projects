@@ -5,7 +5,7 @@ import com.ziyao.ideal.generator.core.Naming;
 import com.ziyao.ideal.generator.core.NamingStrategy;
 import com.ziyao.ideal.generator.core.OutputNameConvertor;
 import com.ziyao.ideal.generator.core.Templates;
-import com.ziyao.ideal.generator.core.meta.TemplateContext;
+import com.ziyao.ideal.generator.core.GeneratorContext;
 import com.ziyao.ideal.generator.settings.StrategySettings;
 import lombok.Getter;
 
@@ -44,11 +44,11 @@ public class PersistentTemplate extends AbstractTemplate {
     }
 
     @Override
-    public Map<String, Object> load(TemplateContext templateContext) {
-        Map<String, Object> render = super.load(templateContext);
-        render.put("entityName", templateContext.getEntityName());
-        render.put("dtoName", templateContext.getDtoName());
-        render.put("primaryPropertyType", templateContext.getPrimary().getPropertyType());
+    public Map<String, Object> load(GeneratorContext generatorContext) {
+        Map<String, Object> render = super.load(generatorContext);
+        render.put("entityName", generatorContext.getEntityName());
+        render.put("dtoName", generatorContext.getDtoName());
+        render.put("primaryPropertyType", generatorContext.getPrimary().getPropertyType());
         render.put("serial", serial);
         return render;
     }

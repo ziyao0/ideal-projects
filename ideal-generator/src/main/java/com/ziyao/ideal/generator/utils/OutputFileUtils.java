@@ -69,10 +69,10 @@ public abstract class OutputFileUtils {
         if (repository.isGenerate()) {
             switch (globalSettings.getPersistType()) {
                 // jpa
-                case JPA -> outputDetails.put(OutputType.repository,
+                case jpa -> outputDetails.put(OutputType.repository,
                         joinPath(globalSettings.getOutputDir(), packageSettings.getPackage(Naming.Repository)));
                 // mybatis
-                case TK_MYBATIS, MYBATIS_PLUS -> {
+                case tk_mybatis, mybatis_plus -> {
                     //
                     outputDetails.put(OutputType.repository,
                             joinPath(globalSettings.getOutputDir(), packageSettings.getPackage(Naming.Mapper)));

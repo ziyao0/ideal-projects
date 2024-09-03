@@ -50,9 +50,8 @@ public class GlobalResponseHandlerAdvice implements ResponseBodyAdvice<Object> {
                     map.get("error").toString(),
                     map.get("path"));
         }
-
-
-        return ResponseBuilder.ok(body);
+        // TODO 其他未知信息不做处理
+        return body;
 
     }
 

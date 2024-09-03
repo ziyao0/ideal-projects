@@ -1,12 +1,10 @@
-package com.ziyao.ideal.generator.core.meta;
+package com.ziyao.ideal.generator.core;
 
 import com.ziyao.ideal.core.Strings;
 import com.ziyao.ideal.core.lang.NonNull;
 import com.ziyao.ideal.generator.ConfigSettings;
-import com.ziyao.ideal.generator.core.DataType;
-import com.ziyao.ideal.generator.core.Naming;
-import com.ziyao.ideal.generator.core.NamingStrategy;
-import com.ziyao.ideal.generator.core.PersistType;
+import com.ziyao.ideal.generator.core.meta.Column;
+import com.ziyao.ideal.generator.core.meta.Field;
 import com.ziyao.ideal.generator.settings.GlobalSettings;
 import com.ziyao.ideal.generator.settings.StrategySettings;
 import com.ziyao.ideal.generator.template.PersistentTemplate;
@@ -22,7 +20,7 @@ import java.util.stream.Collectors;
  * @link <a href="https://blog.zziyao.cn">https://blog.zziyao.cn</a>
  */
 @Getter
-public class TemplateContext {
+public class GeneratorContext {
 
     private final StrategySettings strategy;
     private final GlobalSettings globalSettings;
@@ -44,7 +42,7 @@ public class TemplateContext {
     private String fieldNames;
     private String fieldNamesForBr;
 
-    public TemplateContext(ConfigSettings configSettings, String tableName) {
+    public GeneratorContext(ConfigSettings configSettings, String tableName) {
         this.strategy = configSettings.getStrategySettings();
         this.globalSettings = configSettings.getGlobalSettings();
         this.tableName = tableName;
@@ -111,15 +109,15 @@ public class TemplateContext {
 
         PersistType persistType = globalSettings.getPersistType();
         switch (persistType) {
-            case JPA -> {
+            case jpa -> {
                 addImportPackages(PackageUtils.ID_PKG, PackageUtils.ENTITY_PKG);
             }
-            case TK_MYBATIS -> {
+            case tk_mybatis -> {
                 addImportPackages(PackageUtils.TABLE_PKG,
                         PackageUtils.ID_PKG,
                         PackageUtils.COLUMN_PKG);
             }
-            case MYBATIS_PLUS -> {
+            case mybatis_plus -> {
                 addImportPackages(
                         PackageUtils.MYBATIS_PLUS_TABLE_NAME_PKG,
                         PackageUtils.MYBATIS_PLUS_TABLE_ID_PKG,

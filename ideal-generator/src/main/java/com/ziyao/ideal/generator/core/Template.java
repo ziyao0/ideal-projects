@@ -1,7 +1,5 @@
 package com.ziyao.ideal.generator.core;
 
-import com.ziyao.ideal.generator.core.meta.TemplateContext;
-
 import java.util.Map;
 
 /**
@@ -49,8 +47,8 @@ public interface Template {
     /**
      * 加载渲染模板的元数据信息
      *
-     * @param templateContext 元数据信息
+     * @param generatorContext 元数据信息
      * @return 返回渲染数据
      */
-    Map<String, Object> load(TemplateContext templateContext);
+    Map<String, Object> load(GeneratorContext generatorContext);
 }

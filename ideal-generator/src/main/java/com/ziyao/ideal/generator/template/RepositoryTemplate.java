@@ -5,7 +5,7 @@ import com.ziyao.ideal.core.lang.NonNull;
 import com.ziyao.ideal.generator.core.Naming;
 import com.ziyao.ideal.generator.core.OutputNameConvertor;
 import com.ziyao.ideal.generator.core.Templates;
-import com.ziyao.ideal.generator.core.meta.TemplateContext;
+import com.ziyao.ideal.generator.core.GeneratorContext;
 import com.ziyao.ideal.generator.settings.StrategySettings;
 import lombok.Getter;
 
@@ -41,7 +41,7 @@ public class RepositoryTemplate extends AbstractTemplate {
     }
 
     @Override
-    public Map<String, Object> load(TemplateContext context) {
+    public Map<String, Object> load(GeneratorContext context) {
         Map<String, Object> render = super.load(context);
         render.put("repositoryName", context.getRepositoryName());
         if (Strings.hasText(superClass)) {

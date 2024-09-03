@@ -114,7 +114,7 @@ public class SqlScriptExecutor {
             String tableName = resultSet.getString("TABLE_NAME");
             String typeName = resultSet.getString("TYPE_NAME");
             String remarks = resultSet.getString("REMARKS");
-            tables.add(Table.of(tableName, typeName, remarks));
+            tables.add(Table.of(tableName, remarks, typeName));
         }
         return tables;
     }

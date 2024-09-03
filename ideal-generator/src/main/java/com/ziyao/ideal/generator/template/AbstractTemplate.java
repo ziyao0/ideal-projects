@@ -3,7 +3,7 @@ package com.ziyao.ideal.generator.template;
 import com.ziyao.ideal.core.Strings;
 import com.ziyao.ideal.core.lang.NonNull;
 import com.ziyao.ideal.generator.core.Template;
-import com.ziyao.ideal.generator.core.meta.TemplateContext;
+import com.ziyao.ideal.generator.core.GeneratorContext;
 import com.ziyao.ideal.generator.settings.StrategySettings;
 
 import java.util.HashMap;
@@ -37,7 +37,7 @@ public abstract class AbstractTemplate implements Template {
 
 
     @Override
-    public Map<String, Object> load(TemplateContext templateContext) {
+    public Map<String, Object> load(GeneratorContext generatorContext) {
         Map<String, Object> data = new HashMap<>();
         data.put("isSupperClass", Strings.hasText(superClass));
         return data;

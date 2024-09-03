@@ -1,6 +1,8 @@
 package com.ziyao.ideal.generator.settings;
 
+import com.ziyao.ideal.core.Strings;
 import com.ziyao.ideal.core.lang.NonNull;
+import com.ziyao.ideal.generator.ConfigurationProperties;
 import com.ziyao.ideal.generator.core.OutputFileCreator;
 import com.ziyao.ideal.generator.template.*;
 import lombok.Getter;
@@ -14,10 +16,9 @@ import java.util.Set;
  * @author ziyao
  * @link <a href="https://blog.zziyao.cn">https://blog.zziyao.cn</a>
  */
+@Getter
+@ConfigurationProperties(prefix = "strategy")
 public class StrategySettings {
-
-    private StrategySettings() {
-    }
 
     private PersistentTemplate persistent;
     private final PersistentTemplate.Builder persistentBuilder = new PersistentTemplate.Builder(this);
@@ -32,13 +33,35 @@ public class StrategySettings {
     /**
      * 生成的表名
      */
-    @Getter
     private final Set<String> includes = new HashSet<>();
+    /**
+     * <code>,</code> 分割
+     */
+    private String include;
+    /**
+     * <code>,</code> 分割
+     */
+    private String exclude;
     /**
      * 需要排除生成的表
      */
-    @Getter
     private final Set<String> excludes = new HashSet<>();
+
+
+    public Set<String> getIncludes() {
+        if (Strings.hasText(this.include)) {
+            this.includes.addAll(Strings.commaDelimitedListToSet(this.include));
+        }
+        return this.includes;
+    }
+
+    public Set<String> getExcludes() {
+        if (Strings.isEmpty(this.exclude)) {
+            this.excludes.addAll(Strings.commaDelimitedListToSet(this.exclude));
+        }
+        return this.excludes;
+    }
+
 
     @NonNull
     public PersistentTemplate persistent() {
@@ -86,11 +109,17 @@ public class StrategySettings {
     }
 
     public static class Builder extends AbstractTemplate.AbstractTemplateBuilder {
+
         private final StrategySettings strategySettings;
 
         public Builder() {
             super(new StrategySettings());
-            strategySettings = super.build();
+            this.strategySettings = super.build();
+        }
+
+        public Builder(StrategySettings strategySettings) {
+            super(strategySettings);
+            this.strategySettings = super.build();
         }
 
         public Builder outputFile(@NonNull OutputFileCreator outputFile) {

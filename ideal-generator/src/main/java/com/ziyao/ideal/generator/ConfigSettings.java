@@ -4,7 +4,7 @@ import com.ziyao.ideal.core.Collections;
 import com.ziyao.ideal.core.lang.NonNull;
 import com.ziyao.ideal.core.lang.Nullable;
 import com.ziyao.ideal.generator.core.OutputType;
-import com.ziyao.ideal.generator.core.meta.TemplateContext;
+import com.ziyao.ideal.generator.core.GeneratorContext;
 import com.ziyao.ideal.generator.mysql.query.DefaultMetaInfoQuery;
 import com.ziyao.ideal.generator.mysql.query.MetadataQuery;
 import com.ziyao.ideal.generator.settings.DataSourceSettings;
@@ -24,7 +24,7 @@ import java.util.*;
 @Getter
 public class ConfigSettings {
 
-    private final List<TemplateContext> templateContexts = new ArrayList<>();
+    private final List<GeneratorContext> generatorContexts = new ArrayList<>();
 
     /**
      * 全局配置信息
@@ -60,8 +60,8 @@ public class ConfigSettings {
         // 初始化输出路径
         outputPackages.putAll(OutputFileUtils.initialize(globalSettings, strategySettings, packageSettings));
         this.metadataQuery = new DefaultMetaInfoQuery(this);
-        if (Collections.isEmpty(this.getTemplateContexts())) {
-            this.templateContexts.addAll(this.metadataQuery.query());
+        if (Collections.isEmpty(this.getGeneratorContexts())) {
+            this.generatorContexts.addAll(this.metadataQuery.query());
         }
     }
 
