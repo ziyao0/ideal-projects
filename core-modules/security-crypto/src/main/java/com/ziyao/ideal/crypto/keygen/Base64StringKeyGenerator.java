@@ -4,7 +4,7 @@ import java.util.Base64;
 
 /**
  * @author ziyao zhang
- * @since 2024/3/26
+ * 
  */
 public class Base64StringKeyGenerator implements StringKeyGenerator {
     private static final int DEFAULT_KEY_LENGTH = 32;

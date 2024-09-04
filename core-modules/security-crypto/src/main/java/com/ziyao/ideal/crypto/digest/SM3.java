@@ -6,7 +6,7 @@ import com.ziyao.ideal.crypto.Algorithm;
 
 /**
  * @author ziyao zhang
- * @since 2023/10/19
+ * 
  */
 public class SM3 extends Digester {
     

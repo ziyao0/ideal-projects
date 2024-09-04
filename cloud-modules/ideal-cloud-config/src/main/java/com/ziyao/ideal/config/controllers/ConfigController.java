@@ -1,26 +1,17 @@
 package com.ziyao.ideal.config.controllers;
 
 import com.ziyao.ideal.config.domain.dto.ConfigDTO;
-import com.ziyao.ideal.config.domain.entity.Config;
 import com.ziyao.ideal.config.service.ConfigService;
-import com.ziyao.ideal.jpa.extension.controllers.JpaBaseController;
-import com.ziyao.ideal.web.base.PageParams;
+import com.ziyao.ideal.web.base.PageQuery;
 import com.ziyao.ideal.web.base.Pages;
-import com.ziyao.ideal.web.exception.ServiceException;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.util.ObjectUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
-import java.util.stream.Collectors;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
- * 前端控制器
+ * 配置表 前端控制器
  * </p>
  *
  * @author ziyao
@@ -28,36 +19,49 @@ import java.util.stream.Collectors;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/config")
-public class ConfigController extends JpaBaseController<ConfigService, Config, Integer> {
+@Tag(name = "配置表", description = "配置表")
+public class ConfigController {
 
     private final ConfigService configService;
 
+    /**
+     * 保存
+     */
     @PostMapping("/save")
-    public void save(@RequestBody ConfigDTO entityDTO) {
-        configService.save(entityDTO.of());
-    }
-
-    @PostMapping("/updateById")
-    public void updateById(@RequestBody ConfigDTO entityDTO) {
-        if (ObjectUtils.isEmpty(entityDTO.getId())) {
-            throw new ServiceException(400, "主键参数不能为空");
-        }
-        configService.save(entityDTO.of());
+    @Operation(summary = "保存配置表", description = "保存配置表")
+    public void save(@RequestBody ConfigDTO configDTO) {
+        configService.save(configDTO.toEntity());
     }
 
     /**
-     * 默认一次插入500条
+     * 通过主键id进行更新
      */
-    @PostMapping("/saveBatch")
-    public void saveBatch(@RequestBody List<ConfigDTO> entityDTOList) {
-        configService.saveBatch(entityDTOList.stream().map(ConfigDTO::of).collect(Collectors.toList()));
+    @PostMapping("/updateById")
+    @Operation(summary = "通过主键ID进行更新", description = "通过主键ID进行更新")
+    public void updateById(@RequestBody ConfigDTO configDTO) {
+        // TODO 待完善
+        configService.save(configDTO.toEntity());
+    }
+
+    /**
+     * 通过id删除数据，有逻辑删除按照逻辑删除执行
+     * <p>不支持联合主键</p>
+     *
+     * @param id 主键Id
+     */
+    @DeleteMapping("/remove/{id}")
+    @Operation(summary = "通过主键进行删除", description = "通过主键进行删除")
+    public void removeById(@PathVariable("id") Integer id) {
+        configService.deleteById(id);
     }
 
     /**
      * 分页查询
      */
     @PostMapping("/list")
-    public Page<Config> list(PageParams<ConfigDTO> pageParams) {
-        return configService.list(pageParams.getParams().of(), Pages.initPage(pageParams));
+    @Operation(summary = "分页查询数据", description = "分页查询数据")
+    public Object list(@RequestBody PageQuery<ConfigDTO> pageQuery) {
+        // TODO 由于没有统一的分页处理插件，需要自行在控制层处理接受参数和分页信息
+        return configService.list(pageQuery.getData().toEntity(), Pages.initPage(pageQuery));
     }
 }

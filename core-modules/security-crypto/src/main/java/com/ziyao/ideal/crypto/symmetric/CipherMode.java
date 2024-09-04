@@ -6,7 +6,7 @@ import javax.crypto.Cipher;
 
 /**
  * @author ziyao zhang
- * @since 2023/10/19
+ * 
  */
 @Getter
 public enum CipherMode {

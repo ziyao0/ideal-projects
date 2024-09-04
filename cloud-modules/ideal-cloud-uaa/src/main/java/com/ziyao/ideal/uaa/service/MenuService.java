@@ -1,7 +1,7 @@
 package com.ziyao.ideal.uaa.service;
 
 import com.ziyao.ideal.uaa.domain.entity.Menu;
-import com.ziyao.ideal.jpa.extension.service.JapService;
+import com.ziyao.ideal.jpa.extension.service.JpaService;
 
 /**
 * <p>
@@ -10,6 +10,6 @@ import com.ziyao.ideal.jpa.extension.service.JapService;
 *
 * @author ziyao
 */
-public interface MenuService extends JapService<Menu,Integer> {
+public interface MenuService extends JpaService<Menu,Integer> {
 
 }

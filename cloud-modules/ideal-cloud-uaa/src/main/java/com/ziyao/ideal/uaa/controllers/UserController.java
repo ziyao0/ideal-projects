@@ -4,7 +4,7 @@ import com.ziyao.ideal.jpa.extension.controllers.JpaBaseController;
 import com.ziyao.ideal.uaa.domain.dto.UserDTO;
 import com.ziyao.ideal.uaa.domain.entity.User;
 import com.ziyao.ideal.uaa.service.UserService;
-import com.ziyao.ideal.web.base.PageParams;
+import com.ziyao.ideal.web.base.PageQuery;
 import com.ziyao.ideal.web.base.Pages;
 import com.ziyao.ideal.web.exception.ServiceException;
 import lombok.RequiredArgsConstructor;
@@ -68,7 +68,7 @@ public class UserController extends JpaBaseController<UserService, User, Integer
      * 分页查询
      */
     @PostMapping("/list")
-    public Page<User> list(PageParams<UserDTO> pageParams) {
-        return userService.list(pageParams.getParams().convert(), Pages.initPage(pageParams));
+    public Page<User> list(PageQuery<UserDTO> pageQuery) {
+        return userService.list(pageQuery.getData().convert(), Pages.initPage(pageQuery));
     }
 }

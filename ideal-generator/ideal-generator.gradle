@@ -1,0 +1,5 @@
+dependencies {
+    implementation(project(":ideal-core"))
+    implementation "org.freemarker:freemarker"
+    implementation "mysql:mysql-connector-java"
+}

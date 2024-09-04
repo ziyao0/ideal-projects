@@ -1,7 +1,7 @@
 package com.ziyao.ideal.uaa.service.impl;
 
 import com.ziyao.ideal.uaa.repository.jpa.AuthorizationRecordRepositoryJpa;
-import com.ziyao.ideal.jpa.extension.service.impl.JapServiceImpl;
+import com.ziyao.ideal.jpa.extension.service.impl.JpaServiceImpl;
 import com.ziyao.ideal.uaa.domain.entity.AuthorizationRecord;
 import com.ziyao.ideal.uaa.service.AuthorizationRecordService;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class AuthorizationRecordServiceImpl extends
-    JapServiceImpl< AuthorizationRecordRepositoryJpa, AuthorizationRecord,Integer> implements AuthorizationRecordService {
+        JpaServiceImpl< AuthorizationRecordRepositoryJpa, AuthorizationRecord,Integer> implements AuthorizationRecordService {
 
     private final AuthorizationRecordRepositoryJpa authorizationRecordRepositoryJpa;
 

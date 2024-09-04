@@ -1,6 +1,6 @@
 package com.ziyao.ideal.uaa.service.impl;
 
-import com.ziyao.ideal.jpa.extension.service.impl.JapServiceImpl;
+import com.ziyao.ideal.jpa.extension.service.impl.JpaServiceImpl;
 import com.ziyao.ideal.uaa.domain.entity.User;
 import com.ziyao.ideal.uaa.repository.jpa.UserRepositoryJpa;
 import com.ziyao.ideal.uaa.service.UserService;
@@ -18,7 +18,7 @@ import java.util.Optional;
  */
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl extends JapServiceImpl<UserRepositoryJpa, User, Integer> implements UserService {
+public class UserServiceImpl extends JpaServiceImpl<UserRepositoryJpa, User, Integer> implements UserService {
 
     private final UserRepositoryJpa userRepositoryJpa;
 

@@ -6,7 +6,6 @@
 //
 ///**
 // * @author ziyao zhang
-// * @since 2023/12/25
 // */
 //@Repository
 //public interface LoginRecordRepository extends ElasticsearchRepository<LoginRecord, Long> {

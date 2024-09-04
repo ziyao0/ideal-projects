@@ -17,7 +17,7 @@ import java.security.NoSuchAlgorithmException;
 
 /**
  * @author ziyao zhang
- * @since 2023/10/19
+ * 
  */
 public class Digester extends AbstractAlgorithm implements Serializable {
 

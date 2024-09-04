@@ -4,7 +4,7 @@ import com.ziyao.ideal.core.HexUtils;
 
 /**
  * @author ziyao zhang
- * @since 2024/3/26
+ * 
  */
 public class HexEncodingStringKeyGenerator implements StringKeyGenerator {
 

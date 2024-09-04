@@ -42,7 +42,7 @@ import java.security.PublicKey;
  * </ol>
  *
  * @author ziyao zhang
- * @since 2023/10/18
+ * 
  */
 public class SM2 extends AbstractAsymmetricCrypto<SM2> {
 

@@ -9,8 +9,8 @@ import org.springframework.data.domain.Pageable;
 public abstract class Pages {
 
 
-    public static <T> Pageable initPage(PageParams<?> pageParams) {
+    public static <T> Pageable initPage(PageQuery<?> pageQuery) {
 
-        return PageRequest.of(pageParams.getPage().getCurrent(), pageParams.getPage().getSize());
+        return PageRequest.of(pageQuery.getPage().getCurrent(), pageQuery.getPage().getSize());
     }
 }

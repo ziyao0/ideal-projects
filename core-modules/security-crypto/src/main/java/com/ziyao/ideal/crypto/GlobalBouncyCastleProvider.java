@@ -6,7 +6,6 @@ import java.security.Provider;
 
 /**
  * @author ziyao zhang
- * @since 2023/10/19
  */
 public enum GlobalBouncyCastleProvider {
     /**

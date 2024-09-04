@@ -7,7 +7,7 @@ import com.ziyao.ideal.config.domain.entity.Configuration;
 import com.ziyao.ideal.config.manager.ConfigManager;
 import com.ziyao.ideal.config.repository.jpa.ConfigRepositoryJpa;
 import com.ziyao.ideal.config.service.ConfigActionService;
-import com.ziyao.ideal.config.service.ConfigItemService;
+import com.ziyao.ideal.config.service.ConfigPropertyService;
 import com.ziyao.ideal.config.service.ConfigService;
 import com.ziyao.ideal.core.Collections;
 import com.ziyao.ideal.crypto.Property;
@@ -29,7 +29,7 @@ public class ConfigActionServiceImpl implements ConfigActionService {
 
     private final ConfigManager configManager;
     private final ConfigService configService;
-    private final ConfigItemService configItemService;
+    private final ConfigPropertyService configPropertyService;
 
     private final ConfigProcessor<List<Property>> configProcessor = new YamlConfigProcessor();
     private final ConfigRepositoryJpa configRepositoryJpa;
@@ -58,7 +58,7 @@ public class ConfigActionServiceImpl implements ConfigActionService {
     @Override
     public boolean removeConfig(String dataId, String group) {
         configService.findByDataIdAndGroup(dataId, group).ifPresent(config -> {
-            configItemService.deleteByConfigId(config.getId());
+            configPropertyService.deleteByConfigId(config.getId());
             configService.deleteById(config.getId());
         });
         return configManager.removeConfig(dataId, group);

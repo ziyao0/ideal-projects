@@ -1,7 +1,7 @@
 package com.ziyao.ideal.uaa.service;
 
 import com.ziyao.ideal.uaa.domain.entity.LoginConfig;
-import com.ziyao.ideal.jpa.extension.service.JapService;
+import com.ziyao.ideal.jpa.extension.service.JpaService;
 
 /**
 * <p>
@@ -10,7 +10,7 @@ import com.ziyao.ideal.jpa.extension.service.JapService;
 *
 * @author ziyao
 */
-public interface LoginConfigService extends JapService<LoginConfig,Long> {
+public interface LoginConfigService extends JpaService<LoginConfig,Long> {
 
     LoginConfig getAccountPasswordLoginConfig();
 }

@@ -4,7 +4,7 @@ import com.ziyao.ideal.uaa.domain.dto.MenuDTO;
 import com.ziyao.ideal.uaa.domain.entity.Menu;
 import com.ziyao.ideal.uaa.service.MenuService;
 import com.ziyao.ideal.jpa.extension.controllers.JpaBaseController;
-import com.ziyao.ideal.web.base.PageParams;
+import com.ziyao.ideal.web.base.PageQuery;
 import com.ziyao.ideal.web.base.Pages;
 import org.springframework.data.domain.Page;
 import org.springframework.util.ObjectUtils;
@@ -67,7 +67,7 @@ public class MenuController extends JpaBaseController<MenuService, Menu, Integer
      * 分页查询
      */
     @PostMapping("/list")
-    public Page<Menu> list(PageParams<MenuDTO> pageParams) {
-        return menuService.list(pageParams.getParams().convert(), Pages.initPage(pageParams));
+    public Page<Menu> list(PageQuery<MenuDTO> pageQuery) {
+        return menuService.list(pageQuery.getData().convert(), Pages.initPage(pageQuery));
     }
 }

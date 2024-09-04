@@ -56,7 +56,9 @@ public abstract class IpUtils {
     }
 
     public static void main(String[] args) {
+        long start = System.currentTimeMillis();
         String addr = getAddr("139.210.101.206");
         System.out.println(addr);
+        System.out.println(System.currentTimeMillis() - start);
     }
 }

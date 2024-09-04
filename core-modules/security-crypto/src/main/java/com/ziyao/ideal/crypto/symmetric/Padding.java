@@ -8,7 +8,7 @@ package com.ziyao.ideal.crypto.symmetric;
  *
  * @author ziyao zhang
  * @see <a href="https://docs.oracle.com/javase/7/docs/technotes/guides/security/StandardNames.html#Cipher"> Cipher章节</a>
- * @since 2023/10/18
+ * 
  */
 public enum Padding {
     /**

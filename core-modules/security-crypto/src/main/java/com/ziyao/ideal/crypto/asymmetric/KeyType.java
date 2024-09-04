@@ -8,7 +8,7 @@ import javax.crypto.Cipher;
  * 秘钥类型
  *
  * @author ziyao zhang
- * @since 2023/10/18
+ * 
  */
 @Getter
 public enum KeyType {

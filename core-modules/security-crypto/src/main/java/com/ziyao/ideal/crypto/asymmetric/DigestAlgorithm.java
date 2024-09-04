@@ -4,7 +4,7 @@ import lombok.Getter;
 
 /**
  * @author ziyao zhang
- * @since 2023/10/19
+ * 
  */
 @Getter
 public enum DigestAlgorithm {

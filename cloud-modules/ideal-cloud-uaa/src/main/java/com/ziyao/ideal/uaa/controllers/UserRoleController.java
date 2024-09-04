@@ -4,7 +4,7 @@ import com.ziyao.ideal.jpa.extension.controllers.JpaBaseController;
 import com.ziyao.ideal.uaa.domain.dto.UserRoleDTO;
 import com.ziyao.ideal.uaa.domain.entity.UserRole;
 import com.ziyao.ideal.uaa.service.UserRoleService;
-import com.ziyao.ideal.web.base.PageParams;
+import com.ziyao.ideal.web.base.PageQuery;
 import com.ziyao.ideal.web.base.Pages;
 import com.ziyao.ideal.web.exception.ServiceException;
 import lombok.RequiredArgsConstructor;
@@ -68,7 +68,7 @@ public class UserRoleController extends JpaBaseController<UserRoleService, UserR
      * 分页查询
      */
     @PostMapping("/list")
-    public Page<UserRole> list(PageParams<UserRoleDTO> pageParams) {
-        return userRoleService.list(pageParams.getParams().convert(), Pages.initPage(pageParams));
+    public Page<UserRole> list(PageQuery<UserRoleDTO> pageQuery) {
+        return userRoleService.list(pageQuery.getData().convert(), Pages.initPage(pageQuery));
     }
 }

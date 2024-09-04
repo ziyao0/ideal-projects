@@ -4,7 +4,7 @@ package com.ziyao.ideal.crypto.exception;
 
 /**
  * @author ziyao
- * @since 2023/4/23
+ * 
  */
 public class CryptoException extends RuntimeException {
     

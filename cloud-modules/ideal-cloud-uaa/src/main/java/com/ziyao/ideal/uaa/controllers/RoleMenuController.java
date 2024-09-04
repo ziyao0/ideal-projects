@@ -4,7 +4,7 @@ import com.ziyao.ideal.uaa.domain.dto.RoleMenuDTO;
 import com.ziyao.ideal.uaa.domain.entity.RoleMenu;
 import com.ziyao.ideal.uaa.service.RoleMenuService;
 import com.ziyao.ideal.jpa.extension.controllers.JpaBaseController;
-import com.ziyao.ideal.web.base.PageParams;
+import com.ziyao.ideal.web.base.PageQuery;
 import com.ziyao.ideal.web.base.Pages;
 import org.springframework.data.domain.Page;
 import org.springframework.util.ObjectUtils;
@@ -67,7 +67,7 @@ public class RoleMenuController extends JpaBaseController<RoleMenuService, RoleM
      * 分页查询
      */
     @PostMapping("/list")
-    public Page<RoleMenu> list(PageParams<RoleMenuDTO> pageParams) {
-        return roleMenuService.list(pageParams.getParams().convert(), Pages.initPage(pageParams));
+    public Page<RoleMenu> list(PageQuery<RoleMenuDTO> pageQuery) {
+        return roleMenuService.list(pageQuery.getData().convert(), Pages.initPage(pageQuery));
     }
 }

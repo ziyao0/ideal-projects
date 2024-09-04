@@ -212,7 +212,7 @@ GET /zhang
     "mappings": {
       "dynamic": "strict"
     },
-    "settings": {
+    "configSettings": {
       "index": {
         "routing": {
           "allocation": {
@@ -250,7 +250,7 @@ DELETE /zhang
 ~~~json
 PUT /zhang
 {
-  "settings": {
+  "configSettings": {
       #主分片 每个分片副本数为2
     "number_of_shards": 3,
     "number_of_replicas": 2,
@@ -340,7 +340,7 @@ PUT /zhang/_doc/2
 ~~~json
 PUT /user
 {
-    "settings":{
+    "configSettings":{
         "number_of_shards":3,
         "number_of_replicas":2,
         "index":{
@@ -393,7 +393,7 @@ PUT /user
 ~~~json
 PUT /zhang1
 {
-  "settings": {
+  "configSettings": {
     "number_of_shards": 3,
     "number_of_replicas": 2,
     "index":{
