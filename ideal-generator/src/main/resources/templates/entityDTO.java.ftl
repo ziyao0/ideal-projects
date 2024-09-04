@@ -17,7 +17,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 </#if>
-import java.io.Serial;
+
 import java.io.Serializable;
 
 /**
@@ -37,7 +37,7 @@ import java.io.Serializable;
 public class ${dtoName} implements Serializable {
 
 <#if serial>
-    @Serial
+
     private static final long serialVersionUID = 1L;
 </#if>
 

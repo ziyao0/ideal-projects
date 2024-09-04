@@ -1,11 +1,11 @@
 package com.ziyao.ideal.config.domain.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.time.LocalDateTime;
 import lombok.*;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serial;
+
 import java.io.Serializable;
 
 /**
@@ -24,7 +24,7 @@ import java.io.Serializable;
 @Schema(description = "配置属性")
 public class ConfigProperty implements Serializable {
 
-    @Serial
+    
     private static final long serialVersionUID = 1L;
 
     /**

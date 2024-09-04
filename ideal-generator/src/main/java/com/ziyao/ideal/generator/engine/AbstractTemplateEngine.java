@@ -91,12 +91,14 @@ public abstract class AbstractTemplateEngine {
                     templateFilePath(repository.getTemplate()), repository.isOverride());
 
             switch (configSettings.getGlobalSettings().getPersistType()) {
-                case mybatis_plus, tk_mybatis -> {
+                case mybatis_plus:
+                case tk_mybatis: {
                     String xmlPath = getOutput(OutputType.xml);
                     String xmlFile = xmlPath + File.separator + mapperName + ".xml";
                     outputFile(getOutputFile(xmlFile, OutputType.xml), objectMap,
                             templateFilePath(repository.getXmlTemplate()), repository.isOverride());
                 }
+                break;
             }
 
         }

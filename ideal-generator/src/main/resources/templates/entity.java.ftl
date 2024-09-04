@@ -18,7 +18,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 </#if>
 <#if serial>
-import java.io.Serial;
+
 import java.io.Serializable;
 </#if>
 
@@ -53,7 +53,7 @@ public class ${entityName} extends ${superEntityClass} {
 <#if serial>
 public class ${entityName} implements Serializable {
 
-    @Serial
+
     private static final long serialVersionUID = 1L;
 <#else>
 public class ${entityName} {

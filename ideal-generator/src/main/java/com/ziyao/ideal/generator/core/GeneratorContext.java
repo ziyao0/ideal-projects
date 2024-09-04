@@ -109,20 +109,22 @@ public class GeneratorContext {
 
         PersistType persistType = globalSettings.getPersistType();
         switch (persistType) {
-            case jpa -> {
+            case jpa: {
                 addImportPackages(PackageUtils.ID_PKG, PackageUtils.ENTITY_PKG);
+                break;
             }
-            case tk_mybatis -> {
+            case tk_mybatis: {
                 addImportPackages(PackageUtils.TABLE_PKG,
                         PackageUtils.ID_PKG,
                         PackageUtils.COLUMN_PKG);
+                break;
             }
-            case mybatis_plus -> {
+            case mybatis_plus: {
                 addImportPackages(
                         PackageUtils.MYBATIS_PLUS_TABLE_NAME_PKG,
                         PackageUtils.MYBATIS_PLUS_TABLE_ID_PKG,
-                        PackageUtils.MYBATIS_PLUS_TABLE_FIELD_PKG
-                );
+                        PackageUtils.MYBATIS_PLUS_TABLE_FIELD_PKG);
+                break;
             }
         }
     }

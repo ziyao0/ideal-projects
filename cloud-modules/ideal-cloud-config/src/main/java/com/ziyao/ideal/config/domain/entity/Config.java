@@ -1,12 +1,11 @@
 package com.ziyao.ideal.config.domain.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import java.time.LocalDateTime;
-import lombok.*;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serial;
+import lombok.*;
+
+import javax.persistence.Id;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -18,13 +17,13 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Builder
-@Entity(name = "config")
+@javax.persistence.Entity(name = "config")
 @NoArgsConstructor
 @AllArgsConstructor
 @Schema(description = "配置表")
 public class Config implements Serializable {
 
-    @Serial
+    
     private static final long serialVersionUID = 1L;
 
     /**
@@ -111,7 +110,7 @@ public class Config implements Serializable {
         }
 
 
-        public Config build(){
+        public Config build() {
             return this.config;
         }
     }

@@ -8,8 +8,8 @@ import com.ziyao.ideal.generator.template.*;
 import lombok.Getter;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -128,12 +128,12 @@ public class StrategySettings {
         }
 
         public Builder includes(@NonNull String... includes) {
-            this.strategySettings.includes.addAll(List.of(includes));
+            this.strategySettings.includes.addAll(Arrays.asList(includes));
             return this;
         }
 
         public Builder excludes(@NonNull String... excludes) {
-            this.strategySettings.excludes.addAll(List.of(excludes));
+            this.strategySettings.excludes.addAll(Arrays.asList(excludes));
             return this;
         }
 

@@ -1,5 +1,6 @@
 package com.ziyao.ideal.generator.mysql;
 
+import com.google.common.collect.Lists;
 import com.ziyao.ideal.core.Strings;
 import com.ziyao.ideal.generator.core.DataType;
 import com.ziyao.ideal.generator.core.meta.Column;
@@ -13,6 +14,7 @@ import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -66,7 +68,7 @@ public class SqlScriptExecutor {
             while (resultSet.next()) {
                 columns.add(createColumn(primaryKeyNames, resultSet));
             }
-            return List.copyOf(columns);
+            return Collections.unmodifiableList(columns);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

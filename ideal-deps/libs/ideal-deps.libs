@@ -8,7 +8,7 @@ org.projectlombok:lombok:1.18.24
 javax.validation:validation-api:2.0.1.Final
 mysql:mysql-connector-java:8.0.29
 javax:javaee-api:8.0
-org.yaml:snakeyaml:1.30
+org.yaml:snakeyaml:1.33
 org.lionsoul:ip2region:2.7.0
 
 ###############mybatis-plus start###########################
@@ -58,4 +58,4 @@ org.mapstruct:mapstruct:1.5.5.Final
 org.mapstruct:mapstruct-processor:1.5.5.Final
 
 #springdoc
-org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0
+org.springdoc:springdoc-openapi-ui:1.6.14

@@ -50,7 +50,7 @@ public abstract class OutputFileUtils {
      * @param globalSettings   全局配置
      * @param strategySettings 模板配置
      * @param packageSettings  包配置
-     * @param outputDetails      输出路径集合
+     * @param outputDetails    输出路径集合
      */
     private static void doInit(GlobalSettings globalSettings, StrategySettings strategySettings,
                                PackageSettings packageSettings, Map<OutputType, String> outputDetails) {
@@ -69,18 +69,23 @@ public abstract class OutputFileUtils {
         if (repository.isGenerate()) {
             switch (globalSettings.getPersistType()) {
                 // jpa
-                case jpa -> outputDetails.put(OutputType.repository,
-                        joinPath(globalSettings.getOutputDir(), packageSettings.getPackage(Naming.Repository)));
+                case jpa:
+                    outputDetails.put(OutputType.repository,
+                            joinPath(globalSettings.getOutputDir(), packageSettings.getPackage(Naming.Repository)));
+                    break;
                 // mybatis
-                case tk_mybatis, mybatis_plus -> {
+                case tk_mybatis:
+                case mybatis_plus: {
                     //
                     outputDetails.put(OutputType.repository,
                             joinPath(globalSettings.getOutputDir(), packageSettings.getPackage(Naming.Mapper)));
                     // mapper xml
                     outputDetails.put(OutputType.xml,
                             joinPath(globalSettings.getXmlOutputDir(), packageSettings.getPackage(Naming.Xml)));
+                    break;
                 }
-                default -> log.info("没有匹配的持久化类型！");
+                default:
+                    log.info("没有匹配的持久化类型！");
             }
         }
         //业务层

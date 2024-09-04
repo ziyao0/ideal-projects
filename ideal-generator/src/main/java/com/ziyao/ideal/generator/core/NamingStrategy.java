@@ -42,7 +42,7 @@ public enum NamingStrategy {
         // 跳过原始字符串中开头、结尾的下换线或双重下划线
         // 处理真正的驼峰片段
         Arrays.stream(camels).filter(camel -> !Strings.isEmpty(camel)).forEach(camel -> {
-            if (result.isEmpty()) {
+            if (result.length() == 0) {
                 // 第一个驼峰片段，首字母都小写
                 result.append(Strings.firstToLowerCase(camel));
             } else {

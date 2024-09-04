@@ -5,10 +5,10 @@ package com.ziyao.ideal.generator.utils;
  */
 public abstract class PackageUtils {
 
-    public static final String ENTITY_PKG = "jakarta.persistence.Entity";
-    public static final String ID_PKG = "jakarta.persistence.Id";
-    public static final String TABLE_PKG = "jakarta.persistence.Table";
-    public static final String COLUMN_PKG = "jakarta.persistence.Column";
+    public static final String ENTITY_PKG = "javax.persistence.Entity";
+    public static final String ID_PKG = "javax.persistence.Id";
+    public static final String TABLE_PKG = "javax.persistence.Table";
+    public static final String COLUMN_PKG = "javax.persistence.Column";
     /**
      * mybatis plus
      */

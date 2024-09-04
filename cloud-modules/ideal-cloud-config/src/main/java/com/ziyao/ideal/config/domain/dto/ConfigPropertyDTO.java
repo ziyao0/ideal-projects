@@ -5,7 +5,7 @@ import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDateTime;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.Serial;
+
 import java.io.Serializable;
 
 /**
@@ -19,7 +19,7 @@ import java.io.Serializable;
 @Schema(description = "配置属性")
 public class ConfigPropertyDTO implements Serializable {
 
-    @Serial
+    
     private static final long serialVersionUID = 1L;
 
 

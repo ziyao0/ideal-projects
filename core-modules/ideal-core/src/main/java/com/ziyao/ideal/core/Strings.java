@@ -1102,7 +1102,7 @@ public abstract class Strings implements StrPool {
             boolean isUpperCaseAndPreviousIsLowerCase = (Character.isLowerCase(previousChar)) && (Character.isUpperCase(c));
 
             boolean previousIsWhitespace = Character.isWhitespace(previousChar);
-            boolean lastOneIsNotUnderscore = (!buf.isEmpty()) && (buf.charAt(buf.length() - 1) != '_');
+            boolean lastOneIsNotUnderscore = buf.length() > 0 && buf.charAt(buf.length() - 1) != '_';
             boolean isNotUnderscore = c != '_';
             if (lastOneIsNotUnderscore && (isUpperCaseAndPreviousIsLowerCase || previousIsWhitespace)) {
                 buf.append(StrPool.C_UNDERLINE);
@@ -1130,9 +1130,7 @@ public abstract class Strings implements StrPool {
         StringBuilder buf = new StringBuilder();
         char lastChar = 'a';
         for (char c : s.toCharArray()) {
-            if ((Character.isWhitespace(lastChar)) && (!Character.isWhitespace(c))
-                    && ('-' != c) && (!buf.isEmpty())
-                    && (buf.charAt(buf.length() - 1) != '-')) {
+            if (Character.isWhitespace(lastChar) && !Character.isWhitespace(c) && '-' != c && buf.length() > 0 && buf.charAt(buf.length() - 1) != '-') {
                 buf.append(StrPool.DASHED);
             }
             if ('_' == c) {
