@@ -11,7 +11,7 @@ import java.util.Optional;
  * @author ziyao
  * @see <a href="https://blog.zziyao.cn">https://blog.zziyao.cn</a>
  */
-public interface JapService<T, ID> {
+public interface JpaService<T, ID> {
 
     <S extends T> S save(S entity);
 

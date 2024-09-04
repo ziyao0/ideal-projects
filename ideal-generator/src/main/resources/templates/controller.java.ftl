@@ -109,10 +109,10 @@ public class ${controllerName} {
     public Object list(@RequestBody ${dtoName} ${dtoName?uncap_first}) {
         // TODO 由于没有统一的分页处理插件，需要自行在控制层处理接受参数和分页信息
     <#if persistType==jpa>
-        return ${serviceName?uncap_first}.list(pageParams.getParams().toEntity(), Pages.initPage(pageParams));
+        return ${serviceName?uncap_first}.list(${dtoName?uncap_first}.toEntity(), PageRequest.of(1, 20));
     <#elseif persistType==mybatisPlus>
         Page<${entityName}> page = Pages.initPage(pageQuery, ${entityName}.class);
-        return ${serviceName?uncap_first}.page(pageParams.getParams(), page);
+        return ${serviceName?uncap_first}.page(${dtoName?uncap_first}.toEntity, page);
     <#elseif persistType==tkMybatis>
         return ${serviceName?uncap_first}.findByPage(${dtoName?uncap_first}, 1, 20);
     </#if>

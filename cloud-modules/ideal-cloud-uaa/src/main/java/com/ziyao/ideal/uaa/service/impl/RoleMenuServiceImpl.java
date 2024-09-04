@@ -1,7 +1,7 @@
 package com.ziyao.ideal.uaa.service.impl;
 
 import com.ziyao.ideal.uaa.repository.jpa.RoleMenuRepositoryJpa;
-import com.ziyao.ideal.jpa.extension.service.impl.JapServiceImpl;
+import com.ziyao.ideal.jpa.extension.service.impl.JpaServiceImpl;
 import com.ziyao.ideal.uaa.domain.entity.RoleMenu;
 import com.ziyao.ideal.uaa.service.RoleMenuService;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class RoleMenuServiceImpl extends
-    JapServiceImpl< RoleMenuRepositoryJpa, RoleMenu,Integer> implements RoleMenuService {
+        JpaServiceImpl< RoleMenuRepositoryJpa, RoleMenu,Integer> implements RoleMenuService {
 
     private final RoleMenuRepositoryJpa roleMenuRepositoryJpa;
 

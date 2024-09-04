@@ -3,7 +3,7 @@ package com.ziyao.ideal.uaa.service.impl;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.ziyao.ideal.uaa.repository.jpa.LoginConfigRepositoryJpa;
-import com.ziyao.ideal.jpa.extension.service.impl.JapServiceImpl;
+import com.ziyao.ideal.jpa.extension.service.impl.JpaServiceImpl;
 import com.ziyao.ideal.uaa.domain.entity.LoginConfig;
 import com.ziyao.ideal.uaa.repository.redis.LoginConfigRepositoryRedis;
 import com.ziyao.ideal.uaa.service.LoginConfigService;
@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit;
 @Service
 @RequiredArgsConstructor
 public class LoginConfigServiceImpl extends
-    JapServiceImpl< LoginConfigRepositoryJpa, LoginConfig,Long> implements LoginConfigService {
+        JpaServiceImpl< LoginConfigRepositoryJpa, LoginConfig,Long> implements LoginConfigService {
 
     private static final String DEFAULT_LOGIN_METHOD = "PASSWD";
 

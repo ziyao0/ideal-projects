@@ -2,10 +2,10 @@ package com.ziyao.ideal.generator.template;
 
 import com.ziyao.ideal.core.Strings;
 import com.ziyao.ideal.core.lang.NonNull;
+import com.ziyao.ideal.generator.core.GeneratorContext;
 import com.ziyao.ideal.generator.core.Naming;
 import com.ziyao.ideal.generator.core.OutputNameConvertor;
 import com.ziyao.ideal.generator.core.Templates;
-import com.ziyao.ideal.generator.core.GeneratorContext;
 import com.ziyao.ideal.generator.settings.StrategySettings;
 import lombok.Getter;
 
@@ -22,6 +22,7 @@ public class ServiceTemplate extends AbstractTemplate {
     private OutputNameConvertor convertor = Naming.Service.getConverter();
     private OutputNameConvertor serviceImplConvertor = Naming.ServiceImpl.getConverter();
     private String implTemplate = Templates.service_impl.getTemplate();
+    private String supperImplClass;
 
     @Override
     public OutputNameConvertor getConvertor() {
@@ -46,6 +47,11 @@ public class ServiceTemplate extends AbstractTemplate {
             render.put("superServiceClass", array[array.length - 1]);
             render.put("superServiceClassPackage", superClass);
         }
+        if (Strings.hasText(supperImplClass)) {
+            String[] array = supperImplClass.split("\\.");
+            render.put("superServiceImplClass", array[array.length - 1]);
+            render.put("superServiceImplClassPackage", superClass);
+        }
         return render;
     }
 
@@ -65,6 +71,26 @@ public class ServiceTemplate extends AbstractTemplate {
 
         public Builder override() {
             this.template.override = true;
+            return this;
+        }
+
+        public Builder superClass(Class<?> superClass) {
+            this.template.superClass = superClass.getName();
+            return this;
+        }
+
+        public Builder superClass(String superClass) {
+            this.template.superClass = superClass;
+            return this;
+        }
+
+        public Builder supperImplClass(Class<?> supperImplClass) {
+            this.template.supperImplClass = supperImplClass.getName();
+            return this;
+        }
+
+        public Builder supperImplClass(String supperImplClass) {
+            this.template.supperImplClass = supperImplClass;
             return this;
         }
 

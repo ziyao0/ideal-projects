@@ -4,7 +4,7 @@ import com.ziyao.ideal.uaa.domain.dto.GlobalLoginRestrictionDTO;
 import com.ziyao.ideal.uaa.domain.entity.GlobalLoginRestriction;
 import com.ziyao.ideal.uaa.service.GlobalLoginRestrictionService;
 import com.ziyao.ideal.jpa.extension.controllers.JpaBaseController;
-import com.ziyao.ideal.web.base.PageParams;
+import com.ziyao.ideal.web.base.PageQuery;
 import com.ziyao.ideal.web.base.Pages;
 import org.springframework.data.domain.Page;
 import org.springframework.util.ObjectUtils;
@@ -67,7 +67,7 @@ public class GlobalLoginRestrictionController extends JpaBaseController<GlobalLo
      * 分页查询
      */
     @PostMapping("/list")
-    public Page<GlobalLoginRestriction> list(PageParams<GlobalLoginRestrictionDTO> pageParams) {
-        return globalLoginRestrictionService.list(pageParams.getParams().convert(), Pages.initPage(pageParams));
+    public Page<GlobalLoginRestriction> list(PageQuery<GlobalLoginRestrictionDTO> pageQuery) {
+        return globalLoginRestrictionService.list(pageQuery.getData().convert(), Pages.initPage(pageQuery));
     }
 }

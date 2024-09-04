@@ -4,7 +4,7 @@ import com.ziyao.ideal.uaa.domain.dto.DepartmentDTO;
 import com.ziyao.ideal.uaa.domain.entity.Department;
 import com.ziyao.ideal.uaa.service.DepartmentService;
 import com.ziyao.ideal.jpa.extension.controllers.JpaBaseController;
-import com.ziyao.ideal.web.base.PageParams;
+import com.ziyao.ideal.web.base.PageQuery;
 import com.ziyao.ideal.web.base.Pages;
 import org.springframework.data.domain.Page;
 import org.springframework.util.ObjectUtils;
@@ -67,7 +67,7 @@ public class DepartmentController extends JpaBaseController<DepartmentService, D
      * 分页查询
      */
     @PostMapping("/list")
-    public Page<Department> list(PageParams<DepartmentDTO> pageParams) {
-        return departmentService.list(pageParams.getParams().convert(), Pages.initPage(pageParams));
+    public Page<Department> list(PageQuery<DepartmentDTO> pageQuery) {
+        return departmentService.list(pageQuery.getData().convert(), Pages.initPage(pageQuery));
     }
 }

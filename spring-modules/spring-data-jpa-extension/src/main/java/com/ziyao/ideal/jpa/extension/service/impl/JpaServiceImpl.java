@@ -1,7 +1,7 @@
 package com.ziyao.ideal.jpa.extension.service.impl;
 
 import com.ziyao.ideal.core.Collections;
-import com.ziyao.ideal.jpa.extension.service.JapService;
+import com.ziyao.ideal.jpa.extension.service.JpaService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
@@ -16,7 +16,7 @@ import java.util.Optional;
  * @see <a href="https://blog.zziyao.cn">https://blog.zziyao.cn</a>
  */
 @Slf4j
-public abstract class JapServiceImpl<JPA extends JpaRepository<T, ID>, T, ID> implements JapService<T, ID> {
+public abstract class JpaServiceImpl<JPA extends JpaRepository<T, ID>, T, ID> implements JpaService<T, ID> {
 
     @Autowired
     private JPA repositoryJpa;

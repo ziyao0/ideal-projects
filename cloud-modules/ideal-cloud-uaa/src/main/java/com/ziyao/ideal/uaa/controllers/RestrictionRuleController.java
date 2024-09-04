@@ -4,7 +4,7 @@ import com.ziyao.ideal.uaa.domain.dto.RestrictionRuleDTO;
 import com.ziyao.ideal.uaa.domain.entity.RestrictionRule;
 import com.ziyao.ideal.uaa.service.RestrictionRuleService;
 import com.ziyao.ideal.jpa.extension.controllers.JpaBaseController;
-import com.ziyao.ideal.web.base.PageParams;
+import com.ziyao.ideal.web.base.PageQuery;
 import com.ziyao.ideal.web.base.Pages;
 import org.springframework.data.domain.Page;
 import org.springframework.util.ObjectUtils;
@@ -67,7 +67,7 @@ public class RestrictionRuleController extends JpaBaseController<RestrictionRule
      * 分页查询
      */
     @PostMapping("/list")
-    public Page<RestrictionRule> list(PageParams<RestrictionRuleDTO> pageParams) {
-        return restrictionRuleService.list(pageParams.getParams().convert(), Pages.initPage(pageParams));
+    public Page<RestrictionRule> list(PageQuery<RestrictionRuleDTO> pageQuery) {
+        return restrictionRuleService.list(pageQuery.getData().convert(), Pages.initPage(pageQuery));
     }
 }

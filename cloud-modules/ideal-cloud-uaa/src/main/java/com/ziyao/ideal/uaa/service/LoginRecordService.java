@@ -1,7 +1,7 @@
 package com.ziyao.ideal.uaa.service;
 
 import com.ziyao.ideal.uaa.domain.entity.LoginRecord;
-import com.ziyao.ideal.jpa.extension.service.JapService;
+import com.ziyao.ideal.jpa.extension.service.JpaService;
 
 /**
 * <p>
@@ -10,6 +10,6 @@ import com.ziyao.ideal.jpa.extension.service.JapService;
 *
 * @author ziyao
 */
-public interface LoginRecordService extends JapService<LoginRecord,Integer> {
+public interface LoginRecordService extends JpaService<LoginRecord,Integer> {
 
 }

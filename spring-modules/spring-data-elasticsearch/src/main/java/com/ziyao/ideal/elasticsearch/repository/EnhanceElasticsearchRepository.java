@@ -9,10 +9,7 @@ import org.springframework.data.domain.*;
 import org.springframework.data.elasticsearch.core.*;
 import org.springframework.data.elasticsearch.core.mapping.ElasticsearchPersistentEntity;
 import org.springframework.data.elasticsearch.core.mapping.IndexCoordinates;
-import org.springframework.data.elasticsearch.core.query.BaseQuery;
-import org.springframework.data.elasticsearch.core.query.Criteria;
-import org.springframework.data.elasticsearch.core.query.CriteriaQuery;
-import org.springframework.data.elasticsearch.core.query.Query;
+import org.springframework.data.elasticsearch.core.query.*;
 import org.springframework.data.elasticsearch.repository.support.ElasticsearchEntityInformation;
 import org.springframework.data.elasticsearch.repository.support.SimpleElasticsearchRepository;
 import org.springframework.data.util.StreamUtils;
@@ -284,7 +281,7 @@ public class EnhanceElasticsearchRepository<T, ID> implements ElasticsearchRepos
 
         Query query = operations.idsQuery(idStrings);
         executeAndRefresh((SimpleElasticsearchRepository.OperationsCallback<Void>) operations -> {
-            operations.delete(query, entityClass, getIndexCoordinates());
+            operations.delete(DeleteQuery.builder(query).build(), entityClass, getIndexCoordinates());
             return null;
         });
     }
@@ -320,7 +317,7 @@ public class EnhanceElasticsearchRepository<T, ID> implements ElasticsearchRepos
         IndexCoordinates indexCoordinates = getIndexCoordinates();
 
         executeAndRefresh((SimpleElasticsearchRepository.OperationsCallback<Void>) operations -> {
-            operations.delete(Query.findAll(), entityClass, indexCoordinates);
+            operations.delete(DeleteQuery.builder(Query.findAll()).build(), entityClass, indexCoordinates);
             return null;
         });
     }

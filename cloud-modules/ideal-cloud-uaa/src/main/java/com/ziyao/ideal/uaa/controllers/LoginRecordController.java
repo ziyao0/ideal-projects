@@ -4,7 +4,7 @@ import com.ziyao.ideal.uaa.domain.dto.LoginRecordDTO;
 import com.ziyao.ideal.uaa.domain.entity.LoginRecord;
 import com.ziyao.ideal.uaa.service.LoginRecordService;
 import com.ziyao.ideal.jpa.extension.controllers.JpaBaseController;
-import com.ziyao.ideal.web.base.PageParams;
+import com.ziyao.ideal.web.base.PageQuery;
 import com.ziyao.ideal.web.base.Pages;
 import org.springframework.data.domain.Page;
 import org.springframework.util.ObjectUtils;
@@ -67,7 +67,7 @@ public class LoginRecordController extends JpaBaseController<LoginRecordService,
      * 分页查询
      */
     @PostMapping("/list")
-    public Page<LoginRecord> list(PageParams<LoginRecordDTO> pageParams) {
-        return loginRecordService.list(pageParams.getParams().convert(), Pages.initPage(pageParams));
+    public Page<LoginRecord> list(PageQuery<LoginRecordDTO> pageQuery) {
+        return loginRecordService.list(pageQuery.getData().convert(), Pages.initPage(pageQuery));
     }
 }

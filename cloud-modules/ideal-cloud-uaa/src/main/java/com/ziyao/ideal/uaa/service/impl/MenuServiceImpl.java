@@ -1,7 +1,7 @@
 package com.ziyao.ideal.uaa.service.impl;
 
 import com.ziyao.ideal.uaa.repository.jpa.MenuRepositoryJpa;
-import com.ziyao.ideal.jpa.extension.service.impl.JapServiceImpl;
+import com.ziyao.ideal.jpa.extension.service.impl.JpaServiceImpl;
 import com.ziyao.ideal.uaa.domain.entity.Menu;
 import com.ziyao.ideal.uaa.service.MenuService;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class MenuServiceImpl extends
-    JapServiceImpl< MenuRepositoryJpa, Menu,Integer> implements MenuService {
+        JpaServiceImpl< MenuRepositoryJpa, Menu,Integer> implements MenuService {
 
     private final MenuRepositoryJpa menuRepositoryJpa;
 

@@ -56,6 +56,21 @@ public class DataSourceSettings {
             this.dataSourceSettings.password = password;
         }
 
+        public Builder url(String url) {
+            this.dataSourceSettings.url = url;
+            return this;
+        }
+
+        public Builder username(String username) {
+            this.dataSourceSettings.username = username;
+            return this;
+        }
+
+        public Builder password(String password) {
+            this.dataSourceSettings.password = password;
+            return this;
+        }
+
         public Builder schemaName(String schemaName) {
             this.dataSourceSettings.schemaName = schemaName;
             return this;

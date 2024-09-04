@@ -12,18 +12,6 @@ pluginManagement {
 
 dependencyResolutionManagement {
     repositories {
-        // 读取本地依赖信息
-        var localRepo = '/Users/zhangziyao/workspace/software/maven/repo'
-        File folder = file(localRepo)
-        if (folder.exists() && folder.isDirectory()) {
-            maven {
-                name = 'local'
-                url = uri(localRepo)
-            }
-        } else {
-            println "local repository not found"
-        }
-
         maven {
             url 'https://maven.aliyun.com/repository/public/'
         }

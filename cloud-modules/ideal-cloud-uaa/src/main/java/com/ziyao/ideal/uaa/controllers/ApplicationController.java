@@ -4,7 +4,7 @@ import com.ziyao.ideal.uaa.domain.dto.ApplicationDTO;
 import com.ziyao.ideal.uaa.domain.entity.Application;
 import com.ziyao.ideal.uaa.service.ApplicationService;
 import com.ziyao.ideal.jpa.extension.controllers.JpaBaseController;
-import com.ziyao.ideal.web.base.PageParams;
+import com.ziyao.ideal.web.base.PageQuery;
 import com.ziyao.ideal.web.base.Pages;
 import org.springframework.data.domain.Page;
 import org.springframework.util.ObjectUtils;
@@ -67,7 +67,7 @@ public class ApplicationController extends JpaBaseController<ApplicationService,
      * 分页查询
      */
     @PostMapping("/list")
-    public Page<Application> list(PageParams<ApplicationDTO> pageParams) {
-        return applicationService.list(pageParams.getParams().convert(), Pages.initPage(pageParams));
+    public Page<Application> list(PageQuery<ApplicationDTO> pageQuery) {
+        return applicationService.list(pageQuery.getData().convert(), Pages.initPage(pageQuery));
     }
 }

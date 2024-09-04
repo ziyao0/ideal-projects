@@ -4,7 +4,7 @@ import com.ziyao.ideal.uaa.domain.dto.RoleDTO;
 import com.ziyao.ideal.uaa.domain.entity.Role;
 import com.ziyao.ideal.uaa.service.RoleService;
 import com.ziyao.ideal.jpa.extension.controllers.JpaBaseController;
-import com.ziyao.ideal.web.base.PageParams;
+import com.ziyao.ideal.web.base.PageQuery;
 import com.ziyao.ideal.web.base.Pages;
 import org.springframework.data.domain.Page;
 import org.springframework.util.ObjectUtils;
@@ -67,7 +67,7 @@ public class RoleController extends JpaBaseController<RoleService, Role, Integer
      * 分页查询
      */
     @PostMapping("/list")
-    public Page<Role> list(PageParams<RoleDTO> pageParams) {
-        return roleService.list(pageParams.getParams().convert(), Pages.initPage(pageParams));
+    public Page<Role> list(PageQuery<RoleDTO> pageQuery) {
+        return roleService.list(pageQuery.getData().convert(), Pages.initPage(pageQuery));
     }
 }

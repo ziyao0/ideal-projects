@@ -9,9 +9,10 @@ import ${package.Entity}.${entityName};
 import ${superServiceClassPackage};
 </#if>
 <#if persistType==jpa>
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 <#elseif persistType==mybatisPlus>
-
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 <#elseif persistType==tkMybatis>
 import com.github.pagehelper.PageInfo;
 </#if>

@@ -6,9 +6,9 @@ import lombok.Data;
  * @author ziyao zhang
  */
 @Data
-public class PageParams<T> {
+public class PageQuery<T> {
 
-    private T params;
+    private T data;
 
     private PageI page = new PageI();
 

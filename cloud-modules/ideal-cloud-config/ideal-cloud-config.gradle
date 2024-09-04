@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.configImport)
 }
 dependencies {
+    implementation(project(":ideal-generator"))
     implementation(project(':security-crypto'))
     implementation('org.yaml:snakeyaml')
     implementation(project(":spring-security-codec"))
@@ -15,7 +16,7 @@ dependencies {
     implementation "mysql:mysql-connector-java"
     implementation "org.springframework.boot:spring-boot-starter-data-jpa"
     implementation(project(":spring-web"))
-    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0'
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui'
 //    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-api:2.6.0'
 //    implementation 'org.springframework.boot:spring-boot-starter-actuator'
 

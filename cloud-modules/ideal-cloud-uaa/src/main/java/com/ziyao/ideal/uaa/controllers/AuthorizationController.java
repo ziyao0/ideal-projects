@@ -4,7 +4,7 @@ import com.ziyao.ideal.uaa.domain.dto.AuthorizationDTO;
 import com.ziyao.ideal.uaa.domain.entity.Authorization;
 import com.ziyao.ideal.uaa.service.AuthorizationService;
 import com.ziyao.ideal.jpa.extension.controllers.JpaBaseController;
-import com.ziyao.ideal.web.base.PageParams;
+import com.ziyao.ideal.web.base.PageQuery;
 import com.ziyao.ideal.web.base.Pages;
 import org.springframework.data.domain.Page;
 import org.springframework.util.ObjectUtils;
@@ -67,7 +67,7 @@ public class AuthorizationController extends JpaBaseController<AuthorizationServ
      * 分页查询
      */
     @PostMapping("/list")
-    public Page<Authorization> list(PageParams<AuthorizationDTO> pageParams) {
-        return authorizationService.list(pageParams.getParams().convert(), Pages.initPage(pageParams));
+    public Page<Authorization> list(PageQuery<AuthorizationDTO> pageQuery) {
+        return authorizationService.list(pageQuery.getData().convert(), Pages.initPage(pageQuery));
     }
 }

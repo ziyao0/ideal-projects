@@ -6,6 +6,7 @@ import com.ziyao.ideal.generator.settings.DataSourceSettings;
 import com.ziyao.ideal.generator.settings.GlobalSettings;
 import com.ziyao.ideal.generator.settings.PackageSettings;
 import com.ziyao.ideal.generator.settings.StrategySettings;
+import lombok.Getter;
 
 import java.util.function.Consumer;
 
@@ -13,6 +14,7 @@ import java.util.function.Consumer;
  * @author ziyao
  * @link <a href="https://blog.zziyao.cn">https://blog.zziyao.cn</a>
  */
+@Getter
 public class GenerationBootstrap {
 
     private final DataSourceSettings.Builder dataSourcePropertiesBuilder;

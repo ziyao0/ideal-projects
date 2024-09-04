@@ -24,7 +24,7 @@ import com.github.pagehelper.PageInfo;
 import ${package.Mapper}.${persistentName};
 </#if>
 
-<#if isSupperClass>
+<#if superServiceImplClassPackage??>
 import ${superServiceImplClassPackage};
 </#if>
 import org.springframework.stereotype.Service;
@@ -39,7 +39,7 @@ import java.util.List;
  */
 @Service
 @RequiredArgsConstructor
-<#if isSupperClass>
+<#if superServiceImplClassPackage??>
     <#if persistType=="jpa">
 public class ${serviceImplName} extends
         ${superServiceImplClass}<${repositoryName}, ${entityName},${primaryPropertyType}> implements ${serviceName} {
@@ -48,7 +48,7 @@ public class ${serviceImplName} extends ${superServiceImplClass}<${repositoryNam
     </#if>
 <#else>
 public class ${serviceImplName} implements ${serviceName} {
-</#if>
+
 
     private final ${persistentName} ${persistentName?uncap_first};
 
@@ -60,11 +60,11 @@ public class ${serviceImplName} implements ${serviceName} {
     @Override
     public void save(${dtoName} ${dtoName?uncap_first}) {
     <#if persistType==jpa>
-
+        ${persistentName?uncap_first}.save(${dtoName?uncap_first}.toEntity());
     <#elseif persistType==mybatisPlus>
-
+        ${persistentName?uncap_first}.save(${dtoName?uncap_first}.toEntity());
     <#elseif persistType==tkMybatis>
-        applicationMapper.insertSelective(${dtoName?uncap_first}.toEntity());
+        ${persistentName?uncap_first}.insertSelective(${dtoName?uncap_first}.toEntity());
     </#if>
     }
 
@@ -76,11 +76,11 @@ public class ${serviceImplName} implements ${serviceName} {
     @Override
     public void updateById(${dtoName} ${dtoName?uncap_first}) {
     <#if persistType==jpa>
-
+        ${persistentName?uncap_first}.save(${dtoName?uncap_first}.toEntity());
     <#elseif persistType==mybatisPlus>
 
     <#elseif persistType==tkMybatis>
-        applicationMapper.updateByPrimaryKeySelective(${dtoName?uncap_first}.toEntity());
+        ${persistentName?uncap_first}.updateByPrimaryKeySelective(${dtoName?uncap_first}.toEntity());
     </#if>
     }
 
@@ -92,14 +92,14 @@ public class ${serviceImplName} implements ${serviceName} {
     @Override
     public void deleteById(${primaryPropertyType} id) {
     <#if persistType==jpa>
-
+        ${persistentName?uncap_first}.deleteById(id);
     <#elseif persistType==mybatisPlus>
 
     <#elseif persistType==tkMybatis>
-        applicationMapper.deleteByPrimaryKey(id);
+        ${persistentName?uncap_first}.deleteByPrimaryKey(id);
     </#if>
     }
-
+</#if>
     <#if persistType==jpa>
     /**
      * 分页查询 ${context.comment!}
