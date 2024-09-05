@@ -8,7 +8,7 @@ com.alibaba.csp:sentinel-transport-simple-http:1.8.6
 javax.validation:validation-api:2.0.1.Final
 mysql:mysql-connector-java:8.0.29
 javax:javaee-api:8.0
-org.yaml:snakeyaml:2.0
+org.yaml:snakeyaml:2.2
 org.lionsoul:ip2region:2.7.0
 
 ###############mybatis-plus start###########################

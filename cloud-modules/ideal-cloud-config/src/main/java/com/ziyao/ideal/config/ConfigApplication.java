@@ -16,10 +16,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @SpringBootApplication
 @EntityScan("com.ziyao.ideal.config.domain.entity")
 @EnableJpaRepositories("com.ziyao.ideal.config.repository.jpa")
-public class ConfigInitiator {
+public class ConfigApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ConfigInitiator.class, args);
+        SpringApplication.run(ConfigApplication.class, args);
     }
 
 
