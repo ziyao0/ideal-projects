@@ -1,6 +1,6 @@
 [versions]
 
-jackson-bom = "2.17.0"
+jackson-bom = "2.13.4.20221013"
 dubbo-bom = "3.2.10"
 spring-framework-bom = "5.3.24"
 spring-boot-dependencies = "2.7.6"

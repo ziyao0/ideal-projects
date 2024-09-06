@@ -1,6 +1,7 @@
 package com.ziyao.ideal.config;
 
 import com.ziyao.ideal.web.checkstyle.ControllerParamChecker;
+import org.springdoc.core.GroupedOpenApi;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -27,4 +28,12 @@ public class ConfigInitiator {
     public ControllerParamChecker controllerParamChecker() {
         return new ControllerParamChecker();
     }
+
+//    @Bean
+//    public GroupedOpenApi publicApi() {
+//        return GroupedOpenApi.builder()
+//                .group("api-docs")
+//                .pathsToMatch("/api/**")
+//                .build();
+//    }
 }
