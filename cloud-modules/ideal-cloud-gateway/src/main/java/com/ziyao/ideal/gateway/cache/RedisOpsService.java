@@ -43,6 +43,13 @@ public interface RedisOpsService {
      */
     <T> void save(Object id, T t, long ttl, TimeUnit unit);
 
+    /**
+     * redis执行器
+     *
+     * @param callback 回调函数
+     * @param <T>      Bean Type
+     * @return 返回执行结果
+     */
     <T> T execute(RedisCallback<T> callback);
 
 }

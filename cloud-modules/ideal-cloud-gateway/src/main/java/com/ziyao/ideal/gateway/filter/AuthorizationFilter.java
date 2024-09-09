@@ -1,11 +1,13 @@
 package com.ziyao.ideal.gateway.filter;
 
+import com.ziyao.ideal.gateway.service.SessionService;
 import com.ziyao.ideal.gateway.support.GSecurityContextExtractor;
 import com.ziyao.ideal.gateway.config.ConfigCenter;
 import com.ziyao.ideal.gateway.support.GatewayStopWatches;
 import com.ziyao.ideal.gateway.common.response.RequestAttributes;
 import com.ziyao.ideal.gateway.common.response.SecurityPredicate;
 import com.ziyao.ideal.gateway.security.DefaultGSecurityContext;
+import com.ziyao.ideal.security.core.SessionUser;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -25,6 +28,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class AuthorizationFilter extends AbstractGlobalFilter {
 
+    private final SessionService sessionService;
     private final ConfigCenter configCenter;
 
     @Override
@@ -40,6 +44,7 @@ public class AuthorizationFilter extends AbstractGlobalFilter {
             if (skip) {
                 filter = chain.filter(exchange);
             } else {
+                Optional<SessionUser> sessionUser = sessionService.load(securityContext.getToken());
                 // 快速校验认证token
 //                AccessTokenValidator.validateToken(access);
 //                filter = authorizationManager.getAuthorization(access.getName()).authorize(access)

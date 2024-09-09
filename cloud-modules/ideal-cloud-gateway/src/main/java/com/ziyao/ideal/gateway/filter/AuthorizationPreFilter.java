@@ -39,8 +39,9 @@ public class AuthorizationPreFilter extends AbstractGlobalFilter {
                             .clientIp(access.getIp())
                             .domains(access.getDomain())
                             .build();
+                    // 过滤黑名单、跨域等相关信息
                     interceptor.intercept(context);
-                    GatewayStopWatches.stop(super.getBeanName(), exchange);
+                    GatewayStopWatches.stop(getBeanName(), exchange);
                     return chain.filter(exchange);
                 });
     }
