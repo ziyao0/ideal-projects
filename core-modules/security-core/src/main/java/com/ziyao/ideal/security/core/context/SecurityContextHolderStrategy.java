@@ -14,7 +14,11 @@ public interface SecurityContextHolderStrategy {
      */
     void clearContext();
 
-
+    /**
+     * 获取当前上下文
+     *
+     * @return {@link SecurityContext}
+     */
     SecurityContext getContext();
 
 

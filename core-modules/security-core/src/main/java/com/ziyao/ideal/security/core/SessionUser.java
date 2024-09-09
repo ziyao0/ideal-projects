@@ -10,10 +10,12 @@ import java.util.List;
 import java.util.function.Consumer;
 
 /**
+ * 存储当前当前用户的会话信息
+ *
  * @author ziyao
+ * @link <a href="https://blog.zziyao.cn">https://blog.zziyao.cn</a>
  */
-
-public class UserInfo implements UserDetails, CredentialsContainer {
+public class SessionUser implements UserDetails, CredentialsContainer {
 
 
     @Serial
@@ -79,10 +81,10 @@ public class UserInfo implements UserDetails, CredentialsContainer {
 
     private final Collection<? extends GrantedAuthority> authorities;
 
-    public UserInfo(Integer id, String username, String nickname,
-                    String password, Integer status, String mobile,
-                    String idCardName, String gender, String address, LocalDateTime lastLogin,
-                    String loginIp, Collection<? extends GrantedAuthority> authorities) {
+    public SessionUser(Integer id, String username, String nickname,
+                       String password, Integer status, String mobile,
+                       String idCardName, String gender, String address, LocalDateTime lastLogin,
+                       String loginIp, Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.username = username;
         this.nickname = nickname;
@@ -243,8 +245,8 @@ public class UserInfo implements UserDetails, CredentialsContainer {
             return this;
         }
 
-        public UserInfo build() {
-            return new UserInfo(id, username, nickname, password, status,
+        public SessionUser build() {
+            return new SessionUser(id, username, nickname, password, status,
                     mobile, idCardName, gender, address, lastLogin, loginIp, authorities);
         }
     }

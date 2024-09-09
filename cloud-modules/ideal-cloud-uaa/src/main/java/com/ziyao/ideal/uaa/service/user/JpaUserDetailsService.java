@@ -1,7 +1,7 @@
 package com.ziyao.ideal.uaa.service.user;
 
 import com.ziyao.ideal.security.core.UserDetails;
-import com.ziyao.ideal.security.core.UserInfo;
+import com.ziyao.ideal.security.core.SessionUser;
 import com.ziyao.ideal.security.core.SimpleGrantedAuthority;
 import com.ziyao.ideal.uaa.domain.entity.User;
 import com.ziyao.ideal.uaa.repository.jpa.UserRepositoryJpa;
@@ -32,8 +32,8 @@ public class JpaUserDetailsService implements UserDetailsService {
     }
 
 
-    private UserInfo toObject(User user, Set<String> roles) {
-        return UserInfo.withId(user.getId())
+    private SessionUser toObject(User user, Set<String> roles) {
+        return SessionUser.withId(user.getId())
                 .username(user.getUsername())
                 .nickname(user.getNickname())
                 .password(user.getPassword())

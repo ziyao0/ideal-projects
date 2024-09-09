@@ -1,12 +1,15 @@
 package com.ziyao.ideal.config.controllers;
 
 import com.ziyao.ideal.config.domain.dto.ConfigDTO;
+import com.ziyao.ideal.config.domain.entity.Config;
 import com.ziyao.ideal.config.service.ConfigService;
 import com.ziyao.ideal.web.base.PageQuery;
 import com.ziyao.ideal.web.base.Pages;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.web.PagedModel;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -60,8 +63,9 @@ public class ConfigController {
      */
     @PostMapping("/list")
     @Operation(summary = "分页查询数据", description = "分页查询数据")
-    public Object list(@RequestBody PageQuery<ConfigDTO> pageQuery) {
+    public PagedModel<Config> list(@RequestBody PageQuery<ConfigDTO> pageQuery) {
         // TODO 由于没有统一的分页处理插件，需要自行在控制层处理接受参数和分页信息
-        return configService.list(pageQuery.getData().toEntity(), Pages.initPage(pageQuery));
+        Page<Config> list = configService.list(pageQuery.getData().toEntity(), Pages.initPage(pageQuery));
+        return new PagedModel<>(list);
     }
 }

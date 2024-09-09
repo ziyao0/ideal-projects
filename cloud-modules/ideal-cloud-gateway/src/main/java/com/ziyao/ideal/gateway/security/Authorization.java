@@ -1,6 +1,6 @@
 package com.ziyao.ideal.gateway.security;
 
-import com.ziyao.ideal.security.core.UserInfo;
+import com.ziyao.ideal.security.core.SessionUser;
 
 import java.io.Serializable;
 
@@ -13,7 +13,7 @@ public interface Authorization extends Serializable {
 
     String getRefreshToken();
 
-    default UserInfo getPrincipal() {
+    default SessionUser getPrincipal() {
         return null;
     }
 

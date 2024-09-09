@@ -2,7 +2,7 @@ package com.ziyao.ideal.gateway.security;
 
 import com.auth0.jwt.interfaces.Claim;
 import com.ziyao.ideal.core.Collections;
-import com.ziyao.ideal.security.core.UserInfo;
+import com.ziyao.ideal.security.core.SessionUser;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,7 +24,7 @@ public class AuthorizationSuccessful implements Authorization {
     private String refreshToken;
     private boolean authorized;
     @Setter
-    private UserInfo principal;
+    private SessionUser principal;
 
     public AuthorizationSuccessful(String token) {
         this.token = token;
@@ -71,7 +71,7 @@ public class AuthorizationSuccessful implements Authorization {
         private String token;
         private String refreshToken;
         private boolean authorized;
-        private UserInfo principal;
+        private SessionUser principal;
         private transient Map<String, Object> claims;
 
         public Builder withToken(String token) {
@@ -89,7 +89,7 @@ public class AuthorizationSuccessful implements Authorization {
             return this;
         }
 
-        public Builder principal(UserInfo principal) {
+        public Builder principal(SessionUser principal) {
             this.principal = principal;
             return this;
         }

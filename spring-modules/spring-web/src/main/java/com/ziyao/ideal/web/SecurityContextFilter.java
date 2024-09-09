@@ -51,8 +51,8 @@ public class SecurityContextFilter extends OncePerRequestFilter {
     protected void doFilterInternal(@NonNull HttpServletRequest request,
                                     @NonNull HttpServletResponse response, @NonNull FilterChain chain) throws ServletException, IOException {
 
-        UserInfo userInfo = creation(request);
-        Authentication authentication = new SuccessfulAuthenticationToken(userInfo, userInfo.getAuthorities());
+        SessionUser sessionUser = creation(request);
+        Authentication authentication = new SuccessfulAuthenticationToken(sessionUser, sessionUser.getAuthorities());
 
         SecurityContext context = new SecurityContextImpl(authentication);
         SecurityContextHolder.setContext(context);
@@ -69,7 +69,7 @@ public class SecurityContextFilter extends OncePerRequestFilter {
                 .anyMatch(skipApi -> matcher.match(skipApi, request.getRequestURI()));
     }
 
-    public UserInfo creation(HttpServletRequest request) {
+    public SessionUser creation(HttpServletRequest request) {
         String userId = getValue(request, UserParamNames.USER_ID);
         String username = getValue(request, UserParamNames.USERNAME);
         String status = getValue(request, UserParamNames.STATUS);
@@ -81,7 +81,7 @@ public class SecurityContextFilter extends OncePerRequestFilter {
         String loginIp = getValue(request, UserParamNames.LOGIN_IP);
         String authorities = getValue(request, UserParamNames.AUTHORITIES);
 
-        return UserInfo.withId(Strings.hasLength(userId) ? Integer.valueOf(userId) : null)
+        return SessionUser.withId(Strings.hasLength(userId) ? Integer.valueOf(userId) : null)
                 .username(username)
                 .status(Strings.hasLength(status) ? Integer.valueOf(status) : null)
                 .idCardName(idCardName)

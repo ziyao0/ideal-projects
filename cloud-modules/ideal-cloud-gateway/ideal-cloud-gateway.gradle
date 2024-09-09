@@ -2,9 +2,10 @@ plugins {
     alias(libs.plugins.configImport)
 }
 dependencies {
-    api("com.auth0:java-jwt")
     implementation(project(':security-core'))
+    implementation(project(':ideal-convertor'))
     implementation(project(':security-crypto'))
+    implementation 'com.github.ben-manes.caffeine:caffeine'
     implementation 'org.springframework.boot:spring-boot-autoconfigure'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap'
@@ -15,4 +16,6 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-redis-reactive'
     implementation 'org.apache.dubbo:dubbo-spring-boot-starter'
     implementation 'org.lionsoul:ip2region'
+    // 计算java对象在内存汇总的占用情况
+    implementation 'org.openjdk.jol:jol-core:0.17'
 }

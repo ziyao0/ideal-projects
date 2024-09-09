@@ -1,7 +1,7 @@
 package com.ziyao.ideal.security.core.context;
 
 import com.ziyao.ideal.security.core.Authentication;
-import com.ziyao.ideal.security.core.UserInfo;
+import com.ziyao.ideal.security.core.SessionUser;
 
 import java.io.Serializable;
 
@@ -10,9 +10,9 @@ import java.io.Serializable;
  */
 public interface SecurityContext extends Serializable {
 
-    default UserInfo getPrincipal() {
+    default SessionUser getPrincipal() {
         Authentication authentication = getAuthentication();
-        return authentication != null && authentication.isAuthenticated() ? (UserInfo) authentication.getPrincipal() : null;
+        return authentication != null && authentication.isAuthenticated() ? (SessionUser) authentication.getPrincipal() : null;
     }
 
     /**

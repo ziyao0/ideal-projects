@@ -11,9 +11,9 @@ public class SuccessfulAuthenticationToken extends AbstractAuthenticationToken {
     @Serial
     private static final long serialVersionUID = 919449188452752172L;
 
-    private final UserInfo principal;
+    private final SessionUser principal;
 
-    public SuccessfulAuthenticationToken(UserInfo principal,
+    public SuccessfulAuthenticationToken(SessionUser principal,
                                          Collection<? extends GrantedAuthority> authorities) {
         super(authorities);
         this.principal = principal;
