@@ -1,6 +1,6 @@
 package com.ziyao.ideal.gateway.filter.header;
 
-import com.ziyao.ideal.gateway.common.response.RequestAttributes;
+import com.ziyao.ideal.gateway.core.RequestAttributes;
 import org.springframework.cloud.gateway.filter.headers.HttpHeadersFilter;
 import org.springframework.core.Ordered;
 import org.springframework.http.HttpHeaders;

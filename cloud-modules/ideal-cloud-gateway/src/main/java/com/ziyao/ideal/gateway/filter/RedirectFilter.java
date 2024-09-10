@@ -13,11 +13,11 @@ import java.net.URI;
  * @author ziyao
  */
 //@Component
-public class RedirectFilter extends AbstractGlobalFilter {
+public class RedirectFilter extends AbstractAfterAuthenticationFilter {
 
 
     @Override
-    protected Mono<Void> doFilter(ServerWebExchange exchange, GatewayFilterChain chain) {
+    protected Mono<Void> onSuccess(ServerWebExchange exchange, GatewayFilterChain chain) {
         // 判断是否需要重定向
         exchange.getResponse().setStatusCode(HttpStatus.FOUND);
         exchange.getResponse().getHeaders().setLocation(URI.create(extractBaseUrl(exchange)));

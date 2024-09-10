@@ -1,7 +1,7 @@
 package com.ziyao.ideal.gateway;
 
-import com.ziyao.ideal.gateway.filter.intercept.DelegatingInterceptor;
-import com.ziyao.ideal.gateway.filter.intercept.GatewayInterceptor;
+import com.ziyao.ideal.gateway.intercept.DelegatingInterceptor;
+import com.ziyao.ideal.gateway.intercept.RequestInterceptor;
 import com.ziyao.ideal.gateway.support.ApplicationContextUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -100,9 +100,9 @@ public class GatewayAutoConfiguration implements ApplicationContextAware {
     }
 
     @Bean
-    public GatewayInterceptor delegatingInterceptor() {
-        List<GatewayInterceptor> authorizationProviders =
-                ApplicationContextUtils.getBeansOfType(GatewayInterceptor.class);
+    public RequestInterceptor delegatingInterceptor() {
+        List<RequestInterceptor> authorizationProviders =
+                ApplicationContextUtils.getBeansOfType(RequestInterceptor.class);
         return new DelegatingInterceptor(authorizationProviders);
     }
 }

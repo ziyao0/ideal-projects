@@ -1,16 +1,12 @@
 package com.ziyao.ideal.gateway.support;
 
 import com.ziyao.ideal.core.metrics.StopWatch;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.server.ServerWebExchange;
 
 /**
  * @author ziyao zhang
  */
 public abstract class GatewayStopWatches {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(GatewayStopWatches.class);
 
     private static final String STOP_WATCH_ID = "gateway_stopwatch";
     private static final String STOP_WATCH_ENABLED = "gateway_stopwatch_enabled";

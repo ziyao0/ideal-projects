@@ -1,8 +1,7 @@
 package com.ziyao.ideal.gateway.handler;
 
-import com.ziyao.ideal.gateway.security.AuthorizationFailureHandler;
-import com.ziyao.ideal.gateway.common.response.DataBuffers;
-import com.ziyao.ideal.gateway.common.response.ResponseMetadata;
+import com.ziyao.ideal.gateway.core.DataBuffers;
+import com.ziyao.ideal.gateway.core.ResponseMetadata;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
