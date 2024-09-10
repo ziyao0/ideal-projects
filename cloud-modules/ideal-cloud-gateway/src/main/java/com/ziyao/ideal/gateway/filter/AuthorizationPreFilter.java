@@ -1,9 +1,9 @@
 package com.ziyao.ideal.gateway.filter;
 
-import com.ziyao.ideal.gateway.support.GSecurityContextExtractor;
+import com.ziyao.ideal.gateway.support.SessionContextExtractor;
 import com.ziyao.ideal.gateway.support.GatewayStopWatches;
 import com.ziyao.ideal.gateway.common.response.RequestAttributes;
-import com.ziyao.ideal.gateway.security.DefaultGSecurityContext;
+import com.ziyao.ideal.gateway.security.DefaultSessionContext;
 import com.ziyao.ideal.gateway.filter.intercept.DefaultInterceptContext;
 import com.ziyao.ideal.gateway.filter.intercept.GatewayInterceptor;
 import com.ziyao.ideal.gateway.filter.intercept.InterceptContext;
@@ -31,7 +31,7 @@ public class AuthorizationPreFilter extends AbstractGlobalFilter {
     @Override
     protected Mono<Void> doFilter(ServerWebExchange exchange, GatewayFilterChain chain) {
         // 2023/9/9 从请求头提取请求路径，请求ip等相关信息，进行前置校验   快速失败
-        DefaultGSecurityContext securityContext = GSecurityContextExtractor.extractForHeaders(exchange);
+        DefaultSessionContext securityContext = SessionContextExtractor.extractForHeaders(exchange);
         RequestAttributes.storeAttribute(exchange, securityContext);
         return Mono.just(securityContext)
                 .flatMap(access -> {

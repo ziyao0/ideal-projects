@@ -15,9 +15,6 @@ import java.util.List;
  */
 final class ObjectConversionProvider implements ConversionProvider {
 
-    private static final String INVALID_TYPE_ASSIGNMENT = "Value of type %s cannot be assigned to property %s of type %s";
-
-
     private final ObjectMapper mapper;
     private final GenericConversionService converters;
 

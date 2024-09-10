@@ -1,12 +1,13 @@
 package com.ziyao.ideal.gateway.filter;
 
-import com.ziyao.ideal.gateway.service.SessionService;
-import com.ziyao.ideal.gateway.support.GSecurityContextExtractor;
-import com.ziyao.ideal.gateway.config.ConfigCenter;
-import com.ziyao.ideal.gateway.support.GatewayStopWatches;
 import com.ziyao.ideal.gateway.common.response.RequestAttributes;
 import com.ziyao.ideal.gateway.common.response.SecurityPredicate;
-import com.ziyao.ideal.gateway.security.DefaultGSecurityContext;
+import com.ziyao.ideal.gateway.config.ConfigCenter;
+import com.ziyao.ideal.gateway.security.DefaultSessionContext;
+import com.ziyao.ideal.gateway.service.AuthorizationService;
+import com.ziyao.ideal.gateway.service.SessionContextService;
+import com.ziyao.ideal.gateway.support.GatewayStopWatches;
+import com.ziyao.ideal.gateway.support.SessionContextExtractor;
 import com.ziyao.ideal.security.core.SessionUser;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,15 +29,16 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class AuthorizationFilter extends AbstractGlobalFilter {
 
-    private final SessionService sessionService;
+    private final SessionContextService sessionContextService;
     private final ConfigCenter configCenter;
+    private final AuthorizationService authorizationService;
 
     @Override
     protected Mono<Void> doFilter(ServerWebExchange exchange, GatewayFilterChain chain) {
         // 从请求头提取认证token
-        DefaultGSecurityContext defaultGatewaySecurityContext = GSecurityContextExtractor.extractForHeaders(exchange);
+        DefaultSessionContext defaultGatewaySecurityContext = SessionContextExtractor.extractForHeaders(exchange);
 
-        DefaultGSecurityContext securityContext = RequestAttributes.getAttribute(exchange, DefaultGSecurityContext.class);
+        DefaultSessionContext securityContext = RequestAttributes.getAttribute(exchange, DefaultSessionContext.class);
 
         return Mono.just(defaultGatewaySecurityContext).flatMap(access -> {
             boolean skip = SecurityPredicate.initSecurityApis(getSecurityApis()).skip(access.getRequestUri());
@@ -44,7 +46,10 @@ public class AuthorizationFilter extends AbstractGlobalFilter {
             if (skip) {
                 filter = chain.filter(exchange);
             } else {
-                Optional<SessionUser> sessionUser = sessionService.load(securityContext.getToken());
+                Optional<SessionUser> sessionUser = sessionContextService.load(securityContext.getToken());
+                if (sessionUser.isPresent()) {
+                    return chain.filter(exchange);
+                }
                 // 快速校验认证token
 //                AccessTokenValidator.validateToken(access);
 //                filter = authorizationManager.getAuthorization(access.getName()).authorize(access)

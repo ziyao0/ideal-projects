@@ -1,7 +1,7 @@
 package com.ziyao.ideal.gateway.security.provider;
 
 import com.ziyao.ideal.gateway.security.Authorization;
-import com.ziyao.ideal.gateway.security.GSecurityContext;
+import com.ziyao.ideal.gateway.security.SessionContext;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
@@ -14,7 +14,7 @@ public class OAuth2AuthorizationProvider implements AuthorizationProvider {
 
 
     @Override
-    public Mono<Authorization> authorize(GSecurityContext securityContext) {
+    public Mono<Authorization> authorize(SessionContext securityContext) {
         return null;
     }
 }

@@ -14,5 +14,7 @@ public class ConfigCenter {
 
     private final GatewayConfig gatewayConfig;
     private final IPBlacklistConfig ipBlacklistConfig;
-    public final LoggerConfig loggerConfig;
+    private final LoggerConfig loggerConfig;
+    private final SystemConfig systemConfig;
+
 }

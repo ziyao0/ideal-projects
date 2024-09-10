@@ -17,11 +17,11 @@ public abstract class AccessTokenValidator {
      *
      * @param securityContext 访问令牌
      */
-    public static void validateToken(GSecurityContext securityContext) {
+    public static void validateToken(SessionContext securityContext) {
         doValidated(securityContext);
     }
 
-    private static void doValidated(GSecurityContext securityContext) {
+    private static void doValidated(SessionContext securityContext) {
         Assert.notNull(securityContext, "缺少安全验证信息");
         Assert.notNull(securityContext.getToken(), "缺少认证头(Authorization)");
         Assert.notNull(securityContext.getTimestamp(), "缺失时间戳(timestamp)");

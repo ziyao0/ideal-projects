@@ -44,6 +44,13 @@ public interface RedisOpsService {
     <T> void save(Object id, T t, long ttl, TimeUnit unit);
 
     /**
+     * 通过ID删除
+     *
+     * @param id redis key
+     */
+    void delete(Object id);
+
+    /**
      * redis执行器
      *
      * @param callback 回调函数

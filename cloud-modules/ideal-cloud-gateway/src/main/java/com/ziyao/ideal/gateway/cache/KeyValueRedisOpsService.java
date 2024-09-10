@@ -63,6 +63,15 @@ public class KeyValueRedisOpsService implements RedisOpsService {
     }
 
     @Override
+    public void delete(Object id) {
+        redisOps.execute((RedisCallback<Void>) connection -> {
+            byte[] rawKey = createKey(id);
+            connection.del(rawKey);
+            return null;
+        });
+    }
+
+    @Override
     public <T> T execute(RedisCallback<T> callback) {
         return redisOps.execute(callback);
     }
