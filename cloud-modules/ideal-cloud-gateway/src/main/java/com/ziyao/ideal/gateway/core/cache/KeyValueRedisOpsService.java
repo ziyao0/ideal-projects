@@ -24,7 +24,7 @@ public class KeyValueRedisOpsService implements RedisOpsService {
 
     final ConversionProvider conversionProvider = ConversionProvider.getInstance();
     //    private final ReactiveRedisOperations<?, ?> reactiveRedisOps;
-    private final RedisOperations<?, ?> redisOps;
+    private final RedisOperations<Object, Object> redisOps;
 
 
     @Override

@@ -6,11 +6,11 @@ import lombok.Getter;
  * @author ziyao zhang
  */
 @Getter
-public class SimpleAuthorizationToken extends AbstractAuthorizationToken {
+public class DefaultAuthorizationToken extends AbstractAuthorizationToken {
 
     private final String sessionId;
 
-    public SimpleAuthorizationToken(final String sessionId) {
+    public DefaultAuthorizationToken(final String sessionId) {
         this.sessionId = sessionId;
     }
 
@@ -22,7 +22,7 @@ public class SimpleAuthorizationToken extends AbstractAuthorizationToken {
 
 
         public Builder(final String sessionId) {
-            super(new SimpleAuthorizationToken(sessionId));
+            super(new DefaultAuthorizationToken(sessionId));
         }
 
         @Override

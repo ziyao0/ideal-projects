@@ -1,16 +1,22 @@
 package com.ziyao.ideal.gateway;
 
+import com.ziyao.ideal.gateway.core.cache.ReactiveBeans;
 import com.ziyao.ideal.gateway.intercept.DelegatingInterceptor;
 import com.ziyao.ideal.gateway.intercept.RequestInterceptor;
 import com.ziyao.ideal.gateway.support.ApplicationContextUtils;
+import jakarta.annotation.Resource;
 import org.springframework.beans.BeansException;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.ReactiveRedisConnectionFactory;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.ReactiveRedisTemplate;
 import org.springframework.data.redis.core.ReactiveStringRedisTemplate;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
@@ -41,15 +47,41 @@ public class GatewayAutoConfiguration implements ApplicationContextAware {
     }
 
 
-    /**
-     * 初始化 ReactiveRedisTemplate
-     *
-     * @param connectionFactory redis连接工厂
-     * @return {@link ReactiveRedisConnectionFactory}
-     */
+    @Override
+    public void setApplicationContext(@Nullable ApplicationContext applicationContext) throws BeansException {
+        ApplicationContextUtils.setApplicationContext(applicationContext);
+    }
+
     @Bean
-    public ReactiveRedisTemplate<String, Object> reactiveRedisTemplate(ReactiveRedisConnectionFactory connectionFactory) {
-        return new ReactiveRedisTemplate<>(connectionFactory, redisSerializationContext());
+    public CorsWebFilter corsFilter() {
+        CorsConfiguration config = new CorsConfiguration();
+        config.addAllowedMethod("*");//允许所有请求头
+        config.addAllowedOrigin("*");//允许所有请求方法，例如get，post等
+        config.addAllowedHeader("*");//允许所有的请求来源
+        config.setAllowCredentials(true);//允许携带cookie
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource(new PathPatternParser());
+        source.registerCorsConfiguration("/**", config);//对所有经过网关的请求都生效
+        return new CorsWebFilter(source);
+    }
+
+    @Bean
+    public RequestInterceptor delegatingInterceptor() {
+        List<RequestInterceptor> authorizationProviders =
+                ApplicationContextUtils.getBeansOfType(RequestInterceptor.class);
+        return new DelegatingInterceptor(authorizationProviders);
+    }
+
+    @Resource
+    private ReactiveStringRedisTemplate reactiveStringRedisTemplate;
+
+    @Bean
+    @ConditionalOnClass({ReactiveRedisConnectionFactory.class, ReactiveRedisTemplate.class})
+    public ReactiveRedisTemplate<String, Object> reactiveRedisTemplate(ReactiveRedisConnectionFactory reactiveRedisConnectionFactory) {
+        ReactiveRedisTemplate<String, Object> reactiveRedisTemplate = new ReactiveRedisTemplate<>(reactiveRedisConnectionFactory, redisSerializationContext());
+        ReactiveBeans.setRedis(reactiveRedisTemplate);
+        ReactiveBeans.setStringRedis(reactiveStringRedisTemplate);
+        return reactiveRedisTemplate;
     }
 
     /**
@@ -81,28 +113,17 @@ public class GatewayAutoConfiguration implements ApplicationContextAware {
         return builder.build();
     }
 
-    @Override
-    public void setApplicationContext(@Nullable ApplicationContext applicationContext) throws BeansException {
-        ApplicationContextUtils.setApplicationContext(applicationContext);
-    }
-
     @Bean
-    public CorsWebFilter corsFilter() {
-        CorsConfiguration config = new CorsConfiguration();
-        config.addAllowedMethod("*");//允许所有请求头
-        config.addAllowedOrigin("*");//允许所有请求方法，例如get，post等
-        config.addAllowedHeader("*");//允许所有的请求来源
-        config.setAllowCredentials(true);//允许携带cookie
-
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource(new PathPatternParser());
-        source.registerCorsConfiguration("/**", config);//对所有经过网关的请求都生效
-        return new CorsWebFilter(source);
-    }
-
-    @Bean
-    public RequestInterceptor delegatingInterceptor() {
-        List<RequestInterceptor> authorizationProviders =
-                ApplicationContextUtils.getBeansOfType(RequestInterceptor.class);
-        return new DelegatingInterceptor(authorizationProviders);
+    public RedisTemplate<?, ?> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
+        RedisSerializer<String> keySerializer = new StringRedisSerializer();
+        RedisSerializer<Object> valueSerializer = new GenericJackson2JsonRedisSerializer();
+        RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
+        redisTemplate.setConnectionFactory(redisConnectionFactory);
+        redisTemplate.setKeySerializer(keySerializer);
+        redisTemplate.setValueSerializer(valueSerializer);
+        redisTemplate.setHashKeySerializer(keySerializer);
+        redisTemplate.setHashValueSerializer(valueSerializer);
+        redisTemplate.afterPropertiesSet();
+        return redisTemplate;
     }
 }

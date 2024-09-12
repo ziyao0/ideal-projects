@@ -1,9 +1,9 @@
 com.ziyao.ideal.boot.autoconfigure.web.mvc.WebMvcAutoConfiguration
-com.ziyao.ideal.web.GlobalExceptionHandlerAdvice
-com.ziyao.ideal.web.GlobalResponseHandlerAdvice
-com.ziyao.ideal.web.SecurityContextFilter
+#com.ziyao.ideal.web.GlobalExceptionHandlerAdvice
+#com.ziyao.ideal.web.GlobalResponseHandlerAdvice
+#com.ziyao.ideal.web.SecurityContextFilter
 #加密启动配置类
 #es相关配置自动加载
-com.ziyao.ideal.boot.autoconfigure.elasticsearch.ElasticsearchRepositoriesAutoConfiguration
+#com.ziyao.ideal.boot.autoconfigure.elasticsearch.ElasticsearchRepositoriesAutoConfiguration
 # redis
-com.ziyao.ideal.boot.autoconfigure.redis.DataRedisAutoConfiguration
+#com.ziyao.ideal.boot.autoconfigure.redis.DataRedisAutoConfiguration

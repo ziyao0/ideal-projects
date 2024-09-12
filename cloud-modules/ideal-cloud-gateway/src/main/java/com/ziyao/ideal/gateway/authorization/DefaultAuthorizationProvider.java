@@ -12,7 +12,7 @@ import java.util.Set;
  * @see <a href="https://blog.zziyao.cn">https://blog.zziyao.cn</a>
  */
 @RequiredArgsConstructor
-public class SimpleAuthorizationProvider implements AuthorizationProvider {
+public class DefaultAuthorizationProvider implements AuthorizationProvider {
 
     private final UserCacheService userCacheService;
     private final ConfigCenter configCenter;
@@ -20,7 +20,7 @@ public class SimpleAuthorizationProvider implements AuthorizationProvider {
     @Override
     public Authorization authorize(Authorization authorization) {
 
-        SimpleAuthorizationToken authorizationToken = (SimpleAuthorizationToken) authorization;
+        DefaultAuthorizationToken authorizationToken = (DefaultAuthorizationToken) authorization;
 
         boolean skip = SecurityPredicate.initSecurityApis(getSecurityApis()).skip(authorizationToken.getRequestPath());
         return null;
@@ -28,7 +28,7 @@ public class SimpleAuthorizationProvider implements AuthorizationProvider {
 
     @Override
     public boolean supports(Class<? extends Authorization> authorizationClass) {
-        return SimpleAuthorizationToken.class.isAssignableFrom(authorizationClass);
+        return DefaultAuthorizationToken.class.isAssignableFrom(authorizationClass);
     }
 
 
