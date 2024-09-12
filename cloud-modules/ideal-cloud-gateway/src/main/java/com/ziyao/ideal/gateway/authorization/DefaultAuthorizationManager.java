@@ -1,12 +1,14 @@
 package com.ziyao.ideal.gateway.authorization;
 
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 /**
  * @author ziyao zhang
  */
+@Service
 public class DefaultAuthorizationManager implements AuthorizationManager {
-
 
     private final List<AuthorizationProvider> providers;
 

@@ -1,7 +1,11 @@
 package com.ziyao.ideal.gateway.filter;
 
-import com.ziyao.ideal.gateway.config.ConfigCenter;
-import com.ziyao.ideal.gateway.service.UserCacheService;
+import com.ziyao.ideal.gateway.authorization.Authorization;
+import com.ziyao.ideal.gateway.authorization.AuthorizationManager;
+import com.ziyao.ideal.gateway.authorization.convertor.AuthorizationConvertor;
+import com.ziyao.ideal.gateway.intercept.RequestInterceptor;
+import com.ziyao.ideal.gateway.support.AuthorizationUtils;
+import com.ziyao.ideal.gateway.support.GatewayStopWatches;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -19,42 +23,26 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class AuthorizationFilter extends AbstractGlobalFilter {
 
-    private final UserCacheService userCacheService;
-    private final ConfigCenter configCenter;
+    private final AuthorizationConvertor authorizationConvertor;
+    private final AuthorizationManager authorizationManager;
+    private final RequestInterceptor requestInterceptor;
 
     @Override
     protected Mono<Void> doFilter(ServerWebExchange exchange, GatewayFilterChain chain) {
         // 从请求头提取认证token
 
+//        Authorization authorization = authorizationConvertor.convert(exchange);
+//        // 过滤黑名单、跨域等相关信息
+//        requestInterceptor.intercept(authorization);
+//
+//        Authorization authorized = authorizationManager.authorize(authorization);
+//
+//        if (AuthorizationUtils.unauthorized(authorized)) {
+//            // 未验证通过
+//        }
 
-//        return Mono.just(defaultGatewaySecurityContext).flatMap(access -> {
-//            boolean skip = SecurityPredicate.initSecurityApis(getSecurityApis()).skip(access.getRequestUri());
-//            Mono<Void> filter;
-//            if (skip) {
-//                filter = chain.filter(exchange);
-//            } else {
-//                Optional<SessionUser> sessionUser = sessionContextService.load(securityContext.getToken());
-//                if (sessionUser.isPresent()) {
-//                    return chain.filter(exchange);
-//                }
-//                // 快速校验认证token
-////                AccessTokenValidator.validateToken(access);
-////                filter = authorizationManager.getAuthorization(access.getName()).authorize(access)
-////                        .flatMap(author -> {
-////                            if (author.isAuthorized()) {
-////                                // TODO: 2023/10/8 成功后向exchange存储认证成功信息
-//////                                RequestAttributes.storeAuthorizerContext(exchange, null);
-////                                return chain.filter(exchange);
-////                            } else {
-////                                return GatewayErrors.createUnauthorizedException(author.getMessage());
-////                            }
-////                        });
-//                filter = chain.filter(exchange);
-//            }
-//            GatewayStopWatches.stop(getBeanName(), exchange);
-//            return filter;
-//        });
-        return null;
+
+        return chain.filter(exchange);
     }
 
 

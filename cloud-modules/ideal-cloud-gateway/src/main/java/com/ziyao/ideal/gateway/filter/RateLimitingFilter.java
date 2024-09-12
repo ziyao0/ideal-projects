@@ -2,11 +2,13 @@ package com.ziyao.ideal.gateway.filter;
 
 import com.ziyao.ideal.crypto.digest.DigestUtils;
 import com.ziyao.ideal.gateway.config.ConfigCenter;
+import com.ziyao.ideal.gateway.core.DataBuffers;
 import com.ziyao.ideal.gateway.support.RedisKeys;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.data.redis.core.ReactiveStringRedisTemplate;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
@@ -19,7 +21,7 @@ import java.time.Duration;
  *
  * @author ziyao
  */
-//@Component
+@Component
 @RequiredArgsConstructor
 public class RateLimitingFilter extends AbstractAfterAuthenticationFilter {
 
@@ -47,6 +49,7 @@ public class RateLimitingFilter extends AbstractAfterAuthenticationFilter {
             } else {
                 // 防抖动异常返回，可以自定义
                 exchange.getResponse().setStatusCode(HttpStatus.TOO_MANY_REQUESTS);
+                exchange.getResponse().writeWith(DataBuffers.writeWith())
                 return exchange.getResponse().setComplete();
             }
         });

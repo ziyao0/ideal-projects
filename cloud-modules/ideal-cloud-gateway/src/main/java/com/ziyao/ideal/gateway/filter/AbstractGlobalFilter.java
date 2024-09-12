@@ -1,10 +1,10 @@
 package com.ziyao.ideal.gateway.filter;
 
 import com.ziyao.ideal.core.lang.NonNull;
-import com.ziyao.ideal.gateway.handler.AuthorizationFailureHandler;
-import com.ziyao.ideal.gateway.support.GatewayStopWatches;
 import com.ziyao.ideal.gateway.core.RequestAttributes;
+import com.ziyao.ideal.gateway.handler.AuthorizationFailureHandler;
 import com.ziyao.ideal.gateway.support.ApplicationContextUtils;
+import com.ziyao.ideal.gateway.support.GatewayStopWatches;
 import lombok.Getter;
 import org.springframework.beans.factory.BeanNameAware;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -36,9 +36,10 @@ public abstract class AbstractGlobalFilter implements GlobalFilter, BeanNameAwar
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
 
         // @formatter:off
-        GatewayStopWatches.start(this.beanName, exchange);
         return doFilter(exchange, chain)
-                .onErrorResume(throwable -> onError(exchange, throwable));
+                .doFirst(() -> GatewayStopWatches.start(getBeanName(), exchange))
+                .onErrorResume(throwable -> onError(exchange, throwable))
+                .doFinally(signalType -> GatewayStopWatches.stop(getBeanName(), exchange));
         // @formatter:on
     }
 

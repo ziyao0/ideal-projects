@@ -35,7 +35,7 @@ public abstract class RequestAttributes {
      */
     public static boolean isAuthenticated(ServerWebExchange exchange) {
 //        return loadAuthorizerContext(exchange) != null;
-        return false;
+        return true;
     }
 //
 //    /**

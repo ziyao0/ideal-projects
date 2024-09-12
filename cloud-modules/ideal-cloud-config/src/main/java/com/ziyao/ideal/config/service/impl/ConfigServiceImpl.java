@@ -60,7 +60,9 @@ public class ConfigServiceImpl extends
     public Page<Config> page(ConfigDTO configDTO, Pageable pageable) {
         ExampleMatcher matcher = ExampleMatcher.matching()
                 .withIgnoreNullValues()
-                .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING); // Use CONTAINING for partial matches
+//                .withMatcher("configType", ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase()) // 用户名使用模糊查询，忽略大小写
+                .withMatcher("dataId", ExampleMatcher.GenericPropertyMatchers.exact()) // 年龄精确匹配
+                ; // Use CONTAINING for partial matches
         Example<Config> example = Example.of(configDTO.toEntity(), matcher);
         return configRepositoryJpa.findAll(example, pageable);
     }

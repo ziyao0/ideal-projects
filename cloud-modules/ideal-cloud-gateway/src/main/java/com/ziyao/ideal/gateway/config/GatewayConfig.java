@@ -24,7 +24,7 @@ public class GatewayConfig {
     /**
      * 防抖时间设为2秒
      */
-    private long debounceTimes = TimeUnit.SECONDS.toMillis(2);
+    private long debounceTimes = TimeUnit.SECONDS.toMillis(100);
     /**
      * 默认跳过授权api集合
      */

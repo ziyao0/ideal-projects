@@ -65,7 +65,7 @@ public class ConfigController {
     @Operation(summary = "分页查询数据", description = "分页查询数据")
     public PagedModel<Config> list(@RequestBody PageQuery<ConfigDTO> pageQuery) {
         // TODO 由于没有统一的分页处理插件，需要自行在控制层处理接受参数和分页信息
-        Page<Config> list = configService.list(pageQuery.getData().toEntity(), Pages.initPage(pageQuery));
+        Page<Config> list = configService.page(pageQuery.getData(), Pages.initPage(pageQuery));
         return new PagedModel<>(list);
     }
 }

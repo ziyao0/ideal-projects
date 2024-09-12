@@ -1,8 +1,7 @@
 package com.ziyao.ideal.gateway.authorization;
 
-import com.ziyao.ideal.gateway.core.SecurityPredicate;
 import com.ziyao.ideal.gateway.config.ConfigCenter;
-import com.ziyao.ideal.gateway.service.UserCacheService;
+import com.ziyao.ideal.gateway.core.SecurityPredicate;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Set;
@@ -14,7 +13,6 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class DefaultAuthorizationProvider implements AuthorizationProvider {
 
-    private final UserCacheService userCacheService;
     private final ConfigCenter configCenter;
 
     @Override

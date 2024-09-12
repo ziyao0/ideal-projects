@@ -6,9 +6,6 @@ spring:
     name: ideal-cloud-uaa
   profiles:
     active: register
-  jmx:
-    enabled: false
   main:
     allow-bean-definition-overriding: true
-
     allow-circular-references: true

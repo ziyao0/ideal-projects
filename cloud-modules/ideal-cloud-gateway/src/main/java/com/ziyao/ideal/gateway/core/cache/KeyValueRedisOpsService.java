@@ -4,7 +4,7 @@ import com.ziyao.ideal.convert.ConversionProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.connection.RedisStringCommands;
 import org.springframework.data.redis.core.RedisCallback;
-import org.springframework.data.redis.core.RedisOperations;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.types.Expiration;
 import org.springframework.stereotype.Service;
 
@@ -23,9 +23,7 @@ import java.util.concurrent.TimeUnit;
 public class KeyValueRedisOpsService implements RedisOpsService {
 
     final ConversionProvider conversionProvider = ConversionProvider.getInstance();
-    //    private final ReactiveRedisOperations<?, ?> reactiveRedisOps;
-    private final RedisOperations<Object, Object> redisOps;
-
+    private final RedisTemplate<String, Object> redisTemplate;
 
     @Override
     public <T> Optional<T> findById(Object id, Class<T> type) {
@@ -64,7 +62,7 @@ public class KeyValueRedisOpsService implements RedisOpsService {
 
     @Override
     public void delete(Object id) {
-        redisOps.execute((RedisCallback<Void>) connection -> {
+        redisTemplate.execute((RedisCallback<Void>) connection -> {
             byte[] rawKey = createKey(id);
             connection.del(rawKey);
             return null;
@@ -73,7 +71,7 @@ public class KeyValueRedisOpsService implements RedisOpsService {
 
     @Override
     public <T> T execute(RedisCallback<T> callback) {
-        return redisOps.execute(callback);
+        return redisTemplate.execute(callback);
     }
 
 

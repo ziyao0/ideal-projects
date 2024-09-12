@@ -2,9 +2,9 @@ package com.ziyao.ideal.gateway.service.impl;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
-import com.ziyao.ideal.gateway.core.cache.RedisOpsService;
 import com.ziyao.ideal.gateway.config.ConfigCenter;
 import com.ziyao.ideal.gateway.config.SystemConfig;
+import com.ziyao.ideal.gateway.core.cache.RedisOpsService;
 import com.ziyao.ideal.gateway.service.UserCacheService;
 import com.ziyao.ideal.security.core.SessionUser;
 import lombok.RequiredArgsConstructor;
