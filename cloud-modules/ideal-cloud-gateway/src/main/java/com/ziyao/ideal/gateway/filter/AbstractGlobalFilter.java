@@ -1,12 +1,10 @@
 package com.ziyao.ideal.gateway.filter;
 
-import com.ziyao.ideal.core.lang.NonNull;
 import com.ziyao.ideal.gateway.core.RequestAttributes;
 import com.ziyao.ideal.gateway.handler.AuthorizationFailureHandler;
 import com.ziyao.ideal.gateway.support.ApplicationContextUtils;
 import com.ziyao.ideal.gateway.support.GatewayStopWatches;
 import lombok.Getter;
-import org.springframework.beans.factory.BeanNameAware;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
@@ -21,9 +19,7 @@ import java.util.function.Function;
  * @author ziyao
  */
 @Getter
-public abstract class AbstractGlobalFilter implements GlobalFilter, BeanNameAware, Ordered {
-
-    private String beanName;
+public abstract class AbstractGlobalFilter implements GlobalFilter, Ordered {
 
     /**
      * 处理 Web 请求并（可选）通过给定的 {@code GatewayFilterChain} 委托给下一个 {@link org.springframework.cloud.gateway.filter.GatewayFilter}。
@@ -36,11 +32,18 @@ public abstract class AbstractGlobalFilter implements GlobalFilter, BeanNameAwar
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
 
         // @formatter:off
-        return doFilter(exchange, chain)
-                .doFirst(() -> GatewayStopWatches.start(getBeanName(), exchange))
-                .onErrorResume(throwable -> onError(exchange, throwable))
-                .doFinally(signalType -> GatewayStopWatches.stop(getBeanName(), exchange));
+        return preFilter(exchange, chain)
+                .then(Mono.defer(() -> {
+                    Mono<Void> result = doFilter(exchange, chain);
+                    GatewayStopWatches.stop(getTaskId(), exchange);
+                    return result;
+                }));
         // @formatter:on
+    }
+
+    private Mono<Void> preFilter(ServerWebExchange exchange, GatewayFilterChain chain) {
+        GatewayStopWatches.start(this.getTaskId(), exchange);
+        return Mono.empty();
     }
 
     /**
@@ -62,7 +65,7 @@ public abstract class AbstractGlobalFilter implements GlobalFilter, BeanNameAwar
     protected Mono<Void> onError(ServerWebExchange exchange, Throwable throwable) {
         AuthorizationFailureHandler authorizationFailureHandler = ApplicationContextUtils.getBean(AuthorizationFailureHandler.class);
         Mono<Void> resume = authorizationFailureHandler.onFailureResume(exchange, throwable);
-        GatewayStopWatches.stop(this.beanName, exchange);
+        GatewayStopWatches.stop(this.getTaskId(), exchange);
         return resume;
     }
 
@@ -76,9 +79,11 @@ public abstract class AbstractGlobalFilter implements GlobalFilter, BeanNameAwar
         return RequestAttributes.isAuthenticated(exchange);
     }
 
-    @Override
-    public void setBeanName(@NonNull String beanName) {
-        this.beanName = beanName;
+    protected String getTaskId() {
+        return this.getClass().getSimpleName();
     }
 
+    protected void stop(ServerWebExchange exchange) {
+        GatewayStopWatches.stop(this.getTaskId(), exchange);
+    }
 }
