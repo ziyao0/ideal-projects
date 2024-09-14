@@ -2,7 +2,7 @@ package com.ziyao.ideal.gateway.filter;
 
 import com.ziyao.ideal.crypto.digest.DigestUtils;
 import com.ziyao.ideal.gateway.config.ConfigCenter;
-import com.ziyao.ideal.gateway.core.DataBuffers;
+import com.ziyao.ideal.gateway.core.error.GatewayErrors;
 import com.ziyao.ideal.gateway.support.RedisKeys;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -48,9 +48,7 @@ public class RateLimitingFilter extends AbstractAfterAuthenticationFilter {
                 return chain.filter(exchange);
             } else {
                 // 防抖动异常返回，可以自定义
-                exchange.getResponse().setStatusCode(HttpStatus.TOO_MANY_REQUESTS);
-                exchange.getResponse().writeWith(DataBuffers.writeWith())
-                return exchange.getResponse().setComplete();
+                return GatewayErrors.createException(HttpStatus.TOO_MANY_REQUESTS);
             }
         });
     }

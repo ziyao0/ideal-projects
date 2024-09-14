@@ -1,6 +1,6 @@
 package com.ziyao.ideal.gateway.core;
 
-import com.ziyao.ideal.core.Strings;
+import com.alibaba.fastjson2.JSON;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -9,7 +9,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
-import reactor.core.publisher.MonoOperator;
 
 import java.util.Objects;
 
@@ -24,23 +23,23 @@ public abstract class DataBuffers {
     /**
      * 组装响应对象
      */
-    public static Mono<Void> writeWith(ServerHttpResponse response, ResponseMetadata responseMetadata, HttpStatusCode statusCode) {
-        return writeWith(response, ResponseMetadata.getInstance(statusCode.value(), responseMetadata.getMessage()));
+    public static Mono<Void> writeWith(ServerHttpResponse response, ResponseDetails responseDetails, HttpStatusCode statusCode) {
+        return writeWith(response, ResponseDetails.of(statusCode.value(), responseDetails.message()));
     }
 
     /**
      * 组装响应对象
      */
-    public static Mono<Void> writeWith(ServerWebExchange exchange, ResponseMetadata responseMetadata) {
-        return writeWith(exchange.getResponse(), responseMetadata);
+    public static Mono<Void> writeWith(ServerWebExchange exchange, ResponseDetails responseDetails) {
+        return writeWith(exchange.getResponse(), responseDetails);
     }
 
 
     /**
      * 组装响应对象
      */
-    public static Mono<Void> writeWith(ServerHttpResponse response, ResponseMetadata responseMetadata) {
-        return writeWith(response, responseMetadata.getStatus(), responseMetadata.getMessage());
+    public static Mono<Void> writeWith(ServerHttpResponse response, ResponseDetails responseDetails) {
+        return writeWith(response, responseDetails.status(), responseDetails.message());
     }
 
     /**
@@ -54,10 +53,10 @@ public abstract class DataBuffers {
         }
         // 填充响应体
         DataBuffer dataBuffer = response.bufferFactory()
-                .wrap(Strings.toBytes(ResponseMetadata.getInstance(status, message)));
+                .wrap(JSON.toJSONBytes(ResponseDetails.of(status, message)));
         // 填充响应类型
         response.getHeaders().add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
-        return response.writeWith(MonoOperator.just(dataBuffer));
+        return response.writeWith(Mono.just(dataBuffer));
     }
 
 }

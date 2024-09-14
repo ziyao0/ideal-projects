@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @RequiredArgsConstructor
-public class ResourceBlacklistInterceptor implements RequestInterceptor {
+public class RequestBlacklistInterceptor implements RequestInterceptor {
 
     private final ConfigCenter configCenter;
 

@@ -1,5 +1,7 @@
 package com.ziyao.ideal.gateway.core.error;
 
+import com.ziyao.ideal.gateway.core.ResponseDetails;
+import org.springframework.http.HttpStatus;
 import reactor.core.publisher.Mono;
 
 /**
@@ -10,38 +12,49 @@ public abstract class GatewayErrors {
     private GatewayErrors() {
     }
 
+    /**
+     * 创建请求未认证异常
+     *
+     * @param message 异常信息
+     * @return {@link GatewayException}
+     */
     public static Mono<Void> createUnauthorizedException(String message) {
-//        return Mono.error(Exceptions.createUnauthorizedException(message));
-        return Mono.error(new RuntimeException(message));
+        return Mono.error(new GatewayException(401, message));
     }
 
-//    /**
-//     * 创建越权访问异常
-//     *
-//     * @param message 异常信息
-//     * @return {@link HarborException}
-//     */
-//    public static Mono<Void> createForbiddenException(String message) {
-//        return Mono.error(Exceptions.createForbiddenException(message));
-//    }
-//
-//    /**
-//     * 创建非法访问
-//     *
-//     * @param message 异常信息
-//     * @return {@link HarborException}
-//     */
-//    public static Mono<Void> createIllegalAccessException(String message) {
-//        return Mono.error(Exceptions.createIllegalAccessException(message));
-//    }
-//
-//    /**
-//     * 创建非法访问
-//     *
-//     * @param message 异常信息
-//     * @return {@link HarborException}
-//     */
-//    public static Mono<Void> createIllegalArgumentException(String message) {
-//        return Mono.error(Exceptions.createIllegalArgumentException(message));
-//    }
+    /**
+     * 创建越权访问异常
+     *
+     * @param message 异常信息
+     * @return {@link GatewayException}
+     */
+    public static Mono<Void> createForbiddenException(String message) {
+        return Mono.error(new GatewayException(403, message));
+    }
+
+    /**
+     * 创建非法访问
+     *
+     * @param message 异常信息
+     * @return {@link GatewayException}
+     */
+    public static Mono<Void> createIllegalAccessException(String message) {
+        return Mono.error(new GatewayException(403, message));
+    }
+
+    public static Mono<Void> createException(Integer status, String message) {
+        return Mono.error(new GatewayException(status, message));
+    }
+
+    public static Mono<Void> createException(HttpStatus httpStatus) {
+        return Mono.error(new GatewayException(httpStatus.value(), httpStatus.getReasonPhrase()));
+    }
+
+    public static Mono<Void> createException(ResponseDetails responseDetails) {
+        return Mono.error(new GatewayException(responseDetails));
+    }
+
+    public static Mono<Void> createException(String message, Throwable throwable) {
+        return Mono.error(new GatewayException(500, "服务器内部错误：" + message, throwable));
+    }
 }

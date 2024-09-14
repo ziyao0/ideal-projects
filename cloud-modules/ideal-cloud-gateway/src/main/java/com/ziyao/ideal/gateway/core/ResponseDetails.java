@@ -1,12 +1,11 @@
 package com.ziyao.ideal.gateway.core;
 
-import java.io.Serial;
 import java.io.Serializable;
 
 /**
  * @author zhangziyao
  */
-public interface ResponseMetadata extends Serializable {
+public interface ResponseDetails extends Serializable {
 
     /**
      * 用于返回成功的响应状态
@@ -49,38 +48,21 @@ public interface ResponseMetadata extends Serializable {
      *
      * @return <code>0</code> 表示成功
      */
-    Integer getStatus();
+    Integer status();
 
     /**
      * 用于返回当前请求的消息内容
      *
      * @return <code>SUCCESS</code> 表示成功，其他表示请求失败
      */
-    String getMessage();
+    String message();
 
 
-    static ResponseMetadata getInstance(Integer status, String message) {
-        return new ResponseMetadata() {
-            @Serial
-            private static final long serialVersionUID = 8562177041789091450L;
+    static ResponseDetails of(Integer status, String message) {
+        return new Instance(status, message);
+    }
 
-            @Override
-            public Integer getStatus() {
-                return status;
-            }
+    record Instance(Integer status, String message) implements ResponseDetails {
 
-            @Override
-            public String getMessage() {
-                return message;
-            }
-
-            @Override
-            public String toString() {
-                return "{\n" +
-                        "    \"status\":" + this.getStatus() + ",\n" +
-                        "    \"message:\":\"" + this.getMessage() + "\"\n" +
-                        "}";
-            }
-        };
     }
 }

@@ -5,7 +5,7 @@ import com.ziyao.ideal.gateway.authorization.Authorization;
 /**
  * @author ziyao zhang
  */
-public abstract class AuthorizationUtils {
+public abstract class SecurityUtils {
 
     public static boolean authorized(Authorization authorization) {
         return authorization != null && authorization.isAuthorized();
@@ -15,6 +15,6 @@ public abstract class AuthorizationUtils {
         return !authorized(authorization);
     }
 
-    private AuthorizationUtils() {
+    private SecurityUtils() {
     }
 }

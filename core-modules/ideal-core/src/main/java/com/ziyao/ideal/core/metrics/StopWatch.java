@@ -117,6 +117,14 @@ public final class StopWatch {
         return false;
     }
 
+    public boolean isRunning(String taskId) {
+        Task task = watches.get(taskId);
+        if (task == null) {
+            return false;
+        }
+        return task.isRunning();
+    }
+
     /**
      * 停止所有正在运行的任务
      */

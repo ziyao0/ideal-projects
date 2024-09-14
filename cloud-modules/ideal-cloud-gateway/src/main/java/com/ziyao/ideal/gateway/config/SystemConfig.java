@@ -17,9 +17,17 @@ public class SystemConfig {
      * 会话过期时间
      */
     private long sessionTimeout;
-
     /**
      * 缓存最大存储用户数量
      */
     private long maximumSize;
+    /**
+     * 跨域开关
+     */
+    private boolean enableCrossOrigin;
+    // IP黑名单
+    private boolean enableIpBlacklist;
+    //请求黑名单
+    private boolean enableRequestBlacklist;
+
 }

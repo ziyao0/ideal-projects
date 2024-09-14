@@ -3,6 +3,7 @@ package com.ziyao.ideal.gateway.authorization;
 import com.ziyao.ideal.gateway.config.ConfigCenter;
 import com.ziyao.ideal.gateway.core.SecurityPredicate;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.util.Set;
 
@@ -10,6 +11,7 @@ import java.util.Set;
  * @author ziyao
  * @see <a href="https://blog.zziyao.cn">https://blog.zziyao.cn</a>
  */
+@Component
 @RequiredArgsConstructor
 public class DefaultAuthorizationProvider implements AuthorizationProvider {
 
@@ -21,7 +23,7 @@ public class DefaultAuthorizationProvider implements AuthorizationProvider {
         DefaultAuthorizationToken authorizationToken = (DefaultAuthorizationToken) authorization;
 
         boolean skip = SecurityPredicate.initSecurityApis(getSecurityApis()).skip(authorizationToken.getRequestPath());
-        return null;
+        return AuthorizationToken.of();
     }
 
     @Override

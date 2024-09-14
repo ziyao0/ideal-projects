@@ -1,5 +1,7 @@
 package com.ziyao.ideal.gateway.core;
 
+import com.ziyao.ideal.gateway.authorization.AuthorizationToken;
+import com.ziyao.ideal.gateway.support.SecurityUtils;
 import com.ziyao.ideal.gateway.support.ParameterNames;
 import org.springframework.web.server.ServerWebExchange;
 
@@ -18,7 +20,7 @@ public abstract class RequestAttributes {
     public static final String REFRESH_TOKEN = ParameterNames.REFRESH_TOKEN;
     public static final String RESOURCE = ParameterNames.RESOURCE;
     public static final String DIGEST = ParameterNames.DIGEST;
-    public static final String AUTHORIZER_CONTEXT = "authorizer_context";
+    public static final String AUTHORIZER_CONTEXT = "authorization_token";
     public static final String ATTRIBUTE_PREFIX = "gateway_attribute_prefix_";
 
     /**
@@ -34,29 +36,29 @@ public abstract class RequestAttributes {
      * @return <code>true</code> 已经通过认证
      */
     public static boolean isAuthenticated(ServerWebExchange exchange) {
-//        return loadAuthorizerContext(exchange) != null;
-        return true;
+        AuthorizationToken authorizationToken = loadAuthorizationToken(exchange);
+        return SecurityUtils.authorized(authorizationToken);
     }
-//
-//    /**
-//     * 获取认证上下文
-//     *
-//     * @param exchange exchange
-//     * @return {@link AuthorizerContext} 认证上下文
-//     */
-//    public static AuthorizerContext loadAuthorizerContext(ServerWebExchange exchange) {
-//        return exchange.getAttribute(AUTHORIZER_CONTEXT);
-//    }
-//
-//    /**
-//     * 存储认证上下文信息
-//     *
-//     * @param exchange          exchange
-//     * @param authorizerContext {@link AuthorizerContext} 认证上下文
-//     */
-//    public static void storeAuthorizerContext(ServerWebExchange exchange, AuthorizerContext authorizerContext) {
-//        exchange.getAttributes().put(AUTHORIZER_CONTEXT, authorizerContext);
-//    }
+
+    /**
+     * 获取认证上下文
+     *
+     * @param exchange exchange
+     * @return {@link com.ziyao.ideal.gateway.authorization.AuthorizationToken} 认证上下文
+     */
+    public static AuthorizationToken loadAuthorizationToken(ServerWebExchange exchange) {
+        return exchange.getAttribute(AUTHORIZER_CONTEXT);
+    }
+
+    /**
+     * 存储认证上下文信息
+     *
+     * @param exchange           exchange
+     * @param authorizationToken {@link AuthorizationToken} 认证上下文
+     */
+    public static void storeAuthorizationToken(ServerWebExchange exchange, AuthorizationToken authorizationToken) {
+        exchange.getAttributes().put(AUTHORIZER_CONTEXT, authorizationToken);
+    }
 
     /**
      * 存储属性
