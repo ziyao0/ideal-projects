@@ -8,20 +8,19 @@ import lombok.Getter;
 @Getter
 public class OAuth2AuthorizationToken extends AbstractAuthorizationToken {
 
-    private final String accessToken;
     private String refreshToken;
     private long timestamp;
     private String digest;
 
     public OAuth2AuthorizationToken(final String accessToken) {
-        this.accessToken = accessToken;
+        super(accessToken);
     }
 
     public static Builder withAccessToken(final String accessToken) {
         return new Builder(new OAuth2AuthorizationToken(accessToken));
     }
 
-    public static class Builder extends AbstractBuilder {
+    public static class Builder extends AbstractBuilder<OAuth2AuthorizationToken> {
 
         private final OAuth2AuthorizationToken authorizationToken;
 
@@ -46,7 +45,7 @@ public class OAuth2AuthorizationToken extends AbstractAuthorizationToken {
         }
 
         @Override
-        public AbstractAuthorizationToken build() {
+        public OAuth2AuthorizationToken build() {
             return authorizationToken;
         }
     }

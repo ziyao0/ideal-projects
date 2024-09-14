@@ -29,5 +29,7 @@ public class SystemConfig {
     private boolean enableIpBlacklist;
     //请求黑名单
     private boolean enableRequestBlacklist;
+    // 开启权限校验
+    private boolean enablePermissionVerify;
 
 }

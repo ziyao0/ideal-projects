@@ -5,7 +5,7 @@ import com.github.benmanes.caffeine.cache.Caffeine;
 import com.ziyao.ideal.gateway.config.ConfigCenter;
 import com.ziyao.ideal.gateway.config.SystemConfig;
 import com.ziyao.ideal.gateway.core.cache.RedisOpsService;
-import com.ziyao.ideal.gateway.service.UserCacheService;
+import com.ziyao.ideal.gateway.service.PrincipalCacheService;
 import com.ziyao.ideal.security.core.SessionUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,9 +19,9 @@ import java.util.Optional;
  */
 @Service
 @RequiredArgsConstructor
-public class UserCacheServiceImpl implements UserCacheService {
+public class PrincipalCacheServiceImpl implements PrincipalCacheService {
 
-    private Cache<String, SessionUser> sessionUserCache = Caffeine.newBuilder()
+    private Cache<String, SessionUser> principalCache = Caffeine.newBuilder()
             .maximumSize(5000)
             .expireAfterWrite(Duration.ofMinutes(30))
             .build();
@@ -30,36 +30,36 @@ public class UserCacheServiceImpl implements UserCacheService {
     private final ConfigCenter configCenter;
 
     @Override
-    public Optional<SessionUser> load(String sessionId) {
-        Optional<SessionUser> userOptional = Optional.ofNullable(sessionUserCache.getIfPresent(sessionId));
+    public Optional<SessionUser> load(String token) {
+        Optional<SessionUser> userOptional = Optional.ofNullable(principalCache.getIfPresent(token));
         if (userOptional.isPresent()) {
             return userOptional;
         }
 
-        Optional<SessionUser> sessionUserOptional = redisOpsService.findById(sessionId, SessionUser.class);
+        Optional<SessionUser> sessionUserOptional = redisOpsService.findById(token, SessionUser.class);
         if (sessionUserOptional.isPresent()) {
-            sessionUserCache.put(sessionId, sessionUserOptional.get());
+            principalCache.put(token, sessionUserOptional.get());
             return sessionUserOptional;
         }
         return Optional.empty();
     }
 
     @Override
-    public void save(String sessionId, SessionUser sessionUser) {
-        sessionUserCache.put(sessionId, sessionUser);
-        redisOpsService.save(sessionId, sessionUser);
+    public void save(String token, SessionUser sessionUser) {
+        principalCache.put(token, sessionUser);
+        redisOpsService.save(token, sessionUser);
     }
 
     @Override
     public void remove(String sessionId) {
-        sessionUserCache.invalidate(sessionId);
+        principalCache.invalidate(sessionId);
         redisOpsService.delete(sessionId);
     }
 
     @Override
     public void initialize() {
         SystemConfig systemConfig = configCenter.getSystemConfig();
-        sessionUserCache = Caffeine.newBuilder()
+        principalCache = Caffeine.newBuilder()
                 .maximumSize(systemConfig.getMaximumSize())
                 .expireAfterWrite(Duration.ofMinutes(systemConfig.getSessionTimeout()))
                 .build();

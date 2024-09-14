@@ -1,8 +1,8 @@
 package com.ziyao.ideal.gateway.core;
 
 import com.ziyao.ideal.gateway.authorization.AuthorizationToken;
-import com.ziyao.ideal.gateway.support.SecurityUtils;
 import com.ziyao.ideal.gateway.support.ParameterNames;
+import com.ziyao.ideal.gateway.support.SecurityUtils;
 import org.springframework.web.server.ServerWebExchange;
 
 import java.util.Set;
@@ -15,6 +15,7 @@ public abstract class RequestAttributes {
     private RequestAttributes() {
     }
 
+    public static final String OAUTH_REQUEST_MARKING = ParameterNames.OAUTH_REQUEST_MARKING;
     public static final String AUTHORIZATION = ParameterNames.AUTHORIZATION;
     public static final String TIMESTAMP = ParameterNames.TIMESTAMP;
     public static final String REFRESH_TOKEN = ParameterNames.REFRESH_TOKEN;

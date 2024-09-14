@@ -37,6 +37,8 @@ public interface Authorization {
      */
     String getDomain();
 
+    String getToken();
+
     /**
      * 获取当前用户的会话信息
      *

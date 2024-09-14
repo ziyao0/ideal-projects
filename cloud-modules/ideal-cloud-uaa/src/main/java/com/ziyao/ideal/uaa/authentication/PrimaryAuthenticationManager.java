@@ -1,9 +1,8 @@
 package com.ziyao.ideal.uaa.authentication;
 
 import com.ziyao.ideal.core.Assert;
-import com.ziyao.ideal.uaa.authentication.core.AuthenticatedUser;
-import com.ziyao.ideal.uaa.authentication.provider.AuthenticationProvider;
 import com.ziyao.ideal.security.core.Authentication;
+import com.ziyao.ideal.uaa.authentication.provider.AuthenticationProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,7 +16,7 @@ import java.util.List;
  * 基于安全考虑，设计之初采用了双重认证（多因子认证）方案，即再{@link AuthenticationProvider#authenticate(Authentication)}
  * 认证通过的集成上提供了多因子认证方案，即通过{@link AuthenticationManager} 来提供多因子
  * 认证方案,执行{@linkplain AuthenticationManager#authenticate(Authentication)}该认证的前提是，首次认证的结果
- * {@link AuthenticatedUser#isAuthenticated()}必须为true，false或者null则代表在第一重验证的时候没有通过.
+ * {@link Authentication#isAuthenticated()}必须为true，false或者null则代表在第一重验证的时候没有通过.
  * </p>
  *
  * @author ziyao zhang

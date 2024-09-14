@@ -8,25 +8,26 @@ import lombok.Getter;
 @Getter
 public class DefaultAuthorizationToken extends AbstractAuthorizationToken {
 
-    private final String sessionId;
 
-    public DefaultAuthorizationToken(final String sessionId) {
-        this.sessionId = sessionId;
+    public DefaultAuthorizationToken(final String token) {
+        super(token);
     }
 
-    public static Builder withSessionId(final String sessionId) {
-        return new Builder(sessionId);
+    public static Builder withAccessToken(final String token) {
+        return new Builder(new DefaultAuthorizationToken(token));
     }
 
-    public static class Builder extends AbstractBuilder {
+    public static class Builder extends AbstractBuilder<DefaultAuthorizationToken> {
 
+        private final DefaultAuthorizationToken authorizationToken;
 
-        public Builder(final String sessionId) {
-            super(new DefaultAuthorizationToken(sessionId));
+        public Builder(final DefaultAuthorizationToken authorizationToken) {
+            super(authorizationToken);
+            this.authorizationToken = authorizationToken;
         }
 
         @Override
-        public AbstractAuthorizationToken build() {
+        public DefaultAuthorizationToken build() {
             return authorizationToken;
         }
     }

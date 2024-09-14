@@ -1,19 +1,27 @@
 package com.ziyao.ideal.gateway.authorization;
 
 import com.ziyao.ideal.security.core.SessionUser;
+import lombok.Setter;
 
 import java.util.Optional;
 
 /**
  * @author ziyao zhang
  */
+@Setter
 public abstract class AbstractAuthorizationToken implements Authorization {
+
+    private final String token;
     private String ip;
     private String resource;
     private String requestPath;
     private String domain;
     private SessionUser sessionUser;
     private boolean authorized;
+
+    protected AbstractAuthorizationToken(String token) {
+        this.token = token;
+    }
 
     @Override
     public String getIp() {
@@ -36,6 +44,11 @@ public abstract class AbstractAuthorizationToken implements Authorization {
     }
 
     @Override
+    public String getToken() {
+        return this.token;
+    }
+
+    @Override
     public Optional<SessionUser> getPrincipal() {
         return Optional.ofNullable(this.sessionUser);
     }
@@ -50,50 +63,50 @@ public abstract class AbstractAuthorizationToken implements Authorization {
         this.authorized = authorized;
     }
 
-    public abstract static class AbstractBuilder {
+    public abstract static class AbstractBuilder<T extends AbstractAuthorizationToken> {
 
-        protected final AbstractAuthorizationToken authorizationToken;
+        protected final T authorizationToken;
 
-        public AbstractBuilder(AbstractAuthorizationToken authorizationToken) {
+        public AbstractBuilder(T authorizationToken) {
             this.authorizationToken = authorizationToken;
         }
 
-        public AbstractBuilder ip(String ip) {
-            this.authorizationToken.ip = ip;
+        public AbstractBuilder<T> ip(String ip) {
+            this.authorizationToken.setIp(ip);
             return this;
         }
 
-        public AbstractBuilder resource(String resource) {
-            this.authorizationToken.resource = resource;
+        public AbstractBuilder<T> resource(String resource) {
+            this.authorizationToken.setResource(resource);
             return this;
         }
 
-        public AbstractBuilder requestPath(String requestPath) {
-            this.authorizationToken.requestPath = requestPath;
+        public AbstractBuilder<T> requestPath(String requestPath) {
+            this.authorizationToken.setRequestPath(requestPath);
             return this;
         }
 
-        public AbstractBuilder domain(String domain) {
-            this.authorizationToken.domain = domain;
+        public AbstractBuilder<T> domain(String domain) {
+            this.authorizationToken.setDomain(domain);
             return this;
         }
 
-        public AbstractBuilder sessionUser(SessionUser sessionUser) {
-            this.authorizationToken.sessionUser = sessionUser;
+        public AbstractBuilder<T> sessionUser(SessionUser sessionUser) {
+            this.authorizationToken.setSessionUser(sessionUser);
             return this;
         }
 
-        public AbstractBuilder unauthorized() {
-            this.authorizationToken.authorized = false;
+        public AbstractBuilder<T> unauthorized() {
+            this.authorizationToken.setAuthorized(false);
             return this;
         }
 
-        public AbstractBuilder authorized() {
-            this.authorizationToken.authorized = true;
+        public AbstractBuilder<T> authorized() {
+            this.authorizationToken.setAuthorized(true);
             return this;
         }
 
-        public abstract AbstractAuthorizationToken build();
+        public abstract T build();
     }
 
 }

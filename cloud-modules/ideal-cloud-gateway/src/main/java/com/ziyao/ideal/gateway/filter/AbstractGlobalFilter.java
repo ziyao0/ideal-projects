@@ -22,7 +22,8 @@ import java.util.function.Function;
 public abstract class AbstractGlobalFilter implements GlobalFilter, Ordered {
 
     /**
-     * 处理 Web 请求并（可选）通过给定的 {@code GatewayFilterChain} 委托给下一个 {@link org.springframework.cloud.gateway.filter.GatewayFilter}。
+     * 处理 Web 请求并（可选）通过给定的 {@code GatewayFilterChain}
+     * 委托给下一个 {@link org.springframework.cloud.gateway.filter.GatewayFilter}。
      *
      * @param exchange the current server exchange
      * @param chain    provides a way to delegate to the next filter
@@ -47,7 +48,8 @@ public abstract class AbstractGlobalFilter implements GlobalFilter, Ordered {
     }
 
     /**
-     * 处理 Web 请求并（可选）通过给定的 {@code GatewayFilterChain} 委托给下一个 {@link org.springframework.cloud.gateway.filter.GatewayFilter}。
+     * 处理 Web 请求并（可选）通过给定的 {@code GatewayFilterChain}
+     * 委托给下一个 {@link org.springframework.cloud.gateway.filter.GatewayFilter}。
      *
      * @param exchange the current server exchange
      * @param chain    provides a way to delegate to the next filter

@@ -2,11 +2,9 @@ package com.ziyao.ideal.gateway.intercept;
 
 import com.ziyao.ideal.core.Collections;
 import com.ziyao.ideal.core.Strings;
-import com.ziyao.ideal.gateway.config.ConfigCenter;
 import com.ziyao.ideal.gateway.authorization.Authorization;
-import com.ziyao.ideal.gateway.core.error.GatewayErrors;
+import com.ziyao.ideal.gateway.config.ConfigCenter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;
@@ -24,19 +22,21 @@ public class CrossOriginInterceptor implements RequestInterceptor {
     @Override
     public void intercept(Authorization authorization) {
 
-        Set<String> trustDomains = configCenter.getGatewayConfig().getTrustDomains();
+        if (configCenter.getSystemConfig().isEnableCrossOrigin()) {
+            Set<String> trustDomains = configCenter.getGatewayConfig().getTrustDomains();
 
-        String domain = authorization.getDomain();
-        if (Strings.isEmpty(domain)) {
-            return;
-        }
-        if (!Collections.isEmpty(trustDomains)) {
-            for (String trustDomain : trustDomains) {
-                if (Objects.equals(domain, trustDomain)) {
-                    return;
+            String domain = authorization.getDomain();
+            if (Strings.isEmpty(domain)) {
+                return;
+            }
+            if (!Collections.isEmpty(trustDomains)) {
+                for (String trustDomain : trustDomains) {
+                    if (Objects.equals(domain, trustDomain)) {
+                        return;
+                    }
                 }
             }
+            throw new RuntimeException("跨域异常");
         }
-        throw new RuntimeException("跨域异常");
     }
 }

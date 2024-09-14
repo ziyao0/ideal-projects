@@ -8,30 +8,30 @@ import java.util.Optional;
  * @author ziyao
  * @link <a href="https://blog.zziyao.cn">https://blog.zziyao.cn</a>
  */
-public interface UserCacheService {
+public interface PrincipalCacheService {
 
     /**
      * 加载会话信息
      *
-     * @param sessionId 会话ID
+     * @param token 会话ID
      * @return 返回会话信息
      */
-    Optional<SessionUser> load(String sessionId);
+    Optional<SessionUser> load(String token);
 
     /**
      * 存储会话信息
      *
-     * @param sessionId   会话ID
+     * @param token       凭证
      * @param sessionUser 待保存的会话信息
      */
-    void save(String sessionId, SessionUser sessionUser);
+    void save(String token, SessionUser sessionUser);
 
     /**
      * 注销会话
      *
-     * @param sessionId 会话ID
+     * @param token 会话ID
      */
-    void remove(String sessionId);
+    void remove(String token);
 
     void initialize();
 }

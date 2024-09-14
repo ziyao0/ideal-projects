@@ -19,7 +19,7 @@ public class OAuth2AuthorizationProvider implements AuthorizationProvider {
     public Authorization authorize(Authorization authorization) {
         OAuth2AuthorizationToken authorizationToken = (OAuth2AuthorizationToken) authorization;
         Assert.notNull(authorizationToken, "缺少安全验证信息");
-        Assert.notNull(authorizationToken.getAccessToken(), "缺少认证头(Authorization)");
+        Assert.notNull(authorizationToken.getToken(), "缺少认证头(Authorization)");
         Assert.notNull(authorizationToken.getTimestamp(), "缺失时间戳(timestamp)");
         Assert.isTimestampNotExpire(String.valueOf(authorizationToken.getTimestamp()), getTimestampValidity());
         return null;

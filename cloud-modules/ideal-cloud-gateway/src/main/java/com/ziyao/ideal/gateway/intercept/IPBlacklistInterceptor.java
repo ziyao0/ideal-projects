@@ -1,7 +1,7 @@
 package com.ziyao.ideal.gateway.intercept;
 
-import com.ziyao.ideal.gateway.config.ConfigCenter;
 import com.ziyao.ideal.gateway.authorization.Authorization;
+import com.ziyao.ideal.gateway.config.ConfigCenter;
 import com.ziyao.ideal.gateway.support.IPMatchUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -21,6 +21,10 @@ public class IPBlacklistInterceptor implements RequestInterceptor {
 
     @Override
     public void intercept(Authorization authorization) {
+
+        if (!configCenter.getSystemConfig().isEnableIpBlacklist()) {
+            return;
+        }
 
         Set<String> ips = configCenter.getIpBlacklistConfig().getIps();
 
