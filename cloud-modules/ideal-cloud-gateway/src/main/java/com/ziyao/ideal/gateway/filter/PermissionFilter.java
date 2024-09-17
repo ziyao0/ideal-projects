@@ -40,6 +40,6 @@ public class PermissionFilter extends AbstractAfterAuthenticationFilter {
 
     @Override
     public int getOrder() {
-        return 200;
+        return FilterOrder.Permission.getOrder();
     }
 }

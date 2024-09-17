@@ -90,13 +90,31 @@ public abstract class GatewayStopWatches {
         }
     }
 
+    /**
+     * 返回总耗时
+     *
+     * @param exchange 用于 HTTP 请求-响应交互
+     * @return 请求执行总时长
+     */
+    public static long elapsedTime(ServerWebExchange exchange) {
+        StopWatch stopWatch = getStopWatch(exchange);
+        if (stopWatch != null) {
+            return stopWatch.getTotalTimeMillis();
+        }
+        return 0;
+    }
+
     public static boolean isEnabled(ServerWebExchange exchange) {
         return Boolean.TRUE.equals(exchange.getAttribute(STOP_WATCH_ENABLED));
 
     }
 
-    public static void enabled(ServerWebExchange exchange) {
+    public static void enable(ServerWebExchange exchange) {
         exchange.getAttributes().put(STOP_WATCH_ENABLED, true);
+    }
+
+    public static void disable(ServerWebExchange exchange) {
+        exchange.getAttributes().put(STOP_WATCH_ENABLED, false);
     }
 
     private GatewayStopWatches() {

@@ -1,7 +1,7 @@
 package com.ziyao.ideal.gateway.filter;
 
 import com.ziyao.ideal.gateway.core.RequestAttributes;
-import com.ziyao.ideal.gateway.handler.AuthorizationFailureHandler;
+import com.ziyao.ideal.gateway.handler.OnErrorProcessor;
 import com.ziyao.ideal.gateway.support.ApplicationContextUtils;
 import com.ziyao.ideal.gateway.support.GatewayStopWatches;
 import lombok.Getter;
@@ -33,18 +33,13 @@ public abstract class AbstractGlobalFilter implements GlobalFilter, Ordered {
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
 
         // @formatter:off
-        return preFilter(exchange, chain)
-                .then(Mono.defer(() -> {
-                    Mono<Void> result = doFilter(exchange, chain);
-                    GatewayStopWatches.stop(getTaskId(), exchange);
-                    return result;
-                }));
-        // @formatter:on
-    }
-
-    private Mono<Void> preFilter(ServerWebExchange exchange, GatewayFilterChain chain) {
+        System.out.println(getTaskId());
         GatewayStopWatches.start(this.getTaskId(), exchange);
-        return Mono.empty();
+        Mono<Void> result = doFilter(exchange, chain)
+                .onErrorResume(throwable -> onError(exchange, throwable));
+        GatewayStopWatches.stop(getTaskId(), exchange);
+        return result;
+        // @formatter:on
     }
 
     /**
@@ -65,8 +60,8 @@ public abstract class AbstractGlobalFilter implements GlobalFilter, Ordered {
      * @see reactor.core.publisher.Flux#onErrorResume(Function)
      */
     protected Mono<Void> onError(ServerWebExchange exchange, Throwable throwable) {
-        AuthorizationFailureHandler authorizationFailureHandler = ApplicationContextUtils.getBean(AuthorizationFailureHandler.class);
-        Mono<Void> resume = authorizationFailureHandler.onFailureResume(exchange, throwable);
+        OnErrorProcessor onErrorProcessor = ApplicationContextUtils.getBean(OnErrorProcessor.class);
+        Mono<Void> resume = onErrorProcessor.onErrorResume(exchange, throwable);
         GatewayStopWatches.stop(this.getTaskId(), exchange);
         return resume;
     }
@@ -79,6 +74,10 @@ public abstract class AbstractGlobalFilter implements GlobalFilter, Ordered {
      */
     protected boolean isAuthenticated(ServerWebExchange exchange) {
         return RequestAttributes.isAuthenticated(exchange);
+    }
+
+    protected Mono<Void> prefilter() {
+        return Mono.empty();
     }
 
     protected String getTaskId() {

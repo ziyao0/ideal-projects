@@ -1,13 +1,14 @@
 package com.ziyao.ideal.gateway.core.decorator;
 
+import com.ziyao.ideal.gateway.core.RequestAttributes;
+import com.ziyao.ideal.gateway.filter.body.ReqResRecord;
 import org.springframework.core.io.buffer.DataBuffer;
-import org.springframework.core.io.buffer.DataBufferFactory;
 import org.springframework.core.io.buffer.DataBufferUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpRequestDecorator;
 import org.springframework.lang.NonNull;
+import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Flux;
 
 import java.nio.charset.StandardCharsets;
@@ -17,11 +18,11 @@ import java.nio.charset.StandardCharsets;
  */
 public class RequestRecordDecorator extends ServerHttpRequestDecorator {
 
-    private final DataBufferFactory bufferFactory;
+    private final ServerWebExchange exchange;
 
-    public RequestRecordDecorator(ServerHttpRequest delegate, DataBufferFactory bufferFactory) {
-        super(delegate);
-        this.bufferFactory = bufferFactory;
+    public RequestRecordDecorator(ServerWebExchange exchange) {
+        super(exchange.getRequest());
+        this.exchange = exchange;
     }
 
     @Override
@@ -39,9 +40,9 @@ public class RequestRecordDecorator extends ServerHttpRequestDecorator {
 
             // 打印请求体
             System.out.println("Request Body: " + requestBody);
-
+            RequestAttributes.storeAttribute(exchange, ReqResRecord.of(requestBody));
             // 返回读取的内容，以便继续处理
-            return bufferFactory.wrap(content);
+            return exchange.getResponse().bufferFactory().wrap(content);
         });
     }
 

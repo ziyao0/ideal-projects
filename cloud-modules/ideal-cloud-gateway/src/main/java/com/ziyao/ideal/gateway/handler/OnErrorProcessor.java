@@ -7,7 +7,7 @@ import reactor.core.publisher.Mono;
  * @author ziyao zhang
  */
 @FunctionalInterface
-public interface AuthorizationFailureHandler {
+public interface OnErrorProcessor {
 
     /**
      * 失败时调用
@@ -15,6 +15,6 @@ public interface AuthorizationFailureHandler {
      * {@link Throwable}异常信息
      * T 返回类型
      */
-    Mono<Void> onFailureResume(ServerWebExchange exchange, Throwable throwable);
+    Mono<Void> onErrorResume(ServerWebExchange exchange, Throwable throwable);
 
 }

@@ -75,6 +75,6 @@ public class RateLimitingFilter extends AbstractAfterAuthenticationFilter {
 
     @Override
     public int getOrder() {
-        return 100;
+        return FilterOrder.RateLimiting.getOrder();
     }
 }

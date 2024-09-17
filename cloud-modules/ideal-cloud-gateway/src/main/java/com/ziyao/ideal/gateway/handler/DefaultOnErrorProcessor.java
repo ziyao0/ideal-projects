@@ -13,10 +13,10 @@ import reactor.core.publisher.Mono;
  */
 @Slf4j
 @Component
-public class DefaultAuthorizationFailureHandler implements AuthorizationFailureHandler {
+public class DefaultOnErrorProcessor implements OnErrorProcessor {
 
     @Override
-    public Mono<Void> onFailureResume(ServerWebExchange exchange, Throwable throwable) {
+    public Mono<Void> onErrorResume(ServerWebExchange exchange, Throwable throwable) {
         log.error(throwable.getMessage(), throwable);
 
         ResponseDetails metadata = ResponseDetails.of(403, "越权访问拦截");

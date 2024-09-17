@@ -1,13 +1,14 @@
 package com.ziyao.ideal.gateway.core.decorator;
 
-import com.ziyao.ideal.gateway.core.DataBuffers;
+import com.alibaba.fastjson.JSON;
+import com.ziyao.ideal.gateway.core.RequestAttributes;
+import com.ziyao.ideal.gateway.filter.body.ReqResRecord;
 import org.reactivestreams.Publisher;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.core.io.buffer.DataBufferUtils;
-
-import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.http.server.reactive.ServerHttpResponseDecorator;
 import org.springframework.lang.NonNull;
+import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -18,8 +19,11 @@ import java.nio.charset.StandardCharsets;
  */
 public class ResponseRecordDecorator extends ServerHttpResponseDecorator {
 
-    public ResponseRecordDecorator(ServerHttpResponse delegate) {
-        super(delegate);
+    private final ServerWebExchange exchange;
+
+    public ResponseRecordDecorator(ServerWebExchange exchange) {
+        super(exchange.getResponse());
+        this.exchange = exchange;
     }
 
     @Override
@@ -35,8 +39,10 @@ public class ResponseRecordDecorator extends ServerHttpResponseDecorator {
             String responseBody = new String(content, StandardCharsets.UTF_8);
 
             // 打印响应数据
-            System.out.println("Response Body: " + responseBody);
-
+            System.out.println("Response Body: " + JSON.parse(responseBody));
+            ReqResRecord reqResRecord = RequestAttributes.getAttribute(exchange, ReqResRecord.class);
+            reqResRecord.setResContent(responseBody);
+            RequestAttributes.storeAttribute(exchange, reqResRecord);
             // 继续传递响应数据
             return bufferFactory().wrap(content);
         });

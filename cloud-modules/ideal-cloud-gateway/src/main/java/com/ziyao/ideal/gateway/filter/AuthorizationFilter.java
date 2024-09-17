@@ -51,6 +51,6 @@ public class AuthorizationFilter extends AbstractGlobalFilter {
 
     @Override
     public int getOrder() {
-        return 0;
+        return FilterOrder.Authorization.getOrder();
     }
 }
