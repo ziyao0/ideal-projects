@@ -22,7 +22,7 @@ public abstract class AbstractAfterAuthenticationFilter extends AbstractGlobalFi
     @Override
     protected Mono<Void> doFilter(ServerWebExchange exchange, GatewayFilterChain chain) {
         if (isAuthenticated(exchange)) {
-            return onSuccess(exchange, chain);
+            return doOnSuccess(exchange, chain);
         }
         return chain.filter(exchange);
     }
@@ -34,5 +34,5 @@ public abstract class AbstractAfterAuthenticationFilter extends AbstractGlobalFi
      * @param chain    允许 {@link GatewayFilter} 委托给链中的下一个的协定
      * @return {@code Mono<Void>} 指示请求处理何时完成
      */
-    protected abstract Mono<Void> onSuccess(ServerWebExchange exchange, GatewayFilterChain chain);
+    protected abstract Mono<Void> doOnSuccess(ServerWebExchange exchange, GatewayFilterChain chain);
 }

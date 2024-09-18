@@ -24,7 +24,7 @@ public class PermissionFilter extends AbstractAfterAuthenticationFilter {
     private final PermissionService permissionService;
 
     @Override
-    protected Mono<Void> onSuccess(ServerWebExchange exchange, GatewayFilterChain chain) {
+    protected Mono<Void> doOnSuccess(ServerWebExchange exchange, GatewayFilterChain chain) {
         SystemConfig systemConfig = configCenter.getSystemConfig();
         if (!systemConfig.isEnablePermissionVerify()) {
             return chain.filter(exchange);

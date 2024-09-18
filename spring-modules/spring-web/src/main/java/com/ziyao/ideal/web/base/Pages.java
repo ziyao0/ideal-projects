@@ -10,7 +10,6 @@ public abstract class Pages {
 
 
     public static <T> Pageable initPage(PageQuery<?> pageQuery) {
-
-        return PageRequest.of(pageQuery.getPage().getCurrent(), pageQuery.getPage().getSize());
+        return PageRequest.of(pageQuery.getPage().getCurrent() - 1, pageQuery.getPage().getSize());
     }
 }
