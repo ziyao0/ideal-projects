@@ -1,6 +1,6 @@
 package com.ziyao.ideal.gateway.core.error;
 
-import com.ziyao.ideal.gateway.core.ResponseDetails;
+import com.ziyao.ideal.gateway.core.Response;
 import org.springframework.http.HttpStatus;
 import reactor.core.publisher.Mono;
 
@@ -50,8 +50,8 @@ public abstract class GatewayErrors {
         return Mono.error(new GatewayException(httpStatus.value(), httpStatus.getReasonPhrase()));
     }
 
-    public static Mono<Void> createException(ResponseDetails responseDetails) {
-        return Mono.error(new GatewayException(responseDetails));
+    public static Mono<Void> createException(Response response) {
+        return Mono.error(new GatewayException(response));
     }
 
     public static Mono<Void> createException(String message, Throwable throwable) {

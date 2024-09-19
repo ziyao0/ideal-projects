@@ -83,4 +83,17 @@ public abstract class RequestAttributes {
     public static <T> T getAttribute(ServerWebExchange exchange, Class<T> attributeClass) {
         return exchange.getAttribute(ATTRIBUTE_PREFIX + attributeClass.getSimpleName());
     }
+
+    /**
+     * 从exchange获取attribute
+     *
+     * @param exchange       the current server exchange
+     * @param attributeClass attribute class
+     * @param <T>            attribute type
+     * @param defaultValue   如果获取到的为空，默认返回数据
+     * @return attribute
+     */
+    public static <T> T getAttributeOrDefault(ServerWebExchange exchange, Class<T> attributeClass, T defaultValue) {
+        return exchange.getAttributeOrDefault(ATTRIBUTE_PREFIX + attributeClass.getSimpleName(), defaultValue);
+    }
 }

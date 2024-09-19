@@ -1,6 +1,6 @@
 package com.ziyao.ideal.gateway.core.error;
 
-import com.ziyao.ideal.gateway.core.ResponseDetails;
+import com.ziyao.ideal.gateway.core.Response;
 
 import java.io.Serial;
 
@@ -8,39 +8,39 @@ import java.io.Serial;
  * @author ziyao
  * @link <a href="https://blog.zziyao.cn">https://blog.zziyao.cn</a>
  */
-public class GatewayException extends RuntimeException implements ResponseDetails {
+public class GatewayException extends RuntimeException implements Response {
     @Serial
     private static final long serialVersionUID = -3435528093859682944L;
 
 
-    private final ResponseDetails responseDetails;
+    private final Response response;
 
     public GatewayException() {
         // TODO: 2023/9/24 业务异常
-        this.responseDetails = null;
+        this.response = null;
     }
 
-    public GatewayException(ResponseDetails ResponseDetails) {
-        this.responseDetails = ResponseDetails;
+    public GatewayException(Response Response) {
+        this.response = Response;
     }
 
     public GatewayException(Integer status, String message) {
-        this.responseDetails = ResponseDetails.of(status, message);
+        this.response = Response.of(status, message);
     }
 
     public GatewayException(Integer status, String message, Throwable cause) {
         super(message, cause);
-        this.responseDetails = ResponseDetails.of(status, message);
+        this.response = Response.of(status, message);
     }
 
     @Override
     public Integer status() {
-        return responseDetails.status();
+        return response.status();
     }
 
 
     @Override
     public String message() {
-        return responseDetails.message();
+        return response.message();
     }
 }

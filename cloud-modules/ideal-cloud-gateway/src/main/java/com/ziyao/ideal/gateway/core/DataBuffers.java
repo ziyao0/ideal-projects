@@ -23,22 +23,22 @@ public abstract class DataBuffers {
     /**
      * 组装响应对象
      */
-    public static Mono<Void> writeWith(ServerHttpResponse response, ResponseDetails responseDetails, HttpStatusCode statusCode) {
-        return writeWith(response, ResponseDetails.of(statusCode.value(), responseDetails.message()));
+    public static Mono<Void> writeWith(ServerHttpResponse response, Response responseDetails, HttpStatusCode statusCode) {
+        return writeWith(response, Response.of(statusCode.value(), responseDetails.message()));
     }
 
     /**
      * 组装响应对象
      */
-    public static Mono<Void> writeWith(ServerWebExchange exchange, ResponseDetails responseDetails) {
-        return writeWith(exchange.getResponse(), responseDetails);
+    public static Mono<Void> writeWith(ServerWebExchange exchange, Response response) {
+        return writeWith(exchange.getResponse(), response);
     }
 
 
     /**
      * 组装响应对象
      */
-    public static Mono<Void> writeWith(ServerHttpResponse response, ResponseDetails responseDetails) {
+    public static Mono<Void> writeWith(ServerHttpResponse response, Response responseDetails) {
         return writeWith(response, responseDetails.status(), responseDetails.message());
     }
 
@@ -53,7 +53,7 @@ public abstract class DataBuffers {
         }
         // 填充响应体
         DataBuffer dataBuffer = response.bufferFactory()
-                .wrap(JSON.toJSONBytes(ResponseDetails.of(status, message)));
+                .wrap(JSON.toJSONBytes(Response.of(status, message)));
         // 填充响应类型
         response.getHeaders().add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
         return response.writeWith(Mono.just(dataBuffer));

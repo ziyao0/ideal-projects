@@ -1,11 +1,12 @@
 package com.ziyao.ideal.gateway.filter;
 
-import com.alibaba.fastjson.JSON;
+import com.ziyao.ideal.gateway.authorization.AuthorizationToken;
 import com.ziyao.ideal.gateway.config.ConfigCenter;
 import com.ziyao.ideal.gateway.core.RequestAttributes;
 import com.ziyao.ideal.gateway.core.decorator.RequestRecordDecorator;
 import com.ziyao.ideal.gateway.core.decorator.ResponseRecordDecorator;
-import com.ziyao.ideal.gateway.filter.body.ReqResRecord;
+import com.ziyao.ideal.gateway.filter.body.ReqRes;
+import com.ziyao.ideal.gateway.service.MonitoringService;
 import com.ziyao.ideal.gateway.support.GatewayStopWatches;
 import com.ziyao.ideal.gateway.support.ParameterNames;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,7 @@ import reactor.core.scheduler.Schedulers;
 public class BootstrappingFilter extends AbstractGlobalFilter {
 
     private final ConfigCenter configCenter;
+    private final MonitoringService monitoringService;
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
@@ -41,19 +43,29 @@ public class BootstrappingFilter extends AbstractGlobalFilter {
                 .doFinally(signalType -> {
                     GatewayStopWatches.stop(ParameterNames.STOP_WATCH_NAMES, exchange);
                     Mono.fromRunnable(() -> {
-                                // 异步任务逻辑
+                                long time = GatewayStopWatches.elapsedTime(exchange);
                                 GatewayStopWatches.prettyPrint(exchange);
-                                long elapsedTime = GatewayStopWatches.elapsedTime(exchange);
-                                System.out.println(elapsedTime);
                                 GatewayStopWatches.disable(exchange);
-                                // 记录操作日志，发送告警信息等等
-                                ReqResRecord reqResRecord = RequestAttributes.getAttribute(exchange, ReqResRecord.class);
-                                System.out.println("请求响应参数：" + JSON.toJSONString(reqResRecord));
+                                // 处理后续步骤
+                                doFinally(exchange, time);
+
                             })
                             .subscribeOn(Schedulers.boundedElastic()) // 指定调度器
                             .subscribe(); // 订阅任务，确保其执行
                 });
         // @formatter:on
+
+    }
+
+    private void doFinally(ServerWebExchange exchange, long time) {
+
+        // 记录操作日志，发送告警信息等等
+        ReqRes reqRes = RequestAttributes.getAttributeOrDefault(exchange, ReqRes.class, new ReqRes());
+        reqRes.setTime(time);
+        AuthorizationToken authorizationToken = RequestAttributes.loadAuthorizationToken(exchange);
+
+        // 记录用户行为
+        monitoringService.recordUserBehavior(authorizationToken, reqRes);
     }
 
     @Override

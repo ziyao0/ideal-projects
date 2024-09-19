@@ -2,7 +2,7 @@ package com.ziyao.ideal.gateway.authorization;
 
 import com.ziyao.ideal.core.Strings;
 import com.ziyao.ideal.gateway.config.ConfigCenter;
-import com.ziyao.ideal.gateway.core.ResponseDetails;
+import com.ziyao.ideal.gateway.core.Response;
 import com.ziyao.ideal.gateway.core.SecurityPredicate;
 import com.ziyao.ideal.gateway.service.PrincipalCacheService;
 import com.ziyao.ideal.security.core.SessionUser;
@@ -34,7 +34,7 @@ public class DefaultAuthorizationProvider implements AuthorizationProvider {
         }
         Optional<SessionUser> sessionUser = principalCacheService.load(authorizationToken.getToken());
         if (sessionUser.isEmpty()) {
-            builder.response(ResponseDetails.of(401, "请求未认证"));
+            builder.response(Response.of(401, "请求未认证"));
             return builder.build();
         }
         return builder.sessionUser(sessionUser.get()).authorized().build();

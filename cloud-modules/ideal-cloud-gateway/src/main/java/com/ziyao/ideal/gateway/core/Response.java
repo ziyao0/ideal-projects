@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * @author zhangziyao
  */
-public interface ResponseDetails extends Serializable {
+public interface Response extends Serializable {
 
     /**
      * 用于返回成功的响应状态
@@ -58,11 +58,11 @@ public interface ResponseDetails extends Serializable {
     String message();
 
 
-    static ResponseDetails of(Integer status, String message) {
+    static Response of(Integer status, String message) {
         return new Instance(status, message);
     }
 
-    record Instance(Integer status, String message) implements ResponseDetails {
+    record Instance(Integer status, String message) implements Response {
 
     }
 }

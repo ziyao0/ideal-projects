@@ -1,6 +1,6 @@
 package com.ziyao.ideal.gateway.authorization;
 
-import com.ziyao.ideal.gateway.core.ResponseDetails;
+import com.ziyao.ideal.gateway.core.Response;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
@@ -11,7 +11,7 @@ import org.springframework.http.HttpStatus;
 @Getter
 public class AuthorizationToken extends AbstractAuthorizationToken {
 
-    private ResponseDetails response = new ResponseDetails.Instance(401, "请求未认证");
+    private Response response = new Response.Instance(0, "");
 
     protected AuthorizationToken(String token) {
         super(token);
@@ -35,13 +35,13 @@ public class AuthorizationToken extends AbstractAuthorizationToken {
             this.authorizationToken = authorizationToken;
         }
 
-        public Builder response(ResponseDetails response) {
+        public Builder response(Response response) {
             this.authorizationToken.response = response;
             return this;
         }
 
         public Builder response(HttpStatus httpStatus) {
-            this.authorizationToken.response = ResponseDetails.of(httpStatus.value(), httpStatus.getReasonPhrase());
+            this.authorizationToken.response = Response.of(httpStatus.value(), httpStatus.getReasonPhrase());
             return this;
         }
 
