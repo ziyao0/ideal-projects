@@ -47,7 +47,11 @@ public class BootstrappingFilter extends AbstractGlobalFilter {
                                 GatewayStopWatches.prettyPrint(exchange);
                                 GatewayStopWatches.disable(exchange);
                                 // 处理后续步骤
-                                doFinally(exchange, time);
+                                ReqRes reqRes = RequestAttributes.getAttributeOrDefault(exchange, ReqRes.class, new ReqRes());
+                                reqRes.setTime(time);
+                                doFinally(exchange, reqRes);
+
+
 
                             })
                             .subscribeOn(Schedulers.boundedElastic()) // 指定调度器
@@ -55,17 +59,6 @@ public class BootstrappingFilter extends AbstractGlobalFilter {
                 });
         // @formatter:on
 
-    }
-
-    private void doFinally(ServerWebExchange exchange, long time) {
-
-        // 记录操作日志，发送告警信息等等
-        ReqRes reqRes = RequestAttributes.getAttributeOrDefault(exchange, ReqRes.class, new ReqRes());
-        reqRes.setTime(time);
-        AuthorizationToken authorizationToken = RequestAttributes.loadAuthorizationToken(exchange);
-
-        // 记录用户行为
-        monitoringService.recordUserBehavior(authorizationToken, reqRes);
     }
 
     @Override
@@ -78,6 +71,21 @@ public class BootstrappingFilter extends AbstractGlobalFilter {
                 .build());
         GatewayStopWatches.stop(this.getTaskId(), exchange);
         return filter;
+    }
+
+    /**
+     * 过滤器后续处理逻辑
+     *
+     * @param exchange the current server exchange
+     * @param reqRes   请求响应数据
+     */
+    private void doFinally(ServerWebExchange exchange, ReqRes reqRes) {
+
+        // 记录操作日志，发送告警信息等等
+        AuthorizationToken authorizationToken = RequestAttributes.loadAuthorizationToken(exchange);
+
+        // 记录用户行为
+        monitoringService.recordUserBehavior(authorizationToken, reqRes);
     }
 
     @Override

@@ -33,12 +33,12 @@ public class ResponseRecordDecorator extends ServerHttpResponseDecorator {
         Flux<? extends DataBuffer> fluxBody = Flux.from(body);
         return fluxBody.collectList().flatMap(dataBuffers -> {
             // 使用 join 方法将所有 DataBuffer 拼接成一个完整的 DataBuffer
-            DataBuffer joinedDataBuffer = dataBufferFactory.join(dataBuffers);
-            byte[] content = new byte[joinedDataBuffer.readableByteCount()];
-            joinedDataBuffer.read(content);
+            DataBuffer dataBuffer = dataBufferFactory.join(dataBuffers);
+            byte[] content = new byte[dataBuffer.readableByteCount()];
+            dataBuffer.read(content);
 
             // 释放拼接后的 DataBuffer
-            DataBufferUtils.release(joinedDataBuffer);
+            DataBufferUtils.release(dataBuffer);
 
             // 记录并存储响应内容
             ReqRes reqRes = RequestAttributes.getAttributeOrDefault(exchange, ReqRes.class, new ReqRes());

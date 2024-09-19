@@ -33,7 +33,6 @@ public abstract class AbstractGlobalFilter implements GlobalFilter, Ordered {
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
 
         // @formatter:off
-        System.out.println(getTaskId());
         GatewayStopWatches.start(this.getTaskId(), exchange);
         Mono<Void> result = doFilter(exchange, chain)
                 .onErrorResume(throwable -> onError(exchange, throwable));

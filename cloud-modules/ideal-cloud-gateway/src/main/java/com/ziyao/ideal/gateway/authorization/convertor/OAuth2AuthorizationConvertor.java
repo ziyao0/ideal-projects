@@ -17,6 +17,9 @@ public class OAuth2AuthorizationConvertor implements AuthorizationConvertor {
     public Authorization convert(ServerWebExchange exchange) {
 
         HttpHeaders headers = exchange.getRequest().getHeaders();
+
+        if ()
+
         String marking = headers.getFirst(RequestAttributes.OAUTH_REQUEST_MARKING);
         if (Strings.isEmpty(marking)) {
             return null;
