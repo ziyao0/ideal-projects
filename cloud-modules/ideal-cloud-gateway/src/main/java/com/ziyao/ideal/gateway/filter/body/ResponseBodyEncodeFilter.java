@@ -1,7 +1,7 @@
 package com.ziyao.ideal.gateway.filter.body;
 
-import com.ziyao.ideal.gateway.filter.AbstractAfterAuthenticationFilter;
 import com.ziyao.ideal.gateway.core.rewrite.EncodeRewriteFunction;
+import com.ziyao.ideal.gateway.filter.AbstractAfterAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.factory.rewrite.ModifyResponseBodyGatewayFilterFactory;
@@ -18,7 +18,7 @@ public class ResponseBodyEncodeFilter extends AbstractAfterAuthenticationFilter 
     private final ModifyResponseBodyGatewayFilterFactory modifyResponseBodyGatewayFilterFactory;
 
     @Override
-    protected Mono<Void> onSuccess(ServerWebExchange exchange, GatewayFilterChain chain) {
+    protected Mono<Void> doOnSuccess(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpResponse response = exchange.getResponse();
         EncodeRewriteFunction rewriteFunction = new EncodeRewriteFunction();
         ModifyResponseBodyGatewayFilterFactory.Config config = new ModifyResponseBodyGatewayFilterFactory.Config()

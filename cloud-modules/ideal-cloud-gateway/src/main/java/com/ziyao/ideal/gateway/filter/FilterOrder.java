@@ -12,6 +12,8 @@ public enum FilterOrder {
     Authorization(0),
     RateLimiting(100),
     Permission(200),
+    RequestBodyDecode(300),
+    ResponseBodyEncode(400),
     RevokeAuthHttpHeaders(Ordered.LOWEST_PRECEDENCE),
     ;
 

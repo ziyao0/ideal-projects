@@ -37,7 +37,7 @@ public class RateLimitingFilter extends AbstractAfterAuthenticationFilter {
 
 
     @Override
-    protected Mono<Void> onSuccess(ServerWebExchange exchange, GatewayFilterChain chain) {
+    protected Mono<Void> doOnSuccess(ServerWebExchange exchange, GatewayFilterChain chain) {
         // 判断是否开启防抖动功能
         GatewayConfig gatewayConfig = configCenter.getGatewayConfig();
         if (!gatewayConfig.isEnableDebounced()) {

@@ -20,7 +20,7 @@ public class RequestBodyDecodeFilter extends AbstractAfterAuthenticationFilter {
 
 
     @Override
-    protected Mono<Void> onSuccess(ServerWebExchange exchange, GatewayFilterChain chain) {
+    protected Mono<Void> doOnSuccess(ServerWebExchange exchange, GatewayFilterChain chain) {
         DecodeRewriteFunction rewriteFunction = new DecodeRewriteFunction();
         ModifyRequestBodyGatewayFilterFactory.Config config = new ModifyRequestBodyGatewayFilterFactory.Config()
                 .setRewriteFunction(rewriteFunction);
