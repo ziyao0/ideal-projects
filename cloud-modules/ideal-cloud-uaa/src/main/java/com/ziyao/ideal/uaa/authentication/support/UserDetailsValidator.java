@@ -1,8 +1,8 @@
 package com.ziyao.ideal.uaa.authentication.support;
 
+import com.ziyao.ideal.security.core.UserDetails;
 import com.ziyao.ideal.uaa.common.exception.AuthenticationFailureException;
 import com.ziyao.ideal.uaa.common.exception.Errors;
-import com.ziyao.ideal.security.core.UserDetails;
 
 /**
  * @author zhangziyao

@@ -1,11 +1,11 @@
 package com.ziyao.ideal.uaa.authentication.codec;
 
-import com.ziyao.ideal.crypto.digest.BCrypt;
-import com.ziyao.ideal.crypto.digest.BCryptVersion;
 import com.ziyao.ideal.core.Assert;
 import com.ziyao.ideal.core.Randoms;
 import com.ziyao.ideal.core.RegexPool;
 import com.ziyao.ideal.core.Strings;
+import com.ziyao.ideal.crypto.digest.BCrypt;
+import com.ziyao.ideal.crypto.digest.BCryptVersion;
 
 import java.security.SecureRandom;
 import java.util.regex.Pattern;

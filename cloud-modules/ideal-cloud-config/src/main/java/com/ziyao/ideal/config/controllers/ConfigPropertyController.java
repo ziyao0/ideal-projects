@@ -4,7 +4,7 @@ import com.ziyao.ideal.config.domain.dto.ConfigPropertyDTO;
 import com.ziyao.ideal.config.domain.entity.ConfigProperty;
 import com.ziyao.ideal.config.service.ConfigPropertyService;
 import com.ziyao.ideal.web.base.PageQuery;
-import com.ziyao.ideal.web.base.Pages;
+import com.ziyao.ideal.web.base.PagingHelper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -64,6 +64,6 @@ public class ConfigPropertyController {
     @Operation(summary = "分页查询数据", description = "分页查询数据")
     public Page<ConfigProperty> list(@RequestBody PageQuery<ConfigPropertyDTO> pageQuery) {
         // 由于没有统一的分页处理插件，需要自行在控制层处理接受参数和分页信息
-        return configPropertyService.list(pageQuery.getData().toEntity(), Pages.initPage(pageQuery));
+        return configPropertyService.list(pageQuery.getData().toEntity(), PagingHelper.initPage(pageQuery));
     }
 }

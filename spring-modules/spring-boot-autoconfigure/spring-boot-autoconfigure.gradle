@@ -1,7 +1,7 @@
 dependencies {
     optional(project(":spring-web"))
     optional(project(":spring-data-redis"))
-    optional(project(":spring-security-codec"))
+    optional(project(":spring-security-encrypt-starter"))
     optional(project(":spring-data-elasticsearch"))
     optional('org.springframework:spring-webflux')
     optional('org.springframework.data:spring-data-redis')

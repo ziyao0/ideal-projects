@@ -1,19 +1,13 @@
 package com.ziyao.ideal.uaa.controllers;
 
-import com.ziyao.ideal.jpa.extension.controllers.JpaBaseController;
 import com.ziyao.ideal.uaa.domain.dto.UserDTO;
-import com.ziyao.ideal.uaa.domain.entity.User;
 import com.ziyao.ideal.uaa.service.UserService;
 import com.ziyao.ideal.web.base.PageQuery;
-import com.ziyao.ideal.web.base.Pages;
-import com.ziyao.ideal.web.exception.ServiceException;
+import com.ziyao.ideal.web.base.PagingHelper;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -25,24 +19,28 @@ import java.util.stream.Collectors;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/user")
-public class UserController extends JpaBaseController<UserService, User, Integer> {
+@Tag(name = "用户表", description = "用户表")
+public class UserController {
 
     private final UserService userService;
 
+    /**
+     * 保存
+     */
     @PostMapping("/save")
-    public void save(@RequestBody UserDTO entityDTO) {
-        userService.save(entityDTO.convert());
+    @Operation(summary = "保存用户表", description = "保存用户表")
+    public void save(@RequestBody UserDTO userDTO) {
+        userService.save(userDTO);
     }
 
     /**
      * 通过主键id进行更新
      */
     @PostMapping("/updateById")
-    public void updateById(@RequestBody UserDTO entityDTO) {
-        if (ObjectUtils.isEmpty(entityDTO.getId())) {
-            throw new ServiceException(400, "主键参数不能为空");
-        }
-        userService.save(entityDTO.convert());
+    @Operation(summary = "通过主键ID进行更新", description = "通过主键ID进行更新")
+    public void updateById(@RequestBody UserDTO userDTO) {
+        // TODO 待完善
+        userService.save(userDTO);
     }
 
     /**
@@ -52,23 +50,18 @@ public class UserController extends JpaBaseController<UserService, User, Integer
      * @param id 主键Id
      */
     @GetMapping("/remove/{id}")
+    @Operation(summary = "通过主键进行删除", description = "通过主键进行删除")
     public void removeById(@PathVariable("id") Integer id) {
         userService.deleteById(id);
-    }
-
-    /**
-     * 默认一次插入500条
-     */
-    @PostMapping("/saveBatch")
-    public void saveBatch(@RequestBody List<UserDTO> entityDTOList) {
-        userService.saveBatch(entityDTOList.stream().map(UserDTO::convert).collect(Collectors.toList()));
     }
 
     /**
      * 分页查询
      */
     @PostMapping("/list")
-    public Page<User> list(PageQuery<UserDTO> pageQuery) {
-        return userService.list(pageQuery.getData().convert(), Pages.initPage(pageQuery));
+    @Operation(summary = "分页查询数据", description = "分页查询数据")
+    public Object list(@RequestBody PageQuery<UserDTO> pageQuery) {
+        // TODO 由于没有统一的分页处理插件，需要自行在控制层处理接受参数和分页信息
+        return userService.page(pageQuery.getData(), PagingHelper.initPage(pageQuery));
     }
 }

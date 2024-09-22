@@ -2,11 +2,12 @@ plugins {
     alias(libs.plugins.configImport)
 }
 dependencies {
+    implementation(project(":ideal-generator"))
     implementation(project(":spring-web"))
     implementation(project(":elasticsearch-spring-boot-starter"))
     implementation(project(":redis-spring-boot-starter"))
     implementation(project(":spring-boot-autoconfigure"))
-    implementation(project(":spring-security-codec"))
+    implementation(project(":spring-security-encrypt-starter"))
     implementation(project(":security-oauth2-core"))
     implementation(project(":spring-data-jpa-extension"))
     implementation "com.auth0:java-jwt"
@@ -19,4 +20,5 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-web"
     implementation "org.springframework.boot:spring-boot-starter-data-redis"
     implementation "org.springframework.boot:spring-boot-autoconfigure"
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui'
 }

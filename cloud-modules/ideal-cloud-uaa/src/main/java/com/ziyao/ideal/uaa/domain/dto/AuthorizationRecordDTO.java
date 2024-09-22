@@ -1,8 +1,7 @@
 package com.ziyao.ideal.uaa.domain.dto;
 
-import com.ziyao.ideal.uaa.domain.convertor.AuthorizationRecordConvertor;
 import com.ziyao.ideal.uaa.domain.entity.AuthorizationRecord;
-import com.ziyao.ideal.web.orm.EntityDTO;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.io.Serial;
@@ -16,21 +15,29 @@ import java.io.Serializable;
  * @author ziyao
  */
 @Data
-public class AuthorizationRecordDTO implements EntityDTO<AuthorizationRecord>, Serializable {
+@Schema(description = "授权记录表")
+public class AuthorizationRecordDTO implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
+
     /**
      *
      */
+    @Schema(description = "")
     private Integer id;
+
     /**
      *
      */
+    @Schema(description = "")
     private String principal;
 
-    public AuthorizationRecord convert() {
-        return AuthorizationRecordConvertor.INSTANCE.convert(this);
+    public AuthorizationRecord toEntity() {
+        AuthorizationRecord authorizationRecord = new AuthorizationRecord();
+        authorizationRecord.setId(this.id);
+        authorizationRecord.setPrincipal(this.principal);
+        return authorizationRecord;
     }
 }

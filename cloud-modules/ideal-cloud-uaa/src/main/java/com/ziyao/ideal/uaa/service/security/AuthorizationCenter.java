@@ -1,8 +1,8 @@
 package com.ziyao.ideal.uaa.service.security;
 
+import com.ziyao.ideal.security.core.Authentication;
 import com.ziyao.ideal.uaa.response.AccessTokenResponse;
 import com.ziyao.ideal.uaa.response.OAuth2AuthorizationCodeResponse;
-import com.ziyao.ideal.security.core.Authentication;
 
 /**
  * @author ziyao zhang

@@ -1,8 +1,8 @@
 package com.ziyao.ideal.uaa.service.user;
 
-import com.ziyao.ideal.security.core.UserDetails;
 import com.ziyao.ideal.security.core.SessionUser;
 import com.ziyao.ideal.security.core.SimpleGrantedAuthority;
+import com.ziyao.ideal.security.core.UserDetails;
 import com.ziyao.ideal.uaa.domain.entity.User;
 import com.ziyao.ideal.uaa.repository.jpa.UserRepositoryJpa;
 import com.ziyao.ideal.uaa.repository.jpa.UserRoleRepositoryJpa;

@@ -1,7 +1,7 @@
 package com.ziyao.ideal.uaa.common.exception;
 
-import com.ziyao.ideal.web.response.ResponseDetails;
 import com.ziyao.ideal.security.core.AuthenticationException;
+import com.ziyao.ideal.web.response.ResponseDetails;
 
 import java.io.Serial;
 

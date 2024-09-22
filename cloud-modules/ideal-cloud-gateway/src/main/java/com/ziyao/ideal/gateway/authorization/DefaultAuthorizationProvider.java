@@ -40,11 +40,6 @@ public class DefaultAuthorizationProvider implements AuthorizationProvider {
         return builder.sessionUser(sessionUser.get()).authorized().build();
     }
 
-    @Override
-    public boolean supports(Class<? extends Authorization> authorizationClass) {
-        return DefaultAuthorizationToken.class.isAssignableFrom(authorizationClass);
-    }
-
     private boolean isSecurity(DefaultAuthorizationToken authorizationToken) {
         String requestPath = authorizationToken.getRequestPath();
         if (Strings.isEmpty(requestPath)) {
@@ -57,5 +52,10 @@ public class DefaultAuthorizationProvider implements AuthorizationProvider {
         Set<String> skipApis = configCenter.getGatewayConfig().getDefaultSkipApis();
         skipApis.addAll(configCenter.getGatewayConfig().getSkipApis());
         return skipApis;
+    }
+
+    @Override
+    public boolean supports(Class<? extends Authorization> authorizationClass) {
+        return DefaultAuthorizationToken.class.isAssignableFrom(authorizationClass);
     }
 }

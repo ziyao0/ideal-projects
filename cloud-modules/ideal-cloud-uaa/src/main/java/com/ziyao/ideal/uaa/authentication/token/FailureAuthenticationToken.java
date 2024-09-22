@@ -1,8 +1,8 @@
 package com.ziyao.ideal.uaa.authentication.token;
 
-import com.ziyao.ideal.web.response.ResponseDetails;
 import com.ziyao.ideal.security.core.Authentication;
 import com.ziyao.ideal.security.core.GrantedAuthority;
+import com.ziyao.ideal.web.response.ResponseDetails;
 import lombok.Getter;
 
 import java.io.Serial;

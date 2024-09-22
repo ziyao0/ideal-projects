@@ -11,5 +11,5 @@ import org.mapstruct.factory.Mappers;
 public interface ObjectToObjectMapstruct {
 
     ObjectToObjectMapstruct INSTANCE = Mappers.getMapper(ObjectToObjectMapstruct.class);
-    
+
 }

@@ -1,6 +1,6 @@
 spring:
   application:
-    name: config-server
+    name: ideal-cloud-config
   profiles:
     active: register
   jmx:

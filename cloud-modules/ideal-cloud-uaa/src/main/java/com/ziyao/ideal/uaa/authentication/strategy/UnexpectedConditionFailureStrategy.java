@@ -21,7 +21,6 @@ import java.io.StringWriter;
 public class UnexpectedConditionFailureStrategy implements AuthenticationFailureStrategy {
 
 
-
     @Override
     public Authentication handleFailure(Authentication authentication, Exception exception) {
         // 处理程序因为某些未知原因所产生的异常

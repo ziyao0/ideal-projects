@@ -27,7 +27,7 @@ public abstract class AbstractOAuth2AuthorizationService implements OAuth2Author
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    public AbstractOAuth2AuthorizationService(){
+    public AbstractOAuth2AuthorizationService() {
         ClassLoader classLoader = JpaOAuth2AuthorizationService.class.getClassLoader();
         List<Module> securityModules = Jackson2Modules.getModules(classLoader);
         this.objectMapper.registerModules(securityModules);

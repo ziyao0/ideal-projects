@@ -1,9 +1,9 @@
 package com.ziyao.ideal.uaa.authentication;
 
+import com.ziyao.ideal.security.core.Authentication;
 import com.ziyao.ideal.uaa.authentication.processors.AuthenticationPostProcessor;
 import com.ziyao.ideal.uaa.authentication.strategy.AuthenticationStrategyManager;
 import com.ziyao.ideal.uaa.authentication.token.FailureAuthenticationToken;
-import com.ziyao.ideal.security.core.Authentication;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

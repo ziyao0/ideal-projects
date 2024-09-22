@@ -1,9 +1,9 @@
 package com.ziyao.ideal.uaa.authentication.token;
 
 import com.alibaba.fastjson2.JSON;
+import com.ziyao.ideal.core.Strings;
 import com.ziyao.ideal.crypto.keygen.Base64StringKeyGenerator;
 import com.ziyao.ideal.crypto.keygen.StringKeyGenerator;
-import com.ziyao.ideal.core.Strings;
 import com.ziyao.ideal.security.oauth2.core.ClaimAccessor;
 import com.ziyao.ideal.security.oauth2.core.OAuth2AccessToken;
 import com.ziyao.ideal.security.oauth2.core.OAuth2TokenType;

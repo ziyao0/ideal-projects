@@ -11,6 +11,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import ${package.Dto}.${dtoName};
 import ${package.Entity}.${entityName};
 import ${package.Service}.${serviceName};
+import com.ziyao.ideal.web.base.PageQuery;
+import com.ziyao.ideal.web.base.PagingHelper;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RestController;
 <#if springdoc>
@@ -106,10 +108,10 @@ public class ${controllerName} {
 <#if swagger>
     @ApiOperation(value = "分页查询数据", notes = "分页查询数据")
 </#if>
-    public Object list(@RequestBody ${dtoName} ${dtoName?uncap_first}) {
+public Object list(@RequestBody  PageQuery<${dtoName}> pageQuery) {
         // TODO 由于没有统一的分页处理插件，需要自行在控制层处理接受参数和分页信息
     <#if persistType==jpa>
-        return ${serviceName?uncap_first}.list(${dtoName?uncap_first}.toEntity(), PageRequest.of(1, 20));
+        return ${serviceName?uncap_first}.page(pageQuery.getData(), PagingHelper.initPage(pageQuery));
     <#elseif persistType==mybatisPlus>
         Page<${entityName}> page = Pages.initPage(pageQuery, ${entityName}.class);
         return ${serviceName?uncap_first}.page(${dtoName?uncap_first}.toEntity, page);

@@ -6,14 +6,16 @@ spring:
       discovery:
         server-addr: '{SM4}c4c52def3d31331a15d7c662e4fec2651dea0a0446273019476fb0623443715d'
       config:
-        server-addr: ${spring.cloud.nacos.discovery.server-addr}
-        file-extension: yml
         import-check:
           enabled: false
+        server-addr: ${spring.cloud.nacos.discovery.server-addr}
+        file-extension: yml
         shared-configs:
-          - data-id: database.yml
+          - data-id: datasource.yml
           - data-id: redis.yml
 dubbo:
+  application:
+    name: dubbo-${spring.application.name}
   registry:
     address: nacos://${spring.cloud.nacos.discovery.server-addr}
     parameters:
@@ -23,14 +25,12 @@ dubbo:
   protocol:
     port: -1
     name: dubbo
-  application:
-    name: dubbo-${spring.application.name}
 com:
   ziyao:
     crypto:
       cipher:
         types: sm4
         sm4:
-          mode: CBC
-          iv: b18451cd68969ad9ec78f7c700370eea
           key: 13f70890272c40c07d85b15e5d532bd5
+          iv: b18451cd68969ad9ec78f7c700370eea
+          mode: CBC

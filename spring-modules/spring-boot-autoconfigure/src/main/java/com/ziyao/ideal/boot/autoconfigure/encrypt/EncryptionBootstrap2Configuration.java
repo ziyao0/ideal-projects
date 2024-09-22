@@ -1,10 +1,10 @@
 package com.ziyao.ideal.boot.autoconfigure.encrypt;
 
-import com.ziyao.ideal.crypto.EnvironmentDecryptApplicationInitializerDecryptor;
-import com.ziyao.ideal.crypto.core.CodebookProperties;
-import com.ziyao.ideal.crypto.core.CryptoContextFactory;
-import com.ziyao.ideal.crypto.core.DefaultCryptoContextFactory;
-import com.ziyao.ideal.crypto.druid.DataSourceBeanPostProcessor;
+import com.ziyao.ideal.encrypt.EnvironmentDecryptApplicationInitializerDecryptor;
+import com.ziyao.ideal.encrypt.core.CodebookProperties;
+import com.ziyao.ideal.encrypt.core.CryptoContextFactory;
+import com.ziyao.ideal.encrypt.core.DefaultCryptoContextFactory;
+import com.ziyao.ideal.encrypt.druid.DataSourceBeanPostProcessor;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;

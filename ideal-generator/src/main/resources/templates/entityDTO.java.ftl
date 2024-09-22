@@ -94,7 +94,7 @@ public class ${dtoName} implements Serializable {
 </#list>
 <#------------  END 字段循环遍历  ---------->
 
-    public ${entityName} toEntity(){
+public ${entityName} toEntity() {
         ${entityName} ${entityName?uncap_first} = new ${entityName}();
     <#list context.fields as field>
         ${entityName?uncap_first}.set${field.capitalName}(this.${field.propertyName});
