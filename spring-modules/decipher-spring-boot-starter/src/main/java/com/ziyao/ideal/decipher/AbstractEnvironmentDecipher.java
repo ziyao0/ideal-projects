@@ -22,9 +22,9 @@ import java.util.Map;
 /**
  * @author ziyao zhang
  */
-public abstract class AbstractEnvironmentDecryptor {
+public abstract class AbstractEnvironmentDecipher {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractEnvironmentDecryptor.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractEnvironmentDecipher.class);
     protected static final String CIPHER_PROPERTY_SOURCE_NAME = ConstantPool.CIPHER_PROPERTY_SOURCE_NAME;
     protected static final String CIPHER_BOOTSTRAP_PROPERTY_SOURCE_NAME = ConstantPool.CIPHER_BOOTSTRAP_PROPERTY_SOURCE_NAME;
 
