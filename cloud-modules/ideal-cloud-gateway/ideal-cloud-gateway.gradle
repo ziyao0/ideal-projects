@@ -4,7 +4,7 @@ plugins {
 dependencies {
     implementation(project(':security-core'))
     implementation(project(':ideal-convertor'))
-    implementation(project(":spring-security-encrypt-starter"))
+    implementation(project(":decipher-spring-boot-starter"))
     implementation 'com.github.ben-manes.caffeine:caffeine'
     implementation 'org.springframework.boot:spring-boot-autoconfigure'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'

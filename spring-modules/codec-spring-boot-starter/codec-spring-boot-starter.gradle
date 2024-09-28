@@ -1,4 +1,0 @@
-dependencies {
-    api(project(":spring-security-encrypt-starter"))
-    api(project(":spring-boot-autoconfigure"))
-}

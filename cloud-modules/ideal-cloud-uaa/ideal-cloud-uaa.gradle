@@ -7,7 +7,7 @@ dependencies {
     implementation(project(":elasticsearch-spring-boot-starter"))
     implementation(project(":redis-spring-boot-starter"))
     implementation(project(":spring-boot-autoconfigure"))
-    implementation(project(":spring-security-encrypt-starter"))
+    implementation(project(":decipher-spring-boot-starter"))
     implementation(project(":security-oauth2-core"))
     implementation(project(":spring-data-jpa-extension"))
     implementation "com.auth0:java-jwt"

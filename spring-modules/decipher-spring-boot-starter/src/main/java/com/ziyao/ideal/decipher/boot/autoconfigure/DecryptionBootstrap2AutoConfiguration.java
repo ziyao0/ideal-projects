@@ -1,4 +1,4 @@
-package com.ziyao.ideal.boot.autoconfigure.encrypt;
+package com.ziyao.ideal.decipher.boot.autoconfigure;
 
 import com.ziyao.ideal.decipher.EnvironmentDecipherApplicationInitializer;
 import com.ziyao.ideal.decipher.core.CodebookProperties;
@@ -20,7 +20,7 @@ import org.springframework.context.annotation.Import;
 @Configuration
 @AutoConfigureBefore(EncryptionBootstrapConfiguration.class)
 @EnableConfigurationProperties(CodebookProperties.class)
-public class EncryptionBootstrap2Configuration {
+public class DecryptionBootstrap2AutoConfiguration {
 
 
     @Bean
