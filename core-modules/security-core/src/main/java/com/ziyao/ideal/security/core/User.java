@@ -1,12 +1,13 @@
 package com.ziyao.ideal.security.core;
 
+import com.ziyao.ideal.core.Collections;
+import com.ziyao.ideal.security.core.context.UserClaims;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serial;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 import java.util.function.Consumer;
 
 /**
@@ -15,7 +16,9 @@ import java.util.function.Consumer;
  * @author ziyao
  * @link <a href="https://blog.zziyao.cn">https://blog.zziyao.cn</a>
  */
-public class SessionUser implements UserDetails, CredentialsContainer {
+@Getter
+@Setter
+public class User implements UserDetails, CredentialsContainer {
 
 
     @Serial
@@ -24,19 +27,17 @@ public class SessionUser implements UserDetails, CredentialsContainer {
     /**
      * 用户id
      */
-    @Getter
-    private final Integer id;
+    private Integer id;
 
     /**
      * 用户账号
      */
-    private final String username;
+    private String username;
 
     /**
      * 昵称
      */
-    @Getter
-    private final String nickname;
+    private String nickname;
 
     /**
      * 用户凭证
@@ -46,45 +47,46 @@ public class SessionUser implements UserDetails, CredentialsContainer {
     /**
      * 账号状态
      */
-    @Getter
-    private final Integer status;
+    private Integer status;
     /**
      * 手机号
      */
-    @Getter
-    private final String mobile;
+    private String mobile;
     /**
      * 姓名
      */
-    @Getter
-    private final String idCardName;
+    private String idCardName;
     /**
      * 性别（M: 男, F: 女, O: 其他）
      */
-    @Getter
-    private final String gender;
+    private String gender;
     /**
      * 地址
      */
-    @Getter
-    private final String address;
+    private String address;
     /**
      * 最后登录时间
      */
-    @Getter
-    private final LocalDateTime lastLogin;
+    private LocalDateTime lastLogin;
     /**
      * 登录ip
      */
-    @Getter
-    private final String loginIp;
+    private String loginIp;
 
-    private final Collection<? extends GrantedAuthority> authorities;
+    /**
+     * 过期时间，以秒为单位
+     */
+    private long ttl;
 
-    public SessionUser(Integer id, String username, String nickname,
-                       String password, Integer status, String mobile,
-                       String idCardName, String gender, String address, LocalDateTime lastLogin,
-                       String loginIp, Collection<? extends GrantedAuthority> authorities) {
+    private final Set<GrantedAuthority> authorities = new HashSet<>();
+
+    public User() {
+    }
+
+    public User(Integer id, String username, String nickname,
+                String password, Integer status, String mobile,
+                String idCardName, String gender, String address, LocalDateTime lastLogin,
+                String loginIp, Collection<? extends GrantedAuthority> grantedAuthorities) {
         this.id = id;
         this.username = username;
         this.nickname = nickname;
@@ -96,7 +98,9 @@ public class SessionUser implements UserDetails, CredentialsContainer {
         this.address = address;
         this.lastLogin = lastLogin;
         this.loginIp = loginIp;
-        this.authorities = authorities;
+        if (Collections.nonNull(grantedAuthorities)) {
+            authorities.addAll(grantedAuthorities);
+        }
     }
 
     @Override
@@ -114,7 +118,7 @@ public class SessionUser implements UserDetails, CredentialsContainer {
         if (this.status == null) {
             return true;
         }
-        return this.status == 2;
+        return !(this.status == 2);
     }
 
     //账号状态 0正常 1锁定 2过期 3未启用
@@ -123,7 +127,7 @@ public class SessionUser implements UserDetails, CredentialsContainer {
         if (this.status == null) {
             return true;
         }
-        return this.status == 1;
+        return !(this.status == 1);
     }
 
     /**
@@ -141,7 +145,7 @@ public class SessionUser implements UserDetails, CredentialsContainer {
         if (this.status == null) {
             return true;
         }
-        return this.status == 3;
+        return !(this.status == 3);
     }
 
     @Override
@@ -178,6 +182,7 @@ public class SessionUser implements UserDetails, CredentialsContainer {
         private String address;
         private LocalDateTime lastLogin;
         private String loginIp;
+        private UserClaims userClaims;
         private List<GrantedAuthority> authorities = new ArrayList<>();
 
         public UserBuilder id(Integer id) {
@@ -235,6 +240,28 @@ public class SessionUser implements UserDetails, CredentialsContainer {
             return this;
         }
 
+        public UserBuilder claims(UserClaims claims) {
+            this.userClaims = claims;
+            return this;
+        }
+
+        public UserBuilder claims(Map<String, Object> claims) {
+            this.userClaims = new UserClaims(claims);
+            return this;
+        }
+
+        public UserBuilder claims(Consumer<UserClaims> claimsConsumer) {
+            claimsConsumer.accept(userClaims);
+            return this;
+        }
+
+        public UserBuilder claimsMap(Consumer<Map<String, Object>> claimsConsumer) {
+            Map<String, Object> claims = new HashMap<>();
+            claimsConsumer.accept(claims);
+            this.claims(claims);
+            return this;
+        }
+
         public UserBuilder authorities(Collection<? extends GrantedAuthority> authorities) {
             this.authorities = new ArrayList<>(authorities);
             return this;
@@ -245,8 +272,8 @@ public class SessionUser implements UserDetails, CredentialsContainer {
             return this;
         }
 
-        public SessionUser build() {
-            return new SessionUser(id, username, nickname, password, status,
+        public User build() {
+            return new User(id, username, nickname, password, status,
                     mobile, idCardName, gender, address, lastLogin, loginIp, authorities);
         }
     }

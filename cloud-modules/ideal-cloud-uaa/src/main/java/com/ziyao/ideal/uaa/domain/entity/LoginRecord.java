@@ -3,7 +3,8 @@ package com.ziyao.ideal.uaa.domain.entity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -18,10 +19,7 @@ import java.time.LocalDateTime;
  */
 @Getter
 @Setter
-@Builder
 @Entity(name = "login_record")
-@NoArgsConstructor
-@AllArgsConstructor
 @Schema(description = "登录记录表")
 public class LoginRecord implements Serializable {
 
@@ -32,7 +30,7 @@ public class LoginRecord implements Serializable {
      * id:
      */
     @Id
-    @Schema(description = "")
+    @Schema(description = "主键ID")
     private Integer id;
 
     /**
@@ -44,7 +42,7 @@ public class LoginRecord implements Serializable {
     /**
      * username:
      */
-    @Schema(description = "")
+    @Schema(description = "用户登录名")
     private String username;
 
     /**
@@ -62,7 +60,7 @@ public class LoginRecord implements Serializable {
     /**
      * loginTime:
      */
-    @Schema(description = "")
+    @Schema(description = "登录时间")
     private LocalDateTime loginTime;
 
     /**

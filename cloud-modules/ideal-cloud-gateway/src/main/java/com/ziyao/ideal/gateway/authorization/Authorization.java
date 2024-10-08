@@ -1,6 +1,6 @@
 package com.ziyao.ideal.gateway.authorization;
 
-import com.ziyao.ideal.security.core.SessionUser;
+import com.ziyao.ideal.security.core.User;
 
 import java.util.Optional;
 
@@ -44,7 +44,7 @@ public interface Authorization {
      *
      * @return 返回会话用户信息
      */
-    Optional<SessionUser> getPrincipal();
+    Optional<User> getPrincipal();
 
     boolean isAuthorized();
 

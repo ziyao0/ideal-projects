@@ -1,5 +1,7 @@
 package com.ziyao.ideal.security.core;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.Collection;
 
@@ -22,6 +24,7 @@ public interface Authentication extends Serializable {
      *
      * @return 返回用户凭证
      */
+    @JsonIgnore
     Object getCredentials();
 
     /**

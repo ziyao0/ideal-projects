@@ -9,7 +9,7 @@ import com.ziyao.ideal.gateway.core.RequestAttributes;
 import com.ziyao.ideal.gateway.core.error.GatewayErrors;
 import com.ziyao.ideal.gateway.support.ConstantPool;
 import com.ziyao.ideal.gateway.support.RedisKeys;
-import com.ziyao.ideal.security.core.SessionUser;
+import com.ziyao.ideal.security.core.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.data.redis.core.ReactiveStringRedisTemplate;
@@ -61,10 +61,10 @@ public class RateLimitingFilter extends AbstractAfterAuthenticationFilter {
     private String md5Hex(ServerWebExchange exchange) {
         //是不是应该还需要解析出当前用户信息，并把用户唯一标识作为key的一部分
         AuthorizationToken authorizationToken = RequestAttributes.loadAuthorizationToken(exchange);
-        Optional<SessionUser> principal = authorizationToken.getPrincipal();
+        Optional<User> principal = authorizationToken.getPrincipal();
         String prefix = "unknown";
         if (principal.isPresent()) {
-            SessionUser user = principal.get();
+            User user = principal.get();
             prefix = user.getId().toString();
         }
         String path = exchange.getRequest().getURI().getPath();

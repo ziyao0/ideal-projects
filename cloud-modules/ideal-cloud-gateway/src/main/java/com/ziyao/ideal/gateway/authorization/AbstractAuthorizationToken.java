@@ -1,6 +1,6 @@
 package com.ziyao.ideal.gateway.authorization;
 
-import com.ziyao.ideal.security.core.SessionUser;
+import com.ziyao.ideal.security.core.User;
 import lombok.Setter;
 
 import java.util.Optional;
@@ -16,7 +16,7 @@ public abstract class AbstractAuthorizationToken implements Authorization {
     private String resource;
     private String requestPath;
     private String domain;
-    private SessionUser sessionUser;
+    private User user;
     private boolean authorized;
 
     protected AbstractAuthorizationToken(String token) {
@@ -48,9 +48,8 @@ public abstract class AbstractAuthorizationToken implements Authorization {
         return this.token;
     }
 
-    @Override
-    public Optional<SessionUser> getPrincipal() {
-        return Optional.ofNullable(this.sessionUser);
+    public Optional<User> getPrincipal() {
+        return Optional.ofNullable(this.user);
     }
 
     @Override
@@ -91,8 +90,8 @@ public abstract class AbstractAuthorizationToken implements Authorization {
             return this;
         }
 
-        public AbstractBuilder<T> sessionUser(SessionUser sessionUser) {
-            this.authorizationToken.setSessionUser(sessionUser);
+        public AbstractBuilder<T> user(User user) {
+            this.authorizationToken.setUser(user);
             return this;
         }
 

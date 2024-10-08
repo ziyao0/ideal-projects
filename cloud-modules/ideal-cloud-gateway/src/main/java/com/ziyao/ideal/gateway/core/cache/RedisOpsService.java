@@ -1,6 +1,7 @@
 package com.ziyao.ideal.gateway.core.cache;
 
 import org.springframework.data.redis.core.RedisCallback;
+import org.springframework.data.redis.core.TimeoutUtils;
 
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
@@ -49,6 +50,25 @@ public interface RedisOpsService {
      * @param id redis key
      */
     void delete(Object id);
+
+    /**
+     * 刷新过期时间
+     *
+     * @param id  redis key
+     * @param ttl time to live
+     */
+    void expire(Object id, long ttl);
+
+    /**
+     * 刷新过期时间
+     *
+     * @param id   redis key
+     * @param ttl  time to live
+     * @param unit 时间单位
+     */
+    default void expire(Object id, long ttl, TimeUnit unit) {
+        expire(id, TimeoutUtils.toSeconds(ttl, unit));
+    }
 
     /**
      * redis执行器

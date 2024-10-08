@@ -3,7 +3,7 @@ package com.ziyao.ideal.gateway.service.impl;
 import com.ziyao.ideal.gateway.authorization.AuthorizationToken;
 import com.ziyao.ideal.gateway.service.PermissionService;
 import com.ziyao.ideal.gateway.support.RedisKeys;
-import com.ziyao.ideal.security.core.SessionUser;
+import com.ziyao.ideal.security.core.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.ReactiveStringRedisTemplate;
@@ -27,7 +27,7 @@ public class PermissionServiceImpl implements PermissionService {
     public Mono<AuthorizationToken> verify(AuthorizationToken authorizationToken) {
 
         String requestPath = authorizationToken.getRequestPath();
-        Optional<SessionUser> principal = authorizationToken.getPrincipal();
+        Optional<User> principal = authorizationToken.getPrincipal();
 
         AuthorizationToken.Builder builder = AuthorizationToken.form(authorizationToken);
 

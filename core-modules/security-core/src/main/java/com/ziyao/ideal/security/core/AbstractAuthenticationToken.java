@@ -1,9 +1,11 @@
 package com.ziyao.ideal.security.core;
 
 import com.ziyao.ideal.core.Strings;
-import lombok.Getter;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author ziyao
@@ -14,10 +16,6 @@ public abstract class AbstractAuthenticationToken implements Authentication, Cre
     private final Collection<? extends GrantedAuthority> authorities;
 
     private boolean authenticated;
-
-    //附加信息
-    @Getter
-    private Map<Object, Object> additional;
 
     /**
      * 使用提供的颁发机构数组创建令牌。
@@ -34,7 +32,7 @@ public abstract class AbstractAuthenticationToken implements Authentication, Cre
             if (authority != null) f.add(authority);
         }
         this.authorities = Collections.unmodifiableCollection(f);
-        additional = new HashMap<>(8);
+
     }
 
 
@@ -53,26 +51,6 @@ public abstract class AbstractAuthenticationToken implements Authentication, Cre
         this.authenticated = authenticated;
     }
 
-    public void setAdditional(Map<Object, Object> additional) {
-        if (com.ziyao.ideal.core.Collections.isEmpty(additional)) {
-            this.additional = Collections.emptyMap();
-        } else {
-            this.additional = additional;
-        }
-    }
-
-    public Map<Object, Object> getAllAdditional() {
-        if (com.ziyao.ideal.core.Collections.isEmpty(additional)) {
-            return Collections.emptyMap();
-        } else {
-            return this.additional;
-        }
-    }
-
-    @SuppressWarnings("unchecked")
-    public <T> T getAdditional(String key) {
-        return (T) getAdditional().get(key);
-    }
 
     public String getName() {
         if (getPrincipal() == null) {
@@ -105,15 +83,6 @@ public abstract class AbstractAuthenticationToken implements Authentication, Cre
             return false;
         }
 
-        if ((this.additional == null) && (test.getAllAdditional() != null)) {
-            return false;
-        }
-        if ((this.additional != null) && (test.getAllAdditional() == null)) {
-            return false;
-        }
-        if ((this.additional != null) && (!this.additional.equals(test.getAllAdditional()))) {
-            return false;
-        }
 
         if ((this.getCredentials() == null) && (test.getCredentials() != null)) {
             return false;
@@ -143,9 +112,7 @@ public abstract class AbstractAuthenticationToken implements Authentication, Cre
         if (this.getCredentials() != null) {
             code ^= this.getCredentials().hashCode();
         }
-        if (this.getAllAdditional() != null) {
-            code ^= this.getAllAdditional().hashCode();
-        }
+
         if (this.isAuthenticated()) {
             code ^= -37;
         }
@@ -159,7 +126,6 @@ public abstract class AbstractAuthenticationToken implements Authentication, Cre
                 "Principal=" + getPrincipal() + ", " +
                 "Credentials=[PROTECTED], " +
                 "Authenticated=" + isAuthenticated() + ", " +
-                "Details=" + getAllAdditional() + ", " +
                 "Granted Authorities=" + this.authorities +
                 "]";
     }

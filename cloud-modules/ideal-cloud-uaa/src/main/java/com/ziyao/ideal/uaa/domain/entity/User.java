@@ -1,9 +1,11 @@
 package com.ziyao.ideal.uaa.domain.entity;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -18,10 +20,7 @@ import java.time.LocalDateTime;
  */
 @Getter
 @Setter
-@Builder
 @Entity(name = "user")
-@NoArgsConstructor
-@AllArgsConstructor
 @Schema(description = "用户表")
 public class User implements Serializable {
 
@@ -39,6 +38,7 @@ public class User implements Serializable {
      * username:用户账号
      */
     @Schema(description = "用户账号")
+    @Column(name = "username")
     private String username;
 
     /**

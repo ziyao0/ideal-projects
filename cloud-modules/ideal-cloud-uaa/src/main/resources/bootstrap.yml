@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: ideal-cloud-uaa
+    name: uaa
   profiles:
     active: register
   main:

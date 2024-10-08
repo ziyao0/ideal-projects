@@ -45,7 +45,7 @@ public class SecurityContextImpl implements SecurityContext {
     }
 
     @Override
-    public UserClaims getUserClaims() {
+    public UserClaims getClaims() {
         return this.userClaims;
     }
 

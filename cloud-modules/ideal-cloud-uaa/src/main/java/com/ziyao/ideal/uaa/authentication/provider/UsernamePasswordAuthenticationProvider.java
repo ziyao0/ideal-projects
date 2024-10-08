@@ -1,5 +1,7 @@
 package com.ziyao.ideal.uaa.authentication.provider;
 
+import com.ziyao.ideal.security.core.Authentication;
+import com.ziyao.ideal.security.core.User;
 import com.ziyao.ideal.uaa.authentication.codec.BCryptCredentialsEncryptor;
 import com.ziyao.ideal.uaa.authentication.codec.CredentialsEncryptor;
 import com.ziyao.ideal.uaa.authentication.support.UserDetailsValidator;
@@ -7,8 +9,6 @@ import com.ziyao.ideal.uaa.authentication.token.UsernamePasswordAuthenticationTo
 import com.ziyao.ideal.uaa.common.exception.AuthenticationFailureException;
 import com.ziyao.ideal.uaa.common.exception.Errors;
 import com.ziyao.ideal.uaa.service.user.UserDetailsService;
-import com.ziyao.ideal.security.core.Authentication;
-import com.ziyao.ideal.security.core.UserDetails;
 import org.springframework.stereotype.Component;
 
 /**
@@ -32,19 +32,19 @@ public class UsernamePasswordAuthenticationProvider implements AuthenticationPro
 
         String username = (String) authenticationToken.getPrincipal();
 
-        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+        User user = userDetailsService.loadUserByUsername(username);
 
-        UserDetailsValidator.assertExists(userDetails);
+        UserDetailsValidator.assertExists(user);
         // 输入的密码
         String credentials = (String) authenticationToken.getCredentials();
 
-        if (!credentialsEncryptor.matches(credentials, userDetails.getPassword())) {
+        if (!credentialsEncryptor.matches(credentials, user.getPassword())) {
             throw new AuthenticationFailureException(Errors.ERROR_100009);
         }
-
-        UserDetailsValidator.validated(userDetails);
+        user.eraseCredentials();
+        UserDetailsValidator.validated(user);
         return UsernamePasswordAuthenticationToken.authenticated(
-                userDetails, null, userDetails.getAuthorities());
+                user, null, user.getAuthorities());
     }
 
     @Override

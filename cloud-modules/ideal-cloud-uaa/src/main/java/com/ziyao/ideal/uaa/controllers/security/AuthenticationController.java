@@ -2,6 +2,8 @@ package com.ziyao.ideal.uaa.controllers.security;
 
 import com.ziyao.ideal.security.core.Authentication;
 import com.ziyao.ideal.security.core.AuthenticationUtils;
+import com.ziyao.ideal.security.core.context.SecurityContext;
+import com.ziyao.ideal.security.core.context.SecurityContextHolder;
 import com.ziyao.ideal.uaa.authentication.converter.AuthenticationConverter;
 import com.ziyao.ideal.uaa.authentication.token.FailureAuthenticationToken;
 import com.ziyao.ideal.uaa.service.security.AuthenticationService;
@@ -48,4 +50,10 @@ public class AuthenticationController {
         return "verify";
     }
 
+
+    @GetMapping("/information")
+    @Operation(summary = "获取当前用户信息",description = "获取当前用户信息")
+    public ResponseWrapper<SecurityContext> information() {
+        return ResponseBuilder.ok(SecurityContextHolder.getContext());
+    }
 }

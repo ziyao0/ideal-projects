@@ -1,12 +1,15 @@
 package com.ziyao.ideal.security.core;
 
+import com.ziyao.ideal.security.core.context.PrincipalParamNames;
+
 /**
  * @author ziyao zhang
  */
-public abstract class UserParamNames {
+public abstract class UserParamNames extends PrincipalParamNames {
 
     public static final String USER_ID = "userId";
     public static final String USERNAME = "username";
+    public static final String NICKNAME = "nickname";
     public static final String PASSWORD = "password";
     public static final String STATUS = "status";
     public static final String ID_CARD_NAME = "idCardName";

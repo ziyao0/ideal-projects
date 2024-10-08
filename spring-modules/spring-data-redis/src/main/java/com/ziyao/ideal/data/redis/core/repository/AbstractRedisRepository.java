@@ -66,7 +66,7 @@ abstract class AbstractRedisRepository<T, ID> implements RedisRepository<T, ID> 
 
     @Override
     public boolean expire(ID id, long timeout, TimeUnit timeUnit) {
-        return adapter.expire(id, resolveKeySpace(), timeout);
+        return adapter.expire(id, resolveKeySpace(), TimeoutUtils.toSeconds(timeout, timeUnit));
     }
 
     @Override

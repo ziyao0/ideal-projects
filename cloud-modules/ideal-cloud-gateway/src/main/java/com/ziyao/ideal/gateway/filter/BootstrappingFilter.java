@@ -50,9 +50,6 @@ public class BootstrappingFilter extends AbstractGlobalFilter {
                                 ReqRes reqRes = RequestAttributes.getAttributeOrDefault(exchange, ReqRes.class, new ReqRes());
                                 reqRes.setTime(time);
                                 doFinally(exchange, reqRes);
-
-
-
                             })
                             .subscribeOn(Schedulers.boundedElastic()) // 指定调度器
                             .subscribe(); // 订阅任务，确保其执行

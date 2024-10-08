@@ -1,7 +1,7 @@
 package com.ziyao.ideal.security.core.context;
 
 import com.ziyao.ideal.security.core.Authentication;
-import com.ziyao.ideal.security.core.SessionUser;
+import com.ziyao.ideal.security.core.User;
 
 import java.io.Serializable;
 
@@ -10,9 +10,9 @@ import java.io.Serializable;
  */
 public interface SecurityContext extends Serializable {
 
-    default SessionUser getPrincipal() {
+    default User getPrincipal() {
         Authentication authentication = getAuthentication();
-        return authentication != null && authentication.isAuthenticated() ? (SessionUser) authentication.getPrincipal() : null;
+        return authentication != null && authentication.isAuthenticated() ? (User) authentication.getPrincipal() : null;
     }
 
     /**
@@ -32,7 +32,7 @@ public interface SecurityContext extends Serializable {
      *
      * @return {@link PrincipalClaims}
      */
-    UserClaims getUserClaims();
+    UserClaims getClaims();
 
     /**
      * 更改当前 claims
@@ -40,4 +40,12 @@ public interface SecurityContext extends Serializable {
      * @param userClaims {@link PrincipalClaims}
      */
     void setUserClaims(UserClaims userClaims);
+
+    default String getIp() {
+        return getClaims().getIp();
+    }
+
+    default String getLocation() {
+        return getClaims().getLocation();
+    }
 }

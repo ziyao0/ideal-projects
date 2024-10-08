@@ -1,7 +1,7 @@
 package com.ziyao.ideal.uaa.authentication.strategy;
 
 import com.ziyao.ideal.security.core.Authentication;
-import com.ziyao.ideal.security.core.SessionUser;
+import com.ziyao.ideal.security.core.User;
 import com.ziyao.ideal.uaa.authentication.token.FailureAuthenticationToken;
 import com.ziyao.ideal.uaa.authentication.token.UsernamePasswordAuthenticationToken;
 import com.ziyao.ideal.uaa.common.exception.InvalidUserStateException;
@@ -22,7 +22,7 @@ public class InvalidUserStateFailureStrategy implements AuthenticationFailureStr
 
         UsernamePasswordAuthenticationToken authenticationToken = (UsernamePasswordAuthenticationToken) authentication;
 
-        SessionUser principal = (SessionUser) authenticationToken.getPrincipal();
+        User user = (User) authenticationToken.getPrincipal();
 
         return FailureAuthenticationToken.of(500, exception.getMessage());
     }

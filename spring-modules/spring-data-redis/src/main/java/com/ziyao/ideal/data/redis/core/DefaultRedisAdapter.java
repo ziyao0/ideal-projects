@@ -2,7 +2,9 @@ package com.ziyao.ideal.data.redis.core;
 
 import com.ziyao.ideal.core.Collections;
 import com.ziyao.ideal.data.redis.core.convert.ConversionProvider;
+import org.springframework.dao.DataAccessException;
 import org.springframework.data.mapping.PersistentPropertyAccessor;
+import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisOperations;
 import org.springframework.data.redis.core.TimeToLive;
@@ -19,7 +21,6 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @author ziyao zhang
- *
  */
 @SuppressWarnings("deprecation")
 public class DefaultRedisAdapter implements RedisAdapter {
@@ -136,7 +137,12 @@ public class DefaultRedisAdapter implements RedisAdapter {
 
     @Override
     public boolean expire(Object id, String keyspace, long ttl) {
-        return false;
+
+        return execute(connection -> {
+
+            byte[] rawKey = rawKey(keyspace, tostring(id));
+            return connection.expire(rawKey, ttl);
+        });
     }
 
     @Override

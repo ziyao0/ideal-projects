@@ -31,7 +31,6 @@ import java.io.Serializable;
  */
 @Getter
 @Setter
-@Builder
 <#if persistType==jpa>
 @Entity(name = "${context.tableName}")
 <#elseif persistType==mybatisPlus>
@@ -39,8 +38,6 @@ import java.io.Serializable;
 <#elseif persistType==tkMybatis>
 @Table(name = "${context.tableName}")
 </#if>
-@NoArgsConstructor
-@AllArgsConstructor
 <#if springdoc>
 @Schema(description = "${context.comment!}")
 </#if>
@@ -88,6 +85,10 @@ public class ${entityName} {
 
 </#list>
 <#------------  END 字段循环遍历  ---------->
+
+    public static Builder builder(){
+        return new Builder();
+    }
 
     public static class Builder {
 

@@ -1,5 +1,6 @@
 package com.ziyao.ideal.gateway.core.decorator;
 
+import com.ziyao.ideal.core.Collections;
 import com.ziyao.ideal.core.Strings;
 import com.ziyao.ideal.gateway.core.RequestAttributes;
 import com.ziyao.ideal.gateway.filter.body.ReqRes;
@@ -34,6 +35,9 @@ public class RequestRecordDecorator extends ServerHttpRequestDecorator {
 
         return super.getBody().collectList()
                 .flatMapMany(dataBuffers -> {
+                    if (Collections.isEmpty(dataBuffers)) {
+                        return super.getBody();
+                    }
                     DataBuffer dataBuffer = exchange.getResponse().bufferFactory().join(dataBuffers);
                     byte[] content = new byte[dataBuffer.readableByteCount()];
                     dataBuffer.read(content);

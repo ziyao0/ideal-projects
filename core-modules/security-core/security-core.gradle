@@ -1,5 +1,6 @@
 dependencies {
     api(project(':ideal-core'))
+    api(project(':ideal-convertor'))
     api('org.springframework:spring-core')
     api('com.alibaba:transmittable-thread-local')
 }

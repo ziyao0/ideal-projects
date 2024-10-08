@@ -5,7 +5,7 @@ import com.ziyao.ideal.gateway.config.ConfigCenter;
 import com.ziyao.ideal.gateway.core.Response;
 import com.ziyao.ideal.gateway.core.SecurityPredicate;
 import com.ziyao.ideal.gateway.service.PrincipalCacheService;
-import com.ziyao.ideal.security.core.SessionUser;
+import com.ziyao.ideal.security.core.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -32,12 +32,15 @@ public class DefaultAuthorizationProvider implements AuthorizationProvider {
             builder.authorized();
             return builder.build();
         }
-        Optional<SessionUser> sessionUser = principalCacheService.load(authorizationToken.getToken());
-        if (sessionUser.isEmpty()) {
+
+        String token = User.class.getName() + ":" + authorizationToken.getToken();
+        Optional<User> user = principalCacheService.load(token);
+        if (user.isEmpty()) {
             builder.response(Response.of(401, "请求未认证"));
             return builder.build();
         }
-        return builder.sessionUser(sessionUser.get()).authorized().build();
+        principalCacheService.refresh(token, user.get().getTtl());
+        return builder.user(user.get()).authorized().build();
     }
 
     private boolean isSecurity(DefaultAuthorizationToken authorizationToken) {

@@ -1,5 +1,7 @@
 package com.ziyao.ideal.security.core;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.Collection;
 
@@ -20,6 +22,7 @@ public interface UserDetails extends Serializable {
      *
      * @return pd
      */
+    @JsonIgnore
     String getPassword();
 
     /**
@@ -27,6 +30,7 @@ public interface UserDetails extends Serializable {
      *
      * @return <code>true</code> 没有过期, <code>false</code> 已过期
      */
+    @JsonIgnore
     boolean isAccountNonExpired();
 
     /**
@@ -34,6 +38,7 @@ public interface UserDetails extends Serializable {
      *
      * @return <code>true</code> not locked, <code>false</code> locked
      */
+    @JsonIgnore
     boolean isAccountNonLocked();
 
     /**
@@ -41,6 +46,7 @@ public interface UserDetails extends Serializable {
      *
      * @return <code>true</code> 用户凭证有效（没有过期）, <code>false</code> 过期
      */
+    @JsonIgnore
     boolean isCredentialsNonExpired();
 
     /**
@@ -48,6 +54,7 @@ public interface UserDetails extends Serializable {
      *
      * @return <code>true</code> if the user is enabled, <code>false</code> otherwise
      */
+    @JsonIgnore
     boolean isEnabled();
 
     /**

@@ -6,8 +6,8 @@ import com.ziyao.ideal.core.Dates;
 import com.ziyao.ideal.core.Strings;
 import com.ziyao.ideal.security.core.*;
 import com.ziyao.ideal.security.core.context.SecurityContext;
-import com.ziyao.ideal.security.core.context.SecurityContextImpl;
 import com.ziyao.ideal.security.core.context.SecurityContextHolder;
+import com.ziyao.ideal.security.core.context.SecurityContextImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebFilter;
@@ -51,10 +51,14 @@ public class SecurityContextFilter extends OncePerRequestFilter {
     protected void doFilterInternal(@NonNull HttpServletRequest request,
                                     @NonNull HttpServletResponse response, @NonNull FilterChain chain) throws ServletException, IOException {
 
-        SessionUser sessionUser = creation(request);
-        Authentication authentication = new SuccessfulAuthenticationToken(sessionUser, sessionUser.getAuthorities());
+        User user = creation(request);
+        Authentication authentication = new SuccessfulAuthenticationToken(user, user.getAuthorities());
 
         SecurityContext context = new SecurityContextImpl(authentication);
+        // 填充附加信息
+        context.getClaims().setIp(getValue(request, UserParamNames.IP));
+        context.getClaims().setLocation(getValue(request, UserParamNames.LOCATION));
+
         SecurityContextHolder.setContext(context);
 
         if (SecurityContextHolder.unauthorized()) {
@@ -69,9 +73,10 @@ public class SecurityContextFilter extends OncePerRequestFilter {
                 .anyMatch(skipApi -> matcher.match(skipApi, request.getRequestURI()));
     }
 
-    public SessionUser creation(HttpServletRequest request) {
+    public User creation(HttpServletRequest request) {
         String userId = getValue(request, UserParamNames.USER_ID);
         String username = getValue(request, UserParamNames.USERNAME);
+        String nickname = getValue(request, UserParamNames.NICKNAME);
         String status = getValue(request, UserParamNames.STATUS);
         String idCardName = getValue(request, UserParamNames.ID_CARD_NAME);
         String gender = getValue(request, UserParamNames.GENDER);
@@ -81,8 +86,9 @@ public class SecurityContextFilter extends OncePerRequestFilter {
         String loginIp = getValue(request, UserParamNames.LOGIN_IP);
         String authorities = getValue(request, UserParamNames.AUTHORITIES);
 
-        return SessionUser.withId(Strings.hasLength(userId) ? Integer.valueOf(userId) : null)
+        return User.withId(Strings.hasLength(userId) ? Integer.valueOf(userId) : null)
                 .username(username)
+                .nickname(nickname)
                 .status(Strings.hasLength(status) ? Integer.valueOf(status) : null)
                 .idCardName(idCardName)
                 .gender(gender)

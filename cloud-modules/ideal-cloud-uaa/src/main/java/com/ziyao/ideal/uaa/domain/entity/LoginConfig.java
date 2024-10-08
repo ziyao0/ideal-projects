@@ -18,10 +18,7 @@ import java.time.LocalDateTime;
  */
 @Getter
 @Setter
-@Builder
 @Entity(name = "login_config")
-@NoArgsConstructor
-@AllArgsConstructor
 @Schema(description = "登录配置表")
 public class LoginConfig implements Serializable {
 

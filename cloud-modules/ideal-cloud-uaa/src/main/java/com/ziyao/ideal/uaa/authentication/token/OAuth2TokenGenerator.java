@@ -8,7 +8,7 @@ import com.ziyao.ideal.security.oauth2.core.token.OAuth2TokenContext;
  * @author ziyao zhang
  */
 @FunctionalInterface
-public interface OAuth2TokenGenerator<T extends OAuth2Token> {
+public interface OAuth2TokenGenerator<T extends OAuth2Token> extends TokenGenerator<T> {
 
 
     T generate(OAuth2TokenContext context);

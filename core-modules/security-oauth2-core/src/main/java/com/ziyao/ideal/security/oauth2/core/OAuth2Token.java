@@ -5,13 +5,7 @@ import java.time.Instant;
 /**
  * @author ziyao zhang
  */
-public interface OAuth2Token {
-    /**
-     * Returns the token value.
-     *
-     * @return the token value
-     */
-    String getTokenValue();
+public interface OAuth2Token extends Token {
 
     /**
      * Returns the time at which the token was issued.

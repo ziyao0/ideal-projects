@@ -19,7 +19,7 @@ public class DefaultOnErrorProcessor implements OnErrorProcessor {
     public Mono<Void> onErrorResume(ServerWebExchange exchange, Throwable throwable) {
         log.error(throwable.getMessage(), throwable);
 
-        Response metadata = Response.of(403, "越权访问拦截");
+        Response metadata = Response.of(500, throwable.getMessage());
 
         if (throwable instanceof GatewayException e) {
             return DataBuffers.writeWith(exchange.getResponse(), e.status(), e.message());

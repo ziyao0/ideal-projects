@@ -1,6 +1,7 @@
 package com.ziyao.ideal.uaa.service.user;
 
 import com.ziyao.ideal.core.lang.Nullable;
+import com.ziyao.ideal.security.core.User;
 import com.ziyao.ideal.security.core.UserDetails;
 
 /**
@@ -15,6 +16,6 @@ public interface UserDetailsService {
      * @return 返回用户信息
      */
     @Nullable
-    UserDetails loadUserByUsername(String username);
+    User loadUserByUsername(String username);
 
 }

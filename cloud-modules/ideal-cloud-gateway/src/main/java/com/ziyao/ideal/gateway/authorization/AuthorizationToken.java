@@ -23,7 +23,7 @@ public class AuthorizationToken extends AbstractAuthorizationToken {
                 .resource(authorization.getResource())
                 .domain(authorization.getDomain())
                 .requestPath(authorization.getRequestPath())
-                .sessionUser(authorization.getPrincipal().orElse(null));
+                .user(authorization.getPrincipal().orElse(null));
     }
 
     public static class Builder extends AbstractBuilder<AuthorizationToken> {

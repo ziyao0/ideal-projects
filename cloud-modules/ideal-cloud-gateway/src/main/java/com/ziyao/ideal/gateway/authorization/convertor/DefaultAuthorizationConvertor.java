@@ -14,6 +14,7 @@ import org.springframework.web.server.ServerWebExchange;
  */
 public class DefaultAuthorizationConvertor implements AuthorizationConvertor {
 
+    private static final String BEARER = "Bearer ";
 
     @Override
     public Authorization convert(ServerWebExchange exchange) {
@@ -24,6 +25,10 @@ public class DefaultAuthorizationConvertor implements AuthorizationConvertor {
             return null;
         }
         String token = headers.getFirst(RequestAttributes.AUTHORIZATION);
+
+        if (Strings.hasText(token)) {
+            token = token.replace(BEARER, "");
+        }
 
         return DefaultAuthorizationToken.withAccessToken(token)
                 .resource(RequestAttributes.RESOURCE)

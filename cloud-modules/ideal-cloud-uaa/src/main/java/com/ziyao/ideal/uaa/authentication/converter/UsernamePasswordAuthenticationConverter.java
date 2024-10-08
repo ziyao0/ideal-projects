@@ -30,7 +30,7 @@ public class UsernamePasswordAuthenticationConverter implements AuthenticationCo
 
     @Override
     public Authentication convert(HttpServletRequest request) {
-        if (!AuthorizationGrantType.PASSWORD.matches(request.getParameter(OAuth2ParameterNames.PASSWORD))) {
+        if (!AuthorizationGrantType.PASSWORD.matches(request.getParameter(OAuth2ParameterNames.GRANT_TYPE))) {
             return null;
         }
 

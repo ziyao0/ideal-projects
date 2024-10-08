@@ -30,7 +30,7 @@ import java.util.concurrent.TimeUnit;
 public class LoginConfigServiceImpl implements LoginConfigService {
 
 
-    private static final String DEFAULT_LOGIN_METHOD = "PASSWD";
+    private static final String DEFAULT_LOGIN_METHOD = "USERNAME_PASSWORD";
 
     private final LoginConfigRepositoryJpa loginConfigRepositoryJpa;
     private final LoginConfigRepositoryRedis loginConfigRepositoryRedis;
@@ -49,18 +49,18 @@ public class LoginConfigServiceImpl implements LoginConfigService {
         if (optional.isPresent()) {
             return optional.get();
         } else {
-            Optional<LoginConfig> optionalByRedis = loginConfigRepositoryRedis.findById(DEFAULT_LOGIN_METHOD);
-            if (optionalByRedis.isPresent()) {
-                loginConfigCache.put(DEFAULT_LOGIN_METHOD, optionalByRedis.get());
-                return optionalByRedis.get();
-            } else {
-                Optional<LoginConfig> optionalByJpa = loginConfigRepositoryJpa.findByLoginMethod(DEFAULT_LOGIN_METHOD);
-                if (optionalByJpa.isPresent()) {
-                    loginConfigCache.put(DEFAULT_LOGIN_METHOD, optionalByJpa.get());
-                    loginConfigRepositoryRedis.save(optionalByJpa.get());
-                    return optionalByJpa.get();
-                }
+//            Optional<LoginConfig> optionalByRedis = loginConfigRepositoryRedis.findById(DEFAULT_LOGIN_METHOD);
+//            if (optionalByRedis.isPresent()) {
+//                loginConfigCache.put(DEFAULT_LOGIN_METHOD, optionalByRedis.get());
+//                return optionalByRedis.get();
+//            } else {
+            Optional<LoginConfig> optionalByJpa = loginConfigRepositoryJpa.findByLoginMethod(DEFAULT_LOGIN_METHOD);
+            if (optionalByJpa.isPresent()) {
+                loginConfigCache.put(DEFAULT_LOGIN_METHOD, optionalByJpa.get());
+                loginConfigRepositoryRedis.save(DEFAULT_LOGIN_METHOD, optionalByJpa.get());
+                return optionalByJpa.get();
             }
+//            }
         }
         throw new ServiceException(400, "未获取到登录配置");
     }

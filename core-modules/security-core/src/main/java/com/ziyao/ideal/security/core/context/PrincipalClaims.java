@@ -32,12 +32,20 @@ public interface PrincipalClaims extends Serializable {
         return (T) getClaims().get(key);
     }
 
-    default String getAccessIp() {
-        return getClaim(PrincipalParamNames.ACCESS_IP);
+    default String getLocation() {
+        return getClaim(PrincipalParamNames.LOCATION);
     }
 
-    default void setAccessIp(String accessIp) {
-        setClaim(PrincipalParamNames.ACCESS_IP, accessIp);
+    default void setLocation(String location) {
+        setClaim(PrincipalParamNames.LOCATION, location);
+    }
+
+    default String getIp() {
+        return getClaim(PrincipalParamNames.IP);
+    }
+
+    default void setIp(String accessIp) {
+        setClaim(PrincipalParamNames.IP, accessIp);
     }
 
     default String getBrowserName() {

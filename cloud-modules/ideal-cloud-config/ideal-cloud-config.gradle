@@ -3,8 +3,6 @@ plugins {
 }
 dependencies {
     implementation(project(":ideal-generator"))
-    implementation(project(':security-crypto'))
-    implementation('org.yaml:snakeyaml')
     implementation(project(":decipher-spring-boot-starter"))
     implementation(project(":spring-boot-autoconfigure"))
     implementation "com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config"

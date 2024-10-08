@@ -1,5 +1,0 @@
-org.springframework.cloud.bootstrap.BootstrapConfiguration=\
-com.ziyao.ideal.boot.autoconfigure.encrypt.EncryptionBootstrap2Configuration
-# Environment Post Processors
-org.springframework.boot.env.EnvironmentPostProcessor=\
-com.ziyao.ideal.decipher.EnvironmentDecryptPostProcessor

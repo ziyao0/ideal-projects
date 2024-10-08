@@ -70,6 +70,14 @@ public class KeyValueRedisOpsService implements RedisOpsService {
     }
 
     @Override
+    public void expire(Object id, long ttl) {
+        redisTemplate.execute((RedisCallback<Boolean>) connection -> {
+            byte[] rawKey = createKey(id);
+            return connection.expire(rawKey, ttl);
+        });
+    }
+
+    @Override
     public <T> T execute(RedisCallback<T> callback) {
         return redisTemplate.execute(callback);
     }
