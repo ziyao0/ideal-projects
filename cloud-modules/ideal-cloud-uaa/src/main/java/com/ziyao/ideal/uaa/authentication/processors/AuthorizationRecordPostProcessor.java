@@ -29,8 +29,8 @@ public class AuthorizationRecordPostProcessor implements AuthenticationPostProce
         // 记录授权记录 、登录记录等
 
 
-        String ip = SecurityContextHolder.getContext().getIp();
-        String location = SecurityContextHolder.getContext().getLocation();
+        String ip = SecurityContextHolder.getContext().getPrincipal().getIp();
+        String location = SecurityContextHolder.getContext().getPrincipal().getLocation();
 
         User principal = (User) authentication.getPrincipal();
 

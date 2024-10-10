@@ -1,13 +1,13 @@
 package com.ziyao.ideal.security.core;
 
-import com.ziyao.ideal.core.Collections;
-import com.ziyao.ideal.security.core.context.UserClaims;
+import com.ziyao.ideal.security.core.context.PrincipalClaims;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serial;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Consumer;
 
 /**
@@ -18,7 +18,7 @@ import java.util.function.Consumer;
  */
 @Getter
 @Setter
-public class User implements UserDetails, CredentialsContainer {
+public class User implements UserDetails, CredentialsContainer, PrincipalClaims {
 
 
     @Serial
@@ -78,15 +78,18 @@ public class User implements UserDetails, CredentialsContainer {
      */
     private long ttl;
 
-    private final Set<GrantedAuthority> authorities = new HashSet<>();
+    /**
+     * 附加信息
+     */
+    private final Map<String, Object> claims = new HashMap<>();
+
 
     public User() {
     }
 
     public User(Integer id, String username, String nickname,
                 String password, Integer status, String mobile,
-                String idCardName, String gender, String address, LocalDateTime lastLogin,
-                String loginIp, Collection<? extends GrantedAuthority> grantedAuthorities) {
+                String idCardName, String gender, String address, LocalDateTime lastLogin, String loginIp) {
         this.id = id;
         this.username = username;
         this.nickname = nickname;
@@ -98,9 +101,6 @@ public class User implements UserDetails, CredentialsContainer {
         this.address = address;
         this.lastLogin = lastLogin;
         this.loginIp = loginIp;
-        if (Collections.nonNull(grantedAuthorities)) {
-            authorities.addAll(grantedAuthorities);
-        }
     }
 
     @Override
@@ -149,13 +149,13 @@ public class User implements UserDetails, CredentialsContainer {
     }
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.authorities;
+    public void eraseCredentials() {
+        this.password = null;
     }
 
     @Override
-    public void eraseCredentials() {
-        this.password = null;
+    public Map<String, Object> getClaims() {
+        return claims;
     }
 
     public static UserBuilder withId(Integer id) {
@@ -171,110 +171,76 @@ public class User implements UserDetails, CredentialsContainer {
     }
 
     public static final class UserBuilder {
-        private Integer id;
-        private String username;
-        private String nickname;
-        private String password;
-        private Integer status;
-        private String mobile;
-        private String idCardName;
-        private String gender;
-        private String address;
-        private LocalDateTime lastLogin;
-        private String loginIp;
-        private UserClaims userClaims;
-        private List<GrantedAuthority> authorities = new ArrayList<>();
+        private final User user = new User();
 
         public UserBuilder id(Integer id) {
-            this.id = id;
+            this.user.id = id;
             return this;
         }
 
         public UserBuilder username(String username) {
-            this.username = username;
+            this.user.username = username;
             return this;
         }
 
         public UserBuilder nickname(String nickname) {
-            this.nickname = nickname;
+            this.user.nickname = nickname;
             return this;
         }
 
         public UserBuilder password(String password) {
-            this.password = password;
+            this.user.password = password;
             return this;
         }
 
         public UserBuilder status(Integer status) {
-            this.status = status;
+            this.user.status = status;
             return this;
         }
 
         public UserBuilder mobile(String mobile) {
-            this.mobile = mobile;
+            this.user.mobile = mobile;
             return this;
         }
 
         public UserBuilder idCardName(String idCardName) {
-            this.idCardName = idCardName;
+            this.user.idCardName = idCardName;
             return this;
         }
 
         public UserBuilder gender(String gender) {
-            this.gender = gender;
+            this.user.gender = gender;
             return this;
         }
 
         public UserBuilder address(String address) {
-            this.address = address;
+            this.user.address = address;
             return this;
         }
 
         public UserBuilder lastLogin(LocalDateTime lastLogin) {
-            this.lastLogin = lastLogin;
+            this.user.lastLogin = lastLogin;
             return this;
         }
 
         public UserBuilder loginIp(String loginIp) {
-            this.loginIp = loginIp;
+            this.user.loginIp = loginIp;
             return this;
         }
 
-        public UserBuilder claims(UserClaims claims) {
-            this.userClaims = claims;
-            return this;
-        }
 
         public UserBuilder claims(Map<String, Object> claims) {
-            this.userClaims = new UserClaims(claims);
+            this.user.claims.putAll(claims);
             return this;
         }
 
-        public UserBuilder claims(Consumer<UserClaims> claimsConsumer) {
-            claimsConsumer.accept(userClaims);
-            return this;
-        }
-
-        public UserBuilder claimsMap(Consumer<Map<String, Object>> claimsConsumer) {
-            Map<String, Object> claims = new HashMap<>();
-            claimsConsumer.accept(claims);
-            this.claims(claims);
-            return this;
-        }
-
-        public UserBuilder authorities(Collection<? extends GrantedAuthority> authorities) {
-            this.authorities = new ArrayList<>(authorities);
-            return this;
-        }
-
-        public UserBuilder authorities(Consumer<Collection<GrantedAuthority>> authoritiesConsumer) {
-            authoritiesConsumer.accept(this.authorities);
+        public UserBuilder claims(Consumer<Map<String, Object>> claimsConsumer) {
+            claimsConsumer.accept(this.user.claims);
             return this;
         }
 
         public User build() {
-            return new User(id, username, nickname, password, status,
-                    mobile, idCardName, gender, address, lastLogin, loginIp, authorities);
+            return this.user;
         }
     }
 }

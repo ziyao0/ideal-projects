@@ -42,11 +42,11 @@ public class JpaUserDetailsService implements UserDetailsService {
                 .address(user.getAddress())
                 .idCardName(user.getIdCardName())
                 .lastLogin(user.getLastLogin())
-                .authorities(
-                        authorities -> roles.forEach(
-                                role -> authorities.add(new SimpleGrantedAuthority(role))
-                        )
-                )
+//                .authorities(
+//                        authorities -> roles.forEach(
+//                                role -> authorities.add(new SimpleGrantedAuthority(role))
+//                        )
+//                )
                 .build();
     }
 }

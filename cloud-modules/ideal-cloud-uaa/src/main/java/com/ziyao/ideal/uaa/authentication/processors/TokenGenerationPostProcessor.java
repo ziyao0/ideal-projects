@@ -32,8 +32,8 @@ public class TokenGenerationPostProcessor implements AuthenticationPostProcessor
     @Override
     public Authentication process(Authentication authentication) {
 
-        String ip = SecurityContextHolder.getContext().getIp();
-        String location = SecurityContextHolder.getContext().getLocation();
+        String ip = SecurityContextHolder.getContext().getPrincipal().getIp();
+        String location = SecurityContextHolder.getContext().getPrincipal().getLocation();
 
         //生成认证token
         User principal = (User) authentication.getPrincipal();

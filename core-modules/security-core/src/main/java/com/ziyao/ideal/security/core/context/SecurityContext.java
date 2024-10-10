@@ -1,19 +1,18 @@
 package com.ziyao.ideal.security.core.context;
 
 import com.ziyao.ideal.security.core.Authentication;
+import com.ziyao.ideal.security.core.GrantedAuthority;
 import com.ziyao.ideal.security.core.User;
 
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.Set;
 
 /**
  * @author ziyao zhang
  */
 public interface SecurityContext extends Serializable {
 
-    default User getPrincipal() {
-        Authentication authentication = getAuthentication();
-        return authentication != null && authentication.isAuthenticated() ? (User) authentication.getPrincipal() : null;
-    }
 
     /**
      * 获取当前经过身份认证的令牌
@@ -28,24 +27,22 @@ public interface SecurityContext extends Serializable {
     void setAuthentication(Authentication authentication);
 
     /**
-     * 获取 claims
+     * 获取当前主体的用户信息
      *
-     * @return {@link PrincipalClaims}
+     * @return {@link User}
      */
-    UserClaims getClaims();
-
-    /**
-     * 更改当前 claims
-     *
-     * @param userClaims {@link PrincipalClaims}
-     */
-    void setUserClaims(UserClaims userClaims);
-
-    default String getIp() {
-        return getClaims().getIp();
+    default User getPrincipal() {
+        Authentication authentication = getAuthentication();
+        return authentication != null && authentication.isAuthenticated() ? (User) authentication.getPrincipal() : null;
     }
 
-    default String getLocation() {
-        return getClaims().getLocation();
+    /**
+     * 获取当前用户的权限认证信息
+     *
+     * @return {@link GrantedAuthority}
+     */
+    default Collection<? extends GrantedAuthority> getAuthorities() {
+        Authentication authentication = getAuthentication();
+        return authentication != null && authentication.isAuthenticated() ? authentication.getAuthorities() : Set.of();
     }
 }

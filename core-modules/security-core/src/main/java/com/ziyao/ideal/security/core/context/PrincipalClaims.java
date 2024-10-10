@@ -18,7 +18,9 @@ public interface PrincipalClaims extends Serializable {
     /**
      * 设置声明
      */
-    void setClaim(String key, Object value);
+    default void setClaim(String key, Object value) {
+        getClaims().put(key, value);
+    }
 
     /**
      * get claim
@@ -48,11 +50,11 @@ public interface PrincipalClaims extends Serializable {
         setClaim(PrincipalParamNames.IP, accessIp);
     }
 
-    default String getBrowserName() {
+    default String getBrowser() {
         return getClaim(PrincipalParamNames.BROWSER_NAME);
     }
 
-    default void setBrowserName(String browserName) {
+    default void setBrowser(String browserName) {
         setClaim(PrincipalParamNames.BROWSER_NAME, browserName);
     }
 

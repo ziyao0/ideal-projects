@@ -57,8 +57,4 @@ public interface UserDetails extends Serializable {
     @JsonIgnore
     boolean isEnabled();
 
-    /**
-     * 当前账号拥有的权限集合
-     */
-    Collection<? extends GrantedAuthority> getAuthorities();
 }

@@ -44,7 +44,7 @@ public class UsernamePasswordAuthenticationProvider implements AuthenticationPro
         user.eraseCredentials();
         UserDetailsValidator.validated(user);
         return UsernamePasswordAuthenticationToken.authenticated(
-                user, null, user.getAuthorities());
+                user, null, null);
     }
 
     @Override

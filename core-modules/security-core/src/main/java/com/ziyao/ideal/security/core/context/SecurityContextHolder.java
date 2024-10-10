@@ -70,33 +70,79 @@ public abstract class SecurityContextHolder {
         return strategy.createEmptyContext();
     }
 
+    /**
+     * 判断当前上下文信息持有者是否认证
+     *
+     * @return <code>true</code> 经过身份认证
+     */
     public static boolean isAuthorized() {
         return strategy.isAuthentication();
     }
 
+    /**
+     * 判断当前上下文信息持有者是否未经过
+     *
+     * @return <code>true</code> 未经过身份认证
+     */
     public static boolean unauthorized() {
         return !strategy.isAuthentication();
     }
 
+    /**
+     * 断言当前请求是否已经经过身份认证
+     */
+    public static void assertAuthorized() {
+        if (unauthorized()) {
+            throw new RuntimeException("当前用户未登录");
+        }
+    }
+
+    /**
+     * 切换到ttl模式
+     *
+     * @see StrategyMode
+     */
     public static void switchTTLStrategy() {
         switchStrategy(StrategyMode.MODE_TTL);
     }
 
+    /**
+     * 切换到默认策略
+     *
+     * @see StrategyMode
+     */
     public static void switchDefaultStrategy() {
-        switchStrategy(StrategyMode.MODE_TTL);
+        switchStrategy(StrategyMode.MODE_THREAD_LOCAL);
     }
 
+    /**
+     * 切换到指定的策略
+     *
+     * @param strategyMode {@link StrategyMode}
+     */
     public static void switchStrategy(StrategyMode strategyMode) {
         SecurityContext securityContext = SecurityContextHolder.getContext();
         strategy = doCreateStrategy(strategyMode);
         strategy.setContext(securityContext);
     }
 
+    /**
+     * 创建 SecurityContextHolderStrategy
+     *
+     * @param strategyName 策略名称
+     * @return <code>SecurityContextHolderStrategy</code>
+     */
     public static SecurityContextHolderStrategy createStrategy(String strategyName) {
         StrategyMode strategyMode = StrategyMode.getInstance(strategyName);
         return doCreateStrategy(strategyMode);
     }
 
+    /**
+     * 创建策略
+     *
+     * @param strategyMode 策略模式
+     * @return <code>SecurityContextHolderStrategy</code>
+     */
     public static SecurityContextHolderStrategy doCreateStrategy(StrategyMode strategyMode) {
 
         switch (strategyMode) {

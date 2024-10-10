@@ -76,11 +76,6 @@ public class DebugLocalSecurityContextHolderStrategy implements SecurityContextH
             public boolean isEnabled() {
                 return false;
             }
-
-            @Override
-            public Collection<? extends GrantedAuthority> getAuthorities() {
-                return List.of();
-            }
         };
 
         return new Authentication() {

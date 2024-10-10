@@ -24,7 +24,9 @@ import java.io.IOException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.function.Consumer;
 
 /**
  * @author ziyao zhang
@@ -51,13 +53,32 @@ public class SecurityContextFilter extends OncePerRequestFilter {
     protected void doFilterInternal(@NonNull HttpServletRequest request,
                                     @NonNull HttpServletResponse response, @NonNull FilterChain chain) throws ServletException, IOException {
 
-        User user = creation(request);
-        Authentication authentication = new SuccessfulAuthenticationToken(user, user.getAuthorities());
+        User.UserBuilder builder = creation(request);
+
+        User user = builder.claims(new Consumer<Map<String, Object>>() {
+            @Override
+            public void accept(Map<String, Object> claims) {
+                claims.put(UserParamNames.IP, getValue(request, UserParamNames.IP));
+                claims.put(UserParamNames.LOCATION, getValue(request, UserParamNames.LOCATION));
+            }
+        }).build();
+
+
+        String authorities = getValue(request, UserParamNames.AUTHORITIES);
+
+        Authentication authentication = DefaultAuthenticationToken.builder()
+                .principal(user)
+                .authorities(grantedAuthorities -> {
+                    Set<String> authorityList = Strings.commaDelimitedListToSet(authorities);
+                    if (Collections.nonNull(authorityList)) {
+                        for (String authority : authorityList) {
+                            grantedAuthorities.add(new SimpleGrantedAuthority(authority));
+                        }
+                    }
+                }).build();
 
         SecurityContext context = new SecurityContextImpl(authentication);
         // 填充附加信息
-        context.getClaims().setIp(getValue(request, UserParamNames.IP));
-        context.getClaims().setLocation(getValue(request, UserParamNames.LOCATION));
 
         SecurityContextHolder.setContext(context);
 
@@ -73,7 +94,7 @@ public class SecurityContextFilter extends OncePerRequestFilter {
                 .anyMatch(skipApi -> matcher.match(skipApi, request.getRequestURI()));
     }
 
-    public User creation(HttpServletRequest request) {
+    public User.UserBuilder creation(HttpServletRequest request) {
         String userId = getValue(request, UserParamNames.USER_ID);
         String username = getValue(request, UserParamNames.USERNAME);
         String nickname = getValue(request, UserParamNames.NICKNAME);
@@ -84,7 +105,6 @@ public class SecurityContextFilter extends OncePerRequestFilter {
         String address = getValue(request, UserParamNames.ADDRESS);
         String lastLogin = getValue(request, UserParamNames.LAST_LOGIN);
         String loginIp = getValue(request, UserParamNames.LOGIN_IP);
-        String authorities = getValue(request, UserParamNames.AUTHORITIES);
 
         return User.withId(Strings.hasLength(userId) ? Integer.valueOf(userId) : null)
                 .username(username)
@@ -95,15 +115,7 @@ public class SecurityContextFilter extends OncePerRequestFilter {
                 .mobile(mobile)
                 .address(address)
                 .lastLogin(Strings.hasLength(lastLogin) ? Dates.parse(lastLogin) : null)
-                .loginIp(loginIp)
-                .authorities(grantedAuthorities -> {
-                    Set<String> authorityList = Strings.commaDelimitedListToSet(authorities);
-                    if (Collections.nonNull(authorityList)) {
-                        for (String authority : authorityList) {
-                            grantedAuthorities.add(new SimpleGrantedAuthority(authority));
-                        }
-                    }
-                }).build();
+                .loginIp(loginIp);
     }
 
     private static String getValue(HttpServletRequest request, String name) {

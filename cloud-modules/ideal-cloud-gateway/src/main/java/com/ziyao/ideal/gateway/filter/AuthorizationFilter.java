@@ -79,8 +79,9 @@ public class AuthorizationFilter extends AbstractGlobalFilter {
                             headers.set(UserParamNames.LAST_LOGIN, Strings.encodeURLUTF8(Dates.format(principal.getLastLogin())));
                         }
                         headers.set(UserParamNames.LOGIN_IP, Strings.encodeURLUTF8(principal.getLoginIp()));
-                        Set<String> authorities = principal.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toSet());
-                        headers.set(UserParamNames.AUTHORITIES, Strings.encodeURLUTF8(Strings.collectionToCommaDelimitedString(authorities)));
+                        //TODO
+//                        Set<String> authorities = principal.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toSet());
+//                        headers.set(UserParamNames.AUTHORITIES, Strings.encodeURLUTF8(Strings.collectionToCommaDelimitedString(authorities)));
                     })
                     .build();
         });
