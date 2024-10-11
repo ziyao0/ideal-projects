@@ -58,11 +58,4 @@ public interface PrincipalClaims extends Serializable {
         setClaim(PrincipalParamNames.BROWSER_NAME, browserName);
     }
 
-    default String getClientSide() {
-        return getClaim(PrincipalParamNames.CLIENT_SIDE);
-    }
-
-    default void setClientSide(String clientSide) {
-        setClaim(PrincipalParamNames.CLIENT_SIDE, clientSide);
-    }
 }

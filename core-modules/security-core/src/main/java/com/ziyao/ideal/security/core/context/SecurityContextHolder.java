@@ -22,37 +22,61 @@ public abstract class SecurityContextHolder {
         initialize();
     }
 
+    /**
+     * 初始化
+     */
     private static void initialize() {
         initializeStrategy();
         initializeCount++;
     }
 
+    /**
+     * 初始化创建SecurityContextHolderStrategy
+     */
     private static void initializeStrategy() {
         // 默认使用当前线程
         strategy = createStrategy(strategyName);
     }
 
-
+    /**
+     * 清理当前上下文信息
+     */
     public static void clearContext() {
         strategy.clearContext();
     }
 
-
+    /**
+     * 获取当前上下文信息
+     *
+     * @return {@link SecurityContext}
+     */
     public static SecurityContext getContext() {
         return strategy.getContext();
     }
 
-
+    /**
+     * 获取延迟的上下文信息
+     *
+     * @return {@link DeferredSecurityContext}
+     */
     public static DeferredSecurityContext getDeferredContext() {
         return strategy.getDeferredContext();
     }
 
-
+    /**
+     * 设置当前上下文信息
+     *
+     * @param context 安全上下文详情
+     */
     public static void setContext(SecurityContext context) {
         strategy.setContext(context);
     }
 
-
+    /**
+     * 设置延迟的上下文信息
+     *
+     * @param deferredContext {@link DeferredSecurityContext}
+     */
     public static void setDeferredContext(DeferredSecurityContext deferredContext) {
         strategy.setDeferredContext(deferredContext);
     }

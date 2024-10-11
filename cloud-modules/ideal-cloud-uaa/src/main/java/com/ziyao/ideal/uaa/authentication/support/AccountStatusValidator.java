@@ -7,7 +7,7 @@ import com.ziyao.ideal.uaa.common.exception.Errors;
 /**
  * @author zhangziyao
  */
-public abstract class UserDetailsValidator {
+public abstract class AccountStatusValidator {
 
     /**
      * 检查账号信息是否为空
@@ -26,7 +26,7 @@ public abstract class UserDetailsValidator {
      * @param check the UserDetails instance whose status should be checked.
      * @throws com.ziyao.ideal.web.exception.ServiceException 检查未通过抛出异常
      */
-    public static void validated(UserDetails check) {
+    public static void validate(UserDetails check) {
         if (!check.isAccountNonLocked()) {
             throw new AuthenticationFailureException(Errors.ERROR_100001);
         }
@@ -41,6 +41,6 @@ public abstract class UserDetailsValidator {
         }
     }
 
-    public UserDetailsValidator() {
+    public AccountStatusValidator() {
     }
 }

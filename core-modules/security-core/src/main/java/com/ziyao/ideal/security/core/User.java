@@ -72,7 +72,10 @@ public class User implements UserDetails, CredentialsContainer, PrincipalClaims 
      * 登录ip
      */
     private String loginIp;
-
+    /**
+     * 登录归属地
+     */
+    private String loginLocation;
     /**
      * 过期时间，以秒为单位
      */

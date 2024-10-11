@@ -55,12 +55,9 @@ public class SecurityContextFilter extends OncePerRequestFilter {
 
         User.UserBuilder builder = creation(request);
 
-        User user = builder.claims(new Consumer<Map<String, Object>>() {
-            @Override
-            public void accept(Map<String, Object> claims) {
-                claims.put(UserParamNames.IP, getValue(request, UserParamNames.IP));
-                claims.put(UserParamNames.LOCATION, getValue(request, UserParamNames.LOCATION));
-            }
+        User user = builder.claims(claims -> {
+            claims.put(UserParamNames.IP, getValue(request, UserParamNames.IP));
+            claims.put(UserParamNames.LOCATION, getValue(request, UserParamNames.LOCATION));
         }).build();
 
 

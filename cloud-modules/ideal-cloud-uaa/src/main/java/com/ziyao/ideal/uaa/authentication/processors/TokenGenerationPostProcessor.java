@@ -2,6 +2,7 @@ package com.ziyao.ideal.uaa.authentication.processors;
 
 import com.ziyao.ideal.security.core.Authentication;
 import com.ziyao.ideal.security.core.User;
+import com.ziyao.ideal.security.core.UserParamNames;
 import com.ziyao.ideal.security.core.context.SecurityContextHolder;
 import com.ziyao.ideal.uaa.authentication.token.AccessToken;
 import com.ziyao.ideal.uaa.authentication.token.AccessTokenGenerator;
@@ -32,28 +33,40 @@ public class TokenGenerationPostProcessor implements AuthenticationPostProcessor
     @Override
     public Authentication process(Authentication authentication) {
 
-        String ip = SecurityContextHolder.getContext().getPrincipal().getIp();
-        String location = SecurityContextHolder.getContext().getPrincipal().getLocation();
-
         //生成认证token
-        User principal = (User) authentication.getPrincipal();
-
-        log.debug("principal:{}", principal);
+        User principal = preprocess(authentication);
 
         AccessToken token = tokenGenerator.generate(null);
 
-        LoginConfig loginConfig = loginConfigService.getAccountPasswordLoginConfig();
-
-        principal.setTtl(loginConfig.getSessionTimeout());
-        principal.setLastLogin(LocalDateTime.now());
-        principal.setLoginIp(ip);
+        principal.setClaim(UserParamNames.BEARER_TOKEN, token);
 
         userRepositoryRedis.save(token.getTokenValue(), principal);
 
-        userRepositoryRedis.expire(token.getTokenValue(), loginConfig.getSessionTimeout(), TimeUnit.MINUTES);
+        userRepositoryRedis.expire(token.getTokenValue(), principal.getTtl(), TimeUnit.MINUTES);
         // 判断是否需要刷新token
 
         return authentication;
+    }
+
+    /**
+     * 预处理逻辑
+     * <p>
+     * 填充一些必要的参数
+     *
+     * @param authentication 认证对象
+     * @return <code>User</code>
+     */
+    private User preprocess(Authentication authentication) {
+        String ip = SecurityContextHolder.getContext().getPrincipal().getIp();
+        String location = SecurityContextHolder.getContext().getPrincipal().getLocation();
+        LoginConfig loginConfig = loginConfigService.getAccountPasswordLoginConfig();
+
+        User principal = (User) authentication.getPrincipal();
+        principal.setLoginIp(ip);
+        principal.setLoginLocation(location);
+        principal.setTtl(loginConfig.getSessionTimeout());
+        principal.setLastLogin(LocalDateTime.now());
+        return principal;
     }
 
     @Override
