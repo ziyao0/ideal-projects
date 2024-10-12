@@ -26,7 +26,7 @@ public abstract class AccountStatusValidator {
      * @param check the UserDetails instance whose status should be checked.
      * @throws com.ziyao.ideal.web.exception.ServiceException 检查未通过抛出异常
      */
-    public static void validate(UserDetails check) {
+    public static void valid(UserDetails check) {
         if (!check.isAccountNonLocked()) {
             throw new AuthenticationFailureException(Errors.ERROR_100001);
         }

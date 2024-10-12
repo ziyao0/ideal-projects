@@ -45,9 +45,15 @@ public class DefaultAuthenticationToken extends AbstractAuthenticationToken {
 
         private User principal;
         private List<GrantedAuthority> authorities = new ArrayList<>();
+        private boolean authenticated = false;
 
         public Builder principal(User principal) {
             this.principal = principal;
+            return this;
+        }
+
+        public Builder authenticated() {
+            this.authenticated = true;
             return this;
         }
 
@@ -62,7 +68,9 @@ public class DefaultAuthenticationToken extends AbstractAuthenticationToken {
         }
 
         public DefaultAuthenticationToken build() {
-            return new DefaultAuthenticationToken(principal, authorities);
+            DefaultAuthenticationToken authenticationToken = new DefaultAuthenticationToken(principal, authorities);
+            authenticationToken.setAuthenticated(authenticated);
+            return authenticationToken;
         }
 
     }

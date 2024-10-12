@@ -44,8 +44,9 @@ public class UsernamePasswordAuthenticationProvider implements AuthenticationPro
         }
         user.eraseCredentials();
         // 检查账号状态
-        AccountStatusValidator.validate(user);
-        return DefaultAuthenticationToken.builder().principal(user).build();
+        AccountStatusValidator.valid(user);
+        //构建成功的认证对象
+        return DefaultAuthenticationToken.builder().principal(user).authenticated().build();
     }
 
     @Override
