@@ -1,6 +1,6 @@
 package com.ziyao.ideal.uaa.common.utils;
 
-import com.ziyao.ideal.core.Dates;
+import com.ziyao.ideal.core.DateUtils;
 
 import java.util.Locale;
 
@@ -28,15 +28,15 @@ public abstract class RedisUtils {
         }
 
         public static String getYearKey() {
-            return MONITORING_METRICS + Dates.formatOfYear();
+            return MONITORING_METRICS + DateUtils.formatOfYear();
         }
 
         public static String getMonthKey() {
-            return MONITORING_METRICS + Dates.formatOfMonth();
+            return MONITORING_METRICS + DateUtils.formatOfMonth();
         }
 
         public static String getDayKey() {
-            return MONITORING_METRICS + Dates.formatOfDay();
+            return MONITORING_METRICS + DateUtils.formatOfDay();
         }
 
     }

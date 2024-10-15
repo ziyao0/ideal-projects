@@ -1,6 +1,5 @@
 package com.ziyao.ideal.core;
 
-import java.awt.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.security.SecureRandom;
@@ -105,7 +104,7 @@ public abstract class Randoms {
      * @return 随机的汉字字符
      */
     public static char randomChinese() {
-        return (char) randomInt('\u4E00', '\u9FFF');
+        return (char) randomInt('一', '鿿');
     }
 
     /**

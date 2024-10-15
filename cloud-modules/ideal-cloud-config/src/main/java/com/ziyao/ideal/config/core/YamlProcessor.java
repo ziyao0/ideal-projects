@@ -1,7 +1,7 @@
 package com.ziyao.ideal.config.core;
 
 import com.ziyao.ideal.core.Assert;
-import com.ziyao.ideal.core.Dates;
+import com.ziyao.ideal.core.DateUtils;
 import com.ziyao.ideal.core.Strings;
 import com.ziyao.ideal.core.io.IOUtils;
 import com.ziyao.ideal.core.lang.Nullable;
@@ -232,7 +232,7 @@ public abstract class YamlProcessor {
         dumperOptions.setIndentWithIndicator(true);
         dumperOptions.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
         dumperOptions.setDefaultScalarStyle(DumperOptions.ScalarStyle.PLAIN);
-        dumperOptions.setTimeZone(Dates.getDefaultTimeZone());
+        dumperOptions.setTimeZone(DateUtils.getDefaultTimeZone());
         return new Yaml(new FilteringConstructor(loaderOptions), new Representer(dumperOptions),
                 dumperOptions, loaderOptions);
     }
@@ -521,7 +521,7 @@ public abstract class YamlProcessor {
         dumperOptions.setIndent(2);
         dumperOptions.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
         dumperOptions.setDefaultScalarStyle(DumperOptions.ScalarStyle.PLAIN);
-        dumperOptions.setTimeZone(Dates.getDefaultTimeZone());
+        dumperOptions.setTimeZone(DateUtils.getDefaultTimeZone());
         return new Yaml(dumperOptions);
     }
 

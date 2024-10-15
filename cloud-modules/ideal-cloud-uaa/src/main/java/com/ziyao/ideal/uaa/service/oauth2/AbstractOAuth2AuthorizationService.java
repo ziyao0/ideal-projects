@@ -3,7 +3,7 @@ package com.ziyao.ideal.uaa.service.oauth2;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ziyao.ideal.core.Dates;
+import com.ziyao.ideal.core.DateUtils;
 import com.ziyao.ideal.core.Strings;
 import com.ziyao.ideal.security.oauth2.core.*;
 import com.ziyao.ideal.security.oauth2.core.jackson2.Jackson2Modules;
@@ -100,16 +100,16 @@ public abstract class AbstractOAuth2AuthorizationService implements OAuth2Author
         if (entity.getAuthorizationCodeValue() != null) {
             OAuth2AuthorizationCode authorizationCode = new OAuth2AuthorizationCode(
                     entity.getAuthorizationCodeValue(),
-                    Dates.toInstant(entity.getAuthorizationCodeIssuedAt()),
-                    Dates.toInstant(entity.getAuthorizationCodeExpiresAt()));
+                    DateUtils.toInstant(entity.getAuthorizationCodeIssuedAt()),
+                    DateUtils.toInstant(entity.getAuthorizationCodeExpiresAt()));
             builder.token(authorizationCode, metadata -> metadata.putAll(parseMap(entity.getAuthorizationCodeMetadata())));
         }
         if (entity.getAccessTokenValue() != null) {
             OAuth2AccessToken accessToken = new OAuth2AccessToken(
                     OAuth2AccessToken.TokenType.Bearer,
                     entity.getAccessTokenValue(),
-                    Dates.toInstant(entity.getAccessTokenIssuedAt()),
-                    Dates.toInstant(entity.getAccessTokenExpiresAt()),
+                    DateUtils.toInstant(entity.getAccessTokenIssuedAt()),
+                    DateUtils.toInstant(entity.getAccessTokenExpiresAt()),
                     Strings.commaDelimitedListToSet(entity.getAccessTokenScopes()));
             builder.token(accessToken, metadata -> metadata.putAll(parseMap(entity.getAccessTokenMetadata())));
         }
@@ -117,16 +117,16 @@ public abstract class AbstractOAuth2AuthorizationService implements OAuth2Author
         if (entity.getRefreshTokenValue() != null) {
             OAuth2RefreshToken refreshToken = new OAuth2RefreshToken(
                     entity.getRefreshTokenValue(),
-                    Dates.toInstant(entity.getRefreshTokenIssuedAt()),
-                    Dates.toInstant(entity.getRefreshTokenExpiresAt()));
+                    DateUtils.toInstant(entity.getRefreshTokenIssuedAt()),
+                    DateUtils.toInstant(entity.getRefreshTokenExpiresAt()));
             builder.token(refreshToken, metadata -> metadata.putAll(parseMap(entity.getRefreshTokenMetadata())));
         }
 
         if (entity.getOidcIdTokenValue() != null) {
             OidcIdToken oidcIdToken = new OidcIdToken(
                     entity.getOidcIdTokenValue(),
-                    Dates.toInstant(entity.getOidcIdTokenIssuedAt()),
-                    Dates.toInstant(entity.getOidcIdTokenExpiresAt()),
+                    DateUtils.toInstant(entity.getOidcIdTokenIssuedAt()),
+                    DateUtils.toInstant(entity.getOidcIdTokenExpiresAt()),
                     parseMap(entity.getOidcIdTokenClaims())
             );
             builder.token(oidcIdToken, metadata -> metadata.putAll(parseMap(entity.getOidcIdTokenMetadata())));
@@ -206,8 +206,8 @@ public abstract class AbstractOAuth2AuthorizationService implements OAuth2Author
         if (token != null) {
             OAuth2Token oauth2Token = token.getToken();
             tokenValueConsumer.accept(oauth2Token.getTokenValue());
-            issuedAtConsumer.accept(Dates.toLocalDateTime(oauth2Token.getIssuedAt()));
-            expiresAtConsumer.accept(Dates.toLocalDateTime(oauth2Token.getExpiresAt()));
+            issuedAtConsumer.accept(DateUtils.toLocalDateTime(oauth2Token.getIssuedAt()));
+            expiresAtConsumer.accept(DateUtils.toLocalDateTime(oauth2Token.getExpiresAt()));
             metadataConsumer.accept(writeMap(token.getMetadata()));
         }
     }

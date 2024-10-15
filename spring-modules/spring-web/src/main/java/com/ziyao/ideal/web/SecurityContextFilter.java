@@ -2,7 +2,7 @@ package com.ziyao.ideal.web;
 
 import com.google.common.collect.Lists;
 import com.ziyao.ideal.core.Collections;
-import com.ziyao.ideal.core.Dates;
+import com.ziyao.ideal.core.DateUtils;
 import com.ziyao.ideal.core.Strings;
 import com.ziyao.ideal.security.core.*;
 import com.ziyao.ideal.security.core.context.SecurityContext;
@@ -24,9 +24,7 @@ import java.io.IOException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
-import java.util.function.Consumer;
 
 /**
  * @author ziyao zhang
@@ -111,7 +109,7 @@ public class SecurityContextFilter extends OncePerRequestFilter {
                 .gender(gender)
                 .mobile(mobile)
                 .address(address)
-                .lastLogin(Strings.hasLength(lastLogin) ? Dates.parse(lastLogin) : null)
+                .lastLogin(Strings.hasLength(lastLogin) ? DateUtils.parse(lastLogin) : null)
                 .loginIp(loginIp);
     }
 

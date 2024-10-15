@@ -1,6 +1,6 @@
 package com.ziyao.ideal.gateway.filter;
 
-import com.ziyao.ideal.core.Dates;
+import com.ziyao.ideal.core.DateUtils;
 import com.ziyao.ideal.core.Strings;
 import com.ziyao.ideal.gateway.authorization.Authorization;
 import com.ziyao.ideal.gateway.authorization.AuthorizationManager;
@@ -13,7 +13,6 @@ import com.ziyao.ideal.gateway.core.error.GatewayErrors;
 import com.ziyao.ideal.gateway.intercept.RequestInterceptor;
 import com.ziyao.ideal.gateway.support.IpUtils;
 import com.ziyao.ideal.gateway.support.SecurityUtils;
-import com.ziyao.ideal.security.core.GrantedAuthority;
 import com.ziyao.ideal.security.core.User;
 import com.ziyao.ideal.security.core.UserParamNames;
 import lombok.RequiredArgsConstructor;
@@ -24,8 +23,6 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * grant
@@ -76,7 +73,7 @@ public class AuthorizationFilter extends AbstractGlobalFilter {
                         headers.set(UserParamNames.MOBILE, Strings.encodeURLUTF8(principal.getMobile()));
                         headers.set(UserParamNames.ADDRESS, Strings.encodeURLUTF8(principal.getAddress()));
                         if (principal.getLastLogin() != null) {
-                            headers.set(UserParamNames.LAST_LOGIN, Strings.encodeURLUTF8(Dates.format(principal.getLastLogin())));
+                            headers.set(UserParamNames.LAST_LOGIN, Strings.encodeURLUTF8(DateUtils.format(principal.getLastLogin())));
                         }
                         headers.set(UserParamNames.LOGIN_IP, Strings.encodeURLUTF8(principal.getLoginIp()));
                         //TODO

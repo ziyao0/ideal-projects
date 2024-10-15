@@ -3,7 +3,7 @@ package com.ziyao.ideal.uaa.service.app;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ziyao.ideal.core.Dates;
+import com.ziyao.ideal.core.DateUtils;
 import com.ziyao.ideal.core.Strings;
 import com.ziyao.ideal.security.oauth2.core.RegisteredApp;
 import com.ziyao.ideal.security.oauth2.core.jackson2.Jackson2Modules;
@@ -47,9 +47,9 @@ public abstract class AbstractRegisteredAppService implements RegisteredAppServi
         RegisteredApp.Builder builder = RegisteredApp.withAppId(application.getAppId())
                 .appName(application.getAppName())
                 .appType(application.getAppType())
-                .issuedAt(Dates.toInstant(application.getIssuedAt()))
+                .issuedAt(DateUtils.toInstant(application.getIssuedAt()))
                 .appSecret(application.getAppSecret())
-                .appSecretExpiresAt(Dates.toInstant(application.getIssuedAt()))
+                .appSecretExpiresAt(DateUtils.toInstant(application.getIssuedAt()))
                 .state(application.getState())
                 .redirectUri(application.getRedirectUri())
                 .postLogoutRedirectUris(application.getPostLogoutRedirectUri())
@@ -72,8 +72,8 @@ public abstract class AbstractRegisteredAppService implements RegisteredAppServi
         application.setScopes(Strings.collectionToCommaDelimitedString(registeredApp.getScopes()));
         application.setAppType(registeredApp.getAppType());
         application.setAppSecret(registeredApp.getAppSecret());
-        application.setIssuedAt(Dates.toLocalDateTime(registeredApp.getIssuedAt()));
-        application.setAppSecretExpiresAt(Dates.toLocalDateTime(registeredApp.getAppSecretExpiresAt()));
+        application.setIssuedAt(DateUtils.toLocalDateTime(registeredApp.getIssuedAt()));
+        application.setAppSecretExpiresAt(DateUtils.toLocalDateTime(registeredApp.getAppSecretExpiresAt()));
         application.setRedirectUri(registeredApp.getRedirectUri());
         application.setPostLogoutRedirectUri(registeredApp.getPostLogoutRedirectUri());
         application.setTokenSettings(writeMap(registeredApp.getTokenSettings().getSettings()));
