@@ -6,12 +6,12 @@ import java.util.List;
  * @author ziyao
  */
 public interface CommConstants {
-    public static final String LIBS = "/ideal-deps/libs/ideal-deps.libs";
+    public static final String LIBS = "/ideal-dependencies/libs/ideal-dependencies.libs";
     public static final String WELL_NUMBER = "#";
     public static final String GRADLE_API = "api";
-    public static final String GRADLE_PLUGIN_platform = "java-platform";
-    public static final String GRADLE_PLUGIN_library = "java-library";
-    public static final String GRADLE_PLUGIN_maven_publish = "maven-publish";
+    public static final String GRADLE_PLUGIN_PLATFORM = "java-platform";
+    public static final String GRADLE_PLUGIN_LIBRARY = "java-library";
+    public static final String GRADLE_PLUGIN_MAVEN_PUBLISH = "maven-publish";
     /**
      * Name of the {@code optional} configuration.
      */

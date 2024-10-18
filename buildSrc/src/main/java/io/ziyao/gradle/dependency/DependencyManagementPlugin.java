@@ -14,14 +14,14 @@ import java.util.List;
  * @author ziyao
  *
  */
-public class ImportDependencyPlugin implements Plugin<Project> {
+public class DependencyManagementPlugin implements Plugin<Project> {
 
-    private static final Logger log = LoggerFactory.getLogger(ImportDependencyPlugin.class);
+    private static final Logger log = LoggerFactory.getLogger(DependencyManagementPlugin.class);
 
     @Override
     public void apply(Project project) {
 
-        project.getPluginManager().apply(CommConstants.GRADLE_PLUGIN_platform);
+        project.getPluginManager().apply(CommConstants.GRADLE_PLUGIN_PLATFORM);
 
         try {
             File file = new File(project.getRootDir().getPath() + CommConstants.LIBS);

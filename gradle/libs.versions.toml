@@ -22,6 +22,6 @@ org-springframework-cloud-spring-cloud-dependencies = { module = "org.springfram
 [plugins]
 
 configImport = { id = "io.ziyao.import-config" }
-depsImport = { id = "io.ziyao.import-deps" }
+dependency-management = { id = "io.ziyao.dependency-management" }
 imodule = { id = "io.ziyao.module" }
 iroot = { id = "io.ziyao.root" }

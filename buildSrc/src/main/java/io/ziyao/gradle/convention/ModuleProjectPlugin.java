@@ -19,8 +19,8 @@ public class ModuleProjectPlugin implements Plugin<Project> {
 
         PluginManager pluginManager = project.getPluginManager();
 
-        pluginManager.apply(CommConstants.GRADLE_PLUGIN_library);
-        pluginManager.apply(CommConstants.GRADLE_PLUGIN_maven_publish);
+        pluginManager.apply(CommConstants.GRADLE_PLUGIN_LIBRARY);
+        pluginManager.apply(CommConstants.GRADLE_PLUGIN_MAVEN_PUBLISH);
         pluginManager.apply(SpringJavaPlugin.class);
         pluginManager.apply(ManagementConfigurationPlugin.class);
         pluginManager.apply(OptionalDependenciesPlugin.class);

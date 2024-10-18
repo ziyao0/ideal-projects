@@ -33,7 +33,7 @@ import java.util.List;
  * @author zhangziyao
  */
 @Configuration
-public class UAAAutoConfiguration implements ApplicationContextAware {
+public class UaaAutoConfiguration implements ApplicationContextAware {
 
     @Override
     public void setApplicationContext(@Nullable ApplicationContext applicationContext) throws BeansException {

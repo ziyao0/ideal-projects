@@ -1,0 +1,1 @@
+package com.ziyao.ideal.uaa.authentication.plugins.notice;

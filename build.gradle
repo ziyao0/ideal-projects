@@ -5,7 +5,7 @@ plugins {
 group 'com.ziyao.ideal'
 
 subprojects {
-    if (project.name != 'ideal-deps') {
+    if (project.name != 'ideal-dependencies') {
         // 添加模块代码的插件
         apply plugin: libs.plugins.imodule.get().pluginId
 
@@ -24,7 +24,7 @@ subprojects {
         }
 
         dependencies {
-            management platform(project(":ideal-deps"))
+            management platform(project(":ideal-dependencies"))
             compileOnly 'org.projectlombok:lombok'
             annotationProcessor 'org.projectlombok:lombok'
             implementation 'org.mapstruct:mapstruct'
