@@ -1,6 +1,6 @@
 package com.ziyao.ideal.web.exception;
 
-import com.ziyao.ideal.web.response.ResponseDetails;
+import com.ziyao.ideal.web.response.MsgResp;
 import lombok.Setter;
 
 import java.io.Serial;
@@ -9,7 +9,7 @@ import java.io.Serial;
  * @author zhangziyao
  */
 @Setter
-public class UnauthorizedException extends RuntimeException implements ResponseDetails {
+public class UnauthorizedException extends RuntimeException implements MsgResp {
     @Serial
     private static final long serialVersionUID = 1350454124169036151L;
 

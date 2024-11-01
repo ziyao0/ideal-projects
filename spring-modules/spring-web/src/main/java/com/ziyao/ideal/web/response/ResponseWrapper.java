@@ -11,7 +11,7 @@ import java.io.Serial;
  *
  * @author ziyao zhang
  */
-public class ResponseWrapper<T> implements ResponseDetails {
+public class ResponseWrapper<T> implements MsgResp {
 
     @Serial
     private static final long serialVersionUID = 7273085408208781818L;
@@ -36,16 +36,16 @@ public class ResponseWrapper<T> implements ResponseDetails {
     public ResponseWrapper() {
     }
 
-    public ResponseWrapper(ResponseDetails responseDetails) {
-        Checker.checked(responseDetails);
-        this.state = responseDetails.getStatus();
-        this.message = responseDetails.getMessage();
+    public ResponseWrapper(MsgResp msgResp) {
+        Checker.checked(msgResp);
+        this.state = msgResp.getStatus();
+        this.message = msgResp.getMessage();
     }
 
-    public ResponseWrapper(ResponseDetails responseDetails, T data) {
-        Checker.checked(responseDetails, data);
-        this.state = responseDetails.getStatus();
-        this.message = responseDetails.getMessage();
+    public ResponseWrapper(MsgResp msgResp, T data) {
+        Checker.checked(msgResp, data);
+        this.state = msgResp.getStatus();
+        this.message = msgResp.getMessage();
         this.data = data;
     }
 
@@ -92,12 +92,12 @@ public class ResponseWrapper<T> implements ResponseDetails {
             }
         }
 
-        public static void checked(ResponseDetails responseDetails) {
-            checked(responseDetails.getStatus(), responseDetails.getMessage());
+        public static void checked(MsgResp msgResp) {
+            checked(msgResp.getStatus(), msgResp.getMessage());
         }
 
-        public static void checked(ResponseDetails responseDetails, Object data) {
-            checked(responseDetails.getStatus(), responseDetails.getMessage(), data);
+        public static void checked(MsgResp msgResp, Object data) {
+            checked(msgResp.getStatus(), msgResp.getMessage(), data);
         }
     }
 }

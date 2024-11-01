@@ -21,7 +21,7 @@ public class DefaultAuthenticationToken extends AbstractAuthenticationToken {
      *
      * @param authorities 此身份验证对象表示的主体的 GrantedAuthority 集合。
      */
-    public DefaultAuthenticationToken(User principal, Collection<? extends GrantedAuthority> authorities) {
+    private DefaultAuthenticationToken(User principal, Collection<? extends GrantedAuthority> authorities) {
         super(authorities);
         this.principal = principal;
         this.setAuthenticated(Strings.hasText(principal.getUsername()));
@@ -34,7 +34,11 @@ public class DefaultAuthenticationToken extends AbstractAuthenticationToken {
 
     @Override
     public Object getCredentials() {
-        return null;
+        return principal.getPassword();
+    }
+
+    public void setCredentials(String credentials) {
+        this.principal.setPassword(credentials);
     }
 
     public static Builder builder() {
@@ -74,4 +78,6 @@ public class DefaultAuthenticationToken extends AbstractAuthenticationToken {
         }
 
     }
+
+
 }

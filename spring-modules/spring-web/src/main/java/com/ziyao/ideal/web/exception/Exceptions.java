@@ -1,7 +1,7 @@
 package com.ziyao.ideal.web.exception;
 
 
-import com.ziyao.ideal.web.response.ResponseDetails;
+import com.ziyao.ideal.web.response.MsgResp;
 
 /**
  * @author ziyao zhang
@@ -15,7 +15,7 @@ public abstract class Exceptions {
     /**
      * 通用: 请求成功.
      */
-    public static final ResponseDetails SUCCESS = ResponseDetails.getInstance(ResponseDetails.SUCCESS_STATE(), "请求成功");
+    public static final MsgResp SUCCESS = MsgResp.getInstance(MsgResp.SUCCESS_STATE(), "请求成功");
 
     /**
      * 创建非法访问
@@ -59,47 +59,47 @@ public abstract class Exceptions {
     /**
      * 通用: 用户未登录.
      */
-    public static final ResponseDetails USER_NOT_LOGIN = ResponseDetails.getInstance(530, "用户未登录");
+    public static final MsgResp USER_NOT_LOGIN = MsgResp.getInstance(530, "用户未登录");
 
     /**
      * 通用: 新增失败.
      */
-    public static final ResponseDetails INSERT_FAIL = ResponseDetails.getInstance(10000, "新增失败");
+    public static final MsgResp INSERT_FAIL = MsgResp.getInstance(10000, "新增失败");
 
     /**
      * 通用: 更新失败.
      */
-    public static final ResponseDetails UPDATE_FAIL = ResponseDetails.getInstance(10001, "更新失败");
+    public static final MsgResp UPDATE_FAIL = MsgResp.getInstance(10001, "更新失败");
 
     /**
      * 通用: 删除失败.
      */
-    public static final ResponseDetails DELETE_FAIL = ResponseDetails.getInstance(10002, "删除失败");
+    public static final MsgResp DELETE_FAIL = MsgResp.getInstance(10002, "删除失败");
 
     /**
      * 通用: 批量操作执行失败.
      */
-    public static final ResponseDetails BATCH_ERROR = ResponseDetails.getInstance(10003, "批量操作执行失败");
+    public static final MsgResp BATCH_ERROR = MsgResp.getInstance(10003, "批量操作执行失败");
     /**
      * 通用: 解析token算法不匹配.
      */
-    public static final ResponseDetails ALGORITHM_MISMATCH = ResponseDetails.getInstance(401, "解析Token算法不匹配");
+    public static final MsgResp ALGORITHM_MISMATCH = MsgResp.getInstance(401, "解析Token算法不匹配");
     /**
      * 通用: 校验签名失败.
      */
-    public static final ResponseDetails SIGNATURE_VERIFICATION = ResponseDetails.getInstance(401, "校验签名异常");
+    public static final MsgResp SIGNATURE_VERIFICATION = MsgResp.getInstance(401, "校验签名异常");
     /**
      * 通用: token过期.
      */
-    public static final ResponseDetails TOKEN_EXPIRED = ResponseDetails.getInstance(401, "Token过期");
+    public static final MsgResp TOKEN_EXPIRED = MsgResp.getInstance(401, "Token过期");
     /**
      * 通用: token非法.
      */
-    public static final ResponseDetails JWT_DECODE = ResponseDetails.getInstance(401, "Token非法");
+    public static final MsgResp JWT_DECODE = MsgResp.getInstance(401, "Token非法");
     /**
      * 通用: 操作token异常.
      */
-    public static final ResponseDetails TOKEN_ERROR = ResponseDetails.getInstance(401, "解析Token异常");
+    public static final MsgResp TOKEN_ERROR = MsgResp.getInstance(401, "解析Token异常");
 
 
     /**

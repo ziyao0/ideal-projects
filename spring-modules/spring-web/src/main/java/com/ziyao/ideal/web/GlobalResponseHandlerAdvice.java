@@ -1,6 +1,6 @@
 package com.ziyao.ideal.web;
 
-import com.ziyao.ideal.web.response.ResponseDetails;
+import com.ziyao.ideal.web.response.MsgResp;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -39,7 +39,7 @@ public class GlobalResponseHandlerAdvice implements ResponseBodyAdvice<Object> {
         if (body == null) {
             return ResponseBuilder.ok(null);
         }
-        if (body instanceof ResponseDetails) {
+        if (body instanceof MsgResp) {
             return body;
         }
         // 如果 body 是 Map 类型并且包含异常信息的字段

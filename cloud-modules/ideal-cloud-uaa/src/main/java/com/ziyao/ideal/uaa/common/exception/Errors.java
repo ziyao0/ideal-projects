@@ -1,11 +1,11 @@
 package com.ziyao.ideal.uaa.common.exception;
 
-import com.ziyao.ideal.web.response.ResponseDetails;
+import com.ziyao.ideal.web.response.MsgResp;
 
 /**
  * @author zhangziyao
  */
-public enum Errors implements ResponseDetails {
+public enum Errors implements MsgResp {
     ERROR_100001(100001, "认证失败,账号已锁定"),
     ERROR_100002(100002, "认证失败,用户以禁用"),
     ERROR_100003(100003, "认证失败,账号过期"),

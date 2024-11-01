@@ -2,7 +2,7 @@ package com.ziyao.ideal.uaa.authentication.strategy;
 
 import com.ziyao.ideal.security.core.Authentication;
 import com.ziyao.ideal.uaa.authentication.token.FailureAuthenticationToken;
-import com.ziyao.ideal.web.response.ResponseDetails;
+import com.ziyao.ideal.web.response.MsgResp;
 
 /**
  * @author ziyao zhang
@@ -27,11 +27,11 @@ public interface AuthenticationFailureStrategy {
         return FailureAuthenticationToken.of(status, message);
     }
 
-    default Authentication createFailureAuthentication(ResponseDetails responseDetails) {
-        return FailureAuthenticationToken.of(responseDetails);
+    default Authentication createFailureAuthentication(MsgResp msgResp) {
+        return FailureAuthenticationToken.of(msgResp);
     }
 
-    default Authentication createFailureAuthentication(ResponseDetails sm, Object data) {
+    default Authentication createFailureAuthentication(MsgResp sm, Object data) {
         return FailureAuthenticationToken.of(sm.getStatus(), sm.getMessage(), data);
     }
 

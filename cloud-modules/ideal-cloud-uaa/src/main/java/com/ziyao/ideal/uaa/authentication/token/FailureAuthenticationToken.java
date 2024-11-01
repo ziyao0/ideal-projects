@@ -2,7 +2,7 @@ package com.ziyao.ideal.uaa.authentication.token;
 
 import com.ziyao.ideal.security.core.Authentication;
 import com.ziyao.ideal.security.core.GrantedAuthority;
-import com.ziyao.ideal.web.response.ResponseDetails;
+import com.ziyao.ideal.web.response.MsgResp;
 import lombok.Getter;
 
 import java.io.Serial;
@@ -70,7 +70,7 @@ public class FailureAuthenticationToken implements Authentication {
         return new FailureAuthenticationToken(status, message, data);
     }
 
-    public static FailureAuthenticationToken of(ResponseDetails responseDetails) {
-        return of(responseDetails.getStatus(), responseDetails.getMessage());
+    public static FailureAuthenticationToken of(MsgResp msgResp) {
+        return of(msgResp.getStatus(), msgResp.getMessage());
     }
 }
